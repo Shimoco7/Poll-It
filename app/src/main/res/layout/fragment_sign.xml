@@ -22,7 +22,6 @@
         android:id="@+id/welcome_title1"
         android:layout_width="155dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
         android:fontFamily="sans-serif-black"
         android:text="POLL IT"
         android:textAlignment="center"
@@ -31,46 +30,35 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_logo" />
-
-    <TextView
-        android:id="@+id/welcome_title2"
-        android:layout_width="376dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Let's Earn Together"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_title1" />
-
-    <Button
-        android:id="@+id/welcome_btn_sign"
-        android:layout_width="260dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="80dp"
-        android:backgroundTint="#F76055"
-        android:text="SIGN IN"
-        app:cornerRadius="37sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_title2" />
+        tools:layout_editor_absoluteY="642dp" />
 
     <Button
         android:id="@+id/sign_btn_sign"
         android:layout_width="260dp"
         android:layout_height="57dp"
-        android:layout_marginTop="10dp"
         android:backgroundTint="#F76055"
         android:text="REGISTER"
         app:cornerRadius="37sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_btn_sign" />
+        tools:layout_editor_absoluteY="507dp" />
+
+    <ImageView
+        android:id="@+id/sign_img_user"
+        android:layout_width="35dp"
+        android:layout_height="41dp"
+        android:src="@drawable/logo_user"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="305dp" />
+
+    <ImageView
+        android:id="@+id/sign_img_pass"
+        android:layout_width="35dp"
+        android:layout_height="41dp"
+        android:src="@drawable/logo_user"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="389dp"
+        tools:src="@drawable/logo_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
