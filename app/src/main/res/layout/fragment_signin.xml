@@ -61,10 +61,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_txt_password" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_input_password" />
 
     <EditText
-        android:id="@+id/sign_txt_username"
+        android:id="@+id/sign_input_username"
         android:layout_width="263dp"
         android:layout_height="35dp"
         android:layout_marginTop="160dp"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sign_logo" />
 
     <EditText
-        android:id="@+id/sign_txt_password"
+        android:id="@+id/sign_input_password"
         android:layout_width="260dp"
         android:layout_height="35dp"
         android:layout_marginTop="40dp"
@@ -103,6 +103,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.765"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_txt_username" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_input_username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
