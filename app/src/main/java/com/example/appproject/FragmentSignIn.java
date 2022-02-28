@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_active_poll#newInstance} factory method to
+ * Use the {@link FragmentSignIn#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_active_poll extends Fragment {
+public class FragmentSignIn extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class fragment_active_poll extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_active_poll() {
+    public FragmentSignIn() {
         // Required empty public constructor
     }
 
@@ -34,11 +34,11 @@ public class fragment_active_poll extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_active_poll.
+     * @return A new instance of fragment fragment_signin.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_active_poll newInstance(String param1, String param2) {
-        fragment_active_poll fragment = new fragment_active_poll();
+    public static FragmentSignIn newInstance(String param1, String param2) {
+        FragmentSignIn fragment = new FragmentSignIn();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +59,6 @@ public class fragment_active_poll extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_active_poll, container, false);
+        return inflater.inflate(R.layout.fragment_signin, container, false);
     }
 }

@@ -3,17 +3,19 @@ package com.example.appproject;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_signin#newInstance} factory method to
+ * Use the {@link FragmentWelcome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_signin extends Fragment {
+public class FragmentWelcome extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class fragment_signin extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_signin() {
+    public FragmentWelcome() {
         // Required empty public constructor
     }
 
@@ -34,11 +36,11 @@ public class fragment_signin extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_signin.
+     * @return A new instance of fragment fragment_welcome.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_signin newInstance(String param1, String param2) {
-        fragment_signin fragment = new fragment_signin();
+    public static FragmentWelcome newInstance(String param1, String param2) {
+        FragmentWelcome fragment = new FragmentWelcome();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,7 +60,17 @@ public class fragment_signin extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signin, container, false);
+        View view = inflater.inflate(R.layout.fragment_welcome, container, false);
+
+        Button signInBtn = view.findViewById(R.id.welcome_sign_in_btn);
+        Button registerBtn = view.findViewById(R.id.welcome_register_btn);
+        signInBtn.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_fragmentWelcome_to_fragmentSignIn);
+        });
+        registerBtn.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_fragmentWelcome_to_fragmentRegister);
+        });
+
+        return view;
     }
 }
