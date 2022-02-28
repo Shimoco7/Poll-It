@@ -8,5 +8,22 @@
         android:id="@+id/fragmentWelcome"
         android:name="com.example.appproject.FragmentWelcome"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" />
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentSignIn"
+            app:destination="@id/fragmentSignIn" />
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentRegister"
+            app:destination="@id/fragmentRegister" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSignIn"
+        android:name="com.example.appproject.FragmentSignIn"
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_signin" />
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="com.example.appproject.FragmentRegister"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register"/>
 </navigation>
