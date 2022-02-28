@@ -64,12 +64,8 @@ public class FragmentWelcome extends Fragment {
 
         Button signInBtn = view.findViewById(R.id.welcome_sign_in_btn);
         Button registerBtn = view.findViewById(R.id.welcome_register_btn);
-        signInBtn.setOnClickListener(v->{
-            Navigation.findNavController(v).navigate(R.id.action_fragmentWelcome_to_fragmentSignIn);
-        });
-        registerBtn.setOnClickListener(v->{
-            Navigation.findNavController(v).navigate(R.id.action_fragmentWelcome_to_fragmentRegister);
-        });
+        signInBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentWelcomeDirections.actionFragmentWelcomeToFragmentSignIn()));
+        registerBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentWelcomeDirections.actionFragmentWelcomeToFragmentRegister()));
 
         return view;
     }
