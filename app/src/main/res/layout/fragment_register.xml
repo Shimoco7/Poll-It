@@ -73,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/edittext_bg"
         android:ems="10"
         android:hint="Input Field "
@@ -82,13 +83,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/register_email_tv"
-        tools:layout_editor_absoluteY="252dp" />
+        app:layout_constraintTop_toBottomOf="@+id/register_logo" />
 
     <EditText
         android:id="@+id/register_txt_confirm"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/edittext_bg"
         android:ems="10"
@@ -99,13 +101,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/register_confirm_tv"
-        tools:layout_editor_absoluteY="451dp" />
+        app:layout_constraintTop_toBottomOf="@+id/register_txt_password" />
 
     <EditText
         android:id="@+id/register_txt_password"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/edittext_bg"
         android:ems="10"
@@ -116,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/register_password_tv"
-        tools:layout_editor_absoluteY="352dp" />
+        app:layout_constraintTop_toBottomOf="@+id/register_txt_email" />
 
     <Button
         android:id="@+id/register_btn"
