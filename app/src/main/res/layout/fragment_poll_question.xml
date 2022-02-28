@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1E7E7"
+    android:backgroundTint="#000000"
+    tools:context=".FragmentPollQuestion">
+
+    <TextView
+        android:id="@+id/poll_question_title"
+        android:layout_width="376dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="9dp"
+        android:fontFamily="sans-serif-black"
+        android:text="What Is Your Answer?"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="363dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="58dp"
+        android:backgroundTint="#373737"
+        android:text="Option 1"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/poll_question_title" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="363dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#373737"
+        android:text="Option 2"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="363dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="27dp"
+        android:backgroundTint="#373737"
+        android:text="Option 3"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="363dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="324dp"
+        android:layout_marginBottom="107dp"
+        android:backgroundTint="#373737"
+        android:text="Option 4"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/chip4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/poll_question_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip4"
+        android:layout_width="154dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#ffa500"
+        android:text="1/2"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/chip12"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toEndOf="@+id/chip13"
+        app:layout_constraintStart_toStartOf="@+id/chip13" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip12"
+        android:layout_width="72dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="113dp"
+        android:backgroundTint="#ffa500"
+        android:text="@string/right"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/chip4"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip13"
+        android:layout_width="72dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="113dp"
+        android:text="@string/left"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
