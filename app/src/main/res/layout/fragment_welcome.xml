@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:backgroundTint="#000000"
-    tools:context=".Fragment_Welcome">
+    tools:context=".FragmentWelcome">
 
     <ImageView
         android:id="@+id/sign_logo"

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppProject">
         <activity
-            android:name=".Activity_Base"
+            android:name=".ActivityBase"
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

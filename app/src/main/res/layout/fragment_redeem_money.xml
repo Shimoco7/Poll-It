@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".Fragment_Redeem_Money" >
+    tools:context=".FragmentRedeemMoney" >
 
     <ImageView
         android:id="@+id/redeem_logo"
@@ -75,6 +75,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
         android:src="@drawable/paypal"
         app:layout_constraintStart_toStartOf="@+id/redeem_view"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
