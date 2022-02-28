@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_poll_question#newInstance} factory method to
+ * Use the {@link FragmentPollQuestion#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_poll_question extends Fragment {
+public class FragmentPollQuestion extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class fragment_poll_question extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_poll_question() {
+    public FragmentPollQuestion() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class fragment_poll_question extends Fragment {
      * @return A new instance of fragment fragment_poll_question.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_poll_question newInstance(String param1, String param2) {
-        fragment_poll_question fragment = new fragment_poll_question();
+    public static FragmentPollQuestion newInstance(String param1, String param2) {
+        FragmentPollQuestion fragment = new FragmentPollQuestion();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

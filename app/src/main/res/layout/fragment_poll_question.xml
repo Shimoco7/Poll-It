@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#F1E7E7"
     android:backgroundTint="#000000"
-    tools:context=".fragment_poll_question">
+    tools:context=".FragmentPollQuestion">
 
     <TextView
         android:id="@+id/poll_question_title"
