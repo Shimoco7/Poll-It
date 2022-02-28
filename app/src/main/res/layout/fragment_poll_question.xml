@@ -17,7 +17,7 @@
         android:layout_marginTop="68dp"
         android:layout_marginEnd="9dp"
         android:fontFamily="sans-serif-black"
-        android:text="What is Your Answer?"
+        android:text="What Is Your Answer?"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
