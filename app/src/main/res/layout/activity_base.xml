@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_base">
+    tools:context=".Activity_Base">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/containerSign"
-        android:name="com.example.appproject.fragment_signin"
+        android:name="com.example.appproject.Fragment_Sign_In"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

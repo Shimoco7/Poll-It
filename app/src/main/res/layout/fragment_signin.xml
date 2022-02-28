@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:backgroundTint="#000000"
-    tools:context=".fragment_signin">
+    tools:context=".Fragment_Sign_In">
 
     <TextView
         android:id="@+id/sign_title"
