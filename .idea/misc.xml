@@ -6,18 +6,11 @@
         <entry key="..\:/Users/EMLiO/Documents/limudim/Android/class/AppProject/app/src/main/res/drawable/custom_input.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/EMLiO/Documents/limudim/Android/class/AppProject/app/src/main/res/drawable/ic_account.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/EMLiO/Documents/limudim/Android/class/AppProject/app/src/main/res/layout/activity_base.xml" value="0.33" />
+        <entry key="..\:/Users/EMLiO/Documents/limudim/Android/class/AppProject/app/src/main/res/layout/fragment_redeem_money.xml" value="0.2703125" />
+        <entry key="..\:/Users/EMLiO/Documents/limudim/Android/class/AppProject/app/src/main/res/layout/fragment_register.xml" value="0.33" />
         <entry key="..\:/Users/EMLiO/Documents/limudim/Android/class/AppProject/app/src/main/res/layout/fragment_sign.xml" value="0.39947916666666666" />
         <entry key="..\:/Users/EMLiO/Documents/limudim/Android/class/AppProject/app/src/main/res/layout/fragment_signin.xml" value="0.33" />
         <entry key="..\:/Users/EMLiO/Documents/limudim/Android/class/AppProject/app/src/main/res/layout/fragment_welcome.xml" value="0.3875" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/drawable/edittext_bg.xml" value="0.2703125" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/drawable/view_bg.xml" value="0.2703125" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_active_poll.xml" value="0.264" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_redeem_money.xml" value="0.264" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_register.xml" value="0.264" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_register2.xml" value="0.2259963768115942" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_sign.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_signin.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_welcome.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
