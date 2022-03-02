@@ -20,10 +20,28 @@
         android:id="@+id/fragmentSignIn"
         android:name="com.example.appproject.FragmentSignIn"
         android:label="Sign In"
-        tools:layout="@layout/fragment_signin" />
+        tools:layout="@layout/fragment_signin" >
+        <action
+            android:id="@+id/action_fragmentSignIn_to_fragmentActivePoll"
+            app:destination="@id/fragmentActivePoll" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentRegister"
         android:name="com.example.appproject.FragmentRegister"
         android:label="Register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/fragmentActivePoll"
+        android:name="com.example.appproject.FragmentActivePoll"
+        android:label="fragment_active_poll"
+        tools:layout="@layout/fragment_active_poll" >
+        <action
+            android:id="@+id/action_fragmentActivePoll_to_fragmentPollQuestion"
+            app:destination="@id/fragmentPollQuestion" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPollQuestion"
+        android:name="com.example.appproject.FragmentPollQuestion"
+        android:label="fragment_poll_question"
+        tools:layout="@layout/fragment_poll_question" />
 </navigation>

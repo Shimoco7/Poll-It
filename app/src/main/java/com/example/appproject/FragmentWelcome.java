@@ -63,7 +63,7 @@ public class FragmentWelcome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_welcome, container, false);
 
         Button signInBtn = view.findViewById(R.id.welcome_sign_in_btn);
-        Button registerBtn = view.findViewById(R.id.welcome_register_btn);
+        Button registerBtn = view.findViewById(R.id.sign_signin_btn);
         signInBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentWelcomeDirections.actionFragmentWelcomeToFragmentSignIn()));
         registerBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentWelcomeDirections.actionFragmentWelcomeToFragmentRegister()));
 
