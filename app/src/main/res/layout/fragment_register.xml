@@ -140,8 +140,8 @@
     <Button
         android:id="@+id/register_btn"
         android:layout_width="330dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
         android:text="Register"
         app:cornerRadius="37sp"
         app:layout_constraintEnd_toEndOf="parent"
