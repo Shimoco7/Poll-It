@@ -4,4 +4,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="right"><![CDATA[>]]></string>
     <string name="left"><![CDATA[<]]></string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="poll_it">POLL IT</string>
+    <string name="please_enter_username_and_password">Please enter username and password</string>
 </resources>

@@ -3,10 +3,10 @@ package com.example.appproject.model;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
-public class ModelFirebase {
+public class ModelFirebaseDb {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public ModelFirebase() {
+    public ModelFirebaseDb() {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(false)
                 .build();

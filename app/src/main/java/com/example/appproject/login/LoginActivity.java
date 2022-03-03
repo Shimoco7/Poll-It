@@ -1,4 +1,4 @@
-package com.example.appproject;
+package com.example.appproject.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,15 +9,17 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class ActivityBase extends AppCompatActivity {
+import com.example.appproject.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
-        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.base_navhost);
+        setContentView(R.layout.activity_login);
+        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.base_login_navhost);
         assert navHost != null;
         navController = navHost.getNavController();
         NavigationUI.setupActionBarWithNavController(this,navController);

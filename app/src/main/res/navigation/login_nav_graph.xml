@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/login_nav_graph"
     app:startDestination="@id/fragmentWelcome">
     <fragment
         android:id="@+id/fragmentWelcome"
-        android:name="com.example.appproject.FragmentWelcome"
+        android:name="com.example.appproject.login.FragmentWelcome"
         android:label="Poll-It"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSignIn"
-        android:name="com.example.appproject.FragmentSignIn"
+        android:name="com.example.appproject.login.FragmentSignIn"
         android:label="Sign In"
         tools:layout="@layout/fragment_signin" >
         <action
@@ -27,14 +27,14 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentRegister"
-        android:name="com.example.appproject.FragmentRegister"
+        android:name="com.example.appproject.login.FragmentRegister"
         android:label="Register"
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/fragmentActivePoll"
         android:name="com.example.appproject.FragmentActivePoll"
-        android:label="fragment_active_poll"
-        tools:layout="@layout/fragment_active_poll" >
+        android:label="Let's Get Started"
+        tools:layout="@layout/fragment_active_poll">
         <action
             android:id="@+id/action_fragmentActivePoll_to_fragmentPollQuestion"
             app:destination="@id/fragmentPollQuestion" />
@@ -42,6 +42,6 @@
     <fragment
         android:id="@+id/fragmentPollQuestion"
         android:name="com.example.appproject.FragmentPollQuestion"
-        android:label="fragment_poll_question"
+        android:label="Active Poll"
         tools:layout="@layout/fragment_poll_question" />
 </navigation>

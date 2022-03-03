@@ -1,4 +1,4 @@
-package com.example.appproject;
+package com.example.appproject.login;
 
 import android.os.Bundle;
 
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.appproject.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +64,7 @@ public class FragmentSignIn extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_signin,container,false);
 
-        Button signInBtn=view.findViewById(R.id.sign_signin_btn);
+        Button signInBtn=view.findViewById(R.id.login_sign_in_btn);
         signInBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentSignInDirections.actionFragmentSignInToFragmentActivePoll()));
 
         return view;

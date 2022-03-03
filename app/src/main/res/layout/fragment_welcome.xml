@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:backgroundTint="#000000"
-    tools:context=".FragmentWelcome">
+    tools:context=".login.FragmentWelcome">
 
     <ImageView
         android:id="@+id/sign_logo"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/welcome_title2" />
 
     <Button
-        android:id="@+id/sign_signin_btn"
+        android:id="@+id/welcome_register_btn"
         android:layout_width="260dp"
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
