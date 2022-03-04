@@ -7,60 +7,67 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.appproject.R;
+import com.example.appproject.model.Model;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentRegister#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class FragmentRegister extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public FragmentRegister() { }
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentRegister() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_register.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentRegister newInstance(String param1, String param2) {
-        FragmentRegister fragment = new FragmentRegister();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    final String INVALID_EMAIL_ADDRESS = "Invalid Email Address";
+    final String INVALID_PASSWORD = "Invalid Password";
+    final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        Button registerBtn = view.findViewById(R.id.register_btn);
+        EditText email = view.findViewById(R.id.register_input_email);
+        EditText password = view.findViewById(R.id.register_input_password);
+        EditText confirmPassword = view.findViewById(R.id.register_input_confirmpassword);
+
+        registerBtn.setOnClickListener(v->{
+            ArrayList<String> errors = new ArrayList<>();
+            if(!Model.instance.validateEmailAddress(email.getText().toString().trim())){
+                errors.add(INVALID_EMAIL_ADDRESS);
+            }
+            if(password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())){
+                if(!Model.instance.validatePassword(password.getText().toString().trim())){
+                    errors.add(INVALID_PASSWORD);
+                }
+            }
+            else{
+                errors.add(PASSWORDS_DO_NOT_MATCH);
+            }
+
+            if(!errors.isEmpty()){
+                showToast(errors);
+                return;
+            }
+
+            Model.instance.createUser(email.getText().toString().trim(),password.toString().trim());
+            //TODO - after register
+        });
+
+        return view;
     }
+
+    private void showToast(ArrayList<String> errors) {
+        StringBuilder message = new StringBuilder("");
+        for(String error : errors){
+            message.append(error);
+            message.append("\n");
+        }
+        Toast.makeText(getActivity(), message.toString().trim(),
+                Toast.LENGTH_LONG).show();
+    }
+
 }

@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login_input_password" />
 
         <EditText
-            android:id="@+id/login_input_username"
+            android:id="@+id/login_input_email"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginStart="60dp"
@@ -79,9 +79,9 @@
             android:drawablePadding="12dp"
             android:ems="10"
             android:fontFamily="sans-serif-light"
-            android:hint="@string/username"
+            android:hint="@string/email"
             android:textColorHint="@color/white"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:textColor="@color/white"
@@ -111,7 +111,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.765"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_input_username" />
+            app:layout_constraintTop_toBottomOf="@+id/login_input_email" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

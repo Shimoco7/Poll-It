@@ -4,6 +4,9 @@ package com.example.appproject.model;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.core.os.HandlerCompat;
+
+import org.apache.commons.validator.routines.EmailValidator;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -35,4 +38,15 @@ public class Model {
     }
 
 
+    public void createUser(String emailAddress, String password) {
+    }
+
+    public boolean validateEmailAddress(String emailAddress) {
+        return EmailValidator.getInstance().isValid(emailAddress);
+    }
+
+    public boolean validatePassword(String password) {
+        final String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$";
+        return password.matches(regex);
+    }
 }
