@@ -61,7 +61,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_input_email"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/custom_input"
                     android:drawableStart="@drawable/ic_account"
                     android:drawablePadding="14dp"
@@ -70,8 +70,8 @@
                     android:maxLines="1"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:textSize="20dp"
                     android:textColor="@color/white"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,17 +86,17 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_input_password"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/custom_input"
                     android:drawableStart="@drawable/ic_password"
                     android:drawablePadding="14dp"
                     android:fontFamily="sans-serif-light"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:maxLines="1"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:textSize="20dp"
                     android:textColor="@color/white"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 

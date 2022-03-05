@@ -78,7 +78,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_input_email"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:drawableStart="@drawable/ic_account"
                 android:drawablePadding="14dp"
@@ -87,8 +87,8 @@
                 android:maxLines="1"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textSize="18dp"
                 android:textColor="@color/white"
+                android:textSize="18dp"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,12 +103,12 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_input_password"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:drawableStart="@drawable/ic_password"
                 android:drawablePadding="14dp"
                 android:fontFamily="sans-serif-light"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
@@ -129,17 +129,17 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_input_confirmpassword"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:drawableStart="@drawable/ic_password"
                 android:drawablePadding="14dp"
                 android:fontFamily="sans-serif-light"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textSize="18dp"
                 android:textColor="@color/white"
+                android:textSize="18dp"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 

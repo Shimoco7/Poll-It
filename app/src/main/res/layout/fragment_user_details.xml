@@ -24,7 +24,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:text="Please insert following details:"
+        android:text="Please insert following details"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -32,155 +32,139 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userDetails_logo" />
 
-    <TextView
-        android:id="@+id/userDetails_question1"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="Question1:"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/userDetails_question2"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="Question2:"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_question1" />
+    <!--    <EditText-->
+    <!--        android:id="@+id/userDetails_input1"-->
+    <!--        android:layout_width="250dp"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:background="@drawable/custom_input"-->
+    <!--        android:ems="10"-->
+    <!--        android:hint="Input Field"-->
+    <!--        android:inputType="textPersonName"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textColorHint="#99FFFFFF"-->
+    <!--        android:textSize="20sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
 
-    <TextView
-        android:id="@+id/userDetails_question3"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="Question3:"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_question2" />
 
-    <TextView
-        android:id="@+id/userDetails_question4"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="Question4:"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_question3" />
-
-    <EditText
-        android:id="@+id/userDetails_input1"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/custom_input"
-        android:ems="10"
-        android:hint="Input Field"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textColorHint="#99FFFFFF"
-        android:textSize="20sp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <EditText
-        android:id="@+id/userDetails_input2"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/custom_input"
-        android:ems="10"
-        android:hint="Input Field"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textColorHint="#99FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_input1" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:fontFamily="sans-serif-light"
+            android:hint="Q1"
+            android:textColorHint="@color/white">
 
-    <EditText
-        android:id="@+id/userDetails_input3"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/custom_input"
-        android:ems="10"
-        android:hint="Input Field"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textColorHint="#99FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_input2" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/userDetails_input1"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/custom_input"
+                android:drawablePadding="14dp"
+                android:fontFamily="sans-serif-light"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
-        android:id="@+id/userDetails_cb1"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="16dp"
-        android:text="Ans"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/userDetails_question4"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_input3" />
 
-    <CheckBox
-        android:id="@+id/userDetails_cb2"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:text="Ans"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/userDetails_cb3"
-        app:layout_constraintStart_toEndOf="@+id/userDetails_cb1"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_input3" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <CheckBox
-        android:id="@+id/userDetails_cb3"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Ans"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_input3" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/userDetails_question4"-->
+    <!--        android:layout_width="120dp"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:text="Question4:"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="20sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        tools:layout_editor_absoluteX="43dp"-->
+    <!--        tools:layout_editor_absoluteY="452dp"></TextView>-->
 
-    <Button
-        android:id="@+id/userDetails_finish_btn"
-        android:layout_width="300dp"
+    <!--    <CheckBox-->
+    <!--        android:id="@+id/userDetails_cb1"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:text="Ans"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/userDetails_question4"-->
+    <!--        tools:layout_editor_absoluteY="452dp" />-->
+
+    <!--    <CheckBox-->
+    <!--        android:id="@+id/userDetails_cb2"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:text="Ans"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/userDetails_cb3"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/userDetails_cb1"-->
+    <!--        tools:layout_editor_absoluteY="452dp" />-->
+
+
+    <!--    <CheckBox-->
+    <!--        android:id="@+id/userDetails_cb3"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:layout_marginEnd="8dp"-->
+    <!--        android:text="Ans"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/userDetails_cb2"-->
+    <!--        tools:layout_editor_absoluteY="452dp" />-->
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/userDetails_next_btn"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:fontFamily="sans-serif"
-        android:text="FINISH"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="sans-serif-black"
+        android:text="NEXT"
         android:textSize="20sp"
         app:cornerRadius="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_question4" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/userDetails_back_btn"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="sans-serif"
+        android:text="BACK"
+        android:textSize="20sp"
+        app:cornerRadius="35dp"
+        app:layout_constraintEnd_toStartOf="@+id/userDetails_next_btn"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat3"
+        app:strokeColor="@color/primeOrng"
+        app:strokeWidth="1dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
