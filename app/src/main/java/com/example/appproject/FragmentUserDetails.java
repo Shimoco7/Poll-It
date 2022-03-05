@@ -67,7 +67,7 @@ public class FragmentUserDetails extends Fragment {
         Button finishBtn = view.findViewById(R.id.userDetails_next_btn);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        finishBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDetailsDirections.actionFragmetnUserDetailsToHomeScreen()));
+        finishBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDetailsDirections.actionGlobalFragmentHomeScreen()));
         return view;
     }
 }

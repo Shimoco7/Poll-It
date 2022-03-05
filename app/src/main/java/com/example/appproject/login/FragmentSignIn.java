@@ -45,7 +45,7 @@ public class FragmentSignIn extends Fragment {
             progressBarOn();
             Model.instance.signIn(emailAddress.getText().toString().trim(),password.getText().toString().trim(), (user, message)->{
                 if(user!=null){
-                    Navigation.findNavController(signInBtn).navigate(R.id.action_fragmentSignIn_to_homeScreen);
+                    Navigation.findNavController(signInBtn).navigate(R.id.action_global_fragmentHomeScreen);
                 }
                 else{
                     progressBarOff();
