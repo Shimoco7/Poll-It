@@ -38,5 +38,6 @@ public class IntroActivity extends AppCompatActivity {
 
     //Todo: complete Feed Activity
     private void toFeedActivity() {
+        Model.instance.signOut();
     }
 }

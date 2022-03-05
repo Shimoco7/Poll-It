@@ -24,11 +24,12 @@
         <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/activity_base.xml" value="0.2749094202898551" />
         <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/activity_intro.xml" value="0.2749094202898551" />
         <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/activity_login.xml" value="0.2749094202898551" />
-        <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_active_poll.xml" value="0.14945652173913043" />
+        <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_active_poll.xml" value="0.25" />
         <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_poll_image.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_poll_question.xml" value="0.14945652173913043" />
+        <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_redeem_money.xml" value="0.2749094202898551" />
         <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_register.xml" value="0.2749094202898551" />
-        <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_signin.xml" value="0.5" />
+        <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_signin.xml" value="0.33" />
         <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_user_details.xml" value="0.2749094202898551" />
         <entry key="..\:/Users/shimonc/AndroidStudioProjects/Poll-It/app/src/main/res/layout/fragment_welcome.xml" value="0.2749094202898551" />
       </map>

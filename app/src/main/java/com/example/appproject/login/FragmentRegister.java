@@ -3,6 +3,7 @@ package com.example.appproject.login;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +25,24 @@ public class FragmentRegister extends Fragment {
     final String INVALID_EMAIL_ADDRESS = "Invalid Email Address";
     final String INVALID_PASSWORD = "Invalid Password";
     final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
+    Button registerBtn;
+    EditText email, password,confirmPassword;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-        Button registerBtn = view.findViewById(R.id.register_btn);
-        EditText email = view.findViewById(R.id.register_input_email);
-        EditText password = view.findViewById(R.id.register_input_password);
-        EditText confirmPassword = view.findViewById(R.id.register_input_confirmpassword);
+        registerBtn = view.findViewById(R.id.register_btn);
+        email = view.findViewById(R.id.register_input_email);
+        password = view.findViewById(R.id.register_input_password);
+        confirmPassword = view.findViewById(R.id.register_input_confirmpassword);
+        setRegisterBtnListener();
 
+        return view;
+    }
+
+
+    private void setRegisterBtnListener() {
         registerBtn.setOnClickListener(v->{
             ArrayList<String> errors = new ArrayList<>();
             if(!Model.instance.validateEmailAddress(email.getText().toString().trim())){
@@ -53,15 +62,18 @@ public class FragmentRegister extends Fragment {
                 return;
             }
 
-            Model.instance.createUser(email.getText().toString().trim(),password.toString().trim());
-            //TODO - after register
+            //Todo : handle error in create user
+            Model.instance.createUser(email.getText().toString().trim(),password.getText().toString().trim());
+            afterRegisterFlow();
         });
+    }
 
-        return view;
+    private void afterRegisterFlow() {
+        Navigation.findNavController(registerBtn).navigate(R.id.action_fragmentRegister_to_fragmentActivePoll);
     }
 
     private void showToast(ArrayList<String> errors) {
-        StringBuilder message = new StringBuilder("");
+        StringBuilder message = new StringBuilder();
         for(String error : errors){
             message.append(error);
             message.append("\n");

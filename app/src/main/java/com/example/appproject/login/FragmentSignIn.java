@@ -9,64 +9,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.appproject.R;
+import com.example.appproject.model.Model;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentSignIn#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentSignIn extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    Button signInBtn;
+    EditText emailAddress;
+    EditText password;
+    public FragmentSignIn() { }
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentSignIn() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_signin.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentSignIn newInstance(String param1, String param2) {
-        FragmentSignIn fragment = new FragmentSignIn();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_signin,container,false);
 
-        Button signInBtn=view.findViewById(R.id.login_sign_in_btn);
-        signInBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentSignInDirections.actionFragmentSignInToFragmentActivePoll()));
+        signInBtn=view.findViewById(R.id.login_sign_in_btn);
+        emailAddress=view.findViewById(R.id.login_input_email);
+        password=view.findViewById(R.id.login_input_password);
+        setSignInBtnListener();
 
         return view;
+    }
+
+    private void setSignInBtnListener() {
+        signInBtn.setOnClickListener(v -> {
+            Model.instance.signIn(emailAddress.getText().toString().trim(),password.getText().toString().trim(),user->{
+                if(user!=null){
+                    Navigation.findNavController(signInBtn).navigate(R.id.action_fragmentSignIn_to_fragmentActivePoll);
+                }
+                else{
+                    Toast.makeText(getContext(),"Email or Password is incorrect", Toast.LENGTH_LONG).show();
+                }
+            });
+        });
     }
 }

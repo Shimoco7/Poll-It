@@ -29,7 +29,13 @@
         android:id="@+id/fragmentRegister"
         android:name="com.example.appproject.login.FragmentRegister"
         android:label="Register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_fragmentRegister_to_fragmentActivePoll"
+            app:destination="@id/fragmentActivePoll"
+            app:popUpTo="@id/fragmentWelcome"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentActivePoll"
         android:name="com.example.appproject.FragmentActivePoll"
