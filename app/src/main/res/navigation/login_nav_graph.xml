@@ -29,11 +29,7 @@
         android:id="@+id/fragmentRegister"
         android:name="com.example.appproject.login.FragmentRegister"
         android:label="Register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_fragmentRegister_to_fragmetnUserDetails"
-            app:destination="@id/fragmetnUserDetails" />
-    </fragment>
+        tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/fragmentActivePoll"
         android:name="com.example.appproject.FragmentActivePoll"
@@ -57,4 +53,9 @@
             android:id="@+id/action_fragmetnUserDetails_to_fragmentActivePoll"
             app:destination="@id/fragmentActivePoll" />
     </fragment>
+    <action
+        android:id="@+id/action_global_fragmetnUserDetails"
+        app:destination="@id/fragmetnUserDetails"
+        app:popUpTo="@id/fragmentWelcome"
+        app:popUpToInclusive="true" />
 </navigation>

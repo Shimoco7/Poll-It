@@ -2,6 +2,7 @@ package com.example.appproject;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,6 +65,7 @@ public class FragmentUserDetails extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
         Button finishBtn = view.findViewById(R.id.userDetails_next_btn);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         finishBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDetailsDirections.actionFragmetnUserDetailsToFragmentActivePoll()));
         return view;

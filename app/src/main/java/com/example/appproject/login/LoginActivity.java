@@ -7,6 +7,7 @@ import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.appproject.R;
@@ -23,6 +24,13 @@ public class LoginActivity extends AppCompatActivity {
         assert navHost != null;
         navController = navHost.getNavController();
         NavigationUI.setupActionBarWithNavController(this,navController);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.login_menu,menu);
+        return true;
     }
 
     @Override
