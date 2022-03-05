@@ -31,10 +31,8 @@
         android:label="Register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_fragmentRegister_to_fragmentActivePoll"
-            app:destination="@id/fragmentActivePoll"
-            app:popUpTo="@id/fragmentWelcome"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_fragmentRegister_to_fragmetnUserDetails"
+            app:destination="@id/fragmetnUserDetails" />
     </fragment>
     <fragment
         android:id="@+id/fragmentActivePoll"
@@ -50,4 +48,13 @@
         android:name="com.example.appproject.FragmentPollQuestion"
         android:label="Active Poll"
         tools:layout="@layout/fragment_poll_question" />
+    <fragment
+        android:id="@+id/fragmetnUserDetails"
+        android:name="com.example.appproject.FragmentUserDetails"
+        android:label="Sign In"
+        tools:layout="@layout/fragment_user_details" >
+        <action
+            android:id="@+id/action_fragmetnUserDetails_to_fragmentActivePoll"
+            app:destination="@id/fragmentActivePoll" />
+    </fragment>
 </navigation>

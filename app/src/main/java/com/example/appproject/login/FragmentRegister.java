@@ -86,7 +86,7 @@ public class FragmentRegister extends Fragment {
     }
 
     private void afterRegisterFlow() {
-        Navigation.findNavController(registerBtn).navigate(R.id.action_fragmentRegister_to_fragmentActivePoll);
+        Navigation.findNavController(registerBtn).navigate(R.id.action_fragmentRegister_to_fragmetnUserDetails);
     }
 
     private void showToast(ArrayList<String> errors) {
