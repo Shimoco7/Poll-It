@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/welcome_title1"
+        android:id="@+id/sign_pollit_title"
         android:layout_width="155dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -46,7 +46,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_title1" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_pollit_title" />
 
     <Button
         android:id="@+id/welcome_sign_in_btn"
