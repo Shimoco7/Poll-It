@@ -22,36 +22,50 @@ public class ModelFirebaseAuth {
     }
 
     public void createUser(String emailAddress, String password,UserListener userListener) {
-        mAuth.createUserWithEmailAndPassword(emailAddress, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d("TAG", "createUserWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        userListener.onComplete(user, appContext.getString(R.string.success));
-                    } else {
-                        Log.d("TAG", "createUserWithEmail:failure", task.getException());
-                        if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                            userListener.onComplete(null,appContext.getString(R.string.user_already_exists));
+        Model.instance.getExecutor().execute(()->{
+            mAuth.createUserWithEmailAndPassword(emailAddress, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Model.instance.getMainThread().post(()->{
+                                userListener.onComplete(user, appContext.getString(R.string.success));
+                            });
+                        } else {
+                            Log.d("TAG", "createUserWithEmail:failure", task.getException());
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                Model.instance.getMainThread().post(()->{
+                                    userListener.onComplete(null, appContext.getString(R.string.success));
+                                });
+                            }
+                            else{
+                                Model.instance.getMainThread().post(()->{
+                                    userListener.onComplete(null, appContext.getString(R.string.success));
+                                });
+                            }
                         }
-                        else{
-                            userListener.onComplete(null, appContext.getString(R.string.registration_failed));
-                        }
-                    }
-                });
+                    });
+        });
     }
 
     public void signIn(String emailAddress, String password, UserListener userListener){
-        mAuth.signInWithEmailAndPassword(emailAddress, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d("TAG", "signInWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        userListener.onComplete(user, appContext.getString(R.string.success));
-                    } else {
-                        Log.d("TAG", "signInWithEmail:failure", task.getException());
-                        userListener.onComplete(null, null); //TODO
-                    }
-                });
+        Model.instance.getExecutor().execute(()->{
+            mAuth.signInWithEmailAndPassword(emailAddress, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Model.instance.getMainThread().post(()->{
+                                userListener.onComplete(user, appContext.getString(R.string.success));
+                            });
+                        } else {
+                            Log.d("TAG", "signInWithEmail:failure", task.getException());
+                            Model.instance.getMainThread().post(()->{
+                                userListener.onComplete(null, null); //TODO
+                            });
+                        }
+                    });
+        });
     }
 
     public void signOut() {
