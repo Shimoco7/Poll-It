@@ -34,8 +34,8 @@ public class Model {
      * @return
      */
 
-    public void signIn(String emailAddress, String password,SignInListener signInListener) {
-        modelFirebaseAuth.signIn(emailAddress,password,signInListener);
+    public void signIn(String emailAddress, String password, UserListener userListener) {
+        modelFirebaseAuth.signIn(emailAddress,password, userListener);
     }
 
     public boolean isSignedIn(){
@@ -43,8 +43,8 @@ public class Model {
     }
 
 
-    public void createUser(String emailAddress, String password) {
-        modelFirebaseAuth.createUser(emailAddress,password);
+    public void createUser(String emailAddress, String password,UserListener userListener) {
+        modelFirebaseAuth.createUser(emailAddress,password,userListener);
     }
 
     public boolean validateEmailAddress(String emailAddress) {

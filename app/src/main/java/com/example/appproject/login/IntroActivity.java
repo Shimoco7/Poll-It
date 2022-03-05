@@ -1,11 +1,11 @@
-package com.example.appproject;
+package com.example.appproject.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.appproject.login.LoginActivity;
+import com.example.appproject.R;
 import com.example.appproject.model.Model;
 
 public class IntroActivity extends AppCompatActivity {

@@ -5,17 +5,21 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 
 public class FragmentRegister extends Fragment {
@@ -27,6 +31,7 @@ public class FragmentRegister extends Fragment {
     final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
     Button registerBtn;
     EditText email, password,confirmPassword;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +41,8 @@ public class FragmentRegister extends Fragment {
         email = view.findViewById(R.id.register_input_email);
         password = view.findViewById(R.id.register_input_password);
         confirmPassword = view.findViewById(R.id.register_input_confirmpassword);
+        progressBar = view.findViewById(R.id.register_progressbar);
+        progressBar.setVisibility(View.GONE);
         setRegisterBtnListener();
 
         return view;
@@ -44,6 +51,7 @@ public class FragmentRegister extends Fragment {
 
     private void setRegisterBtnListener() {
         registerBtn.setOnClickListener(v->{
+            progressBarOn();
             ArrayList<String> errors = new ArrayList<>();
             if(!Model.instance.validateEmailAddress(email.getText().toString().trim())){
                 errors.add(INVALID_EMAIL_ADDRESS);
@@ -58,13 +66,22 @@ public class FragmentRegister extends Fragment {
             }
 
             if(!errors.isEmpty()){
+                progressBarOff();
                 showToast(errors);
                 return;
             }
 
             //Todo : handle error in create user
-            Model.instance.createUser(email.getText().toString().trim(),password.getText().toString().trim());
-            afterRegisterFlow();
+            Model.instance.createUser(email.getText().toString().trim(),password.getText().toString().trim(),user->{
+                if(user!=null){
+                    Log.d("TAG","Registration succeeded");
+                    afterRegisterFlow();
+                }
+                else{
+                    progressBarOff();
+                    showToast(new ArrayList<>(Collections.singletonList("Registration Failed")));
+                }
+            });
         });
     }
 
@@ -80,6 +97,16 @@ public class FragmentRegister extends Fragment {
         }
         Toast.makeText(getActivity(), message.toString().trim(),
                 Toast.LENGTH_LONG).show();
+    }
+
+    private void progressBarOn(){
+        progressBar.setVisibility(View.VISIBLE);
+        registerBtn.setClickable(false);
+    }
+
+    private void progressBarOff(){
+        progressBar.setVisibility(View.GONE);
+        registerBtn.setClickable(true);
     }
 
 }
