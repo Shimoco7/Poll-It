@@ -38,7 +38,7 @@ public class FragmentSignIn extends Fragment {
 
     private void setSignInBtnListener() {
         signInBtn.setOnClickListener(v -> {
-            Model.instance.signIn(emailAddress.getText().toString().trim(),password.getText().toString().trim(),user->{
+            Model.instance.signIn(emailAddress.getText().toString().trim(),password.getText().toString().trim(), (user, message)->{
                 if(user!=null){
                     Navigation.findNavController(signInBtn).navigate(R.id.action_fragmentSignIn_to_homeScreen);
                 }

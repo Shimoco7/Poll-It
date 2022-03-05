@@ -18,17 +18,12 @@ import com.example.appproject.R;
 import com.example.appproject.model.Model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 
 public class FragmentRegister extends Fragment {
 
     public FragmentRegister() { }
-
-    final String INVALID_EMAIL_ADDRESS = "Invalid Email Address";
-    final String INVALID_PASSWORD = "Invalid Password";
-    final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
     Button registerBtn;
     EditText email, password,confirmPassword;
     ProgressBar progressBar;
@@ -54,15 +49,15 @@ public class FragmentRegister extends Fragment {
             progressBarOn();
             ArrayList<String> errors = new ArrayList<>();
             if(!Model.instance.validateEmailAddress(email.getText().toString().trim())){
-                errors.add(INVALID_EMAIL_ADDRESS);
+                errors.add(getString(R.string.invalid_email_address));
             }
             if(password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())){
                 if(!Model.instance.validatePassword(password.getText().toString().trim())){
-                    errors.add(INVALID_PASSWORD);
+                    errors.add(getString(R.string.invalid_password));
                 }
             }
             else{
-                errors.add(PASSWORDS_DO_NOT_MATCH);
+                errors.add(getString(R.string.passwords_do_not_match));
             }
 
             if(!errors.isEmpty()){
@@ -71,15 +66,13 @@ public class FragmentRegister extends Fragment {
                 return;
             }
 
-            //Todo : handle error in create user
-            Model.instance.createUser(email.getText().toString().trim(),password.getText().toString().trim(),user->{
+            Model.instance.createUser(email.getText().toString().trim(),password.getText().toString().trim(), (user, message)->{
                 if(user!=null){
-                    Log.d("TAG","Registration succeeded");
                     afterRegisterFlow();
                 }
                 else{
                     progressBarOff();
-                    showToast(new ArrayList<>(Collections.singletonList("Registration Failed")));
+                    showToast(new ArrayList<>(Collections.singletonList(message)));
                 }
             });
         });

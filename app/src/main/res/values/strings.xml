@@ -17,4 +17,15 @@
     <string name="click_here">CLICK HERE</string>
     <string name="email_colon">Email:</string>
     <string name="first_poll">First Poll</string>
+
+<!--Login Strings-->
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="invalid_email_address">Invalid Email Address</string>
+    <string name="registration_failed">Registration Failed</string>
+    <string name="user_already_exists">User is already exists</string>
+    <string name="success">Success</string>
+
+
+
 </resources>
