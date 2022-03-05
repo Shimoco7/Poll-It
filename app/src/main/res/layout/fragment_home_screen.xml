@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".homeScreen">
+    tools:context=".FragmentHomeScreen">
 
     <ImageView
         android:id="@+id/homeScreen_logo"
@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/homeScr_text_title"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-black"
@@ -35,7 +35,7 @@
     <TextView
         android:id="@+id/homeScr_text_name"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="80dp"
         android:fontFamily="sans-serif-black"
@@ -49,11 +49,11 @@
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />
 
     <Button
-        android:id="@+id/homeScr_btn_line"
+        android:id="@+id/homescr_btn_line"
         android:layout_width="350dp"
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
@@ -64,8 +64,8 @@
     <Button
         android:id="@+id/homescr_btn_poll"
         android:layout_width="133dp"
-        android:layout_height="118dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
         android:drawableBottom="@drawable/ic_poll"
         android:fontFamily="sans-serif-medium"
         android:text="@string/first_poll"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeScr_btn_line" />
+        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line" />
 
     <Button
         android:id="@+id/homescr_btn_feed"

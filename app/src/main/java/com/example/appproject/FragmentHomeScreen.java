@@ -12,10 +12,10 @@ import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link homeScreen#newInstance} factory method to
+ * Use the {@link FragmentHomeScreen#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class homeScreen extends Fragment {
+public class FragmentHomeScreen extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class homeScreen extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public homeScreen() {
+    public FragmentHomeScreen() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class homeScreen extends Fragment {
      * @return A new instance of fragment homeScreen.
      */
     // TODO: Rename and change types and number of parameters
-    public static homeScreen newInstance(String param1, String param2) {
-        homeScreen fragment = new homeScreen();
+    public static FragmentHomeScreen newInstance(String param1, String param2) {
+        FragmentHomeScreen fragment = new FragmentHomeScreen();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,9 +61,9 @@ public class homeScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
-            Button finishBtn = view.findViewById(R.id.homescr_btn_poll);
+            Button pollBtn = view.findViewById(R.id.homescr_btn_poll);
 
-            finishBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDetailsDirections.actionFragmetnUserDetailsToHomeScreen()));
+            pollBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentHomeScreenDirections.actionFragmenthomeScreenToFragmentActivePoll2()));
             return view;
     }
 }
