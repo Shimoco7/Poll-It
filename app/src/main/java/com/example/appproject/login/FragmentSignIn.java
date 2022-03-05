@@ -40,7 +40,7 @@ public class FragmentSignIn extends Fragment {
         signInBtn.setOnClickListener(v -> {
             Model.instance.signIn(emailAddress.getText().toString().trim(),password.getText().toString().trim(),user->{
                 if(user!=null){
-                    Navigation.findNavController(signInBtn).navigate(R.id.action_fragmentSignIn_to_fragmentActivePoll);
+                    Navigation.findNavController(signInBtn).navigate(R.id.action_fragmentSignIn_to_homeScreen);
                 }
                 else{
                     Toast.makeText(getContext(),"Email or Password is incorrect", Toast.LENGTH_LONG).show();

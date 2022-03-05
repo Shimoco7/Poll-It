@@ -2,7 +2,6 @@ package com.example.appproject;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -11,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.util.Objects;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentUserDetails#newInstance} factory method to
+ * Use the {@link homeScreen#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentUserDetails extends Fragment {
+public class homeScreen extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +26,7 @@ public class FragmentUserDetails extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentUserDetails() {
+    public homeScreen() {
         // Required empty public constructor
     }
 
@@ -39,11 +36,11 @@ public class FragmentUserDetails extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentUserDetails.
+     * @return A new instance of fragment homeScreen.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentUserDetails newInstance(String param1, String param2) {
-        FragmentUserDetails fragment = new FragmentUserDetails();
+    public static homeScreen newInstance(String param1, String param2) {
+        homeScreen fragment = new homeScreen();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,11 +60,10 @@ public class FragmentUserDetails extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_details, container, false);
-        Button finishBtn = view.findViewById(R.id.userDetails_next_btn);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
+            Button finishBtn = view.findViewById(R.id.homescr_btn_poll);
 
-        finishBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDetailsDirections.actionFragmetnUserDetailsToHomeScreen()));
-        return view;
+            finishBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDetailsDirections.actionFragmetnUserDetailsToHomeScreen()));
+            return view;
     }
 }

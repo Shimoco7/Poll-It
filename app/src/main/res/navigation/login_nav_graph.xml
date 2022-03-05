@@ -22,8 +22,8 @@
         android:label="Sign In"
         tools:layout="@layout/fragment_signin" >
         <action
-            android:id="@+id/action_fragmentSignIn_to_fragmentActivePoll"
-            app:destination="@id/fragmentActivePoll" />
+            android:id="@+id/action_fragmentSignIn_to_homeScreen"
+            app:destination="@id/homeScreen" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRegister"
@@ -50,7 +50,16 @@
         android:label="Sign In"
         tools:layout="@layout/fragment_user_details" >
         <action
-            android:id="@+id/action_fragmetnUserDetails_to_fragmentActivePoll"
+            android:id="@+id/action_fragmetnUserDetails_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.example.appproject.homeScreen"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_fragmentActivePoll"
             app:destination="@id/fragmentActivePoll" />
     </fragment>
     <action
