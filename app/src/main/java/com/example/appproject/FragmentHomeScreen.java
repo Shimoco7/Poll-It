@@ -62,17 +62,15 @@ public class FragmentHomeScreen extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
-            CardView pollBtn = view.findViewById(R.id.homescr_btn_poll);
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
+        CardView pollBtn = view.findViewById(R.id.homescr_btn_poll);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-            pollBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmenthomeScreenToFragmentActivePoll2())));
-
+        pollBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll())));
         Button feedBtn = view.findViewById(R.id.homescr_btn_feed);
+        feedBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentUserDisplayDetails())));
 
-        feedBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToOtherUserDetails())));
-
-            return view;
+        return view;
 
     }
 }

@@ -1,5 +1,6 @@
 package com.example.appproject.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,8 +14,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.appproject.MainActivity;
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
+
+import java.util.Objects;
 
 public class FragmentSignIn extends Fragment {
 
@@ -45,11 +49,13 @@ public class FragmentSignIn extends Fragment {
             progressBarOn();
             Model.instance.signIn(emailAddress.getText().toString().trim(),password.getText().toString().trim(), (user, message)->{
                 if(user!=null){
-                    Navigation.findNavController(signInBtn).navigate(R.id.action_global_fragmentHomeScreen);
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+                    Objects.requireNonNull(getActivity()).finish();
                 }
                 else{
                     progressBarOff();
-                    Toast.makeText(getContext(),"Email or Password is incorrect", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),getString(R.string.email_or_password_is_incorrect), Toast.LENGTH_LONG).show();
                 }
             });
         });

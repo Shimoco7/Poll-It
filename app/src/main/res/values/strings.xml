@@ -25,6 +25,7 @@
     <string name="registration_failed">Registration Failed</string>
     <string name="user_already_exists">User is already exists</string>
     <string name="success">Success</string>
+    <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
 
 
 </resources>

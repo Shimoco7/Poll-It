@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/fragmentHomeScreen">
+    <fragment
+        android:id="@+id/fragmentHomeScreen"
+        android:name="com.example.appproject.FragmentHomeScreen"
+        android:label="Poll-It"
+        tools:layout="@layout/fragment_home_screen">
+        <action
+            android:id="@+id/action_fragmentHomeScreen_to_fragmentActivePoll"
+            app:destination="@id/fragmentActivePoll" />
+        <action
+            android:id="@+id/action_fragmentHomeScreen_to_fragmentUserDisplayDetails"
+            app:destination="@id/fragmentUserDisplayDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentActivePoll"
+        android:name="com.example.appproject.FragmentActivePoll"
+        android:label="Let's Get Started"
+        tools:layout="@layout/fragment_active_poll">
+        <action
+            android:id="@+id/action_fragmentActivePoll_to_fragmentPollQuestion"
+            app:destination="@id/fragmentPollQuestion" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentUserDisplayDetails"
+        android:name="com.example.appproject.FragmentUserDisplayDetails"
+        android:label="User Details"
+        tools:layout="@layout/fragment_user_display_details" />
+    <fragment
+        android:id="@+id/fragmentPollQuestion"
+        android:name="com.example.appproject.FragmentPollQuestion"
+        android:label="Active Poll"
+        tools:layout="@layout/fragment_poll_question" />
+</navigation>

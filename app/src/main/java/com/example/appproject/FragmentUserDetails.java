@@ -1,5 +1,6 @@
 package com.example.appproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,8 +67,11 @@ public class FragmentUserDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
         Button finishBtn = view.findViewById(R.id.userDetails_next_btn);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-        finishBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDetailsDirections.actionGlobalFragmentHomeScreen()));
+        finishBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        });
         return view;
     }
 }

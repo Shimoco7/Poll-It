@@ -36,43 +36,4 @@
         app:destination="@id/fragmentUserDetails"
         app:popUpTo="@id/fragmentWelcome"
         app:popUpToInclusive="true" />
-    <action
-        android:id="@+id/action_global_fragmentHomeScreen"
-        app:destination="@id/main_nav_graph"
-        app:popUpTo="@id/fragmentWelcome"
-        app:popUpToInclusive="true" />
-    <navigation android:id="@+id/main_nav_graph"
-        app:startDestination="@id/fragmentHomeScreen">
-        <fragment
-            android:id="@+id/fragmentPollQuestion"
-            android:name="com.example.appproject.FragmentPollQuestion"
-            android:label="Active Poll"
-            tools:layout="@layout/fragment_poll_question" />
-        <fragment
-            android:id="@+id/fragmentActivePoll"
-            android:name="com.example.appproject.FragmentActivePoll"
-            android:label="Let's Get Started"
-            tools:layout="@layout/fragment_active_poll">
-            <action
-                android:id="@+id/action_fragmentActivePoll_to_fragmentPollQuestion"
-                app:destination="@id/fragmentPollQuestion" />
-        </fragment>
-        <fragment
-            android:id="@+id/fragmentHomeScreen"
-            android:name="com.example.appproject.FragmentHomeScreen"
-            android:label="User Home Screen"
-            tools:layout="@layout/fragment_home_screen">
-            <action
-                android:id="@+id/action_fragmenthomeScreen_to_fragmentActivePoll2"
-                app:destination="@id/fragmentActivePoll" />
-            <action
-                android:id="@+id/action_fragmentHomeScreen_to_otherUserDetails"
-                app:destination="@id/otherUserDetails" />
-        </fragment>
-        <fragment
-            android:id="@+id/otherUserDetails"
-            android:name="com.example.appproject.otherUserDetails"
-            android:label="fragment_other_user_details"
-            tools:layout="@layout/fragment_other_user_details" />
-    </navigation>
 </navigation>
