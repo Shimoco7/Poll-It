@@ -2,22 +2,18 @@ package com.example.appproject;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentHomeScreen#newInstance} factory method to
+ * Use the {@link otherUserDetails#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentHomeScreen extends Fragment {
+public class otherUserDetails extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +24,7 @@ public class FragmentHomeScreen extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentHomeScreen() {
+    public otherUserDetails() {
         // Required empty public constructor
     }
 
@@ -38,11 +34,11 @@ public class FragmentHomeScreen extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment homeScreen.
+     * @return A new instance of fragment otherUserDetails.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentHomeScreen newInstance(String param1, String param2) {
-        FragmentHomeScreen fragment = new FragmentHomeScreen();
+    public static otherUserDetails newInstance(String param1, String param2) {
+        otherUserDetails fragment = new otherUserDetails();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,17 +58,7 @@ public class FragmentHomeScreen extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
-            CardView pollBtn = view.findViewById(R.id.homescr_btn_poll);
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-            pollBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmenthomeScreenToFragmentActivePoll2())));
-
-        Button feedBtn = view.findViewById(R.id.homescr_btn_feed);
-
-        feedBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToOtherUserDetails())));
-
-            return view;
-
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_other_user_details, container, false);
     }
 }

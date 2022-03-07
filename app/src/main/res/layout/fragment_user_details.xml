@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/userDetails_logo"
+        android:id="@+id/otheruser_img_main"
         android:layout_width="306dp"
         android:layout_height="160dp"
         android:layout_marginTop="30dp"
@@ -35,7 +35,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetails_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/otheruser_img_main" />
 
 
     <!--    <EditText-->
@@ -155,7 +155,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat3" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/userDetails_back_btn"
+        android:id="@+id/otheruser_btn_back"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
