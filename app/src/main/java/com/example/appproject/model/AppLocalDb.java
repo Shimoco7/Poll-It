@@ -6,13 +6,13 @@ import androidx.room.RoomDatabase;
 
 import com.example.appproject.MyApplication;
 
-@Database(entities ={User.class},version =1)
+@Database(entities ={User.class},version =1,exportSchema = false)
 abstract class AppLocalDbRepository extends RoomDatabase{
-
+    public abstract UserDao userDao();
 }
 
 public class AppLocalDb {
-    static public AppLocalDbRepository db =
+    public static AppLocalDbRepository db =
             Room.databaseBuilder(MyApplication.getContext(),AppLocalDbRepository.class,"PollItDb.db")
                     .fallbackToDestructiveMigration()
                     .build();

@@ -31,8 +31,12 @@ public class Model {
 
     /**
     * Authentication
-     * @return
+     *
      */
+
+    public void createUser(String emailAddress, String password,UserListener userListener) {
+        modelFirebaseAuth.createUser(emailAddress,password,userListener);
+    }
 
     public void signIn(String emailAddress, String password, UserListener userListener) {
         modelFirebaseAuth.signIn(emailAddress,password, userListener);
@@ -43,8 +47,8 @@ public class Model {
     }
 
 
-    public void createUser(String emailAddress, String password,UserListener userListener) {
-        modelFirebaseAuth.createUser(emailAddress,password,userListener);
+    public void signOut() {
+        modelFirebaseAuth.signOut();
     }
 
     public boolean validateEmailAddress(String emailAddress) {
@@ -54,9 +58,5 @@ public class Model {
     public boolean validatePassword(String password) {
         final String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,20}$";
         return password.matches(regex);
-    }
-
-    public void signOut() {
-        modelFirebaseAuth.signOut();
     }
 }

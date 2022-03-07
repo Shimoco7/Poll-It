@@ -64,11 +64,13 @@ public class FragmentHomeScreen extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
         CardView pollBtn = view.findViewById(R.id.homescr_btn_poll);
+        Button feedBtn = view.findViewById(R.id.homescr_btn_feed);
+        Button mapsBtn = view.findViewById(R.id.homescr_btn_map);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         pollBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll())));
-        Button feedBtn = view.findViewById(R.id.homescr_btn_feed);
         feedBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentUserDisplayDetails())));
+        mapsBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentMaps())));
 
         return view;
 

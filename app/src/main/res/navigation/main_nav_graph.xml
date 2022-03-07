@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_fragmentHomeScreen_to_fragmentUserDisplayDetails"
             app:destination="@id/fragmentUserDisplayDetails" />
+        <action
+            android:id="@+id/action_fragmentHomeScreen_to_fragmentMaps"
+            app:destination="@id/fragmentMaps" />
     </fragment>
     <fragment
         android:id="@+id/fragmentActivePoll"
@@ -35,4 +38,9 @@
         android:name="com.example.appproject.FragmentPollQuestion"
         android:label="Active Poll"
         tools:layout="@layout/fragment_poll_question" />
+    <fragment
+        android:id="@+id/fragmentMaps"
+        android:name="com.example.appproject.FragmentMaps"
+        android:label="Maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>
