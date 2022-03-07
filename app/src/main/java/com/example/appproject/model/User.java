@@ -5,6 +5,9 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 public class User {
 
@@ -26,6 +29,12 @@ public class User {
 
     public void setUid(@NonNull String uid) {
         this.uid = uid;
+    }
+
+    public Map<String,Object> toJson(){
+        Map<String,Object> json = new HashMap<>();
+        json.put("uid",uid);
+        return json;
     }
 
 }

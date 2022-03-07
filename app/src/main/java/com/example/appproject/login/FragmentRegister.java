@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
+import com.example.appproject.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,7 +69,8 @@ public class FragmentRegister extends Fragment {
 
             Model.instance.createUser(email.getText().toString().trim(),password.getText().toString().trim(), (user, message)->{
                 if(user!=null){
-                    afterRegisterFlow();
+                    User u = new User(user.getUid());
+                    Model.instance.saveUserOnDb(u, this::afterRegisterFlow);
                 }
                 else{
                     progressBarOff();

@@ -18,7 +18,7 @@
     <string name="email_colon">Email:</string>
     <string name="first_poll">First Poll</string>
 
-    <!--Login Strings-->
+    <!--Login/Register Strings-->
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="invalid_password">Invalid Password</string>
     <string name="invalid_email_address">Invalid Email Address</string>
@@ -27,5 +27,7 @@
     <string name="success">Success</string>
     <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
 
+    <!--Collection Strings-->
+    <string name="users_collection">users</string>
 
 </resources>

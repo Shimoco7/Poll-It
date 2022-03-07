@@ -59,4 +59,16 @@ public class Model {
         final String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,20}$";
         return password.matches(regex);
     }
+
+
+    /**
+     * Data
+     *
+     */
+
+    public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
+        modelFirebaseDb.SaveUserOnDb(user,()->{
+           saveUserListener.onComplete();
+        });
+    }
 }
