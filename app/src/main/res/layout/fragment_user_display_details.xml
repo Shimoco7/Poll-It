@@ -28,13 +28,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/otheruser_img_cardview" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/otheruser_img_cardview"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:innerRadius="0dp"
+            app:strokeWidth="2dp"
             android:shape="ring"
             android:thicknessRatio="1.9"
             app:cardCornerRadius="60dp"
@@ -52,7 +53,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 tools:src="@tools:sample/avatars" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -71,6 +72,7 @@
                 android:id="@+id/linearLayoutCompat3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/textviewbg"
                 android:orientation="horizontal">
 
 
@@ -78,7 +80,7 @@
                     android:id="@+id/otheruser_txt_imgfact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
                     android:fontFamily="sans-serif-black"
                     android:gravity="left"
                     android:text="Fact 1:"
@@ -90,10 +92,10 @@
                     android:id="@+id/otheruser_txt_answer1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+
                     android:fontFamily="sans-serif-condensed-light"
                     android:gravity="left"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="10dp"
                     android:text="the fact"
 
                     android:textColor="@color/white"
