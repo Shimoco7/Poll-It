@@ -3,6 +3,7 @@ package com.example.appproject;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -62,10 +63,12 @@ public class FragmentHomeScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
-            Button pollBtn = view.findViewById(R.id.homescr_btn_poll);
+            CardView pollBtn = view.findViewById(R.id.homescr_btn_poll);
             ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-            pollBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentHomeScreenDirections.actionFragmenthomeScreenToFragmentActivePoll2()));
+            pollBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmenthomeScreenToFragmentActivePoll2())));
+
             return view;
+
     }
 }
