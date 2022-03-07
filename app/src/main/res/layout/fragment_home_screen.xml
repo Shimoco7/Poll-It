@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/stroke_color">
     tools:context=".FragmentHomeScreen">
 
     <ImageView
@@ -61,19 +63,72 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homescr_btn_feed" />
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/homescr_btn_poll"
-        android:layout_width="133dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="25dp"
-        android:drawableBottom="@drawable/ic_poll"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/first_poll"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/primeOrng"
+        app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line" />
+        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line"
+        app:strokeWidth="2dp">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_poll"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/primeOrng"
+                android:orientation="horizontal"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:padding="2dp"
+                    android:text="@string/first_poll"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="right|center_horizontal"
+                    android:padding="2dp"
+                    android:text="0/2"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <Button
         android:id="@+id/homescr_btn_feed"
@@ -87,7 +142,9 @@
         android:text="FEED"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_name" />
+        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_name"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp" />
 
     <Button
         android:id="@+id/homescr_btn_map"
@@ -101,7 +158,9 @@
         android:text="MAP"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_name" />
+        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_name"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
