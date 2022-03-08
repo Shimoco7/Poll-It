@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/sign_pollit_title"
         android:layout_width="155dp"
         android:layout_height="50dp"
@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feed_img_logo" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/welcome_title2"
         android:layout_width="376dp"
         android:layout_height="60dp"
@@ -53,24 +53,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_pollit_title" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/welcome_sign_in_btn"
         android:layout_width="260dp"
         android:layout_height="57dp"
         android:layout_marginTop="80dp"
-        android:backgroundTint="#F76055"
+        android:backgroundTint="@color/primeOrng"
         android:text="SIGN IN"
         app:cornerRadius="37sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_title2" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/welcome_register_btn"
         android:layout_width="260dp"
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
-        android:backgroundTint="#F76055"
+        android:backgroundTint="@color/primeOrng"
         android:text="REGISTER"
         app:cornerRadius="37sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -18,7 +18,7 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
-        app:layout_constraintBottom_toTopOf="@+id/chip4"
+        app:layout_constraintBottom_toTopOf="@+id/poll_txt_qnumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toStartOf="parent" />
@@ -86,14 +86,14 @@
             tools:layout_editor_absoluteY="461dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip4"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/poll_txt_qnumber"
         android:layout_width="154dp"
         android:layout_height="60dp"
         android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/primeOrng"
+        android:background="@color/primeOrng"
         android:text="1/2"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -110,7 +110,7 @@
         android:drawableTop="@drawable/ic_leftarrow"
         app:cornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/chip4"
+        app:layout_constraintEnd_toStartOf="@+id/poll_txt_qnumber"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
@@ -123,6 +123,6 @@
         app:cornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/chip4" />
+        app:layout_constraintStart_toEndOf="@+id/poll_txt_qnumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
