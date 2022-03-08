@@ -15,10 +15,10 @@
         android:layout_height="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
-        app:layout_constraintBottom_toTopOf="@+id/poll_txt_qnumber"
+        app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toStartOf="parent" />
@@ -86,43 +86,49 @@
             tools:layout_editor_absoluteY="461dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/poll_txt_qnumber"
-        android:layout_width="154dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginBottom="50dp"
-        android:background="@color/primeOrng"
-        android:text="1/2"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="24sp"
+        android:layout_marginBottom="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/poll_txt_qnumber"
+            android:layout_width="154dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="50dp"
+            android:background="@color/primeOrng"
+            android:gravity="center"
+            android:text="1/2"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/poll_btn_left"
         android:layout_width="70dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginBottom="50dp"
         android:drawableTop="@drawable/ic_leftarrow"
         app:cornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/poll_txt_qnumber"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/poll_btn_right"
         android:layout_width="70dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="50dp"
         android:drawableTop="@drawable/ic_rightarrow"
         app:cornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/poll_txt_qnumber" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
