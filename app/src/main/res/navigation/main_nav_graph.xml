@@ -32,7 +32,11 @@
         android:id="@+id/fragmentPollQuestion"
         android:name="com.example.appproject.FragmentPollQuestion"
         android:label="Active Poll"
-        tools:layout="@layout/fragment_poll_question" />
+        tools:layout="@layout/fragment_poll_question" >
+        <action
+            android:id="@+id/action_fragmentPollQuestion_to_fragmentPollImage"
+            app:destination="@id/fragmentPollImage" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentMaps"
         android:name="com.example.appproject.feed.FragmentMaps"
@@ -43,4 +47,9 @@
         android:name="com.example.appproject.feed.FragmentFeed"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
+    <fragment
+        android:id="@+id/fragmentPollImage"
+        android:name="com.example.appproject.FragmentPollImage"
+        android:label="fragment_poll_image"
+        tools:layout="@layout/fragment_poll_image" />
 </navigation>

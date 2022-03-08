@@ -142,7 +142,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/userDetails_next_btn"
+        android:id="@+id/feed_btn_map"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
@@ -166,7 +166,7 @@
         android:text="BACK"
         android:textSize="20sp"
         app:cornerRadius="35dp"
-        app:layout_constraintEnd_toStartOf="@+id/userDetails_next_btn"
+        app:layout_constraintEnd_toStartOf="@+id/feed_btn_map"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat3"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="1dp" />

@@ -8,7 +8,7 @@
         />
 
     <!-- This is the border color -->
-    <stroke android:width="4dp" android:color="@color/primeOrng" />
+    <stroke android:width="2dp" android:color="@color/primeOrng" />
 
     - This is the background color
     <!--    <solid android:color="@color/black"-->
