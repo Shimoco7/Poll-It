@@ -4,7 +4,10 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ModelFirebaseDb {
@@ -24,5 +27,20 @@ public class ModelFirebaseDb {
             .document(user.getUid())
             .set(json)
             .addOnSuccessListener(task->saveUserListener.onComplete());
+    }
+
+    public void getUsers(GetUsersListener listener){
+        db.collection(MyApplication.getContext().getString(R.string.users_collection))
+                .get()
+                .addOnCompleteListener(task -> {
+                   List<User> list = new ArrayList<>();
+                   if(task.isSuccessful()){
+                       for(QueryDocumentSnapshot doc : task.getResult()){
+                           User user = User.create(doc.getData());
+                           list.add(user);
+                       }
+                   }
+                   listener.onComplete(list);
+                });
     }
 }

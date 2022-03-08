@@ -4,9 +4,12 @@ package com.example.appproject.model;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -65,10 +68,21 @@ public class Model {
      * Data
      *
      */
-
+    
+    MutableLiveData<List<User>> usersList = new MutableLiveData<>();
+    
     public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
-        modelFirebaseDb.SaveUserOnDb(user,()->{
-           saveUserListener.onComplete();
+        modelFirebaseDb.SaveUserOnDb(user, saveUserListener::onComplete);
+    }
+
+    public LiveData<List<User>> getUsers() {
+        refreshList();
+        return usersList;
+    }
+
+    private void refreshList() {
+        modelFirebaseDb.getUsers(list -> {
+            usersList.postValue(list);
         });
     }
 }

@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/fragmentUserDetails"
         android:name="com.example.appproject.FragmentUserDetails"
-        android:label="Sign In"
+        android:label="Just A Little About You"
         tools:layout="@layout/fragment_user_details" />
     <action
         android:id="@+id/action_global_fragmetnUserDetails"
