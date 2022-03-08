@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/sign_logo"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/feed_img_logo"
         android:layout_width="306dp"
         android:layout_height="160dp"
         android:layout_marginTop="30dp"
@@ -36,7 +36,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/feed_img_logo" />
 
     <TextView
         android:id="@+id/welcome_title2"

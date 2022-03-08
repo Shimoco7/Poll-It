@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:paddingTop="10dp">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/otheruser_txt_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,9 +43,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            "
 
-            <ImageView
+
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/otheruser_img_main"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
@@ -76,7 +76,7 @@
                 android:orientation="horizontal">
 
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/otheruser_txt_imgfact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:textSize="28dp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/otheruser_txt_answer1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,15 +104,22 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                ></Space>
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:background="@drawable/textviewbg"
+                android:padding="5dp"
 
-                android:paddingTop="20dp">
+                >
 
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/otheruser_txt_facts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,15 +127,16 @@
                     android:fontFamily="sans-serif-black"
                     android:gravity="left"
                     android:paddingTop="20dp"
+                    android:paddingLeft="10dp"
                     android:text="Image fact: "
                     android:textColor="@color/white"
                     android:textSize="28dp"
                     android:textStyle="bold" />
 
                 <Space
-                    android:layout_width="0dp"
+                    android:layout_width="50dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1"></Space>
+                    ></Space>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/otheruser_card_factimg"
@@ -136,7 +144,7 @@
                     android:layout_height="120dp"
                     app:cardCornerRadius="20dp">
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/otheruser_img_factimg"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
@@ -156,7 +164,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/otheruser_btn_back"
+            android:id="@+id/feed_btn_home"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -175,3 +183,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+
