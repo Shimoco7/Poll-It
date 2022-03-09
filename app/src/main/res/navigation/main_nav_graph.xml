@@ -13,8 +13,11 @@
             android:id="@+id/action_fragmentHomeScreen_to_fragmentActivePoll"
             app:destination="@id/fragmentActivePoll" />
         <action
-            android:id="@+id/action_fragmentHomeScreen_to_fragmentUserDisplayDetails"
-            app:destination="@id/fragmentUserDisplayDetails" />
+            android:id="@+id/action_fragmentHomeScreen_to_fragmentMaps"
+            app:destination="@id/fragmentMaps" />
+        <action
+            android:id="@+id/action_fragmentHomeScreen_to_fragmentFeed"
+            app:destination="@id/fragmentFeed" />
     </fragment>
     <fragment
         android:id="@+id/fragmentActivePoll"
@@ -26,13 +29,27 @@
             app:destination="@id/fragmentPollQuestion" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentUserDisplayDetails"
-        android:name="com.example.appproject.FragmentUserDisplayDetails"
-        android:label="User Details"
-        tools:layout="@layout/fragment_user_display_details" />
-    <fragment
         android:id="@+id/fragmentPollQuestion"
         android:name="com.example.appproject.FragmentPollQuestion"
         android:label="Active Poll"
-        tools:layout="@layout/fragment_poll_question" />
+        tools:layout="@layout/fragment_poll_question" >
+        <action
+            android:id="@+id/action_fragmentPollQuestion_to_fragmentPollImage"
+            app:destination="@id/fragmentPollImage" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMaps"
+        android:name="com.example.appproject.feed.FragmentMaps"
+        android:label="Maps"
+        tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/fragmentFeed"
+        android:name="com.example.appproject.feed.FragmentFeed"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
+    <fragment
+        android:id="@+id/fragmentPollImage"
+        android:name="com.example.appproject.FragmentPollImage"
+        android:label="fragment_poll_image"
+        tools:layout="@layout/fragment_poll_image" />
 </navigation>

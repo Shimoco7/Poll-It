@@ -24,12 +24,11 @@
     <fragment
         android:id="@+id/fragmentRegister"
         android:name="com.example.appproject.login.FragmentRegister"
-        android:label="Register"
-        tools:layout="@layout/fragment_register" />
+        android:label="Register" />
     <fragment
         android:id="@+id/fragmentUserDetails"
         android:name="com.example.appproject.FragmentUserDetails"
-        android:label="Sign In"
+        android:label="Just A Little About You"
         tools:layout="@layout/fragment_user_details" />
     <action
         android:id="@+id/action_global_fragmetnUserDetails"

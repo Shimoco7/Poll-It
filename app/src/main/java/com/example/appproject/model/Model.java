@@ -4,9 +4,12 @@ package com.example.appproject.model;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -31,8 +34,12 @@ public class Model {
 
     /**
     * Authentication
-     * @return
+     *
      */
+
+    public void createUser(String emailAddress, String password,UserListener userListener) {
+        modelFirebaseAuth.createUser(emailAddress,password,userListener);
+    }
 
     public void signIn(String emailAddress, String password, UserListener userListener) {
         modelFirebaseAuth.signIn(emailAddress,password, userListener);
@@ -43,8 +50,8 @@ public class Model {
     }
 
 
-    public void createUser(String emailAddress, String password,UserListener userListener) {
-        modelFirebaseAuth.createUser(emailAddress,password,userListener);
+    public void signOut() {
+        modelFirebaseAuth.signOut();
     }
 
     public boolean validateEmailAddress(String emailAddress) {
@@ -56,7 +63,26 @@ public class Model {
         return password.matches(regex);
     }
 
-    public void signOut() {
-        modelFirebaseAuth.signOut();
+
+    /**
+     * Data
+     *
+     */
+    
+    MutableLiveData<List<User>> usersList = new MutableLiveData<>();
+    
+    public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
+        modelFirebaseDb.SaveUserOnDb(user, saveUserListener::onComplete);
+    }
+
+    public LiveData<List<User>> getUsers() {
+        refreshList();
+        return usersList;
+    }
+
+    private void refreshList() {
+        modelFirebaseDb.getUsers(list -> {
+            usersList.postValue(list);
+        });
     }
 }
