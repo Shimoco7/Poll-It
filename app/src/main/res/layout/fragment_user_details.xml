@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".FragmentUserDetails">
+    tools:context=".details.FragmentUserDetails">
 
     <ImageView
         android:id="@+id/userDetails_img_main"
@@ -18,6 +18,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--        android:id="@+id/listrow_question_et"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:background="@drawable/custom_input"-->
+    <!--        android:drawablePadding="14dp"-->
+    <!--        android:fontFamily="sans-serif-light"-->
+    <!--        android:inputType="text"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:paddingStart="12dp"-->
+    <!--        android:paddingEnd="12dp"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/listrow_question_sp"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        android:textSize="18sp"-->
+    <!--        android:textStyle="bold" />-->
+
     <TextView
         android:id="@+id/homeScr_text_title"
         android:layout_width="350dp"
@@ -25,57 +42,85 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:text="Please insert the following details"
+        android:text="Please enter the following details:"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userDetails_img_main" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/details_list_rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/userDetails_btn_back"
+        android:layout_width="402dp"
+        android:layout_height="211dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_title" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/userDetails_next_btn"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
         android:fontFamily="sans-serif-black"
         android:text="NEXT"
         android:textSize="20sp"
         app:cornerRadius="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_ti" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/userDetails_btn_back"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
+        android:layout_width="88dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
         android:backgroundTint="@color/black"
         android:fontFamily="sans-serif"
         android:text="BACK"
         android:textSize="20sp"
         app:cornerRadius="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/userDetails_next_btn"
-        app:layout_constraintHorizontal_bias="0.941"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_ti"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="1dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/details_ti"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="map.."
+        android:textColorHint="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/details_list_rv"
+        tools:layout_editor_absoluteX="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/listrow_question_et"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input"
+            android:drawablePadding="14dp"
+            android:fontFamily="sans-serif-light"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/details_ti"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

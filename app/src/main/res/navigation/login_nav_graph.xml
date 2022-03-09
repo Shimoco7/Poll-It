@@ -27,7 +27,7 @@
         android:label="Register" />
     <fragment
         android:id="@+id/fragmentUserDetails"
-        android:name="com.example.appproject.FragmentUserDetails"
+        android:name="com.example.appproject.details.FragmentUserDetails"
         android:label="Just A Little About You"
         tools:layout="@layout/fragment_user_details" />
     <action
