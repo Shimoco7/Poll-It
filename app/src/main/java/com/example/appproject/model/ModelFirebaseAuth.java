@@ -1,7 +1,10 @@
 package com.example.appproject.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
@@ -13,7 +16,26 @@ import com.google.firebase.auth.FirebaseUser;
 public class ModelFirebaseAuth {
 
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseAuth.AuthStateListener authStateListener;
     Context appContext = MyApplication.getContext();
+
+    public ModelFirebaseAuth() {
+        setAuthStateListener();
+    }
+
+    private void setAuthStateListener() {
+        authStateListener = firebaseAuth -> {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            String uid = firebaseUser.getUid();
+            appContext.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                    .edit()
+                    .putString("firebasekey",uid)
+                    .apply();
+            }
+        };
+        mAuth.addAuthStateListener(authStateListener);
+    }
 
     public boolean isSignedIn(){
         FirebaseUser currentUser = mAuth.getCurrentUser();

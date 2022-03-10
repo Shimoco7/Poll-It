@@ -1,5 +1,8 @@
 package com.example.appproject.model;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.user.GetUsersListener;
@@ -34,6 +37,7 @@ public class ModelFirebaseDb {
 
     public void getUsers(GetUsersListener listener){
         db.collection(MyApplication.getContext().getString(R.string.users_collection))
+                .whereNotEqualTo("uid",MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey",""))
                 .get()
                 .addOnCompleteListener(task -> {
                    List<User> list = new ArrayList<>();
