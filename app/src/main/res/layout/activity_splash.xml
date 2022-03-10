@@ -4,43 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1c1b1b"
     tools:context=".login.SplashActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitXY"
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/splash_gif_logo"
+        android:layout_width="411dp"
+        android:layout_height="234dp"
+        android:background="@color/logoBack"
+        android:src="@drawable/small_logo_gif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background_intro" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/splash_txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Poll-It"
-        android:textColor="#FDFAFA"
-        android:textSize="34sp"
-        android:typeface="serif"
-        android:shadowColor="#FFFFFF"
-        android:shadowRadius="5"
-        android:shadowDx="4"
-        android:shadowDy="4"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="@string/poll_it"
+        android:textColor="#FFFFFF"
+        android:textSize="65dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/splash_gif_logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="413dp"
-        android:layout_height="160dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/splash_txt_lowtitle"
+        android:layout_width="376dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="@string/let_s_earn_together"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo_no_bg" />
+        app:layout_constraintTop_toBottomOf="@+id/splash_gif_logo" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
