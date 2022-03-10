@@ -21,6 +21,7 @@ import android.widget.Button;
 import com.example.appproject.MainActivity;
 import com.example.appproject.R;
 import com.example.appproject.feed.FeedViewModel;
+import com.example.appproject.model.Detail;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -34,7 +35,6 @@ public class FragmentUserDetails extends Fragment {
     Button finishBtn;
     LinkedHashMap<String, ArrayList<String>> detailsQuestions; //for tests
     DetailsViewModel detailsViewModel;
-    LinkedHashMap<String, String> detailsAnswers;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -46,14 +46,16 @@ public class FragmentUserDetails extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
-        detailsQuestions =detailsViewModel.getQuestions();
+        detailsQuestions =getQuestions();
+        Log.d("TAG", "size: "+detailsQuestions.size());
+
         RecyclerView list = view.findViewById(R.id.details_list_rv);
         list.setHasFixedSize(true);
 
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         DetailsAdapter detailsAdapter = new DetailsAdapter(this);
         list.setAdapter(detailsAdapter);
-        detailsAdapter.setOnItemClickListener(position -> Log.d("TAG", "row was clicked "+position));
+       // detailsAdapter.setOnItemClickListener(position -> Log.d("TAG", "row was clicked "+position));
         finishBtn = view.findViewById(R.id.userDetails_next_btn);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         finishBtn.setOnClickListener(v -> {
@@ -74,6 +76,15 @@ public class FragmentUserDetails extends Fragment {
 
     interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    public LinkedHashMap<String, ArrayList<String>> getQuestions() {
+        ArrayList<Detail> arrayList = detailsViewModel.getDetails();
+        detailsQuestions = new LinkedHashMap<>();
+        for (Detail detail : arrayList) {
+            detailsQuestions.put(detail.getQuestion(), detail.getAnswers());
+        }
+        return detailsQuestions;
     }
 
 }

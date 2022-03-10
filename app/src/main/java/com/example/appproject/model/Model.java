@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -70,6 +71,7 @@ public class Model {
      */
     
     MutableLiveData<List<User>> usersList = new MutableLiveData<>();
+    ArrayList<Detail> detailsList = new ArrayList<>();
     
     public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
         modelFirebaseDb.SaveUserOnDb(user, saveUserListener::onComplete);
@@ -78,6 +80,13 @@ public class Model {
     public LiveData<List<User>> getUsers() {
         refreshList();
         return usersList;
+    }
+
+    public ArrayList<Detail> getDetails() {
+        detailsList.add(new Detail("TEST1"));
+        detailsList.add(new Detail("TEST2"));
+        detailsList.add(new Detail("TEST3"));
+        return detailsList;
     }
 
     private void refreshList() {
