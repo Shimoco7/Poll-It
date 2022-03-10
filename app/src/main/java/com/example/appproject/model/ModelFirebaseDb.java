@@ -54,7 +54,7 @@ public class ModelFirebaseDb {
     }
 
 
-    public void SaveUserOnDb(Detail detail, SaveDetailListener saveDetailListener) {
+    public void SaveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
         Map<String,Object> json = detail.toJson();
         db.collection(MyApplication.getContext().getString(R.string.details_collection))
                 .document(detail.getUid())
