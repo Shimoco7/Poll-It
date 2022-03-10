@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
-import com.example.appproject.model.Detail;
+import com.example.appproject.model.detail.Detail;
 
 import java.util.Objects;
 interface OnItemClickListener{

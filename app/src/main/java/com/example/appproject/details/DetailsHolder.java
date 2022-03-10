@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
-import com.example.appproject.model.Detail;
+import com.example.appproject.model.detail.Detail;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class DetailsHolder extends RecyclerView.ViewHolder {

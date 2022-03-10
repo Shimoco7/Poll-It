@@ -1,10 +1,12 @@
 package com.example.appproject.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.detail.GetDetailsListener;
+import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -48,6 +50,31 @@ public class ModelFirebaseDb {
                        }
                    }
                    listener.onComplete(list);
+                });
+    }
+
+
+    public void SaveUserOnDb(Detail detail, SaveDetailListener saveDetailListener) {
+        Map<String,Object> json = detail.toJson();
+        db.collection(MyApplication.getContext().getString(R.string.details_collection))
+                .document(detail.getUid())
+                .set(json)
+                .addOnSuccessListener(task->saveDetailListener.onComplete());
+    }
+
+    public void getDetails(GetDetailsListener listener){
+        db.collection(MyApplication.getContext().getString(R.string.details_collection))
+                .whereNotEqualTo("uid",MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey",""))
+                .get()
+                .addOnCompleteListener(task -> {
+                    List<Detail> list = new ArrayList<>();
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot doc : task.getResult()){
+                            Detail detail = Detail.create(doc.getData());
+                            list.add(detail);
+                        }
+                    }
+                    listener.onComplete(list);
                 });
     }
 }

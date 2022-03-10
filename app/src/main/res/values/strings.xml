@@ -29,6 +29,7 @@
 
     <!--Collection Strings-->
     <string name="users_collection">users</string>
+    <string name="details_collection">details</string>
     <string name="upload">UPLOAD</string>
     <string name="last_one">LAST ONE</string>
     <string name="finish">FINISH</string>

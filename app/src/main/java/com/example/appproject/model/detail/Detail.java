@@ -1,11 +1,14 @@
-package com.example.appproject.model;
+package com.example.appproject.model.detail;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -76,6 +79,15 @@ public class Detail {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public Map<String,Object> toJson(){
+        Map<String,Object> json = new HashMap<>();
+        json.put("uid",uid);
+        json.put("personal_question",question);
+        json.put("optional_questions", new JSONArray(answers));
+        json.put("final_answers",finalAnswer);
+        return json;
     }
 
 }
