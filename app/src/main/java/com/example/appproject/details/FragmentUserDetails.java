@@ -18,10 +18,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.appproject.MainActivity;
 import com.example.appproject.R;
+import com.example.appproject.model.Detail;
 import com.example.appproject.model.Model;
+
+import java.util.ArrayList;
 
 public class FragmentUserDetails extends Fragment {
     Button finishBtn;
@@ -58,11 +62,31 @@ public class FragmentUserDetails extends Fragment {
         finishBtn = view.findViewById(R.id.userDetails_next_btn);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         finishBtn.setOnClickListener(v -> {
+            ArrayList<String> error = new ArrayList<>();
+            for (Detail detail: detailsViewModel.getDetails()){
+                if(detail.getFinalAnswer()==""){
+                    error.add("Please fill all the details first");
+                    showToast(error);
+                    return;
+                }
+
+            }
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
             getActivity().finish();
         });
         return view;
+    }
+
+
+    private void showToast(ArrayList<String> errors) {
+        StringBuilder message = new StringBuilder();
+        for(String error : errors){
+            message.append(error);
+            message.append("\n");
+        }
+        Toast.makeText(getActivity(), message.toString().trim(),
+                Toast.LENGTH_LONG).show();
     }
 
 
