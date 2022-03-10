@@ -14,6 +14,7 @@ import com.example.appproject.model.user.UsersListLoadingState;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -72,13 +73,13 @@ public class Model {
 
 
     /**
-     * Data
+     * Data - User
      *
      */
     
     MutableLiveData<List<User>> usersList = new MutableLiveData<>();
     MutableLiveData<UsersListLoadingState> usersListLoadingState = new MutableLiveData<>();
-
+    
     public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
         modelFirebaseDb.SaveUserOnDb(user, saveUserListener::onComplete);
     }
@@ -109,4 +110,18 @@ public class Model {
     public MutableLiveData<UsersListLoadingState> getUsersListLoadingState() {
         return usersListLoadingState;
     }
+
+    /**
+     * Data - User Details
+     *
+     */
+    ArrayList<Detail> detailsList = new ArrayList<>();
+
+    public ArrayList<Detail> getDetails() {
+        detailsList.add(new Detail("TEST1"));
+        detailsList.add(new Detail("TEST2"));
+        detailsList.add(new Detail("TEST3"));
+        return detailsList;
+    }
+
 }
