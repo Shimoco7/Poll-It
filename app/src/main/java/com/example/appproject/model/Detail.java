@@ -15,6 +15,7 @@ public class Detail {
     @NonNull
     String uid;
     String question;
+    String finalAnswer;
     ArrayList<String> answers;
 
     public Detail() { }
@@ -24,6 +25,7 @@ public class Detail {
         this.uid = uid;
         setQuestion(uid);
         answers = new ArrayList<>();
+        finalAnswer = "";
         answers.add("answer1");
         answers.add("answer2");
         answers.add("answer3");
@@ -53,6 +55,13 @@ public class Detail {
         this.uid = uid;
     }
 
+    public String getFinalAnswer() {
+        return finalAnswer;
+    }
+    public void setFinalAnswer(String finalAnswer) {
+        this.finalAnswer = finalAnswer;
+    }
+
     public ArrayList<String> getAnswers() {
         return answers;
     }
@@ -63,6 +72,7 @@ public class Detail {
     public String getQuestion() {
         return question;
     }
+
 
     public void setQuestion(String question) {
         this.question = question;
