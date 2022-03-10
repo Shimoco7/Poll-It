@@ -24,13 +24,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/sign_pollit_title"
+        android:id="@+id/splash_txt_title"
         android:layout_width="155dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:fontFamily="sans-serif-black"
-        android:text="POLL IT"
-        android:textAlignment="center"
+        android:text="@string/poll_it"
+        android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -39,19 +39,20 @@
         app:layout_constraintTop_toBottomOf="@+id/feed_img_logo" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/welcome_title2"
+        android:id="@+id/splash_txt_lowtitle"
         android:layout_width="376dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-black"
-        android:text="Let's Earn Together"
+        android:text="@string/let_s_earn_together"
         android:textAlignment="center"
+        android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_pollit_title" />
+        app:layout_constraintTop_toBottomOf="@+id/splash_txt_title" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/welcome_sign_in_btn"
@@ -63,7 +64,7 @@
         app:cornerRadius="37sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_title2" />
+        app:layout_constraintTop_toBottomOf="@+id/splash_txt_lowtitle" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/welcome_register_btn"

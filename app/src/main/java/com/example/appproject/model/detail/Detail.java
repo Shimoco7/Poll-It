@@ -1,11 +1,14 @@
-package com.example.appproject.model;
+package com.example.appproject.model.detail;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -15,6 +18,7 @@ public class Detail {
     @NonNull
     String uid;
     String question;
+    String finalAnswer;
     ArrayList<String> answers;
 
     public Detail() { }
@@ -24,6 +28,7 @@ public class Detail {
         this.uid = uid;
         setQuestion(uid);
         answers = new ArrayList<>();
+        finalAnswer = "";
         answers.add("answer1");
         answers.add("answer2");
         answers.add("answer3");
@@ -53,6 +58,13 @@ public class Detail {
         this.uid = uid;
     }
 
+    public String getFinalAnswer() {
+        return finalAnswer;
+    }
+    public void setFinalAnswer(String finalAnswer) {
+        this.finalAnswer = finalAnswer;
+    }
+
     public ArrayList<String> getAnswers() {
         return answers;
     }
@@ -64,8 +76,18 @@ public class Detail {
         return question;
     }
 
+
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public Map<String,Object> toJson(){
+        Map<String,Object> json = new HashMap<>();
+        json.put("uid",uid);
+        json.put("personal_question",question);
+        json.put("optional_questions", new JSONArray(answers));
+        json.put("final_answers",finalAnswer);
+        return json;
     }
 
 }

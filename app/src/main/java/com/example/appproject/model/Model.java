@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.appproject.MyApplication;
+import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserListener;
@@ -130,9 +131,11 @@ public class Model {
     ArrayList<Detail> detailsList = new ArrayList<>();
 
     public ArrayList<Detail> getDetails() {
+        detailsList = new ArrayList<>();
         detailsList.add(new Detail("TEST1"));
         detailsList.add(new Detail("TEST2"));
         detailsList.add(new Detail("TEST3"));
+
         return detailsList;
     }
 

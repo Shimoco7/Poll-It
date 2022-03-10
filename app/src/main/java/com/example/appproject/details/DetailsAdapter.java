@@ -1,74 +1,55 @@
 package com.example.appproject.details;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.detail.Detail;
 
-class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder> {
-    private final FragmentUserDetails fragmentUserDetails;
-    FragmentUserDetails.OnItemClickListener listener;
+import java.util.Objects;
+interface OnItemClickListener{
+    void onItemClick(int position);
+}
+public class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder>{
 
-    //TODO - extract fragment out of adapter and initialize layoutInflater in the Constructor
-    public DetailsAdapter(FragmentUserDetails fragmentUserDetails) {
-        this.fragmentUserDetails = fragmentUserDetails;
-    }
+    DetailsViewModel detailsViewModel;
+    LayoutInflater layoutInflater;
+    OnItemClickListener listener;
 
-    public void setOnItemClickListener(FragmentUserDetails.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
+    }
+    public DetailsAdapter(DetailsViewModel feedViewModel,LayoutInflater layoutInflater) {
+        this.detailsViewModel = feedViewModel;
+        this.layoutInflater = layoutInflater;
     }
 
 
     @NonNull
     @Override
     public DetailsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = fragmentUserDetails.getLayoutInflater().inflate(R.layout.details_list_row, parent, false);
-        DetailsHolder detailsHolder = new DetailsHolder(view, listener);
-        return detailsHolder;
+        LayoutInflater inflater = (LayoutInflater) MyApplication.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.details_list_row,parent,false);
+        return new DetailsHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DetailsHolder detailsHolder, int position) {
-        if(fragmentUserDetails.detailsQuestions.size()!=0) {
-            String detail = (String) fragmentUserDetails.detailsQuestions.keySet().toArray()[position];
-            fragmentUserDetails.detailsQuestions.get(detail).add(0,detail);
-            String[] array = fragmentUserDetails.detailsQuestions.get(detail).toArray(new String[0]);
-            ArrayAdapter adapter = new ArrayAdapter<String>(fragmentUserDetails.getContext(), R.layout.spinner_item, array){
-                @Override
-                public boolean isEnabled(int position) {
-                    if (position == 0) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                @Override
-                public View getDropDownView(int position, View convertView,
-                                            ViewGroup parent) {
-                    View view = super.getDropDownView(position, convertView, parent);
-                    TextView tv = (TextView) view;
-                    if (position == 0) {
-                        // Set the hint text color gray
-                        tv.setTextColor(Color.GRAY);
-                    } else {
-                        tv.setTextColor(Color.WHITE);
-                    }
-                    return view;
-                }};
-            detailsHolder.questionSp.setAdapter(adapter);
-            adapter.setDropDownViewResource(R.layout.spinner_item);
-
-        }
+    public void onBindViewHolder(@NonNull DetailsHolder holder, int position) {
+        Detail detail = Objects.requireNonNull(detailsViewModel.getDetails()).get(position);
+        holder.bind(detail);
     }
 
     @Override
     public int getItemCount() {
-        return fragmentUserDetails.detailsQuestions.size();
+        if(detailsViewModel.getDetails() == null){
+            return 0;
+        }
+        return detailsViewModel.getDetails().size();
     }
 }
