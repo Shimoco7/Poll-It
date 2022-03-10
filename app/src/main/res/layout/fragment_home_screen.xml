@@ -9,7 +9,7 @@
     app:strokeColor="@color/stroke_color">
     tools:context=".FragmentHomeScreen">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/homeScreen_logo"
         android:layout_width="306dp"
         android:layout_height="160dp"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/homeScr_text_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/homeScr_text_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         app:layout_constraintStart_toEndOf="@+id/homeScr_text_title"
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/homescr_btn_line"
         android:layout_width="350dp"
         android:layout_height="10dp"
@@ -63,76 +63,85 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homescr_btn_feed" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/homescr_btn_poll"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        app:cardBackgroundColor="@color/primeOrng"
-        app:cardCornerRadius="20dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="376dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line"
-        app:strokeWidth="2dp">
+        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/homescr_btn_poll"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/primeOrng"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="2dp">
 
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="5dp"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_poll"
-
-                />
-
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@color/primeOrng"
-                android:orientation="horizontal"
-                android:paddingRight="8dp"
-                android:paddingLeft="8dp">
+                android:orientation="vertical"
+                android:paddingTop="5dp">
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="36dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:padding="2dp"
-                    android:text="@string/first_poll"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
 
-                    android:textStyle="bold" />
-
-                <TextView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="right|center_horizontal"
-                    android:padding="2dp"
-                    android:text="0/2"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="@color/white"
-                    android:textSize="12dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_height="45dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_poll" />
 
-    </com.google.android.material.card.MaterialCardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:background="@color/primeOrng"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
 
-    <Button
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="50dp"
+                        android:layout_height="36dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:padding="2dp"
+                        android:text="@string/first_poll"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="right|center_horizontal"
+                        android:padding="2dp"
+                        android:text="0/2"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="@color/white"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/homescr_btn_feed"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="100dp"
         android:layout_marginStart="68dp"
         android:layout_marginTop="20dp"
@@ -140,22 +149,24 @@
         android:drawableBottom="@drawable/ic_feed"
         android:fontFamily="sans-serif-medium"
         android:text="FEED"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeScr_text_name"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/homescr_btn_map"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="70dp"
         android:backgroundTint="@color/primeRed"
         android:drawableBottom="@drawable/ic_map"
         android:fontFamily="sans-serif-medium"
-        android:text="MAP"
+        android:textSize="20dp"
+        android:text="@string/map"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeScr_text_name"

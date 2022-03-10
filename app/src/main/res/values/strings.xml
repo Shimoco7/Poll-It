@@ -32,5 +32,6 @@
     <string name="upload">UPLOAD</string>
     <string name="last_one">LAST ONE</string>
     <string name="finish">FINISH</string>
+    <string name="map">MAP</string>
 
 </resources>
