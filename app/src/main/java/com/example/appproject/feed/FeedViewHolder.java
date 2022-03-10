@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
-import com.example.appproject.model.User;
+import com.example.appproject.model.user.User;
 
 public class FeedViewHolder extends RecyclerView.ViewHolder {
 

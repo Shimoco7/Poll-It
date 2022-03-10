@@ -1,4 +1,4 @@
-package com.example.appproject.model;
+package com.example.appproject.model.user;
 
 import com.google.firebase.auth.FirebaseUser;
 

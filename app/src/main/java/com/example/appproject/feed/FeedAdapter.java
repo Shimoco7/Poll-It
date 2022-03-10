@@ -1,19 +1,16 @@
 package com.example.appproject.feed;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
-import com.example.appproject.model.User;
+import com.example.appproject.model.user.User;
 
 import java.util.Objects;
 
@@ -47,7 +44,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder>{
         if(feedViewModel.getUsers().getValue() == null){
             return 0;
         }
-        Log.d("TAG",String.valueOf(feedViewModel.getUsers().getValue().size()));
         return feedViewModel.getUsers().getValue().size();
     }
 }

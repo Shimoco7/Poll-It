@@ -1,4 +1,6 @@
-package com.example.appproject.model;
+package com.example.appproject.model.user;
+
+import com.example.appproject.model.user.User;
 
 import java.util.List;
 

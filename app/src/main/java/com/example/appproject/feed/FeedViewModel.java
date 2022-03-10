@@ -1,12 +1,10 @@
 package com.example.appproject.feed;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appproject.model.Model;
-import com.example.appproject.model.User;
+import com.example.appproject.model.user.User;
 
 import java.util.List;
 

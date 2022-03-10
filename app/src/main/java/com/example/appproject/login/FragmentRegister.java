@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
-import com.example.appproject.model.User;
+import com.example.appproject.model.user.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

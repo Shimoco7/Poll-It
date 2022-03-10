@@ -7,6 +7,11 @@ import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.appproject.model.user.SaveUserListener;
+import com.example.appproject.model.user.User;
+import com.example.appproject.model.user.UserListener;
+import com.example.appproject.model.user.UsersListLoadingState;
+
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.List;
@@ -22,7 +27,9 @@ public class Model {
     Executor executor = Executors.newSingleThreadExecutor();
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    private Model(){}
+    private Model(){
+        usersListLoadingState.setValue(UsersListLoadingState.loaded);
+    }
 
     public Executor getExecutor() {
         return executor;
@@ -37,7 +44,7 @@ public class Model {
      *
      */
 
-    public void createUser(String emailAddress, String password,UserListener userListener) {
+    public void createUser(String emailAddress, String password, UserListener userListener) {
         modelFirebaseAuth.createUser(emailAddress,password,userListener);
     }
 
@@ -70,19 +77,36 @@ public class Model {
      */
     
     MutableLiveData<List<User>> usersList = new MutableLiveData<>();
-    
+    MutableLiveData<UsersListLoadingState> usersListLoadingState = new MutableLiveData<>();
+
     public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
         modelFirebaseDb.SaveUserOnDb(user, saveUserListener::onComplete);
     }
 
     public LiveData<List<User>> getUsers() {
-        refreshList();
+        if(usersList.getValue() == null){
+            refreshList();
+        }
         return usersList;
     }
 
-    private void refreshList() {
-        modelFirebaseDb.getUsers(list -> {
-            usersList.postValue(list);
+    public void refreshList() {
+        usersListLoadingState.setValue(UsersListLoadingState.loading);
+        executor.execute(()->{
+            usersList.postValue(AppLocalDb.db.userDao().getAll().getValue());
         });
+        modelFirebaseDb.getUsers(list -> {
+            executor.execute(()->{
+                for(User user : list){
+                    AppLocalDb.db.userDao().insertAll(user);
+                }
+                usersList.postValue(list);
+                usersListLoadingState.postValue(UsersListLoadingState.loaded);
+            });
+        });
+    }
+
+    public MutableLiveData<UsersListLoadingState> getUsersListLoadingState() {
+        return usersListLoadingState;
     }
 }

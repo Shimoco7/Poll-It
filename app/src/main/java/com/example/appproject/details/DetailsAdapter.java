@@ -15,6 +15,7 @@ class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder> {
     private final FragmentUserDetails fragmentUserDetails;
     FragmentUserDetails.OnItemClickListener listener;
 
+    //TODO - extract fragment out of adapter and initialize layoutInflater in the Constructor
     public DetailsAdapter(FragmentUserDetails fragmentUserDetails) {
         this.fragmentUserDetails = fragmentUserDetails;
     }

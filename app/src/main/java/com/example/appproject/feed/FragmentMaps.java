@@ -34,7 +34,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         initMap();
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+        return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
     private void initMap(){

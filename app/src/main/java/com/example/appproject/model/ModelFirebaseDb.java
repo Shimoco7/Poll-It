@@ -2,6 +2,9 @@ package com.example.appproject.model;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.user.GetUsersListener;
+import com.example.appproject.model.user.SaveUserListener;
+import com.example.appproject.model.user.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;

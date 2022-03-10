@@ -5,11 +5,10 @@ import android.util.Log;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.user.UserListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Objects;
 
 public class ModelFirebaseAuth {
 
@@ -21,7 +20,7 @@ public class ModelFirebaseAuth {
         return currentUser != null;
     }
 
-    public void createUser(String emailAddress, String password,UserListener userListener) {
+    public void createUser(String emailAddress, String password, UserListener userListener) {
         Model.instance.getExecutor().execute(()->{
             mAuth.createUserWithEmailAndPassword(emailAddress, password)
                     .addOnCompleteListener(task -> {
