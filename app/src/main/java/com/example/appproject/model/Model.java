@@ -1,12 +1,16 @@
 package com.example.appproject.model;
 
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
+
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.appproject.MyApplication;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserListener;
@@ -93,18 +97,26 @@ public class Model {
 
     public void refreshList() {
         usersListLoadingState.setValue(UsersListLoadingState.loading);
+        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getLong("users_list_last_update_date",0);
+        //Show current cache users
         executor.execute(()->{
-            usersList.postValue(AppLocalDb.db.userDao().getAll().getValue());
+            usersList.postValue(AppLocalDb.db.userDao().getAll());
         });
         modelFirebaseDb.getUsers(list -> {
             executor.execute(()->{
+                Long lud = 0L;
                 for(User user : list){
                     AppLocalDb.db.userDao().insertAll(user);
+                    if(lud<user.getLastUpdateDate()){
+                        lud = user.getLastUpdateDate();
+                    }
                 }
-                usersList.postValue(list);
+                //Update App User's List last update date
+                MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong("users_list_last_update_date",lud).apply();
+                usersList.postValue(AppLocalDb.db.userDao().getAll());
                 usersListLoadingState.postValue(UsersListLoadingState.loaded);
             });
-        });
+        },lastUpdateDate);
     }
 
     public MutableLiveData<UsersListLoadingState> getUsersListLoadingState() {

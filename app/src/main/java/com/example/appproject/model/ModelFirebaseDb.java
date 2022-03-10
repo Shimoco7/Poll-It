@@ -8,6 +8,7 @@ import com.example.appproject.R;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -35,16 +36,18 @@ public class ModelFirebaseDb {
             .addOnSuccessListener(task->saveUserListener.onComplete());
     }
 
-    public void getUsers(GetUsersListener listener){
+    public void getUsers(GetUsersListener listener, Long lastUpdateDate){
         db.collection(MyApplication.getContext().getString(R.string.users_collection))
-                .whereNotEqualTo("uid",MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey",""))
+                .whereGreaterThanOrEqualTo("update_date",new Timestamp(lastUpdateDate,0))
                 .get()
                 .addOnCompleteListener(task -> {
                    List<User> list = new ArrayList<>();
                    if(task.isSuccessful()){
                        for(QueryDocumentSnapshot doc : task.getResult()){
                            User user = User.create(doc.getData());
-                           list.add(user);
+                           if(!user.getUid().equals(MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey", ""))){
+                               list.add(user);
+                           }
                        }
                    }
                    listener.onComplete(list);

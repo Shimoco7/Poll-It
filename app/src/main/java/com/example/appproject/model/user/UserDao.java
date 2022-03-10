@@ -15,10 +15,10 @@ import java.util.List;
 public interface UserDao {
 
     @Query("SELECT * FROM User")
-    LiveData<List<User>> getAll();
+    List<User> getAll();
 
     @Query("SELECT * FROM user WHERE uid = :uid")
-    LiveData<User> loadUserById(String uid);
+    User loadUserById(String uid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(User... users);

@@ -5,6 +5,9 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +20,14 @@ public class User {
     String fullName;
     String location;
     String profilePicUrl;
+    Long lastUpdateDate;
 
     public User() { }
 
     @Ignore
     public User(@NonNull String uid) {
         this.uid = uid;
+        lastUpdateDate = 0L;
         //TODO - delete default values
         setFullName("Israel Israeli");
         setLocation("Akko");
@@ -36,11 +41,24 @@ public class User {
         String uid = (String) data.get("uid");
         String fullName = (String) data.get("full_name");
         String location = (String) data.get("location");
+        Timestamp ts = (Timestamp) data.get("update_date");
+        assert ts != null;
+        Long lastUpdateDate = ts.getSeconds();
 
         User user = new User(uid);
         user.setFullName(fullName);
         user.setLocation(location);
+        user.setLastUpdateDate(lastUpdateDate);
         return user;
+    }
+
+    public Map<String,Object> toJson(){
+        Map<String,Object> json = new HashMap<>();
+        json.put("uid",uid);
+        json.put("full_name",fullName);
+        json.put("location",location);
+        json.put("update_date", FieldValue.serverTimestamp());
+        return json;
     }
 
     @NonNull
@@ -76,12 +94,12 @@ public class User {
         this.profilePicUrl = profilePicUrl;
     }
 
-    public Map<String,Object> toJson(){
-        Map<String,Object> json = new HashMap<>();
-        json.put("uid",uid);
-        json.put("full_name",fullName);
-        json.put("location",location);
-        return json;
+    public Long getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Long lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 
 }
