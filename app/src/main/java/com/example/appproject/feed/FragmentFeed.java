@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,10 +45,15 @@ public class FragmentFeed extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         feedAdapter = new FeedAdapter(feedViewModel,getLayoutInflater());
         list.setAdapter(feedAdapter);
+        feedAdapter.setOnItemClickListener((v,pos)->{
+            String userId = feedViewModel.getUsers().getValue().get(pos).getUid();
+            Log.d("TAG",userId);
+        });
 
         swipeRefresh.setOnRefreshListener(Model.instance::refreshList);
         feedViewModel.getUsers().observe(getViewLifecycleOwner(),usersList->refresh());
         observeUserLoadingState();
+        Model.instance.refreshList();
 
         return view;
     }

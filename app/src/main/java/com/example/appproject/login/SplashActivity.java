@@ -26,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
                 Model.instance.getMainThread().post(this::toFeedActivity);
             }
             else{
+                Model.instance.clearCaches();
                 Model.instance.getMainThread().post(this::toLoginActivity);
             }
         });

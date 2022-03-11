@@ -77,6 +77,13 @@ public class Model {
         return password.matches(regex);
     }
 
+    //TODO-async
+    public void clearCaches() {
+        executor.execute(()->{
+            AppLocalDb.db.clearAllTables();
+            MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong("users_list_last_update_date",0).apply();
+        });
+    }
 
     /**
      * Data - User
@@ -91,9 +98,6 @@ public class Model {
     }
 
     public LiveData<List<User>> getUsers() {
-        if(usersList.getValue() == null){
-            refreshList();
-        }
         return usersList;
     }
 

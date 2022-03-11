@@ -18,6 +18,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder>{
 
     FeedViewModel feedViewModel;
     LayoutInflater layoutInflater;
+    OnItemClickListener onItemClickListener;
 
     public FeedAdapter(FeedViewModel feedViewModel,LayoutInflater layoutInflater) {
         this.feedViewModel = feedViewModel;
@@ -30,7 +31,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder>{
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) MyApplication.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.feed_row,parent,false);
-        return new FeedViewHolder(view);
+        return new FeedViewHolder(view,onItemClickListener);
     }
 
     @Override
@@ -45,5 +46,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder>{
             return 0;
         }
         return feedViewModel.getUsers().getValue().size();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }
