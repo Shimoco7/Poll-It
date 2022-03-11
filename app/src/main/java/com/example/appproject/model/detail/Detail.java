@@ -26,6 +26,7 @@ public class Detail {
     @Ignore
     public Detail(@NonNull String question) {
         this.question = question;
+        this.uid = "";
         answers = new ArrayList<>();
         if (question=="Education-Level") {
             answers.add("Preschool");
@@ -44,6 +45,12 @@ public class Detail {
                 answers.add(Integer.toString(i));
             }
         }
+    }
+
+    public Detail(@NonNull String question, String uid, String finalAnswer) {
+        this.question = question;
+        this.uid = uid;
+        this.finalAnswer = finalAnswer;
     }
 
     /**

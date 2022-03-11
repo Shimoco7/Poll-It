@@ -21,8 +21,11 @@ import android.widget.Toast;
 
 import com.example.appproject.BuildConfig;
 import com.example.appproject.MainActivity;
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.user.User;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -33,10 +36,12 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class FragmentUserDetails extends Fragment {
     Button finishBtn;
-    TextInputLayout nameTv;
+    EditText nameEt;
+    TextInputLayout nameTi;
     DetailsViewModel detailsViewModel;
     DetailsAdapter detailsAdapter;
     RecyclerView list;
@@ -55,9 +60,8 @@ public class FragmentUserDetails extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
         list = view.findViewById(R.id.details_list_rv);
-
-        nameTv = view.findViewById(R.id.details_ti);
-
+        nameEt = view.findViewById(R.id.details_name_et);
+        nameTi= view.findViewById(R.id.details_ti);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel,getLayoutInflater());
@@ -82,6 +86,12 @@ public class FragmentUserDetails extends Fragment {
                 }
 
             }
+            if(nameEt.getText().toString().trim()=="" || nameEt.getText()==null){
+                error.add("Please fill your full name");
+                showToast(error);
+                return;
+            }
+            Model.instance.createDetail(nameTi.getHint().toString().trim(), MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey", ""),nameEt.getText().toString().trim());
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
             getActivity().finish();
