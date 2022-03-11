@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.appproject.BuildConfig;
@@ -28,12 +29,14 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FragmentUserDetails extends Fragment {
     Button finishBtn;
+    TextInputLayout nameTv;
     DetailsViewModel detailsViewModel;
     DetailsAdapter detailsAdapter;
     RecyclerView list;
@@ -52,6 +55,8 @@ public class FragmentUserDetails extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
         list = view.findViewById(R.id.details_list_rv);
+
+        nameTv = view.findViewById(R.id.details_ti);
 
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
