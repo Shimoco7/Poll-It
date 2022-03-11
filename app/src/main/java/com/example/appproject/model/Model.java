@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserListener;
@@ -117,6 +118,11 @@ public class Model {
      *
      */
     ArrayList<Detail> detailsList = new ArrayList<>();
+
+
+    public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
+        modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener::onComplete);
+    }
 
     public ArrayList<Detail> getDetails() {
         detailsList = new ArrayList<>();

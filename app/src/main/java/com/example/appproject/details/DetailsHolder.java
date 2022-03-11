@@ -10,8 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
+import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.user.User;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class DetailsHolder extends RecyclerView.ViewHolder {
 
@@ -34,8 +39,8 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
         answersAc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String starttext=(String)adapterView.getItemAtPosition(i);
-                detail.setFinalAnswer(starttext);
+                String answer=(String)adapterView.getItemAtPosition(i);
+                detail.setFinalAnswer(answer);
                 Log.d("TAG", detail.getFinalAnswer());
             }
         });
