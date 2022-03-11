@@ -68,7 +68,7 @@ public class FragmentRegister extends Fragment {
 
             Model.instance.createUser(email.getText().toString().trim(),password.getText().toString().trim(), (user, message)->{
                 if(user!=null){
-                    User u = new User(user.getUid());
+                    User u = new User(user.getUid(),email.getText().toString().trim());
                     Model.instance.saveUserOnDb(u, this::afterRegisterFlow);
                 }
                 else{

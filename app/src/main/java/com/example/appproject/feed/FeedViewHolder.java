@@ -27,7 +27,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(User user) {
-        nameTv.setText(user.getFullName());
+        nameTv.setText(user.getEmail());
         locationTv.setText(user.getLocation());
     }
 }

@@ -8,7 +8,7 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserDao;
 
-@Database(entities ={User.class},version = 7 ,exportSchema = false)
+@Database(entities ={User.class},version = 8 ,exportSchema = false)
 abstract class AppLocalDbRepository extends RoomDatabase{
     public abstract UserDao userDao();
 }
