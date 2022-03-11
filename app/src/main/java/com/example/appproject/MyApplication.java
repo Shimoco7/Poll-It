@@ -19,11 +19,11 @@ public class MyApplication extends Application {
     public static void setUserKey(String uid){
         context.getSharedPreferences("Status",Context.MODE_PRIVATE)
                 .edit()
-                .putString("firebasekey",uid)
+                .putString(context.getString(R.string.firebasekey),uid)
                 .apply();
     }
 
     public static String getUserKey(){
-        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey","");
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.firebasekey),"");
     }
 }

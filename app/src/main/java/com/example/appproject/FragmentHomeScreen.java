@@ -1,5 +1,6 @@
 package com.example.appproject;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.android.material.textview.MaterialTextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,6 +73,8 @@ public class FragmentHomeScreen extends Fragment {
         Button feedBtn = view.findViewById(R.id.homescr_btn_feed);
         Button mapsBtn = view.findViewById(R.id.homescr_btn_map);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
+        userName.setText(getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString(getString(R.string.user_email),""));
 
         pollBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll())));
         feedBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentFeed())));

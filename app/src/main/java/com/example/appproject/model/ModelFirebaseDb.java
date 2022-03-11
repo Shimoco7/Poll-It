@@ -68,7 +68,7 @@ public class ModelFirebaseDb {
 
     public void getDetails(GetDetailsListener listener){
         db.collection(MyApplication.getContext().getString(R.string.details_collection))
-                .whereNotEqualTo("uid",MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey",""))
+                .whereNotEqualTo("uid",MyApplication.getUserKey())
                 .get()
                 .addOnCompleteListener(task -> {
                     List<Detail> list = new ArrayList<>();
