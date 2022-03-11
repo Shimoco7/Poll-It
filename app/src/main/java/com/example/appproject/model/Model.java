@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.user.SaveUserListener;
@@ -101,6 +102,13 @@ public class Model {
 
     public LiveData<List<User>> getUsers() {
         return usersList;
+    }
+
+    public void getUserById(String userId, GetUserByIdListener listener) {
+        executor.execute(()->{
+            User user = AppLocalDb.db.userDao().loadUserById(userId);
+            listener.onComplete(user);
+        });
     }
 
     public void refreshList() {

@@ -42,7 +42,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/feed_btn_home"
+        android:id="@+id/user_display_back_btn"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="100dp"
         android:layout_height="0dp"

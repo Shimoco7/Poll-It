@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -47,7 +48,7 @@ public class FragmentFeed extends Fragment {
         list.setAdapter(feedAdapter);
         feedAdapter.setOnItemClickListener((v,pos)->{
             String userId = feedViewModel.getUsers().getValue().get(pos).getUid();
-            Log.d("TAG",userId);
+            Navigation.findNavController(v).navigate(FragmentFeedDirections.actionFragmentFeedToFragmentUserDisplayDetails(userId));
         });
 
         swipeRefresh.setOnRefreshListener(Model.instance::refreshList);

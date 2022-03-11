@@ -101,8 +101,8 @@ public class FragmentUserDetails extends Fragment {
                 showToast(error);
                 return;
             }
-            Model.instance.createDetail(nameTi.getHint().toString().trim(), MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey", ""),nameEt.getText().toString().trim());
-            Model.instance.createDetail(addressTi.getHint().toString().trim(), MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey", ""),addressEt.getText().toString().trim());
+            Model.instance.createDetail(nameTi.getHint().toString().trim(), MyApplication.getUserKey(),nameEt.getText().toString().trim());
+            Model.instance.createDetail(addressTi.getHint().toString().trim(), MyApplication.getUserKey(),addressEt.getText().toString().trim());
 
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);

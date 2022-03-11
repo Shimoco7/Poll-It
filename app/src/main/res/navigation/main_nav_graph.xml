@@ -41,7 +41,11 @@
         android:id="@+id/fragmentFeed"
         android:name="com.example.appproject.feed.FragmentFeed"
         android:label="Home Feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_fragmentFeed_to_fragmentUserDisplayDetails"
+            app:destination="@id/fragmentUserDisplayDetails" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentPollImage"
         android:name="com.example.appproject.FragmentPollImage"
@@ -52,4 +56,13 @@
         android:name="com.example.appproject.FragmentMap"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/fragmentUserDisplayDetails"
+        android:name="com.example.appproject.feed.FragmentUserDisplayDetails"
+        android:label="Poll-It"
+        tools:layout="@layout/fragment_user_display_details">
+        <argument
+            android:name="userUid"
+            app:argType="string" />
+    </fragment>
 </navigation>

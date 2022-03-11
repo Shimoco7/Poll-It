@@ -14,7 +14,7 @@
         android:paddingTop="10dp">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/otheruser_txt_username"
+            android:id="@+id/user_display_details_txt_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -66,7 +66,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/otheruser_txt_username">
+            app:layout_constraintTop_toBottomOf="@+id/user_display_details_txt_username">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linearLayoutCompat3"
@@ -164,7 +164,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/feed_btn_home"
+            android:id="@+id/user_display_back_btn"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
