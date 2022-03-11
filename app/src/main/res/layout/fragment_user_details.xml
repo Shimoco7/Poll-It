@@ -65,25 +65,27 @@
         android:id="@+id/userDetails_next_btn"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
         android:fontFamily="sans-serif-black"
         android:text="NEXT"
         android:textSize="20sp"
         app:cornerRadius="35dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_list_rv" />
+        app:layout_constraintTop_toBottomOf="@+id/details_address_ti" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/userDetails_btn_back"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="88dp"
         android:layout_height="50dp"
+        android:layout_marginStart="4dp"
         android:backgroundTint="@color/black"
         android:fontFamily="sans-serif"
         android:text="BACK"
         android:textSize="20sp"
         app:cornerRadius="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_list_rv"
+        app:layout_constraintTop_toBottomOf="@+id/details_address_ti"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="1dp" />
 
@@ -103,6 +105,34 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/details_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/custom_input"
+            android:drawablePadding="14dp"
+            android:fontFamily="sans-serif-light"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/details_address_ti"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="4dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/address"
+        android:textColorHint="@color/primeOrng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_list_rv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/details_address_et"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/custom_input"

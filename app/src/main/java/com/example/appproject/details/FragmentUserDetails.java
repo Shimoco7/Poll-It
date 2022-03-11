@@ -42,6 +42,8 @@ public class FragmentUserDetails extends Fragment {
     Button finishBtn;
     EditText nameEt;
     TextInputLayout nameTi;
+    EditText addressEt;
+    TextInputLayout addressTi;
     DetailsViewModel detailsViewModel;
     DetailsAdapter detailsAdapter;
     RecyclerView list;
@@ -62,6 +64,8 @@ public class FragmentUserDetails extends Fragment {
         list = view.findViewById(R.id.details_list_rv);
         nameEt = view.findViewById(R.id.details_name_et);
         nameTi= view.findViewById(R.id.details_ti);
+        addressEt = view.findViewById(R.id.details_address_et);
+        addressTi=view.findViewById(R.id.details_address_ti);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel,getLayoutInflater());
@@ -91,7 +95,15 @@ public class FragmentUserDetails extends Fragment {
                 showToast(error);
                 return;
             }
+
+            if(addressEt.getText().toString().trim()=="" || addressEt.getText()==null){
+                error.add("Please fill your full address");
+                showToast(error);
+                return;
+            }
             Model.instance.createDetail(nameTi.getHint().toString().trim(), MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey", ""),nameEt.getText().toString().trim());
+            Model.instance.createDetail(addressTi.getHint().toString().trim(), MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey", ""),addressEt.getText().toString().trim());
+
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
             getActivity().finish();
