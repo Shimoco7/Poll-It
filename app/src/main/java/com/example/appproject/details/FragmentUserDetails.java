@@ -71,7 +71,7 @@ public class FragmentUserDetails extends Fragment {
         finishBtn.setOnClickListener(v -> {
             ArrayList<String> error = new ArrayList<>();
             for (Detail detail: detailsViewModel.getDetails()){
-                if(detail.getFinalAnswer()==""){
+                if(detail.getFinalAnswer()==""||detail.getFinalAnswer()==null ){
                     error.add("Please fill all the details first");
                     showToast(error);
                     return;

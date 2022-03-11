@@ -24,15 +24,26 @@ public class Detail {
     public Detail() { }
 
     @Ignore
-    public Detail(@NonNull String uid) {
-        this.uid = uid;
-        setQuestion(uid);
+    public Detail(@NonNull String question) {
+        this.question = question;
         answers = new ArrayList<>();
-        finalAnswer = "";
-        answers.add("answer1");
-        answers.add("answer2");
-        answers.add("answer3");
-        answers.add("answer4");
+        if (question=="Education-Level") {
+            answers.add("Preschool");
+            answers.add("Elementary");
+            answers.add("Middle-School");
+            answers.add("High-School");
+            answers.add("University");
+        }
+        if (question=="Gender") {
+            answers.add("Male");
+            answers.add("Female");
+            answers.add("Don'tWishToSpecify");
+        }
+        if (question=="Age") {
+            for (int i = 0; i < 100; i++) {
+                answers.add(Integer.toString(i));
+            }
+        }
     }
 
     /**

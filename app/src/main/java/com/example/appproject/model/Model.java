@@ -138,9 +138,9 @@ public class Model {
 
     public ArrayList<Detail> getDetails() {
         detailsList = new ArrayList<>();
-        detailsList.add(new Detail("TEST1"));
-        detailsList.add(new Detail("TEST2"));
-        detailsList.add(new Detail("TEST3"));
+        detailsList.add(new Detail("Education-Level"));
+        detailsList.add(new Detail("Gender"));
+        detailsList.add(new Detail("Age"));
 
         return detailsList;
     }
