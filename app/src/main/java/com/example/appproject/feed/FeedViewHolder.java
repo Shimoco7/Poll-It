@@ -16,10 +16,14 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     TextView nameTv;
     TextView locationTv;
 
-    public FeedViewHolder(@NonNull View itemView) {
+    public FeedViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
         nameTv = itemView.findViewById(R.id.feedrow_txt_username);
         locationTv = itemView.findViewById(R.id.feedrow_txt_location);
+        itemView.setOnClickListener(v->{
+            int pos = getAdapterPosition();
+            listener.onItemClick(v,pos);
+        });
     }
 
     public void bind(User user) {

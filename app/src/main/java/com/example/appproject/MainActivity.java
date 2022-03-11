@@ -2,6 +2,7 @@ package com.example.appproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
@@ -45,14 +46,18 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.main_menu_logout:
                     Model.instance.signOut();
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    toLoginActivity();
                     return true;
                 default:
                     NavigationUI.onNavDestinationSelected(item,navController);
             }
         }
         return false;
+    }
+
+    private void toLoginActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

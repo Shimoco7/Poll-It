@@ -45,9 +45,10 @@ public class ModelFirebaseDb {
                 .addOnCompleteListener(task -> {
                    List<User> list = new ArrayList<>();
                    if(task.isSuccessful()){
+                       String curUid = MyApplication.getUserKey();
                        for(QueryDocumentSnapshot doc : task.getResult()){
                            User user = User.create(doc.getData());
-                           if(!user.getUid().equals(MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey", ""))){
+                           if(!user.getUid().equals(curUid)){
                                list.add(user);
                            }
                        }

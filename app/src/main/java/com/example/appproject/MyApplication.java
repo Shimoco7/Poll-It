@@ -15,4 +15,15 @@ public class MyApplication extends Application {
     public static Context getContext(){
         return context;
     }
+
+    public static void setUserKey(String uid){
+        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                .edit()
+                .putString("firebasekey",uid)
+                .apply();
+    }
+
+    public static String getUserKey(){
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString("firebasekey","");
+    }
 }
