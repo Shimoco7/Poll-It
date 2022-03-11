@@ -47,6 +47,8 @@ public class ModelFirebaseAuth {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            appContext.getSharedPreferences("Status",Context.MODE_PRIVATE).edit().putString(
+                                    appContext.getString(R.string.user_email),user.getEmail()).apply();
                             Model.instance.getMainThread().post(()->{
                                 userListener.onComplete(user, appContext.getString(R.string.success));
                             });
@@ -54,12 +56,12 @@ public class ModelFirebaseAuth {
                             Log.d("TAG", "createUserWithEmail:failure", task.getException());
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                 Model.instance.getMainThread().post(()->{
-                                    userListener.onComplete(null, appContext.getString(R.string.success));
+                                    userListener.onComplete(null, appContext.getString(R.string.user_already_exists));
                                 });
                             }
                             else{
                                 Model.instance.getMainThread().post(()->{
-                                    userListener.onComplete(null, appContext.getString(R.string.success));
+                                    userListener.onComplete(null, appContext.getString(R.string.registration_failed));
                                 });
                             }
                         }
@@ -74,6 +76,8 @@ public class ModelFirebaseAuth {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            appContext.getSharedPreferences("Status",Context.MODE_PRIVATE).edit().putString(
+                                    appContext.getString(R.string.user_email),user.getEmail()).apply();
                             Model.instance.getMainThread().post(()->{
                                 userListener.onComplete(user, appContext.getString(R.string.success));
                             });
@@ -88,6 +92,8 @@ public class ModelFirebaseAuth {
     }
 
     public void signOut() {
+        appContext.getSharedPreferences("Status",Context.MODE_PRIVATE).edit().putString(
+                appContext.getString(R.string.user_email),"").apply();
         mAuth.signOut();
     }
 }

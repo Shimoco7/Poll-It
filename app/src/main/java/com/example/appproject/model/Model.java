@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.appproject.MyApplication;
+import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.user.SaveUserListener;
@@ -81,7 +82,8 @@ public class Model {
     public void clearCaches() {
         executor.execute(()->{
             AppLocalDb.db.clearAllTables();
-            MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong("users_list_last_update_date",0).apply();
+            MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
+                   MyApplication.getContext().getString(R.string.users_list_last_update_date),0).apply();
         });
     }
 
@@ -103,7 +105,8 @@ public class Model {
 
     public void refreshList() {
         usersListLoadingState.setValue(UsersListLoadingState.loading);
-        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getLong("users_list_last_update_date",0);
+        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getLong(
+                MyApplication.getContext().getString(R.string.users_list_last_update_date),0);
         //Show current cache users
         executor.execute(()->{
             usersList.postValue(AppLocalDb.db.userDao().getAll());
@@ -118,7 +121,8 @@ public class Model {
                     }
                 }
                 //Update App User's List last update date
-                MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong("users_list_last_update_date",lud).apply();
+                MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
+                        MyApplication.getContext().getString(R.string.users_list_last_update_date),lud).apply();
                 usersList.postValue(AppLocalDb.db.userDao().getAll());
                 usersListLoadingState.postValue(UsersListLoadingState.loaded);
             });
