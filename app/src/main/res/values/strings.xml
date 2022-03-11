@@ -14,6 +14,7 @@
     <!--Login/Register Strings-->
     <string name="email_colon">Email:</string>
     <string name="email">Email Address</string>
+    <string name="name">Full Name</string>
     <string name="register">Register</string>
     <string name="sign_in">SIGN IN</string>
     <string name="password">Password</string>

@@ -37,7 +37,6 @@ public class FragmentUserDetails extends Fragment {
     DetailsViewModel detailsViewModel;
     DetailsAdapter detailsAdapter;
     RecyclerView list;
-    PlacesClient placesClient;
 
 
     public FragmentUserDetails() { }
@@ -82,7 +81,6 @@ public class FragmentUserDetails extends Fragment {
             startActivity(intent);
             getActivity().finish();
         });
-        initPlaces();
         return view;
     }
 
@@ -95,24 +93,6 @@ public class FragmentUserDetails extends Fragment {
         }
         Toast.makeText(getActivity(), message.toString().trim(),
                 Toast.LENGTH_LONG).show();
-    }
-
-    private void initPlaces(){
-        Places.initialize(getActivity().getApplicationContext(), BuildConfig.MAPS_API_KEY);
-        placesClient = Places.createClient(this.getContext());
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onError(@NonNull Status status) {
-                Log.i("TAG", "An error occurred: " + status);
-            }
-
-            @Override
-            public void onPlaceSelected(@NonNull Place place) {
-                Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
-            }
-        });
     }
 
 

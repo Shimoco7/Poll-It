@@ -30,7 +30,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/primeOrng"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
