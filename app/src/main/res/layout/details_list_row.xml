@@ -39,6 +39,7 @@
         <AutoCompleteTextView
             android:id="@+id/details_list_ac"
             android:focusable="false"
+            android:text="test"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:focusableInTouchMode="false"

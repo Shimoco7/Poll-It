@@ -86,7 +86,7 @@ public class Detail {
         json.put("uid",uid);
         json.put("personal_question",question);
         json.put("optional_questions", new JSONArray(answers));
-        json.put("final_answers",finalAnswer);
+        json.put("final_answer",finalAnswer);
         return json;
     }
 
