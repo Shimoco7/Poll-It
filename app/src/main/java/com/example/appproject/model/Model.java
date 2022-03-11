@@ -23,7 +23,9 @@ import com.example.appproject.model.user.UsersListLoadingState;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -150,20 +152,6 @@ public class Model {
 
     public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
         modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener::onComplete);
-    }
-    public void createDetail(String question, String uid, String answer) { //tests
-
-        for(Detail d: detailsList){
-            if (d.getUid().equals(uid) &&d.getQuestion().equals(question)){
-                Log.d("TAG", "changing exist answer from "+d.getFinalAnswer()+"to "+ answer);
-                d.setFinalAnswer(answer);
-                return;
-            }
-        }
-        Detail detail = new Detail(question, uid, answer);
-        Log.d("TAG", ""+detail.getFinalAnswer()+"to "+ answer);
-        detailsList.add(detail);
-
     }
     public ArrayList<Detail> getDetails() {
         detailsList = new ArrayList<>();

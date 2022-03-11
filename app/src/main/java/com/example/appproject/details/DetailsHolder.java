@@ -45,9 +45,7 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String answer=(String)adapterView.getItemAtPosition(i);
                 detail.setFinalAnswer(answer);
-                detail.setUid(MyApplication.getUserKey());
-                Log.d("TAG", detail.getFinalAnswer());
-                Log.d("TAG", detail.getUid());
+                Model.instance.saveDetailOnDb(detail,()->{ });
             }
         });
     }

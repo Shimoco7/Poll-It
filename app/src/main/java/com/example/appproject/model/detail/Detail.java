@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.appproject.MyApplication;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;
@@ -16,17 +18,19 @@ public class Detail {
 
     @PrimaryKey
     @NonNull
-    String uid;
-    String question;
-    String finalAnswer;
-    ArrayList<String> answers;
+    public String detailId;
+    public String uid;
+    public String question;
+    public String finalAnswer;
+    public ArrayList<String> answers;
 
     public Detail() { }
 
     @Ignore
     public Detail(@NonNull String question) {
         this.question = question;
-        this.uid = "";
+        this.uid = MyApplication.getUserKey();
+        this.detailId = this.uid+this.question;
         answers = new ArrayList<>();
         if (question=="Education-Level") {
             answers.add("Preschool");
@@ -47,10 +51,12 @@ public class Detail {
         }
     }
 
-    public Detail(@NonNull String question, String uid, String finalAnswer) {
+    public Detail(@NonNull String question, String finalAnswer) {
+        this.uid = MyApplication.getUserKey();
+        this.detailId = uid+question;
         this.question = question;
-        this.uid = uid;
         this.finalAnswer = finalAnswer;
+        this.setAnswers(new ArrayList<>());
     }
 
     /**
@@ -58,13 +64,12 @@ public class Detail {
      *
      */
     public static Detail create(Map<String, Object> data) {
-        String uid = (String) data.get("uid");
-        String question = (String) data.get("personal_question");
-        ArrayList<String> answers = (ArrayList<String>) data.get("personal_answers");
 
-        Detail detail = new Detail(uid);
-        detail.setQuestion(question);
-        detail.setAnswers(answers);
+        String question = (String)data.get("question");
+        String answer = (String)data.get("answer");
+
+        Detail detail = new Detail(question,answer);
+
         return detail;
     }
 
@@ -74,6 +79,14 @@ public class Detail {
     }
     public void setUid(@NonNull String uid) {
         this.uid = uid;
+    }
+
+    @NonNull
+    public String getDetailId() {
+        return detailId;
+    }
+    public void setDetailId(@NonNull String detailid) {
+        this.detailId = detailId;
     }
 
     public String getFinalAnswer() {
@@ -101,10 +114,11 @@ public class Detail {
 
     public Map<String,Object> toJson(){
         Map<String,Object> json = new HashMap<>();
+        json.put("detail_id", detailId);
         json.put("uid",uid);
-        json.put("personal_question",question);
-        json.put("optional_questions", new JSONArray(answers));
-        json.put("final_answer",finalAnswer);
+        json.put("question",question);
+//        json.put("optional_answers", new JSONArray(answers));
+        json.put("answer",finalAnswer);
         return json;
     }
 

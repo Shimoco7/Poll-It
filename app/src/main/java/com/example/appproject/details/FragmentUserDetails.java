@@ -90,19 +90,21 @@ public class FragmentUserDetails extends Fragment {
                 }
 
             }
-            if(nameEt.getText().toString().trim()=="" || nameEt.getText()==null){
-                error.add("Please fill your full name");
+            if(nameEt.getText().toString().trim().equals("") || nameEt.getText()==null){
+                error.add("You forgot to fill in your name");
                 showToast(error);
                 return;
             }
 
-            if(addressEt.getText().toString().trim()=="" || addressEt.getText()==null){
-                error.add("Please fill your full address");
+            if(addressEt.getText().toString().trim().equals("") || addressEt.getText()==null){
+                error.add("You forgot to fill in your address");
                 showToast(error);
                 return;
             }
-            Model.instance.createDetail(nameTi.getHint().toString().trim(), MyApplication.getUserKey(),nameEt.getText().toString().trim());
-            Model.instance.createDetail(addressTi.getHint().toString().trim(), MyApplication.getUserKey(),addressEt.getText().toString().trim());
+            Detail detailName = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+            Model.instance.saveDetailOnDb(detailName,()->{ });
+            Detail detailAddress = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+            Model.instance.saveDetailOnDb(detailAddress,()->{ });
 
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
