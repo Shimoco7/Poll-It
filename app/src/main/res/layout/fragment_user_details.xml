@@ -64,61 +64,44 @@
         android:id="@+id/userDetails_next_btn"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="3dp"
         android:fontFamily="sans-serif-black"
         android:text="NEXT"
         android:textSize="20sp"
         app:cornerRadius="35dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_ti" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/userDetails_btn_back"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="88dp"
         android:layout_height="50dp"
-        android:layout_marginTop="3dp"
         android:backgroundTint="@color/black"
         android:fontFamily="sans-serif"
         android:text="BACK"
         android:textSize="20sp"
         app:cornerRadius="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_ti"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="1dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/details_ti"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="map.."
-        android:textColorHint="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/details_list_rv"
-        tools:layout_editor_absoluteX="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/listrow_question_et"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="409dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_list_rv">
+        <fragment
+            android:id="@+id/autocomplete_fragment"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/custom_input"
-            android:drawablePadding="14dp"
-            android:fontFamily="sans-serif-light"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/details_ti"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:layout_editor_absoluteX="0dp" />
+            android:layout_height="wrap_content" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

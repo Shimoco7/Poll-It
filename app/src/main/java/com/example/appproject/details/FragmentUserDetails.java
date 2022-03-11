@@ -18,17 +18,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.appproject.BuildConfig;
 import com.example.appproject.MainActivity;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FragmentUserDetails extends Fragment {
     Button finishBtn;
     DetailsViewModel detailsViewModel;
     DetailsAdapter detailsAdapter;
     RecyclerView list;
+    PlacesClient placesClient;
+
 
     public FragmentUserDetails() { }
 
@@ -72,6 +82,7 @@ public class FragmentUserDetails extends Fragment {
             startActivity(intent);
             getActivity().finish();
         });
+        initPlaces();
         return view;
     }
 
@@ -85,6 +96,25 @@ public class FragmentUserDetails extends Fragment {
         Toast.makeText(getActivity(), message.toString().trim(),
                 Toast.LENGTH_LONG).show();
     }
+
+    private void initPlaces(){
+        Places.initialize(getActivity().getApplicationContext(), BuildConfig.MAPS_API_KEY);
+        placesClient = Places.createClient(this.getContext());
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onError(@NonNull Status status) {
+                Log.i("TAG", "An error occurred: " + status);
+            }
+
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
+            }
+        });
+    }
+
 
 
 }
