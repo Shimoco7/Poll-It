@@ -35,11 +35,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/homeScr_text_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginEnd="80dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="User Name"
+        android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="32dp"
         android:textStyle="bold"

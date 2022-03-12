@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavAction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.appproject.BuildConfig;
+import com.example.appproject.FragmentPollQuestionDirections;
 import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
@@ -106,10 +109,19 @@ public class FragmentUserDetails extends Fragment {
             Detail detailAddress = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
             Model.instance.saveDetailOnDb(detailAddress,()->{ });
 
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+
+
+            Navigation.findNavController(finishBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
+
+
+//            Intent intent = new Intent(getContext(), MainActivity.class);
+//            startActivity(intent);
+//            getActivity().finish();
         });
+
+
+
+
         return view;
     }
 
