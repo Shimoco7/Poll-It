@@ -29,10 +29,15 @@
     <string name="success">Success</string>
     <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
 
+
+    <!--Details Strings-->
+    <string name="invalid_address">Invalid Address</string>
+    <string name="invalid_name">Invalid Name</string>
+
+
     <!--Collection Strings-->
     <string name="users_collection">users</string>
     <string name="details_collection">details</string>
-
     <!--Shared Preferences Strings-->
     <string name="firebasekey">firebasekey</string>
     <string name="users_list_last_update_date">users_list_last_update_date</string>
