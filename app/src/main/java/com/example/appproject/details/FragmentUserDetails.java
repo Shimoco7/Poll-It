@@ -77,7 +77,10 @@ public class FragmentUserDetails extends Fragment {
         list.setAdapter(detailsAdapter);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         finishBtn.setOnClickListener(v -> {
-            if(!detailsValidations()){ return; };
+            if(!informationwasfilled()){ return; };
+            if (!detailsValidations()) {
+                return;
+            }
             uploadDetailsToDB();
             Navigation.findNavController(finishBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
         });
@@ -88,7 +91,7 @@ public class FragmentUserDetails extends Fragment {
         return view;
     }
 
-    public boolean detailsValidations(){
+    public boolean informationwasfilled(){
 
         ArrayList<String> error = new ArrayList<>();
         for (int i = 0; i < list.getChildCount(); i++) {
@@ -96,6 +99,7 @@ public class FragmentUserDetails extends Fragment {
             if (holder==null|| holder.answersAc.getText().toString().equals("")) {
                 error.add("You forgot to fill in your "+holder.questionTv.getHint().toString());
             }
+
         }
         if(nameEt.getText().toString().trim().equals("") || nameEt.getText()==null){
             error.add("You forgot to fill in your name");
@@ -107,6 +111,48 @@ public class FragmentUserDetails extends Fragment {
 
         if(error.size()>0){
             General.showToast(getActivity(),error);
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public boolean detailsValidations(){
+        ArrayList<String> error = new ArrayList<>();
+        if(!nameEt.getText().toString().matches("^[a-zA-Z\\s]+")){
+            error.add("You have to choose a valid name");
+        }
+
+        if(!addressValidation()) {
+            error.add("Your address is not according to the format");
+        }
+
+
+        if(error.size()>0){
+            General.showToast(getActivity(),error);
+            return false;
+        }
+
+
+
+        return true;
+
+    }
+
+
+    public boolean addressValidation(){
+        String[] addressList = addressEt.getText().toString().trim().split(",");
+        if(addressList.length!=4) {
+            return false;
+        }
+        for(int i=0; i<3; i++){
+            if(!addressList[i].matches("^[a-zA-Z\\s]+")){
+               return false;
+            }
+        }
+
+        if(!addressList[3].matches("-?\\d+(\\.\\d+)?")){
             return false;
         }
 
