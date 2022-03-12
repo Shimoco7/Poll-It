@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavAction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,9 +22,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.appproject.BuildConfig;
+import com.example.appproject.FragmentPollQuestionDirections;
 import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.user.User;
@@ -49,7 +53,8 @@ public class FragmentUserDetails extends Fragment {
     RecyclerView list;
 
 
-    public FragmentUserDetails() { }
+    public FragmentUserDetails() {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -63,25 +68,17 @@ public class FragmentUserDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
         list = view.findViewById(R.id.details_list_rv);
         nameEt = view.findViewById(R.id.details_name_et);
-        nameTi= view.findViewById(R.id.details_ti);
+        nameTi = view.findViewById(R.id.details_ti);
         addressEt = view.findViewById(R.id.details_address_et);
-        addressTi=view.findViewById(R.id.details_address_ti);
+        addressTi = view.findViewById(R.id.details_address_ti);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        detailsAdapter = new DetailsAdapter(detailsViewModel,getLayoutInflater());
+        detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
         list.setAdapter(detailsAdapter);
         finishBtn = view.findViewById(R.id.userDetails_next_btn);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         finishBtn.setOnClickListener(v -> {
             ArrayList<String> error = new ArrayList<>();
-            for (Detail detail: detailsViewModel.getDetails()){
-                if(detail.getFinalAnswer().equals("")||detail.getFinalAnswer()==null ){
-                    error.add("Please fill all the details first");
-                    showToast(error);
-                    return;
-                }
-
-            }
             for (int i = 0; i < list.getChildCount(); i++) {
                 DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
                 if (holder==null|| holder.answersAc.getText().toString().equals("")) {
@@ -90,6 +87,7 @@ public class FragmentUserDetails extends Fragment {
             }
             if(nameEt.getText().toString().trim().equals("") || nameEt.getText()==null){
                 error.add("You forgot to fill in your name");
+                return;
             }
 
             if(addressEt.getText().toString().trim().equals("") || addressEt.getText()==null){
@@ -97,7 +95,7 @@ public class FragmentUserDetails extends Fragment {
             }
 
             if(error.size()>0){
-                showToast(error);
+                General.showToast(getActivity(),error);
                 return;
             }
             for (int i = 0; i < list.getChildCount(); i++) {
@@ -111,20 +109,20 @@ public class FragmentUserDetails extends Fragment {
             Detail detailAddress = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
             Model.instance.saveDetailOnDb(detailAddress,()->{ });
 
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+
+
+            Navigation.findNavController(finishBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
+
+
+//            Intent intent = new Intent(getContext(), MainActivity.class);
+//            startActivity(intent);
+//            getActivity().finish();
         });
+
+
+
+
         return view;
-    }
-    private void showToast(ArrayList<String> errors) {
-        StringBuilder message = new StringBuilder();
-        for(String error : errors){
-            message.append(error);
-            message.append("\n");
-        }
-        Toast.makeText(getActivity(), message.toString().trim(),
-                Toast.LENGTH_LONG).show();
     }
 
 

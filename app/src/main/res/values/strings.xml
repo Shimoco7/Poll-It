@@ -49,8 +49,7 @@
     <string name="home">Home</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
-
-
+    <string name="please_upload_your_image">Please Upload Your Image</string>
 
 
 </resources>
