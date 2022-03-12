@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.appproject.BuildConfig;
-import com.example.appproject.FragmentPollQuestionDirections;
 import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
@@ -112,11 +111,6 @@ public class FragmentUserDetails extends Fragment {
 
 
             Navigation.findNavController(finishBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
-
-
-//            Intent intent = new Intent(getContext(), MainActivity.class);
-//            startActivity(intent);
-//            getActivity().finish();
         });
 
 

@@ -54,7 +54,7 @@ public class Detail {
     @Ignore
     public Detail(@NonNull String question, String finalAnswer) {
         this.userUid = MyApplication.getUserKey();
-        this.detailId = userUid +question;
+        this.detailId = UUID.randomUUID().toString();
         this.question = question;
         this.finalAnswer = finalAnswer;
         this.setAnswers(new ArrayList<>());
