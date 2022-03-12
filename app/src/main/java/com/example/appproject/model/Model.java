@@ -79,6 +79,30 @@ public class Model {
         return password.matches(regex);
     }
 
+    public boolean validateName(String name) {
+        final String nameRegex = "^[a-zA-Z\\s]+";
+        return name.matches(nameRegex);
+    }
+
+    public boolean validateAddress(String address){
+        String[] addressList = address.split(",");
+        if(addressList.length!=4) {
+            return false;
+        }
+        for(int i=0; i<3; i++){
+            if(!addressList[i].matches("^[a-zA-Z\\s]+")){
+                return false;
+            }
+        }
+
+        if(!addressList[3].matches("-?\\d+(\\.\\d+)?")){
+            return false;
+        }
+
+        return true;
+
+    }
+
     //TODO-async
     public void clearCaches() {
         executor.execute(()->{

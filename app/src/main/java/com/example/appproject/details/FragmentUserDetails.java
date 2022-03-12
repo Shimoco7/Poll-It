@@ -119,18 +119,20 @@ public class FragmentUserDetails extends Fragment {
     }
 
     public boolean detailsValidations(){
-        ArrayList<String> error = new ArrayList<>();
-        if(!nameEt.getText().toString().matches("^[a-zA-Z\\s]+")){
-            error.add("You have to choose a valid name");
+
+
+        ArrayList<String> errors = new ArrayList<>();
+        if(!Model.instance.validateName(nameEt.getText().toString().trim())){
+            errors.add("You have to choose a valid name");
         }
 
-        if(!addressValidation()) {
-            error.add("Your address is not according to the format");
+        if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
+            errors.add("Your address is not according to the format");
         }
 
 
-        if(error.size()>0){
-            General.showToast(getActivity(),error);
+        if(errors.size()>0){
+            General.showToast(getActivity(),errors);
             return false;
         }
 
@@ -141,24 +143,6 @@ public class FragmentUserDetails extends Fragment {
     }
 
 
-    public boolean addressValidation(){
-        String[] addressList = addressEt.getText().toString().trim().split(",");
-        if(addressList.length!=4) {
-            return false;
-        }
-        for(int i=0; i<3; i++){
-            if(!addressList[i].matches("^[a-zA-Z\\s]+")){
-               return false;
-            }
-        }
-
-        if(!addressList[3].matches("-?\\d+(\\.\\d+)?")){
-            return false;
-        }
-
-        return true;
-
-    }
 
     public void uploadDetailsToDB(){
         Detail detail;
