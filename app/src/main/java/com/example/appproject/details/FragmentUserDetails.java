@@ -26,6 +26,7 @@ import com.example.appproject.FragmentPollQuestionDirections;
 import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.user.User;
@@ -52,7 +53,8 @@ public class FragmentUserDetails extends Fragment {
     RecyclerView list;
 
 
-    public FragmentUserDetails() { }
+    public FragmentUserDetails() {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -66,17 +68,17 @@ public class FragmentUserDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
         list = view.findViewById(R.id.details_list_rv);
         nameEt = view.findViewById(R.id.details_name_et);
-        nameTi= view.findViewById(R.id.details_ti);
+        nameTi = view.findViewById(R.id.details_ti);
         addressEt = view.findViewById(R.id.details_address_et);
-        addressTi=view.findViewById(R.id.details_address_ti);
+        addressTi = view.findViewById(R.id.details_address_ti);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        detailsAdapter = new DetailsAdapter(detailsViewModel,getLayoutInflater());
+        detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
         list.setAdapter(detailsAdapter);
         detailsAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.d("TAG","row was clicked " + position);
+                Log.d("TAG", "row was clicked " + position);
                 String id = detailsViewModel.getDetails().get(position).getQuestion();
 
             }
@@ -85,29 +87,31 @@ public class FragmentUserDetails extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         finishBtn.setOnClickListener(v -> {
             ArrayList<String> error = new ArrayList<>();
-            for (Detail detail: detailsViewModel.getDetails()){
-                if(detail.getFinalAnswer()==""||detail.getFinalAnswer()==null ){
+            for (Detail detail : detailsViewModel.getDetails()) {
+                if (detail.getFinalAnswer().equals("") || detail.getFinalAnswer() == null) {
                     error.add("Please fill all the details first");
-                    showToast(error);
+                    General.showToast(getActivity(),error);
                     return;
                 }
 
             }
-            if(nameEt.getText().toString().trim().equals("") || nameEt.getText()==null){
+            if (nameEt.getText().toString().trim().equals("") || nameEt.getText() == null) {
                 error.add("You forgot to fill in your name");
-                showToast(error);
+                General.showToast(getActivity(),error);
                 return;
             }
 
-            if(addressEt.getText().toString().trim().equals("") || addressEt.getText()==null){
+            if (addressEt.getText().toString().trim().equals("") || addressEt.getText() == null) {
                 error.add("You forgot to fill in your address");
-                showToast(error);
+                General.showToast(getActivity(),error);
                 return;
             }
-            Detail detailName = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
-            Model.instance.saveDetailOnDb(detailName,()->{ });
-            Detail detailAddress = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
-            Model.instance.saveDetailOnDb(detailAddress,()->{ });
+            Detail detailName = new Detail(nameTi.getHint().toString().trim(), nameEt.getText().toString().trim());
+            Model.instance.saveDetailOnDb(detailName, () -> {
+            });
+            Detail detailAddress = new Detail(addressTi.getHint().toString().trim(), nameEt.getText().toString().trim());
+            Model.instance.saveDetailOnDb(detailAddress, () -> {
+            });
 
 
 
@@ -123,17 +127,6 @@ public class FragmentUserDetails extends Fragment {
 
 
         return view;
-    }
-
-
-    private void showToast(ArrayList<String> errors) {
-        StringBuilder message = new StringBuilder();
-        for(String error : errors){
-            message.append(error);
-            message.append("\n");
-        }
-        Toast.makeText(getActivity(), message.toString().trim(),
-                Toast.LENGTH_LONG).show();
     }
 
 
