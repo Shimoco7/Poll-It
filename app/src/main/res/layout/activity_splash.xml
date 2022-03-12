@@ -12,6 +12,7 @@
         android:id="@+id/splash_gif_logo"
         android:layout_width="411dp"
         android:layout_height="234dp"
+        android:layout_marginStart="10dp"
         android:background="@color/logoBack"
         android:src="@drawable/small_logo_gif"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -11,6 +11,7 @@
     <color name="primeOrng">#f7a055</color>
     <color name="primeGray">#423e3e</color>
     <color name="logoBack">#1c1b1b</color>
+    <color name="mtrl_textinput_default_box_stroke_color">@color/white</color>
 
 
 </resources>
