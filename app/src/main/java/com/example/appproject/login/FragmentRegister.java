@@ -55,6 +55,8 @@ public class FragmentRegister extends Fragment {
             if(password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())){
                 if(!Model.instance.validatePassword(password.getText().toString().trim())){
                     errors.add(getString(R.string.invalid_password));
+                    password.setText("");
+                    confirmPassword.setText("");
                 }
             }
             else{
@@ -75,6 +77,8 @@ public class FragmentRegister extends Fragment {
                 else{
                     progressBarOff();
                     General.showToast(getActivity(),new ArrayList<>(Collections.singletonList(message)));
+                    password.setText("");
+                    email.setText("");
                 }
             });
         });

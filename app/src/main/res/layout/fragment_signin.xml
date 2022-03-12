@@ -13,14 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/sign_title"
-            android:layout_width="319dp"
+            android:layout_width="wrap_content"
             android:layout_height="62dp"
             android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/please_enter_username_and_password"
-            android:textAlignment="center"
+            android:gravity="center"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -28,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/feed_img_logo" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/feed_img_logo"
             android:layout_width="306dp"
             android:layout_height="160dp"
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,53 +51,66 @@
             app:layout_constraintTop_toBottomOf="@+id/sign_title">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_lout_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif-black"
                 android:hint="@string/email"
-                android:textColorHint="@color/white">
+                android:textColorHint="@color/white"
+                app:boxStrokeColor="@color/primeOrng"
+                app:boxStrokeErrorColor="@color/primeRed"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/primeRed"
+                app:startIconDrawable="@drawable/ic_account"
+                app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_input_email"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/ic_account"
-                    android:drawablePadding="14dp"
-                    android:fontFamily="sans-serif-light"
-                    android:inputType="text"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_lout_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif-black"
                 android:hint="@string/password"
-                android:textColorHint="@color/white">
+                android:textColorHint="@color/white"
+                app:boxStrokeColor="@color/primeOrng"
+                app:boxStrokeErrorColor="@color/primeRed"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/primeRed"
+                app:startIconDrawable="@drawable/ic_password"
+                app:startIconTint="@color/white"
+
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_input_password"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/ic_password"
-                    android:drawablePadding="14dp"
-                    android:fontFamily="sans-serif-light"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/white" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
