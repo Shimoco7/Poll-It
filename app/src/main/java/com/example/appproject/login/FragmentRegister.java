@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.user.User;
 
@@ -62,7 +63,7 @@ public class FragmentRegister extends Fragment {
 
             if(!errors.isEmpty()){
                 progressBarOff();
-                showToast(errors);
+                General.showToast(getActivity(),errors);
                 return;
             }
 
@@ -73,7 +74,7 @@ public class FragmentRegister extends Fragment {
                 }
                 else{
                     progressBarOff();
-                    showToast(new ArrayList<>(Collections.singletonList(message)));
+                    General.showToast(getActivity(),new ArrayList<>(Collections.singletonList(message)));
                 }
             });
         });
@@ -83,15 +84,6 @@ public class FragmentRegister extends Fragment {
         Navigation.findNavController(registerBtn).navigate(R.id.action_global_fragmetnUserDetails);
     }
 
-    private void showToast(ArrayList<String> errors) {
-        StringBuilder message = new StringBuilder();
-        for(String error : errors){
-            message.append(error);
-            message.append("\n");
-        }
-        Toast.makeText(getActivity(), message.toString().trim(),
-                Toast.LENGTH_LONG).show();
-    }
 
     private void progressBarOn(){
         progressBar.setVisibility(View.VISIBLE);
