@@ -6,6 +6,7 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetDetailsListener;
+import com.example.appproject.model.detail.GetMultiChoiceQuestionsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
@@ -69,7 +70,6 @@ public class ModelFirebaseDb {
     public void getDetails(GetDetailsListener listener){
 
         db.collection(MyApplication.getContext().getString(R.string.details_collection))
-                .whereEqualTo("uid",MyApplication.getUserKey())
                 .get()
                 .addOnCompleteListener(task -> {
                     List<Detail> list = new ArrayList<>();
@@ -82,4 +82,22 @@ public class ModelFirebaseDb {
                     listener.onComplete(list);
                 });
     }
+
+
+//    public void getMultiChoiceQuestions(GetMultiChoiceQuestionsListener listener){
+//
+//        db.collection(MyApplication.getContext().getString(R.string.questions_collection))
+//                .whereEqualTo("uid","tM2uONVEUAUZR9jlNaEUIxWPnz92")
+//                .get()
+//                .addOnCompleteListener(task -> {
+//                    List<Detail> list = new ArrayList<>();
+//                    if(task.isSuccessful()){
+//                        for(QueryDocumentSnapshot doc : task.getResult()){
+//                            Detail detail = Detail.create(doc.getData());
+//                            list.add(detail);
+//                        }
+//                    }
+//                    listener.onComplete(list);
+//                });
+//    }
 }

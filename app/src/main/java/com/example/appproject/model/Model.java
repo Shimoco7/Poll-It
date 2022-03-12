@@ -168,13 +168,18 @@ public class Model {
      *
      */
     ArrayList<Detail> questionsList;
-
+    MutableLiveData<List<Detail>> detailsList = new MutableLiveData<>();
 
     public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
         modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener::onComplete);
     }
-    public void getDetails(GetDetailsListener getDetailsListener) {
-        modelFirebaseDb.getDetails(getDetailsListener);
+    public LiveData<List<Detail>> getDetails() {
+        if (detailsList == null) { refresh(); };
+        return detailsList;
+
+    }
+    public void refresh(){
+        modelFirebaseDb.getDetails(list -> detailsList.setValue(list));
     }
 
     public ArrayList<Detail> getMultiChoiceQuestions() { // temporarily hard coded
@@ -184,5 +189,10 @@ public class Model {
         questionsList.add(new Detail("Gender"));
         return questionsList;
     }
+
+
+//    public void getMultiChoiceQuestions(GetMultiChoiceQuestionsListener getMultiChoiceQuestionsListener) {
+//        modelFirebaseDb.getMultiChoiceQuestions(getMultiChoiceQuestionsListener);
+//    }
 
 }

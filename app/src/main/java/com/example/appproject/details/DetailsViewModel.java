@@ -1,5 +1,6 @@
 package com.example.appproject.details;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appproject.model.detail.Detail;
@@ -9,16 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsViewModel extends ViewModel {
-    List<Detail> details;
+    LiveData<List<Detail>> details;
 
     public DetailsViewModel() {
-        Model.instance.getDetails((list)->{
-            details = list;
-        });
+        details = Model.instance.getDetails();
 
     }
 
-    public List<Detail> getDetails() {
+    public LiveData<List<Detail>> getDetails() {
         return details;
     }
 

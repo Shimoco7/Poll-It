@@ -1,5 +1,6 @@
 package com.example.appproject.details;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -68,8 +69,17 @@ public class FragmentUserDetails extends Fragment {
 
 
 
-
+        detailsViewModel.getDetails().observe(getViewLifecycleOwner(),detailsList->refresh());
+        Model.instance.refresh();
         return view;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void refresh() {
+        detailsAdapter.notifyDataSetChanged();
+        ArrayList<String> errors = new ArrayList<>();
+        errors.add("test");
+        General.showToast(getActivity(),errors);
     }
 
     public boolean allDetailsFilled(){
