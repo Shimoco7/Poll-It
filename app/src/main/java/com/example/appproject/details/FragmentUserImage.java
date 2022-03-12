@@ -1,67 +1,110 @@
 package com.example.appproject.details;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
+import com.example.appproject.MainActivity;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentUserImage#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.io.IOException;
+
 public class FragmentUserImage extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    Button finishBtn;
+    ImageButton camBtn;
+    MaterialButton galleryBtn;
+    ProgressBar progressBar;
+    ActivityResultLauncher<Void> cameraActivityResultLauncher;
+    ActivityResultLauncher<String> galleryActivityResultLauncher;
+    ShapeableImageView userAvatar;
+    Bitmap bitMap;
 
     public FragmentUserImage() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserImage.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentUserImage newInstance(String param1, String param2) {
-        FragmentUserImage fragment = new FragmentUserImage();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_user_image, container, false);
+        finishBtn = view.findViewById(R.id.userImg_finish_btn);
+        camBtn = view.findViewById(R.id.userImg_btn_upload_cam);
+        galleryBtn = view.findViewById(R.id.userImg_btn_upload_gallery);
+        userAvatar = view.findViewById(R.id.userImg_img_user);
+        progressBar = view.findViewById(R.id.userImg_progress_bar);
+        progressBar.setVisibility(View.GONE);
+        setListeners(container);
 
+        return view;
+    }
 
-        return inflater.inflate(R.layout.fragment_user_image, container, false);
+    private void setListeners(ViewGroup container) {
+        camBtn.setOnClickListener(v -> {
+            openCam();
+        });
+
+        cameraActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.TakePicturePreview(),
+                result -> {
+                    if(result!=null){
+                        bitMap = result;
+                        userAvatar.setImageBitmap(bitMap);
+                    }
+                }
+        );
+
+        galleryActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                result -> {
+                    try {
+                        bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),result);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    userAvatar.setImageBitmap(bitMap);
+                }
+        );
+
+        galleryBtn.setOnClickListener(v -> {
+            openGallery();
+        });
+
+        finishBtn.setOnClickListener(v->{
+            finish(container);
+        });
+    }
+
+    private void finish(ViewGroup container) {
+        General.progressBarOn(getActivity(),container,progressBar);
+
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    private void openCam() {
+        cameraActivityResultLauncher.launch(null);
+    }
+
+    private void openGallery() {
+        galleryActivityResultLauncher.launch("image/*");
     }
 }

@@ -27,7 +27,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 
 public class FragmentUserDetails extends Fragment {
-    Button finishBtn;
+    Button nextBtn;
     EditText nameEt;
     TextInputLayout nameTi;
     EditText addressEt;
@@ -55,16 +55,16 @@ public class FragmentUserDetails extends Fragment {
         nameTi = view.findViewById(R.id.details_ti);
         addressEt = view.findViewById(R.id.details_address_et);
         addressTi = view.findViewById(R.id.details_address_ti);
-        finishBtn = view.findViewById(R.id.userDetails_next_btn);
+        nextBtn = view.findViewById(R.id.userDetails_next_btn);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
         list.setAdapter(detailsAdapter);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        finishBtn.setOnClickListener(v -> {
+        nextBtn.setOnClickListener(v -> {
             if(!allDetailsFilled()){ return; };
             uploadDetailsToDB();
-            Navigation.findNavController(finishBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
+            Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
         });
 
 

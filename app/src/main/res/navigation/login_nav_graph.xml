@@ -24,7 +24,8 @@
     <fragment
         android:id="@+id/fragmentRegister"
         android:name="com.example.appproject.login.FragmentRegister"
-        android:label="Register" />
+        android:label="Register"
+        tools:layout="@layout/fragment_register"/>
     <fragment
         android:id="@+id/fragmentUserDetails"
         android:name="com.example.appproject.details.FragmentUserDetails"
@@ -42,6 +43,6 @@
     <fragment
         android:id="@+id/fragmentUserImage"
         android:name="com.example.appproject.details.FragmentUserImage"
-        android:label="fragment_user_image"
+        android:label="Upload Your Profile Picture"
         tools:layout="@layout/fragment_user_image" />
 </navigation>

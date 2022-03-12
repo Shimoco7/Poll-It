@@ -28,7 +28,7 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
 
         questionTv.setHint(detail.getQuestion());
         String[] array = detail.getAnswers().toArray(new String[0]);
-        ArrayAdapter adapter = new ArrayAdapter<String>(answersAc.getContext(), R.layout.drop_down, array);
+        ArrayAdapter adapter = new ArrayAdapter<>(answersAc.getContext(), R.layout.drop_down, array);
         answersAc.setAdapter(adapter);
 //        answersAc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
