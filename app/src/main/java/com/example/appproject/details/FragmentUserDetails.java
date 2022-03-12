@@ -70,46 +70,15 @@ public class FragmentUserDetails extends Fragment {
         nameTi = view.findViewById(R.id.details_ti);
         addressEt = view.findViewById(R.id.details_address_et);
         addressTi = view.findViewById(R.id.details_address_ti);
+        finishBtn = view.findViewById(R.id.userDetails_next_btn);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
         list.setAdapter(detailsAdapter);
-        finishBtn = view.findViewById(R.id.userDetails_next_btn);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         finishBtn.setOnClickListener(v -> {
-            ArrayList<String> error = new ArrayList<>();
-            for (int i = 0; i < list.getChildCount(); i++) {
-                DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-                if (holder==null|| holder.answersAc.getText().toString().equals("")) {
-                    error.add("You forgot to fill in your "+holder.questionTv.getHint().toString());
-                }
-            }
-            if(nameEt.getText().toString().trim().equals("") || nameEt.getText()==null){
-                error.add("You forgot to fill in your name");
-                return;
-            }
-
-            if(addressEt.getText().toString().trim().equals("") || addressEt.getText()==null){
-                error.add("You forgot to fill in your address");
-            }
-
-            if(error.size()>0){
-                General.showToast(getActivity(),error);
-                return;
-            }
-            for (int i = 0; i < list.getChildCount(); i++) {
-                DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-
-                Detail detail = new Detail(holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
-                Model.instance.saveDetailOnDb(detail,()->{ });
-            }
-            Detail detailName = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
-            Model.instance.saveDetailOnDb(detailName,()->{ });
-            Detail detailAddress = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
-            Model.instance.saveDetailOnDb(detailAddress,()->{ });
-
-
-
+            if(!detailsValidations()){ return; };
+            uploadDetailsToDB();
             Navigation.findNavController(finishBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
         });
 
@@ -119,6 +88,42 @@ public class FragmentUserDetails extends Fragment {
         return view;
     }
 
+    public boolean detailsValidations(){
 
+        ArrayList<String> error = new ArrayList<>();
+        for (int i = 0; i < list.getChildCount(); i++) {
+            DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
+            if (holder==null|| holder.answersAc.getText().toString().equals("")) {
+                error.add("You forgot to fill in your "+holder.questionTv.getHint().toString());
+            }
+        }
+        if(nameEt.getText().toString().trim().equals("") || nameEt.getText()==null){
+            error.add("You forgot to fill in your name");
+        }
+
+        if(addressEt.getText().toString().trim().equals("") || addressEt.getText()==null){
+            error.add("You forgot to fill in your address");
+        }
+
+        if(error.size()>0){
+            General.showToast(getActivity(),error);
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public void uploadDetailsToDB(){
+        Detail detailName = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+        Model.instance.saveDetailOnDb(detailName,()->{ });
+        Detail detailAddress = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+        Model.instance.saveDetailOnDb(detailAddress,()->{ });
+        for (int i = 0; i < list.getChildCount(); i++) {
+            DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
+            Detail detail = new Detail(holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
+            Model.instance.saveDetailOnDb(detail,()->{ });
+        }
+    }
 
 }
