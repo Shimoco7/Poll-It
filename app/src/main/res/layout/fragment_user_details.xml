@@ -65,22 +65,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/details_address_ti" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/userDetails_btn_back"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="88dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/black"
-        android:fontFamily="sans-serif"
-        android:text="BACK"
-        android:textSize="20sp"
-        app:cornerRadius="35dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_address_ti"
-        app:strokeColor="@color/primeOrng"
-        app:strokeWidth="1dp" />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/userDetails_btn_back"-->
+<!--        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--        android:layout_width="88dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="4dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:backgroundTint="@color/black"-->
+<!--        android:fontFamily="sans-serif"-->
+<!--        android:text="BACK"-->
+<!--        android:textSize="20sp"-->
+<!--        app:cornerRadius="35dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/details_address_ti"-->
+<!--        app:strokeColor="@color/primeOrng"-->
+<!--        app:strokeWidth="1dp" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/details_ti"
