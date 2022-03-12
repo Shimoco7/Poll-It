@@ -41,15 +41,15 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull DetailsHolder holder, int position) {
-        Detail detail = Objects.requireNonNull(detailsViewModel.getDetails()).get(position);
+        Detail detail = Objects.requireNonNull(detailsViewModel.getMultiChoiceQuestions()).get(position);
         holder.bind(detail);
     }
 
     @Override
     public int getItemCount() {
-        if(detailsViewModel.getDetails() == null){
+        if(detailsViewModel.getMultiChoiceQuestions() == null){
             return 0;
         }
-        return detailsViewModel.getDetails().size();
+        return detailsViewModel.getMultiChoiceQuestions().size();
     }
 }

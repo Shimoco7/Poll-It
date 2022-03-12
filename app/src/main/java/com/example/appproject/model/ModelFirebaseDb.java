@@ -66,20 +66,20 @@ public class ModelFirebaseDb {
                 .addOnSuccessListener(task->saveDetailListener.onComplete());
     }
 
-//    public void getDetails(GetDetailsListener listener){
-//
-//        db.collection(MyApplication.getContext().getString(R.string.details_collection))
-//                .whereEqualTo("uid",MyApplication.getUserKey())
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                    List<Detail> list = new ArrayList<>();
-//                    if(task.isSuccessful()){
-//                        for(QueryDocumentSnapshot doc : task.getResult()){
-//                            Detail detail = Detail.create(doc.getData());
-//                            list.add(detail);
-//                        }
-//                    }
-//                    listener.onComplete(list);
-//                });
-//    }
+    public void getDetails(GetDetailsListener listener){
+
+        db.collection(MyApplication.getContext().getString(R.string.details_collection))
+                .whereEqualTo("uid",MyApplication.getUserKey())
+                .get()
+                .addOnCompleteListener(task -> {
+                    List<Detail> list = new ArrayList<>();
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot doc : task.getResult()){
+                            Detail detail = Detail.create(doc.getData());
+                            list.add(detail);
+                        }
+                    }
+                    listener.onComplete(list);
+                });
+    }
 }

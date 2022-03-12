@@ -70,36 +70,41 @@ public class FragmentUserDetails extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel,getLayoutInflater());
         list.setAdapter(detailsAdapter);
-        detailsAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Log.d("TAG","row was clicked " + position);
-                String id = detailsViewModel.getDetails().get(position).getQuestion();
-
-            }
-        });
         finishBtn = view.findViewById(R.id.userDetails_next_btn);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         finishBtn.setOnClickListener(v -> {
             ArrayList<String> error = new ArrayList<>();
             for (Detail detail: detailsViewModel.getDetails()){
-                if(detail.getFinalAnswer()==""||detail.getFinalAnswer()==null ){
+                if(detail.getFinalAnswer().equals("")||detail.getFinalAnswer()==null ){
                     error.add("Please fill all the details first");
                     showToast(error);
                     return;
                 }
 
             }
+            for (int i = 0; i < list.getChildCount(); i++) {
+                DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
+                if (holder==null|| holder.answersAc.getText().toString().equals("")) {
+                    error.add("You forgot to fill in your "+holder.questionTv.getHint().toString());
+                }
+            }
             if(nameEt.getText().toString().trim().equals("") || nameEt.getText()==null){
                 error.add("You forgot to fill in your name");
-                showToast(error);
-                return;
             }
 
             if(addressEt.getText().toString().trim().equals("") || addressEt.getText()==null){
                 error.add("You forgot to fill in your address");
+            }
+
+            if(error.size()>0){
                 showToast(error);
                 return;
+            }
+            for (int i = 0; i < list.getChildCount(); i++) {
+                DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
+
+                Detail detail = new Detail(holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
+                Model.instance.saveDetailOnDb(detail,()->{ });
             }
             Detail detailName = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
             Model.instance.saveDetailOnDb(detailName,()->{ });
@@ -112,8 +117,6 @@ public class FragmentUserDetails extends Fragment {
         });
         return view;
     }
-
-
     private void showToast(ArrayList<String> errors) {
         StringBuilder message = new StringBuilder();
         for(String error : errors){
