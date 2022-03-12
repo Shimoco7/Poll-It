@@ -115,13 +115,14 @@ public class FragmentUserDetails extends Fragment {
     }
 
     public void uploadDetailsToDB(){
-        Detail detailName = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
-        Model.instance.saveDetailOnDb(detailName,()->{ });
-        Detail detailAddress = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
-        Model.instance.saveDetailOnDb(detailAddress,()->{ });
+        Detail detail;
+        detail = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+        Model.instance.saveDetailOnDb(detail,()->{ });
+        detail = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+        Model.instance.saveDetailOnDb(detail,()->{ });
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-            Detail detail = new Detail(holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
+            detail = new Detail(holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
             Model.instance.saveDetailOnDb(detail,()->{ });
         }
     }
