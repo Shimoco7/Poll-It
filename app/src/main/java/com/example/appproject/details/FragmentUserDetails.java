@@ -78,16 +78,15 @@ public class FragmentUserDetails extends Fragment {
         if(!Model.instance.validateName(nameEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_name));
         }
-
-        if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
-            errors.add(getString(R.string.invalid_address));
-        }
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
             if (holder==null|| holder.answersAc.getText().toString().equals("")) {
                 errors.add("Invalid "+holder.questionTv.getHint().toString());
             }
 
+        }
+        if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
+            errors.add(getString(R.string.invalid_address));
         }
         if(errors.size()>0){
             General.showToast(getActivity(),errors);
