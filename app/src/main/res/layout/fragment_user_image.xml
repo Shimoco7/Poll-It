@@ -83,25 +83,39 @@
             app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/userImg_btn_upload"
+            android:id="@+id/userImg_btn_upload_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="30dp"
+            android:layout_marginStart="12dp"
 
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/primeRed"
             android:drawableRight="@drawable/ic_upload"
             android:fontFamily="sans-serif-black"
+            android:paddingLeft="30dp"
             android:text="@string/upload"
             android:textSize="16dp"
             app:cornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/userImg_btn_upload_cam"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userImg_img_user"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
+
+        <ImageButton
+            android:id="@+id/userImg_btn_upload_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:src="@android:drawable/ic_menu_camera"
+            app:layout_constraintBottom_toBottomOf="@+id/userImg_btn_upload_gallery"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/userImg_btn_upload_gallery"
+            app:layout_constraintTop_toTopOf="@+id/userImg_btn_upload_gallery" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -136,8 +150,15 @@
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="1dp" />
 
-
-
+    <ProgressBar
+        android:id="@+id/userImg_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

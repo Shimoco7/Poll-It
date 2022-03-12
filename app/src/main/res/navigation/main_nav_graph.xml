@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/fragmentMap"
         android:name="com.example.appproject.FragmentMap"
-        android:label="fragment_map"
+        android:label="Check Out Other Users"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/fragmentUserDisplayDetails"
