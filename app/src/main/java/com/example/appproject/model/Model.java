@@ -4,7 +4,6 @@ package com.example.appproject.model;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -14,6 +13,7 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -23,9 +23,7 @@ import com.example.appproject.model.user.UsersListLoadingState;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -79,6 +77,28 @@ public class Model {
     public boolean validatePassword(String password) {
         final String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,20}$";
         return password.matches(regex);
+    }
+
+    public boolean validateName(String name) {
+        final String nameRegex = "^[a-zA-Z\\s]+";
+        return name.matches(nameRegex);
+    }
+
+    public boolean validateAddress(String address){
+        final String addressRegex = "^[a-zA-Z\\s]+";
+        final String addressRegexNumeric = "-?\\d+(\\.\\d+)?";
+        String[] addressList = address.split(",");
+        if(addressList.length!=4) {
+            return false;
+        }
+        for(int i=0; i<3; i++){
+            if(!addressList[i].matches(addressRegex)){
+                return false;
+            }
+        }
+
+        return addressList[3].matches(addressRegexNumeric);
+
     }
 
     //TODO-async
@@ -147,19 +167,22 @@ public class Model {
      * Data - User Details
      *
      */
-    ArrayList<Detail> detailsList = new ArrayList<>();
+    ArrayList<Detail> questionsList;
 
 
     public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
         modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener::onComplete);
     }
-    public ArrayList<Detail> getDetails() {
-        detailsList = new ArrayList<>();
-        detailsList.add(new Detail("Education-Level"));
-        detailsList.add(new Detail("Gender"));
-        detailsList.add(new Detail("Age"));
+    public void getDetails(GetDetailsListener getDetailsListener) {
+        modelFirebaseDb.getDetails(getDetailsListener);
+    }
 
-        return detailsList;
+    public ArrayList<Detail> getMultiChoiceQuestions() { // temporarily hard coded
+        questionsList = new ArrayList<>();
+        questionsList.add(new Detail("Age"));
+        questionsList.add(new Detail("Education-Level"));
+        questionsList.add(new Detail("Gender"));
+        return questionsList;
     }
 
 }

@@ -6,17 +6,24 @@ import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DetailsViewModel extends ViewModel {
-    ArrayList<Detail> details;
+    List<Detail> details;
 
     public DetailsViewModel() {
-        details = Model.instance.getDetails();
+        Model.instance.getDetails((list)->{
+            details = list;
+        });
 
     }
 
-    public ArrayList<Detail> getDetails() {
+    public List<Detail> getDetails() {
         return details;
+    }
+
+    public List<Detail> getMultiChoiceQuestions() {
+        return Model.instance.getMultiChoiceQuestions();
     }
 
 }

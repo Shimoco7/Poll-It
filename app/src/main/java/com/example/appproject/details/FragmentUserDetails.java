@@ -11,7 +11,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,45 +54,15 @@ public class FragmentUserDetails extends Fragment {
         nameTi = view.findViewById(R.id.details_ti);
         addressEt = view.findViewById(R.id.details_address_et);
         addressTi = view.findViewById(R.id.details_address_ti);
+        nextBtn = view.findViewById(R.id.userDetails_next_btn);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
         list.setAdapter(detailsAdapter);
-        detailsAdapter.setOnItemClickListener(position -> {
-            Log.d("TAG", "row was clicked " + position);
-            String id = detailsViewModel.getDetails().get(position).getQuestion();
-
-        });
-        nextBtn = view.findViewById(R.id.userDetails_next_btn);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         nextBtn.setOnClickListener(v -> {
-            ArrayList<String> error = new ArrayList<>();
-            for (Detail detail : detailsViewModel.getDetails()) {
-                if (detail.getFinalAnswer().equals("") || detail.getFinalAnswer() == null) {
-                    error.add("Please fill all the details first");
-                    General.showToast(getActivity(),error);
-                    return;
-                }
-
-            }
-            if (nameEt.getText().toString().trim().equals("") || nameEt.getText() == null) {
-                error.add("You forgot to fill in your name");
-                General.showToast(getActivity(),error);
-                return;
-            }
-
-            if (addressEt.getText().toString().trim().equals("") || addressEt.getText() == null) {
-                error.add("You forgot to fill in your address");
-                General.showToast(getActivity(),error);
-                return;
-            }
-            Detail detailName = new Detail(nameTi.getHint().toString().trim(), nameEt.getText().toString().trim());
-            Model.instance.saveDetailOnDb(detailName, () -> {
-            });
-            Detail detailAddress = new Detail(addressTi.getHint().toString().trim(), nameEt.getText().toString().trim());
-            Model.instance.saveDetailOnDb(detailAddress, () -> {
-            });
-
+            if(!allDetailsFilled()){ return; };
+            uploadDetailsToDB();
             Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
         });
 
@@ -103,6 +72,43 @@ public class FragmentUserDetails extends Fragment {
         return view;
     }
 
+    public boolean allDetailsFilled(){
 
+        ArrayList<String> errors = new ArrayList<>();
+        if(!Model.instance.validateName(nameEt.getText().toString().trim())){
+            errors.add(getString(R.string.invalid_name));
+        }
+        for (int i = 0; i < list.getChildCount(); i++) {
+            DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
+            if (holder==null|| holder.answersAc.getText().toString().equals("")) {
+                errors.add("Invalid "+holder.questionTv.getHint().toString());
+            }
+
+        }
+        if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
+            errors.add(getString(R.string.invalid_address));
+        }
+        if(errors.size()>0){
+            General.showToast(getActivity(),errors);
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+    public void uploadDetailsToDB(){
+        Detail detail;
+        detail = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+        Model.instance.saveDetailOnDb(detail,()->{ });
+        detail = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+        Model.instance.saveDetailOnDb(detail,()->{ });
+        for (int i = 0; i < list.getChildCount(); i++) {
+            DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
+            detail = new Detail(holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
+            Model.instance.saveDetailOnDb(detail,()->{ });
+        }
+    }
 
 }
