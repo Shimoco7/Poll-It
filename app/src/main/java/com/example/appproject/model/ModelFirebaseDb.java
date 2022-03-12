@@ -70,6 +70,7 @@ public class ModelFirebaseDb {
     public void getDetails(GetDetailsListener listener){
 
         db.collection(MyApplication.getContext().getString(R.string.details_collection))
+                .whereEqualTo("uid", MyApplication.getUserKey())
                 .get()
                 .addOnCompleteListener(task -> {
                     List<Detail> list = new ArrayList<>();
