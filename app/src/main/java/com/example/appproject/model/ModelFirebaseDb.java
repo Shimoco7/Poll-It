@@ -85,20 +85,19 @@ public class ModelFirebaseDb {
     }
 
 
-//    public void getMultiChoiceQuestions(GetMultiChoiceQuestionsListener listener){
-//
-//        db.collection(MyApplication.getContext().getString(R.string.questions_collection))
-//                .whereEqualTo("uid","tM2uONVEUAUZR9jlNaEUIxWPnz92")
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                    List<Detail> list = new ArrayList<>();
-//                    if(task.isSuccessful()){
-//                        for(QueryDocumentSnapshot doc : task.getResult()){
-//                            Detail detail = Detail.create(doc.getData());
-//                            list.add(detail);
-//                        }
-//                    }
-//                    listener.onComplete(list);
-//                });
-//    }
+    public void getMultiChoiceQuestions(GetMultiChoiceQuestionsListener listener){
+
+        db.collection(MyApplication.getContext().getString(R.string.questions_collection))
+                .get()
+                .addOnCompleteListener(task -> {
+                    List<Detail> list = new ArrayList<>();
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot doc : task.getResult()){
+                            Detail detail = Detail.createQuestion(doc.getData());
+                            list.add(detail);
+                        }
+                    }
+                    listener.onComplete(list);
+                });
+    }
 }

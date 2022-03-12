@@ -32,23 +32,6 @@ public class Detail {
         this.userUid = MyApplication.getUserKey();
         this.detailId = UUID.randomUUID().toString();
         answers = new ArrayList<>();
-        if (question.equals("Education-Level")) {
-            answers.add("Preschool");
-            answers.add("Elementary");
-            answers.add("Middle-School");
-            answers.add("High-School");
-            answers.add("University");
-        }
-        if (question.equals("Gender")) {
-            answers.add("Male");
-            answers.add("Female");
-            answers.add("Don't Wish To Specify");
-        }
-        if (question.equals("Age")) {
-            for (int i = 0; i < 100; i++) {
-                answers.add(Integer.toString(i));
-            }
-        }
     }
 
     @Ignore
@@ -58,6 +41,15 @@ public class Detail {
         this.question = question;
         this.finalAnswer = finalAnswer;
         this.setAnswers(new ArrayList<>());
+    }
+
+    @Ignore
+    public Detail(@NonNull String question, List<String> multiChoice) {
+        this.userUid = MyApplication.getUserKey();
+        this.detailId = UUID.randomUUID().toString();
+        this.question = question;
+        this.finalAnswer = "";
+        this.answers =multiChoice;
     }
 
     /**
@@ -70,6 +62,14 @@ public class Detail {
         String answer = (String)data.get("answer");
 
         return new Detail(question,answer);
+    }
+
+    public static Detail createQuestion(Map<String, Object> data) {
+
+        String question = (String)data.get("question");
+        List<String> multiChoice = (List<String>)data.get("multi_choice");
+
+        return new Detail(question,multiChoice);
     }
 
     @NonNull
@@ -114,7 +114,6 @@ public class Detail {
         json.put("detail_id", detailId);
         json.put("uid", userUid);
         json.put("question",question);
-//        json.put("optional_answers", new JSONArray(answers));
         json.put("answer",finalAnswer);
         return json;
     }

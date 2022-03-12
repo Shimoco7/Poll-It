@@ -1,25 +1,15 @@
 package com.example.appproject.details;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appproject.MyApplication;
 import com.example.appproject.R;
-import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
-import com.example.appproject.model.user.User;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class DetailsHolder extends RecyclerView.ViewHolder {
 

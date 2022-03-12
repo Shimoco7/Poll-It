@@ -167,32 +167,29 @@ public class Model {
      * Data - User Details
      *
      */
-    ArrayList<Detail> questionsList;
     MutableLiveData<List<Detail>> detailsList = new MutableLiveData<>();
+    MutableLiveData<List<Detail>> questionList = new MutableLiveData<>();
 
     public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
         modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener::onComplete);
     }
     public LiveData<List<Detail>> getDetails() {
-        if (detailsList == null) { refresh(); };
+        if (detailsList == null) { refreshDetails(); };
         return detailsList;
 
     }
-    public void refresh(){
+    public void refreshDetails(){
         modelFirebaseDb.getDetails(list -> detailsList.setValue(list));
     }
 
-    public ArrayList<Detail> getMultiChoiceQuestions() { // temporarily hard coded
-        questionsList = new ArrayList<>();
-        questionsList.add(new Detail("Age"));
-        questionsList.add(new Detail("Education-Level"));
-        questionsList.add(new Detail("Gender"));
-        return questionsList;
+    public LiveData<List<Detail>> getQuestions() {
+        if (questionList == null) { refreshQuestions(); };
+        return questionList;
+
+    }
+    public void refreshQuestions(){
+        modelFirebaseDb.getMultiChoiceQuestions(list -> questionList.setValue(list));
     }
 
-
-//    public void getMultiChoiceQuestions(GetMultiChoiceQuestionsListener getMultiChoiceQuestionsListener) {
-//        modelFirebaseDb.getMultiChoiceQuestions(getMultiChoiceQuestionsListener);
-//    }
 
 }

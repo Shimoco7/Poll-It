@@ -69,8 +69,10 @@ public class FragmentUserDetails extends Fragment {
 
 
 
-        detailsViewModel.getDetails().observe(getViewLifecycleOwner(),detailsList->refresh());
-        Model.instance.refresh();
+      //  detailsViewModel.getDetails().observe(getViewLifecycleOwner(),detailsList->refresh());
+        detailsViewModel.getMultiChoiceQuestions().observe(getViewLifecycleOwner(),questionsList->refresh());
+       // Model.instance.refreshDetails();
+        Model.instance.refreshQuestions();
         return view;
     }
 

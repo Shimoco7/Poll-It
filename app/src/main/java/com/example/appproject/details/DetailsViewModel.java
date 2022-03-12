@@ -10,19 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsViewModel extends ViewModel {
-    LiveData<List<Detail>> details;
+   // LiveData<List<Detail>> details;
+    LiveData<List<Detail>> questions;
 
     public DetailsViewModel() {
-        details = Model.instance.getDetails();
+       // details = Model.instance.getDetails();
+        questions = Model.instance.getQuestions();
 
     }
 
-    public LiveData<List<Detail>> getDetails() {
-        return details;
-    }
+//    public LiveData<List<Detail>> getDetails() {
+//        return details;
+//    }
 
-    public List<Detail> getMultiChoiceQuestions() {
-        return Model.instance.getMultiChoiceQuestions();
+    public LiveData<List<Detail>> getMultiChoiceQuestions() {
+        return questions;
     }
 
 }

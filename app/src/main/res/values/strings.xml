@@ -38,6 +38,7 @@
     <!--Collection Strings-->
     <string name="users_collection">users</string>
     <string name="details_collection">details</string>
+    <string name="questions_collection">questions</string>
     <!--Shared Preferences Strings-->
     <string name="firebasekey">firebasekey</string>
     <string name="users_list_last_update_date">users_list_last_update_date</string>
