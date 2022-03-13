@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.appproject.R;
 import com.example.appproject.model.General;
@@ -39,9 +40,8 @@ public class FragmentUserDetails extends Fragment {
     TextInputLayout addressTi;
     DetailsViewModel detailsViewModel;
     DetailsAdapter detailsAdapter;
-    SwipeRefreshLayout swipeRefresh;
+    ProgressBar detailsProgressBar;
     Boolean isNameEmpty=true,isAddressEmpty=true;
-
 
     RecyclerView list;
 
@@ -59,13 +59,13 @@ public class FragmentUserDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
-        swipeRefresh = view.findViewById(R.id.details_layout_refresh);
         list = view.findViewById(R.id.details_list_rv);
         nameEt = view.findViewById(R.id.details_name_et);
         nameTi = view.findViewById(R.id.details_ti);
         addressEt = view.findViewById(R.id.details_address_et);
         addressTi = view.findViewById(R.id.details_address_ti);
         nextBtn = view.findViewById(R.id.userDetails_next_btn);
+        detailsProgressBar = view.findViewById(R.id.details_progress_bar);
         nameEt.setVisibility(View.GONE);
         nameTi.setVisibility(View.GONE);
         addressEt.setVisibility(View.GONE);
@@ -88,8 +88,7 @@ public class FragmentUserDetails extends Fragment {
       //  detailsViewModel.getDetails().observe(getViewLifecycleOwner(),detailsList->refresh());
         detailsViewModel.getMultiChoiceQuestions().observe(getViewLifecycleOwner(),questionsList->refresh());
        // Model.instance.refreshDetails();
-        swipeRefresh.setEnabled(false);
-        swipeRefresh.setRefreshing(true);
+        General.progressBarOn(getActivity(),container,detailsProgressBar);
         Model.instance.refreshQuestions();
         return view;
     }
@@ -158,7 +157,8 @@ public class FragmentUserDetails extends Fragment {
         addressEt.setVisibility(View.VISIBLE);
         addressTi.setVisibility(View.VISIBLE);
         nextBtn.setVisibility(View.VISIBLE);
-        swipeRefresh.setRefreshing(false);
+        detailsProgressBar.setVisibility(View.GONE);
+
     }
 
     public boolean allDetailsFilled(){
