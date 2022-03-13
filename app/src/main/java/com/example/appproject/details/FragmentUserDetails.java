@@ -167,18 +167,18 @@ public class FragmentUserDetails extends Fragment {
         if(!Model.instance.validateName(nameEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_name));
             if (isNameEmpty) {
-                nameTi.setError("Please Enter Name");
+                nameTi.setError(getString(R.string.missing_name));
             } else {
-                nameTi.setError("Invalid Name");
+                nameTi.setError(getString(R.string.invalid_name));
             }
             nameTi.setErrorIconDrawable(null);
 
         }
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-            if (holder==null|| holder.answersAc.getText().toString().equals("")) {
+            if (holder==null|| holder.answersAc.getText().toString().trim().equals("")) {
                 errors.add("Invalid "+holder.questionTv.getHint().toString());
-                holder.questionTv.setError("Please Choose Answer");
+                holder.questionTv.setError(getString(R.string.missing_answer));
                 holder.answersAc.setOnItemClickListener((parent, view, position, id) -> holder.questionTv.setError(null));
 
             }
@@ -187,16 +187,11 @@ public class FragmentUserDetails extends Fragment {
         }
         if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_address));
-            if (isNameEmpty) addressTi.setError("Please Enter Address");
-            else addressTi.setError("Invalid Address");
+            if (isNameEmpty) addressTi.setError(getString(R.string.missing_address));
+            else addressTi.setError(getString(R.string.invalid_address));
             addressTi.setErrorIconDrawable(null);
         }
-        if(errors.size()>0){
-//            General.showToast(getActivity(),errors);
-            return false;
-        }
-
-        return true;
+        return errors.size() <= 0;
 
     }
 
