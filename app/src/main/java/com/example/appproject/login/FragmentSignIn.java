@@ -1,18 +1,11 @@
 package com.example.appproject.login;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
-import android.renderscript.ScriptGroup;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.TextKeyListener;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,19 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.ThemedSpinnerAdapter;
 import android.widget.Toast;
-
 import com.example.appproject.MainActivity;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
-import com.google.android.material.internal.TextWatcherAdapter;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.Objects;
 
@@ -41,7 +27,7 @@ public class FragmentSignIn extends Fragment {
     Button signInBtn;
     EditText emailAddress;
     EditText password;
-    TextInputLayout emaillayout, passwordlayout;
+    TextInputLayout emailLayout, passwordLayout;
     ProgressBar progressBar;
 
     public FragmentSignIn() {
@@ -59,8 +45,8 @@ public class FragmentSignIn extends Fragment {
         signInBtn=view.findViewById(R.id.sign_in_btn);
         emailAddress=view.findViewById(R.id.login_input_email);
         password=view.findViewById(R.id.login_input_password);
-        emaillayout=view.findViewById(R.id.sign_lout_email);
-        passwordlayout=view.findViewById(R.id.sign_lout_password);
+        emailLayout =view.findViewById(R.id.sign_lout_email);
+        passwordLayout =view.findViewById(R.id.sign_lout_password);
         progressBar = view.findViewById(R.id.sign_progressbar);
         progressBar.setVisibility(View.GONE);
         setSignInBtnListener(container);
@@ -75,23 +61,23 @@ public class FragmentSignIn extends Fragment {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                emaillayout.setError(null);
+                emailLayout.setError(null);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                emaillayout.setError(null);
+                emailLayout.setError(null);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                emaillayout.setErrorIconDrawable(null);
-                if (s.toString().length() == 0) emaillayout.setError(null);
+                emailLayout.setErrorIconDrawable(null);
+                if (s.toString().length() == 0) emailLayout.setError(null);
                 else {
                     if (!Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches())
-                        emaillayout.setError("Invalid Email Address");
+                        emailLayout.setError("Invalid Email Address");
                     else if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches())
-                        emaillayout.setError(null);
+                        emailLayout.setError(null);
                 }
 
 
@@ -100,19 +86,19 @@ public class FragmentSignIn extends Fragment {
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                passwordlayout.setError(null);
+                passwordLayout.setError(null);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                passwordlayout.setError(null);
+                passwordLayout.setError(null);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                passwordlayout.setErrorIconDrawable(null);
-                if(s.toString().length()==0) passwordlayout.setError("Please Enter Password");
-                else passwordlayout.setError(null);
+                passwordLayout.setErrorIconDrawable(null);
+                if(s.toString().length()==0) passwordLayout.setError("Please Enter Password");
+                else passwordLayout.setError(null);
 
             }
         });

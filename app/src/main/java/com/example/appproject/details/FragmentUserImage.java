@@ -92,6 +92,7 @@ public class FragmentUserImage extends Fragment {
         });
     }
 
+    //Todo - Save to storage and Url to DB
     private void finish(ViewGroup container) {
         General.progressBarOn(getActivity(),container,progressBar);
 

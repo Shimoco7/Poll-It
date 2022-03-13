@@ -39,7 +39,7 @@ public class General {
     }
 
     public static void progressBarOff(Activity activity, ViewGroup container, ProgressBar progressBar) {
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
         General.enableDisableClickView(container, true);
         ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
