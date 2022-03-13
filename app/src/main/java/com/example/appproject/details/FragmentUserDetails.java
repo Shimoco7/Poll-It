@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +39,7 @@ public class FragmentUserDetails extends Fragment {
     TextInputLayout addressTi;
     DetailsViewModel detailsViewModel;
     DetailsAdapter detailsAdapter;
+    SwipeRefreshLayout swipeRefresh;
     Boolean isNameEmpty=true,isAddressEmpty=true;
 
 
@@ -57,12 +59,18 @@ public class FragmentUserDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
+        swipeRefresh = view.findViewById(R.id.details_layout_refresh);
         list = view.findViewById(R.id.details_list_rv);
         nameEt = view.findViewById(R.id.details_name_et);
         nameTi = view.findViewById(R.id.details_ti);
         addressEt = view.findViewById(R.id.details_address_et);
         addressTi = view.findViewById(R.id.details_address_ti);
         nextBtn = view.findViewById(R.id.userDetails_next_btn);
+        nameEt.setVisibility(View.GONE);
+        nameTi.setVisibility(View.GONE);
+        addressEt.setVisibility(View.GONE);
+        addressTi.setVisibility(View.GONE);
+        nextBtn.setVisibility(View.GONE);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
@@ -80,6 +88,8 @@ public class FragmentUserDetails extends Fragment {
       //  detailsViewModel.getDetails().observe(getViewLifecycleOwner(),detailsList->refresh());
         detailsViewModel.getMultiChoiceQuestions().observe(getViewLifecycleOwner(),questionsList->refresh());
        // Model.instance.refreshDetails();
+        swipeRefresh.setEnabled(false);
+        swipeRefresh.setRefreshing(true);
         Model.instance.refreshQuestions();
         return view;
     }
@@ -143,9 +153,12 @@ public class FragmentUserDetails extends Fragment {
     @SuppressLint("NotifyDataSetChanged")
     private void refresh() {
         detailsAdapter.notifyDataSetChanged();
-        ArrayList<String> errors = new ArrayList<>();
-        errors.add("test");
-        General.showToast(getActivity(),errors);
+        nameEt.setVisibility(View.VISIBLE);
+        nameTi.setVisibility(View.VISIBLE);
+        addressEt.setVisibility(View.VISIBLE);
+        addressTi.setVisibility(View.VISIBLE);
+        nextBtn.setVisibility(View.VISIBLE);
+        swipeRefresh.setRefreshing(false);
     }
 
     public boolean allDetailsFilled(){
