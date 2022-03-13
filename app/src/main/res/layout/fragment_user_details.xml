@@ -8,141 +8,153 @@
     android:background="#070707"
     android:visibility="visible">
 
-<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".details.FragmentUserDetails">
-
-<!--    <com.google.android.material.imageview.ShapeableImageView-->
-<!--        android:id="@+id/userDetails_img_main"-->
-<!--        android:layout_width="306dp"-->
-<!--        android:layout_height="120dp"-->
-<!--        android:src="@drawable/logo__nobg_2"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/homeScr_text_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center"
-        android:text="Please enter the following details"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/details_list_rv"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_ti" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/userDetails_next_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="4dp"
-        android:fontFamily="sans-serif-black"
-        android:text="NEXT"
-        android:textSize="20sp"
-        app:cornerRadius="35dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_address_ti" />
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/userDetails_btn_back"-->
-<!--        style="@style/Widget.MaterialComponents.Button.TextButton"-->
-<!--        android:layout_width="88dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="4dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:backgroundTint="@color/black"-->
-<!--        android:fontFamily="sans-serif"-->
-<!--        android:text="BACK"-->
-<!--        android:textSize="20sp"-->
-<!--        app:cornerRadius="35dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/details_address_ti"-->
-<!--        app:strokeColor="@color/primeOrng"-->
-<!--        app:strokeWidth="1dp" />-->
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/details_ti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="@string/name"
-        android:imeOptions="actionDone"
-        android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_title"
-        tools:layout_editor_absoluteX="4dp">
+        android:background="@color/black"
+        tools:context=".details.FragmentUserDetails">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/details_name_et"
+        <!--    <com.google.android.material.imageview.ShapeableImageView-->
+        <!--        android:id="@+id/userDetails_img_main"-->
+        <!--        android:layout_width="306dp"-->
+        <!--        android:layout_height="120dp"-->
+        <!--        android:src="@drawable/logo__nobg_2"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/custom_input"
-            android:drawablePadding="14dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeScr_text_title">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/details_ti"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="sans-serif-black"
+                android:hint="@string/name"
+                android:textColorHint="@color/white"
+                app:boxStrokeColor="@color/primeOrng"
+                app:boxStrokeErrorColor="@color/primeRed"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/primeRed"
+                app:startIconTint="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/details_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:textColor="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/details_address_ti"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:paddingTop="10dp"
+
+                android:hint="@string/address"
+                android:textColorHint="@color/white"
+                app:boxStrokeColor="@color/primeOrng"
+                app:boxStrokeErrorColor="@color/primeRed"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/primeRed"
+                app:startIconTint="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/details_address_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:textColor="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/details_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/homeScr_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="sans-serif-light"
-            android:inputType="text"
-            android:maxLines="1"
-            android:imeOptions="actionDone"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
+            android:gravity="center"
+            android:text="Please enter the following details"
             android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textSize="24sp"
+            android:textStyle="bold"
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/details_address_ti"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="@string/address"
-        android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_list_rv">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/details_address_et"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/custom_input"
-            android:drawablePadding="14dp"
-            android:fontFamily="sans-serif-light"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/userDetails_next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="sans-serif-black"
+            android:text="NEXT"
+            android:textSize="20sp"
+            app:cornerRadius="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
+        <!--    <com.google.android.material.button.MaterialButton-->
+        <!--        android:id="@+id/userDetails_btn_back"-->
+        <!--        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+        <!--        android:layout_width="88dp"-->
+        <!--        android:layout_height="50dp"-->
+        <!--        android:layout_marginStart="4dp"-->
+        <!--        android:layout_marginTop="20dp"-->
+        <!--        android:backgroundTint="@color/black"-->
+        <!--        android:fontFamily="sans-serif"-->
+        <!--        android:text="BACK"-->
+        <!--        android:textSize="20sp"-->
+        <!--        app:cornerRadius="35dp"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/details_address_ti"-->
+        <!--        app:strokeColor="@color/primeOrng"-->
+        <!--        app:strokeWidth="1dp" />-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -15,7 +15,7 @@
     <string name="email_colon">Email:</string>
     <string name="email">Email Address</string>
     <string name="name">Name</string>
-    <string name="address">Address(Country,City,Street,Number)</string>
+    <string name="address">Address (Country, City, Street, Number)</string>
     <string name="register">Register</string>
     <string name="sign_in">SIGN IN</string>
     <string name="password">Password</string>
@@ -43,8 +43,6 @@
     <string name="firebasekey">firebasekey</string>
     <string name="users_list_last_update_date">users_list_last_update_date</string>
     <string name="user_email">user_email</string>
-
-
     <string name="upload">UPLOAD</string>
     <string name="last_one">LAST ONE</string>
     <string name="finish">FINISH</string>

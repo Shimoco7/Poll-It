@@ -12,9 +12,13 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -34,6 +38,9 @@ public class FragmentUserDetails extends Fragment {
     TextInputLayout addressTi;
     DetailsViewModel detailsViewModel;
     DetailsAdapter detailsAdapter;
+    Boolean isNameEmpty=true,isAddressEmpty=true;
+
+
     RecyclerView list;
 
 
@@ -61,6 +68,7 @@ public class FragmentUserDetails extends Fragment {
         detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
         list.setAdapter(detailsAdapter);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        setInputListeners();
         nextBtn.setOnClickListener(v -> {
             if(!allDetailsFilled()){ return; };
             uploadDetailsToDB();
@@ -76,6 +84,62 @@ public class FragmentUserDetails extends Fragment {
         return view;
     }
 
+    @SuppressLint("RestrictedApi")
+    private void setInputListeners(){
+
+        nameEt.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                nameTi.setError(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                nameTi.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                nameTi.setErrorIconDrawable(null);
+                if (s.toString().length() == 0) {
+                    nameTi.setError(null);
+                    isNameEmpty =true;
+
+
+                }
+
+            }
+        });
+
+        addressEt.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                addressTi.setError(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                addressTi.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                addressTi.setErrorIconDrawable(null);
+                if (s.toString().length() == 0) {
+                    addressTi.setError(null);
+                    isAddressEmpty = true;
+
+
+                }
+            }
+
+        });
+
+
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     private void refresh() {
         detailsAdapter.notifyDataSetChanged();
@@ -89,19 +153,33 @@ public class FragmentUserDetails extends Fragment {
         ArrayList<String> errors = new ArrayList<>();
         if(!Model.instance.validateName(nameEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_name));
+            if (isNameEmpty) {
+                nameTi.setError("Please Enter Name");
+            } else {
+                nameTi.setError("Invalid Name");
+            }
+            nameTi.setErrorIconDrawable(null);
+
         }
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
             if (holder==null|| holder.answersAc.getText().toString().equals("")) {
                 errors.add("Invalid "+holder.questionTv.getHint().toString());
+                holder.questionTv.setError("Please Choose Answer");
+                holder.answersAc.setOnItemClickListener((parent, view, position, id) -> holder.questionTv.setError(null));
+
             }
+
 
         }
         if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_address));
+            if (isNameEmpty) addressTi.setError("Please Enter Address");
+            else addressTi.setError("Invalid Address");
+            addressTi.setErrorIconDrawable(null);
         }
         if(errors.size()>0){
-            General.showToast(getActivity(),errors);
+//            General.showToast(getActivity(),errors);
             return false;
         }
 

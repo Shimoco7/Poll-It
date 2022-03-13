@@ -85,7 +85,7 @@ public class FragmentRegister extends Fragment {
 
                 }
                 else {
-                    if (!Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
+                    if (!Model.instance.validateEmailAddress(email.getText().toString().trim())) {
                         emailLayout.setError("Invalid Email Address");
                         isEmailEmpty = false;
                     }
@@ -173,7 +173,7 @@ public class FragmentRegister extends Fragment {
 
             }
 
-            else{
+            else {
                 General.progressBarOn(getActivity(), container, progressBar);
                 ArrayList<String> errors = new ArrayList<>();
                 if (!Model.instance.validateEmailAddress(email.getText().toString().trim())) {
@@ -182,16 +182,19 @@ public class FragmentRegister extends Fragment {
                 if (password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())) {
                     if (!Model.instance.validatePassword(password.getText().toString().trim())) {
                         errors.add(getString(R.string.invalid_password));
+                        password.setText("");
+                        confirmPassword.setText("");
                     }
                 } else {
                     errors.add(getString(R.string.passwords_do_not_match));
+                    password.setText("");
+                    confirmPassword.setText("");
                 }
 
                 if (!errors.isEmpty()) {
                     General.showToast(getActivity(), errors);
                     General.progressBarOff(getActivity(), container, progressBar);
-                    password.setText("");
-                    confirmPassword.setText("");
+
 
 
                     return;
