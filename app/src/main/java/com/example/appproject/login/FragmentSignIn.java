@@ -2,8 +2,12 @@ package com.example.appproject.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+
+import androidx.annotation.ColorRes;
 import androidx.fragment.app.Fragment;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -14,11 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.example.appproject.MainActivity;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.Objects;
 
@@ -28,6 +34,7 @@ public class FragmentSignIn extends Fragment {
     EditText emailAddress;
     EditText password;
     TextInputLayout emailLayout, passwordLayout;
+    Boolean isPassEmpty=true, isEmailEmpty =true;
     ProgressBar progressBar;
 
     public FragmentSignIn() {
@@ -57,6 +64,7 @@ public class FragmentSignIn extends Fragment {
 
     @SuppressLint("RestrictedApi")
     private void setInputListeners(){
+        isPassEmpty=true;
         emailAddress.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -72,12 +80,21 @@ public class FragmentSignIn extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 emailLayout.setErrorIconDrawable(null);
-                if (s.toString().length() == 0) emailLayout.setError(null);
+                if (s.toString().length() == 0) {
+                    emailLayout.setError(null);
+                    isEmailEmpty =true;
+
+
+                }
                 else {
-                    if (!Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches())
+                    if (!Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
                         emailLayout.setError("Invalid Email Address");
-                    else if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches())
+                        isEmailEmpty = false;
+                    }
+                    else if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
                         emailLayout.setError(null);
+                        isEmailEmpty = false;
+                    }
                 }
 
 
@@ -97,30 +114,54 @@ public class FragmentSignIn extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 passwordLayout.setErrorIconDrawable(null);
-                if(s.toString().length()==0) passwordLayout.setError("Please Enter Password");
-                else passwordLayout.setError(null);
+                if(s.toString().length()==0){
+                    passwordLayout.setError("Please Enter Password");
+                    isPassEmpty=true;
+                }
+                else{
+                    passwordLayout.setError(null);
+                    isPassEmpty=false;
+                }
 
             }
         });
     }
 
+    @SuppressLint("ResourceAsColor")
     private void setSignInBtnListener(ViewGroup container) {
         signInBtn.setOnClickListener(v -> {
-            General.progressBarOn(getActivity(),container,progressBar);
-            Model.instance.signIn(emailAddress.getText().toString().trim(), password.getText().toString().trim(), (user, message) -> {
-                if (user != null) {
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
-                    Objects.requireNonNull(getActivity()).finish();
-                }
 
-                else{
-                    General.progressBarOff(getActivity(),container,progressBar);
-                    Toast.makeText(getContext(),getString(R.string.email_or_password_is_incorrect), Toast.LENGTH_LONG).show();
+
+            if ((isPassEmpty)||(isEmailEmpty)||(emailLayout.getError()!=null)) {
+                if (isEmailEmpty) {
+                    emailLayout.setErrorIconDrawable(null);
+                    emailLayout.setError("Please Enter Email");
                     password.setText("");
-
                 }
-            });
+                if(isPassEmpty) {
+                    passwordLayout.setError("Please Enter Password");
+                }
+
+            }
+            else {
+                General.progressBarOn(getActivity(), container, progressBar);
+                Model.instance.signIn(emailAddress.getText().toString().trim(), password.getText().toString().trim(), (user, message) -> {
+                    if (user != null) {
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                        Objects.requireNonNull(getActivity()).finish();
+                    } else {
+                        General.progressBarOff(getActivity(), container, progressBar);
+                        Toast.makeText(getContext(), getString(R.string.email_or_password_is_incorrect), Toast.LENGTH_LONG).show();
+                        password.setText("");
+
+                    }
+
+
+                });
+            }
+
+
         });
     }
 }
