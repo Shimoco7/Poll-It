@@ -17,28 +17,23 @@ public class Detail {
     @PrimaryKey
     @NonNull
     public String detailId;
+    @NonNull
     public String userUid;
+    @NonNull
     public String questionId;
     public String question;
     public String answer;
 
     public Detail() { }
 
-    @Ignore
-    public Detail(@NonNull String questionId,String question) {
-        this.questionId = questionId;
-        this.question = question;
-        this.userUid = MyApplication.getUserKey();
-        this.detailId = UUID.randomUUID().toString();
-    }
 
     @Ignore
-    public Detail(@NonNull String questionId, String question, String finalAnswer) {
+    public Detail(@NonNull String questionId,@NonNull String question, String answer) {
         this.userUid = MyApplication.getUserKey();
         this.detailId = UUID.randomUUID().toString();
         this.questionId = questionId;
         this.question = question;
-        this.answer = finalAnswer;
+        this.answer = answer;
     }
 
     /**
@@ -46,11 +41,13 @@ public class Detail {
      *
      */
     public static Detail create(Map<String, Object> data) {
+        String detailId = (String)data.get("detail_id");
         String questionId = (String)data.get("question_id");
         String question = (String)data.get("question");
         String answer = (String)data.get("answer");
-
-        return new Detail(questionId, question,answer);
+        Detail detail = new Detail( questionId, question,answer);
+        detail.setDetailId(detailId);
+        return detail;
     }
 
 
