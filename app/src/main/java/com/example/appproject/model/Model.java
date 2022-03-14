@@ -15,6 +15,7 @@ import com.example.appproject.R;
 import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.SaveDetailListener;
+import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.SaveImageListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -178,7 +179,7 @@ public class Model {
      *
      */
     MutableLiveData<List<Detail>> detailsList = new MutableLiveData<>();
-    MutableLiveData<List<Detail>> questionList = new MutableLiveData<>();
+    MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
     public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
         modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener::onComplete);
@@ -192,13 +193,13 @@ public class Model {
         modelFirebaseDb.getDetails(list -> detailsList.setValue(list));
     }
 
-    public LiveData<List<Detail>> getQuestions() {
+    public LiveData<List<Question>> getQuestions() {
         if (questionList == null) { refreshQuestions(); };
         return questionList;
 
     }
     public void refreshQuestions(){
-        modelFirebaseDb.getMultiChoiceQuestions(list -> questionList.setValue(list));
+        modelFirebaseDb.getQuestions(list -> questionList.setValue(list));
     }
 
 }

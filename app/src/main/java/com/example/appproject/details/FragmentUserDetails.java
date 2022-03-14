@@ -11,15 +11,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -86,7 +83,7 @@ public class FragmentUserDetails extends Fragment {
 
 
       //  detailsViewModel.getDetails().observe(getViewLifecycleOwner(),detailsList->refresh());
-        detailsViewModel.getMultiChoiceQuestions().observe(getViewLifecycleOwner(),questionsList->refresh());
+        detailsViewModel.getQuestions().observe(getViewLifecycleOwner(), questionsList->refresh());
        // Model.instance.refreshDetails();
         General.progressBarOn(getActivity(),container,detailsProgressBar);
         Model.instance.refreshQuestions();
@@ -138,10 +135,8 @@ public class FragmentUserDetails extends Fragment {
                 addressTi.setErrorIconDrawable(null);
                 if (s.toString().length() == 0) {
                     addressTi.setError(null);
-                    isAddressEmpty = true;
+                    isAddressEmpty = true; }
 
-
-                }
             }
 
         });
@@ -187,7 +182,7 @@ public class FragmentUserDetails extends Fragment {
         }
         if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_address));
-            if (isNameEmpty) addressTi.setError(getString(R.string.missing_address));
+            if (isAddressEmpty) addressTi.setError(getString(R.string.missing_address));
             else addressTi.setError(getString(R.string.invalid_address));
             addressTi.setErrorIconDrawable(null);
         }
@@ -198,13 +193,13 @@ public class FragmentUserDetails extends Fragment {
 
     public void uploadDetailsToDB(){
         Detail detail;
-        detail = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+        detail = new Detail(nameTi.getHint().toString().trim(),nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
         Model.instance.saveDetailOnDb(detail,()->{ });
-        detail = new Detail(addressTi.getHint().toString().trim(),addressEt.getText().toString().trim());
+        detail = new Detail(addressTi.getHint().toString().trim(),addressTi.getHint().toString().trim(),addressEt.getText().toString().trim());
         Model.instance.saveDetailOnDb(detail,()->{ });
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-            detail = new Detail(holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
+            detail = new Detail(holder.questionTv.getTag().toString().trim(), holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
             Model.instance.saveDetailOnDb(detail,()->{ });
         }
     }

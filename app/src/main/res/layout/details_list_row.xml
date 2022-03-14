@@ -50,6 +50,10 @@
                 android:fontFamily="sans-serif-light"
                 android:inputType="none|textNoSuggestions"
                 android:text=""
+                android:textSize="12sp"
+                android:backgroundTint="@android:color/transparent"
+                android:textCursorDrawable="@null"
+                android:textStyle="bold"
                 android:textColor="@color/white"/>
 
 

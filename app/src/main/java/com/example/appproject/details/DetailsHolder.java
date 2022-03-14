@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.question.Question;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class DetailsHolder extends RecyclerView.ViewHolder {
@@ -24,10 +25,11 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(Detail detail) {
+    public void bind(Question question) {
 
-        questionTv.setHint(detail.getQuestion());
-        String[] array = detail.getAnswers().toArray(new String[0]);
+        questionTv.setHint(question.getQuestion());
+        questionTv.setTag(question.getQuestionId());
+        String[] array = question.getMultiChoice().toArray(new String[0]);
         ArrayAdapter adapter = new ArrayAdapter<>(answersAc.getContext(), R.layout.drop_down, array);
         answersAc.setAdapter(adapter);
 //        answersAc.setOnItemClickListener(new AdapterView.OnItemClickListener() {

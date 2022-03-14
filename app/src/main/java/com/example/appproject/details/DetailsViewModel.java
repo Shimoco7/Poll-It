@@ -5,13 +5,14 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.Model;
+import com.example.appproject.model.question.Question;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsViewModel extends ViewModel {
    // LiveData<List<Detail>> details;
-    LiveData<List<Detail>> questions;
+    LiveData<List<Question>> questions;
 
     public DetailsViewModel() {
        // details = Model.instance.getDetails();
@@ -23,7 +24,7 @@ public class DetailsViewModel extends ViewModel {
 //        return details;
 //    }
 
-    public LiveData<List<Detail>> getMultiChoiceQuestions() {
+    public LiveData<List<Question>> getQuestions() {
         return questions;
     }
 

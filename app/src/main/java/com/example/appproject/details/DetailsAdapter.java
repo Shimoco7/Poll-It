@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.question.Question;
 
 import java.util.Objects;
 interface OnItemClickListener{
@@ -41,15 +42,15 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull DetailsHolder holder, int position) {
-        Detail detail = Objects.requireNonNull(detailsViewModel.getMultiChoiceQuestions().getValue()).get(position);
-        holder.bind(detail);
+        Question question = Objects.requireNonNull(detailsViewModel.getQuestions().getValue()).get(position);
+        holder.bind(question);
     }
 
     @Override
     public int getItemCount() {
-        if(detailsViewModel.getMultiChoiceQuestions().getValue() == null){
+        if(detailsViewModel.getQuestions().getValue() == null){
             return 0;
         }
-        return detailsViewModel.getMultiChoiceQuestions().getValue().size();
+        return detailsViewModel.getQuestions().getValue().size();
     }
 }
