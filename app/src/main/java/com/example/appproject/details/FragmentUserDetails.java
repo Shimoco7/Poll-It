@@ -117,12 +117,6 @@ public class FragmentUserDetails extends Fragment {
 
 
                 }
-                else {
-                    isNameEmpty =false;
-
-
-                }
-
 
             }
         });
@@ -144,21 +138,8 @@ public class FragmentUserDetails extends Fragment {
                 addressTi.setErrorIconDrawable(null);
                 if (s.toString().length() == 0) {
                     addressTi.setError(null);
-                    isAddressEmpty = true;
+                    isAddressEmpty = true; }
 
-
-                }
-                if (s.toString().length() == 0) {
-                    addressTi.setError(null);
-                    isAddressEmpty = true;
-
-
-                }
-                else {
-                    isAddressEmpty =false;
-
-
-                }
             }
 
         });
