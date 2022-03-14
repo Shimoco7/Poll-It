@@ -21,6 +21,8 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
+import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.detail.DetailDao;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -58,9 +60,16 @@ public class FragmentUserImage extends Fragment {
         return view;
     }
 
-    //Todo - set user's avatar based on their gender
-    private void setUserAvatar() {
 
+    private void setUserAvatar() {
+        Model.instance.getUserDetailById(MyApplication.getUserKey(),"Gender",gender -> {
+            if(gender.getAnswer().equals("Female")){
+                userAvatar.setImageResource(R.drawable.female_avatar);
+            }
+            else{
+                userAvatar.setImageResource(R.drawable.avatar);
+            }
+        });
     }
 
     private void setListeners(ViewGroup container) {

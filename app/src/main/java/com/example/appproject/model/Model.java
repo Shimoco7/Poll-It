@@ -14,6 +14,7 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.SaveImageListener;
@@ -103,7 +104,6 @@ public class Model {
 
     }
 
-    //TODO-async
     public void clearCaches() {
         executor.execute(()->{
             AppLocalDb.db.clearAllTables();
@@ -182,7 +182,10 @@ public class Model {
     MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
     public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
-        modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener::onComplete);
+        modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener);
+        executor.execute(()->{
+            AppLocalDb.db.detailDao().insertAll(detail);
+        });
     }
     public LiveData<List<Detail>> getDetails() {
         if (detailsList == null) { refreshDetails(); };
@@ -202,4 +205,10 @@ public class Model {
         modelFirebaseDb.getQuestions(list -> questionList.setValue(list));
     }
 
+    public void getUserDetailById(String userKey, String question, GetUserDetailByIdListener listener) {
+        executor.execute(()->{
+            Detail detail = AppLocalDb.db.detailDao().loadDetailByUserId(userKey,question);
+            listener.onComplete(detail);
+        });
+    }
 }

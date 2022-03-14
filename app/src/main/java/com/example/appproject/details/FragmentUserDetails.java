@@ -81,11 +81,7 @@ public class FragmentUserDetails extends Fragment {
             Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
         });
 
-
-
-      //  detailsViewModel.getDetails().observe(getViewLifecycleOwner(),detailsList->refresh());
         detailsViewModel.getQuestions().observe(getViewLifecycleOwner(), questionsList->refresh());
-       // Model.instance.refreshDetails();
         General.progressBarOn(getActivity(),container,detailsProgressBar);
         Model.instance.refreshQuestions();
         return view;

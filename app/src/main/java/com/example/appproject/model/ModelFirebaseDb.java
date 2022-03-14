@@ -49,9 +49,7 @@ public class ModelFirebaseDb {
                        String curUid = MyApplication.getUserKey();
                        for(QueryDocumentSnapshot doc : task.getResult()){
                            User user = User.create(doc.getData());
-                           if(!user.getUid().equals(curUid)){
                                list.add(user);
-                           }
                        }
                    }
                    listener.onComplete(list);
