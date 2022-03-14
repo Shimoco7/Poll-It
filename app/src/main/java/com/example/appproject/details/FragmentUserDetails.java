@@ -172,10 +172,10 @@ public class FragmentUserDetails extends Fragment {
         }
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-            if (holder==null|| holder.answersAc.getText().toString().trim().equals("")) {
+            if (holder==null|| holder.multiChoiceAc.getText().toString().trim().equals("")) {
                 errors.add("Invalid "+holder.questionTv.getHint().toString());
                 holder.questionTv.setError(getString(R.string.missing_answer));
-                holder.answersAc.setOnItemClickListener((parent, view, position, id) -> holder.questionTv.setError(null));
+                holder.multiChoiceAc.setOnItemClickListener((parent, view, position, id) -> holder.questionTv.setError(null));
 
             }
 
@@ -198,7 +198,7 @@ public class FragmentUserDetails extends Fragment {
         Model.instance.updateUser(MyApplication.getUserKey(),"address",addressEt.getText().toString().trim(), ()->{});
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-            detail = new Detail(holder.questionTv.getTag().toString().trim(), holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());
+            detail = new Detail(holder.questionTv.getTag().toString().trim(), holder.questionTv.getHint().toString().trim(),holder.multiChoiceAc.getText().toString().trim());
             Model.instance.saveDetailOnDb(detail,()->{ });
         }
     }
