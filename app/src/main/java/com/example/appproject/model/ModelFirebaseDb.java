@@ -1,13 +1,12 @@
 package com.example.appproject.model;
 
-import android.content.Context;
-
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetDetailsListener;
-import com.example.appproject.model.detail.GetMultiChoiceQuestionsListener;
+import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
+import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -85,16 +84,16 @@ public class ModelFirebaseDb {
     }
 
 
-    public void getMultiChoiceQuestions(GetMultiChoiceQuestionsListener listener){
+    public void getQuestions(GetQuestionsListener listener){
 
         db.collection(MyApplication.getContext().getString(R.string.questions_collection))
                 .get()
                 .addOnCompleteListener(task -> {
-                    List<Detail> list = new ArrayList<>();
+                    List<Question> list = new ArrayList<>();
                     if(task.isSuccessful()){
                         for(QueryDocumentSnapshot doc : task.getResult()){
-                            Detail detail = Detail.createQuestion(doc.getData());
-                            list.add(detail);
+                            Question question = Question.create(doc.getData());
+                            list.add(question);
                         }
                     }
                     listener.onComplete(list);
