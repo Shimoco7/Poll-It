@@ -200,7 +200,7 @@ public class FragmentUserDetails extends Fragment {
         Detail detail;
         detail = new Detail(nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
         Model.instance.saveDetailOnDb(detail,()->{ });
-        detail = new Detail(addressTi.getHint().toString().trim(),nameEt.getText().toString().trim());
+        detail = new Detail(addressTi.getHint().toString().trim(),addressEt.getText().toString().trim());
         Model.instance.saveDetailOnDb(detail,()->{ });
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
