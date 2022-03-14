@@ -1,12 +1,9 @@
 package com.example.appproject.details;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
@@ -115,7 +112,7 @@ public class FragmentUserImage extends Fragment {
                     General.progressBarOff(getActivity(),container,progressBar);
                 }
                 else{
-                    Model.instance.setUserProfilePicUrl(MyApplication.getUserKey(),url, this::toMainActivity);
+                    Model.instance.updateUser(MyApplication.getUserKey(),"profile_pic_url",url, this::toMainActivity);
                 }
             });
         }

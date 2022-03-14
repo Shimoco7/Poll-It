@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
@@ -193,10 +194,8 @@ public class FragmentUserDetails extends Fragment {
 
     public void uploadDetailsToDB(){
         Detail detail;
-        detail = new Detail(nameTi.getHint().toString().trim(),nameTi.getHint().toString().trim(),nameEt.getText().toString().trim());
-        Model.instance.saveDetailOnDb(detail,()->{ });
-        detail = new Detail(addressTi.getHint().toString().trim(),addressTi.getHint().toString().trim(),addressEt.getText().toString().trim());
-        Model.instance.saveDetailOnDb(detail,()->{ });
+        Model.instance.updateUser(MyApplication.getUserKey(),"name",nameEt.getText().toString().trim(), ()->{});
+        Model.instance.updateUser(MyApplication.getUserKey(),"address",addressEt.getText().toString().trim(), ()->{});
         for (int i = 0; i < list.getChildCount(); i++) {
             DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
             detail = new Detail(holder.questionTv.getTag().toString().trim(), holder.questionTv.getHint().toString().trim(),holder.answersAc.getText().toString().trim());

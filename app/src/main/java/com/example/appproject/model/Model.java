@@ -170,8 +170,8 @@ public class Model {
         modelFirebaseStorage.saveImage(bitMap,imageName,saveImageListener);
     }
 
-    public void setUserProfilePicUrl(String userId,String url, SaveUserListener saveUserListener) {
-        modelFirebaseDb.setUserProfilePicUrl(userId,url,saveUserListener);
+    public void updateUser(String userId, String key,String value, SaveUserListener saveUserListener) {
+        modelFirebaseDb.setUserProfilePicUrl(userId,key,value,saveUserListener);
     }
 
     /**

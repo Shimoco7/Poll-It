@@ -19,6 +19,8 @@ public class User {
     String uid;
     @NonNull
     String email;
+    String name="";
+    String address="";
     String profilePicUrl = "";
     Long lastUpdateDate;
 
@@ -38,6 +40,8 @@ public class User {
     public static User create(Map<String, Object> data) {
         String uid = (String) data.get("uid");
         String email = (String) data.get("email");
+        String name = (String) data.get("name");
+        String address = (String) data.get("address");
         Timestamp ts = (Timestamp) data.get("update_date");
         assert ts != null;
         Long lastUpdateDate = ts.getSeconds();
@@ -46,6 +50,8 @@ public class User {
         User user = new User(uid,email);
         user.setLastUpdateDate(lastUpdateDate);
         user.setProfilePicUrl(profilePicUrl);
+        user.setName(name);
+        user.setAddress(address);
         return user;
     }
 
@@ -53,6 +59,8 @@ public class User {
         Map<String,Object> json = new HashMap<>();
         json.put("uid",uid);
         json.put("email",email);
+        json.put("name",name);
+        json.put("address",address);
         json.put("update_date", FieldValue.serverTimestamp());
         json.put("profile_pic_url", profilePicUrl);
         return json;
@@ -76,6 +84,22 @@ public class User {
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getProfilePicUrl() {
         return profilePicUrl;
     }
@@ -91,4 +115,6 @@ public class User {
     public void setLastUpdateDate(Long lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
+
+
 }
