@@ -117,6 +117,12 @@ public class FragmentUserDetails extends Fragment {
 
 
                 }
+                else {
+                    isNameEmpty =false;
+
+
+                }
+
 
             }
         });
@@ -139,6 +145,17 @@ public class FragmentUserDetails extends Fragment {
                 if (s.toString().length() == 0) {
                     addressTi.setError(null);
                     isAddressEmpty = true;
+
+
+                }
+                if (s.toString().length() == 0) {
+                    addressTi.setError(null);
+                    isAddressEmpty = true;
+
+
+                }
+                else {
+                    isAddressEmpty =false;
 
 
                 }
@@ -187,7 +204,7 @@ public class FragmentUserDetails extends Fragment {
         }
         if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_address));
-            if (isNameEmpty) addressTi.setError(getString(R.string.missing_address));
+            if (isAddressEmpty) addressTi.setError(getString(R.string.missing_address));
             else addressTi.setError(getString(R.string.invalid_address));
             addressTi.setErrorIconDrawable(null);
         }
