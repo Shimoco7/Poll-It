@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">AppProject</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="right"><![CDATA[>]]></string>
     <string name="left"><![CDATA[<]]></string>
@@ -10,6 +9,18 @@
     <string name="to_learn_about_our_honstey_policy">To learn about our honstey policy</string>
     <string name="click_here">CLICK HERE</string>
     <string name="first_poll">First Poll</string>
+    <string name="upload">UPLOAD</string>
+    <string name="last_one">LAST ONE</string>
+    <string name="finish">FINISH</string>
+    <string name="let_s_earn_together">Let\'s Earn Together</string>
+    <string name="what_is_happy_image">What Is Happy image?</string>
+    <string name="what_is_your_answer">What Is Your Answer?</string>
+    <string name="map">MAP</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="please_upload_your_image">Please Upload Your Image</string>
+
 
     <!--Login/Register Strings-->
     <string name="email_colon">Email:</string>
@@ -28,6 +39,7 @@
     <string name="user_already_exists">User is already exists</string>
     <string name="success">Success</string>
     <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
+    <string name="image_upload_failed">Upload failed</string>
 
 
     <!--Details Strings-->
@@ -42,21 +54,12 @@
     <string name="users_collection">users</string>
     <string name="details_collection">details</string>
     <string name="questions_collection">questions</string>
+
     <!--Shared Preferences Strings-->
     <string name="firebasekey">firebasekey</string>
     <string name="users_list_last_update_date">users_list_last_update_date</string>
     <string name="user_email">user_email</string>
-    <string name="upload">UPLOAD</string>
-    <string name="last_one">LAST ONE</string>
-    <string name="finish">FINISH</string>
-    <string name="let_s_earn_together">Let\'s Earn Together</string>
-    <string name="what_is_happy_image">What Is Happy image?</string>
-    <string name="what_is_your_answer">What Is Your Answer?</string>
-    <string name="map">MAP</string>
-    <string name="home">Home</string>
-    <string name="settings">Settings</string>
-    <string name="logout">Logout</string>
-    <string name="please_upload_your_image">Please Upload Your Image</string>
+
 
 
 

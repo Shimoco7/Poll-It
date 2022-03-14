@@ -1,4 +1,4 @@
-package com.example.appproject.model;
+package com.example.appproject.model.poll;
 
 public  class Poll {
 

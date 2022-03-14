@@ -20,12 +20,16 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.example.appproject.MainActivity;
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
+import com.example.appproject.model.Model;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class FragmentUserImage extends Fragment {
 
@@ -49,11 +53,17 @@ public class FragmentUserImage extends Fragment {
         camBtn = view.findViewById(R.id.userImg_btn_upload_cam);
         galleryBtn = view.findViewById(R.id.userImg_btn_upload_gallery);
         userAvatar = view.findViewById(R.id.userImg_img_user);
+        setUserAvatar();
         progressBar = view.findViewById(R.id.userImg_progress_bar);
         progressBar.setVisibility(View.GONE);
         setListeners(container);
 
         return view;
+    }
+
+    //Todo - set user's avatar based on their gender
+    private void setUserAvatar() {
+
     }
 
     private void setListeners(ViewGroup container) {
@@ -95,10 +105,20 @@ public class FragmentUserImage extends Fragment {
     //Todo - Save to storage and Url to DB
     private void finish(ViewGroup container) {
         General.progressBarOn(getActivity(),container,progressBar);
-
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        if(bitMap == null){
+            toMainActivity();
+        }
+        else{
+            Model.instance.saveImage(bitMap,MyApplication.getUserKey()+".jpg",url->{
+                if(url == null){
+                    General.showToast(getActivity(),new ArrayList<>(Collections.singletonList(getString(R.string.image_upload_failed))));
+                    General.progressBarOff(getActivity(),container,progressBar);
+                }
+                else{
+                    Model.instance.setUserProfilePicUrl(MyApplication.getUserKey(),url, this::toMainActivity);
+                }
+            });
+        }
     }
 
     private void openCam() {
@@ -107,5 +127,11 @@ public class FragmentUserImage extends Fragment {
 
     private void openGallery() {
         galleryActivityResultLauncher.launch("image/*");
+    }
+
+    private void toMainActivity(){
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

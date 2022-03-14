@@ -1,7 +1,5 @@
 package com.example.appproject.model;
 
-import android.content.Context;
-
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
@@ -12,6 +10,7 @@ import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -99,5 +98,11 @@ public class ModelFirebaseDb {
                     }
                     listener.onComplete(list);
                 });
+    }
+
+    public void setUserProfilePicUrl(String userId, String url, SaveUserListener saveUserListener) {
+        DocumentReference docRef = db.collection(MyApplication.getContext().getString(R.string.users_collection)).document(userId);
+        docRef.update("profile_pic_url",url)
+                .addOnCompleteListener(l->saveUserListener.onComplete());
     }
 }

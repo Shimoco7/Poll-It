@@ -2,6 +2,7 @@ package com.example.appproject.model;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -13,8 +14,8 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
-import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
+import com.example.appproject.model.user.SaveImageListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserListener;
@@ -22,7 +23,6 @@ import com.example.appproject.model.user.UsersListLoadingState;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -33,6 +33,7 @@ public class Model {
     public static final Model instance = new Model();
     ModelFirebaseDb modelFirebaseDb = new ModelFirebaseDb();
     ModelFirebaseAuth modelFirebaseAuth = new ModelFirebaseAuth();
+    ModelFirebaseStorage modelFirebaseStorage = new ModelFirebaseStorage();
     Executor executor = Executors.newSingleThreadExecutor();
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
@@ -163,6 +164,15 @@ public class Model {
         return usersListLoadingState;
     }
 
+
+    public void saveImage(Bitmap bitMap, String imageName, SaveImageListener saveImageListener) {
+        modelFirebaseStorage.saveImage(bitMap,imageName,saveImageListener);
+    }
+
+    public void setUserProfilePicUrl(String userId,String url, SaveUserListener saveUserListener) {
+        modelFirebaseDb.setUserProfilePicUrl(userId,url,saveUserListener);
+    }
+
     /**
      * Data - User Details
      *
@@ -190,6 +200,5 @@ public class Model {
     public void refreshQuestions(){
         modelFirebaseDb.getMultiChoiceQuestions(list -> questionList.setValue(list));
     }
-
 
 }

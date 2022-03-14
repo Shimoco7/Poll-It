@@ -19,9 +19,7 @@ public class User {
     String uid;
     @NonNull
     String email;
-    String fullName;
-    String location;
-    String profilePicUrl;
+    String profilePicUrl = "";
     Long lastUpdateDate;
 
     public User() { }
@@ -31,9 +29,6 @@ public class User {
         this.uid = uid;
         this.email = email;
         lastUpdateDate = 0L;
-        //TODO - delete default values
-        setFullName("Israel Israeli");
-        setLocation("Akko");
     }
 
     /**
@@ -43,16 +38,14 @@ public class User {
     public static User create(Map<String, Object> data) {
         String uid = (String) data.get("uid");
         String email = (String) data.get("email");
-        String fullName = (String) data.get("full_name");
-        String location = (String) data.get("location");
         Timestamp ts = (Timestamp) data.get("update_date");
         assert ts != null;
         Long lastUpdateDate = ts.getSeconds();
+        String profilePicUrl = (String) data.get("profile_pic_url");
 
         User user = new User(uid,email);
-        user.setFullName(fullName);
-        user.setLocation(location);
         user.setLastUpdateDate(lastUpdateDate);
+        user.setProfilePicUrl(profilePicUrl);
         return user;
     }
 
@@ -60,9 +53,8 @@ public class User {
         Map<String,Object> json = new HashMap<>();
         json.put("uid",uid);
         json.put("email",email);
-        json.put("full_name",fullName);
-        json.put("location",location);
         json.put("update_date", FieldValue.serverTimestamp());
+        json.put("profile_pic_url", profilePicUrl);
         return json;
     }
 
@@ -82,22 +74,6 @@ public class User {
 
     public void setEmail(@NonNull String email) {
         this.email = email;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getProfilePicUrl() {
