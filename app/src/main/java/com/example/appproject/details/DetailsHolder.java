@@ -1,5 +1,6 @@
 package com.example.appproject.details;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,18 +36,18 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
         ArrayAdapter adapter = new ArrayAdapter<>(multiChoiceAc.getContext(), R.layout.drop_down, array);
         multiChoiceAc.setAdapter(adapter);
         multiChoiceAc.setOnItemClickListener((adapterView, view, i, l) -> {
-            String answer=(String)adapterView.getItemAtPosition(i);
-            Detail detail = new Detail(questionTv.getTag().toString().trim(), questionTv.getHint().toString().trim(),multiChoiceAc.getText().toString().trim());
+            String answer = (String) adapterView.getItemAtPosition(i);
+            Detail detail = new Detail(questionTv.getTag().toString().trim(), questionTv.getHint().toString().trim(), multiChoiceAc.getText().toString().trim());
             detail.setAnswer(answer);
 
 
-            Model.instance.getUserDetailById(MyApplication.getUserKey(),question.getQuestion(),returnedDetail -> {
-                if(returnedDetail==null){
+            Model.instance.getUserDetailById(MyApplication.getUserKey(), question.getQuestion(), returnedDetail -> {
+                if (returnedDetail == null) {
                     Model.instance.saveDetailOnLocalDb(detail);
-                }
-                else{
-                    Model.instance.updateAnswerByDetailId(returnedDetail.getDetailId(),answer,()-> {
+                } else if (!answer.equals(returnedDetail.getAnswer())) {
+                    Model.instance.updateAnswerByDetailId(returnedDetail.getDetailId(), answer, () -> {
                     });
+
                 }
             });
 
