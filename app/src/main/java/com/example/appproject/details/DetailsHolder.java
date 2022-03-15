@@ -7,7 +7,11 @@ import android.widget.AutoCompleteTextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
+import com.example.appproject.model.Model;
+import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.question.Question;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -31,13 +35,23 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
         String[] array = question.getMultiChoice().toArray(new String[0]);
         ArrayAdapter adapter = new ArrayAdapter<>(multiChoiceAc.getContext(), R.layout.drop_down, array);
         multiChoiceAc.setAdapter(adapter);
-//        answersAc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String answer=(String)adapterView.getItemAtPosition(i);
-//                detail.setFinalAnswer(answer);
-//                Model.instance.saveDetailOnDb(detail,()->{ });
-//            }
-//        });
+        multiChoiceAc.setOnItemClickListener((adapterView, view, i, l) -> {
+            String answer=(String)adapterView.getItemAtPosition(i);
+            Detail detail = new Detail(questionTv.getTag().toString().trim(), questionTv.getHint().toString().trim(),multiChoiceAc.getText().toString().trim());
+            detail.setAnswer(answer);
+
+
+            Model.instance.getUserDetailById(MyApplication.getUserKey(),question.getQuestion(),returnedDetail -> {
+                if(returnedDetail==null){
+                    Model.instance.saveDetailOnDb(detail,()->{ });
+                }
+                else{
+                    Model.instance.updateAnswerByDetailId(returnedDetail.getDetailId(),answer,()-> {
+                    });
+                }
+            });
+
+
+        });
     }
 }

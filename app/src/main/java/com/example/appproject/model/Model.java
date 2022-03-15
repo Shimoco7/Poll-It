@@ -16,6 +16,7 @@ import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
+import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.SaveImageListener;
 import com.example.appproject.model.user.SaveUserListener;
@@ -182,7 +183,7 @@ public class Model {
     MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
     public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
-        modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener);
+       // modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener);
         executor.execute(()->{
             AppLocalDb.db.detailDao().insertAll(detail);
         });
@@ -209,6 +210,13 @@ public class Model {
         executor.execute(()->{
             Detail detail = AppLocalDb.db.detailDao().loadDetailByUserId(userKey,question);
             listener.onComplete(detail);
+        });
+    }
+
+    public void updateAnswerByDetailId(String detailId, String answer, UpdateAnswerByDetailIdListener listener) {
+        executor.execute(()->{
+            AppLocalDb.db.detailDao().updateAnswerByDetailId(detailId,answer);
+            listener.onComplete();
         });
     }
 }
