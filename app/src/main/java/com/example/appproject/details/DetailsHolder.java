@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
-import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.question.Question;
@@ -43,7 +42,7 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
 
             Model.instance.getUserDetailById(MyApplication.getUserKey(),question.getQuestion(),returnedDetail -> {
                 if(returnedDetail==null){
-                    Model.instance.saveDetailOnDb(detail,()->{ });
+                    Model.instance.saveDetailOnLocalDb(detail);
                 }
                 else{
                     Model.instance.updateAnswerByDetailId(returnedDetail.getDetailId(),answer,()-> {

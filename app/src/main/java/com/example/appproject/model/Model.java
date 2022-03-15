@@ -182,12 +182,15 @@ public class Model {
     MutableLiveData<List<Detail>> detailsList = new MutableLiveData<>();
     MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
-    public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
-       // modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener);
-        executor.execute(()->{
-            AppLocalDb.db.detailDao().insertAll(detail);
-        });
+    public void saveDetailOnLocalDb(Detail detail) {
+        executor.execute(()-> AppLocalDb.db.detailDao().insertAll(detail));
     }
+
+    public void saveDetailOnRemoteDb(Detail detail, SaveDetailListener saveDetailListener) {
+        modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener);
+    }
+
+
     public LiveData<List<Detail>> getDetails() {
         if (detailsList == null) { refreshDetails(); };
         return detailsList;
