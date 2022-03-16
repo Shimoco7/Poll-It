@@ -14,25 +14,27 @@
         android:layout_width="0dp"
         android:layout_height="10dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="24dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
-        app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat4" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView2"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_marginTop="31dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/poll_finish_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
 
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/poll_btn_line2"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="2dp">
@@ -57,11 +59,13 @@
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="33dp"
         android:layout_marginBottom="84dp"
         android:drawableTop="@drawable/ic_leftarrow"
         app:cornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/poll_btn_line2"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp" />
 
@@ -69,6 +73,7 @@
         android:id="@+id/poll_btn_right"
         android:layout_width="70dp"
         android:layout_height="50dp"
+        android:layout_marginTop="33dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="84dp"
         android:drawableTop="@drawable/ic_rightarrow"
@@ -77,6 +82,7 @@
         app:cornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/poll_btn_line2"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp" />
 
@@ -105,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,40 +121,71 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/poll_btn_op1"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:backgroundTint="#373737"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:minHeight="70dp"
+            android:backgroundTint="@color/black"
             android:text="Option 1"
-            android:textSize="22dp"
-            app:cornerRadius="30dp"
-            app:strokeColor="@color/white"
-            app:strokeWidth="1dp"
-            tools:layout_editor_absoluteY="281dp" />
+            android:textSize="@dimen/places_autocomplete_progress_size"
+            android:autoSizeMinTextSize="18dp"
+            app:cornerRadius="15dp"
+
+            app:iconGravity="textStart"
+             />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/poll_btn_op2"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:backgroundTint="#373737"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+
+            android:maxHeight="100dp"
+            android:minHeight="70dp"
+
+
             android:text="Option 1"
-            android:textSize="22dp"
-            app:cornerRadius="30dp"
-            app:strokeColor="@color/white"
-            app:strokeWidth="1dp"
-            tools:layout_editor_absoluteY="371dp" />
+            android:textSize="@dimen/places_autocomplete_progress_size"
+            android:autoSizeMinTextSize="18dp"
+
+            app:cornerRadius="15dp"
+
+            app:iconGravity="textStart" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/poll_btn_op3"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:backgroundTint="#373737"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:maxHeight="100dp"
+            android:minHeight="70dp"
+
             android:text="Option 1"
-            android:textSize="22dp"
-            app:cornerRadius="30dp"
-            app:strokeColor="@color/white"
-            app:strokeWidth="1dp"
-            tools:layout_editor_absoluteX="48dp"
-            tools:layout_editor_absoluteY="461dp" />
+            android:textSize="@dimen/places_autocomplete_progress_size"
+            android:autoSizeMinTextSize="18dp"
+            app:cornerRadius="15dp"
+
+            app:iconGravity="textStart" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/poll_btn_op4"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:maxHeight="100dp"
+            android:minHeight="70dp"
+
+            android:text="OPTION 1"
+            android:textSize="@dimen/places_autocomplete_progress_size"
+            android:autoSizeMinTextSize="18dp"
+
+            app:cornerRadius="15dp"
+
+            app:iconGravity="textStart" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
