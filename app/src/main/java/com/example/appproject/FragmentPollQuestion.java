@@ -75,6 +75,7 @@ public class FragmentPollQuestion extends Fragment {
         answer1.setText(pollArrayList.get(index).answer1);
         answer2.setText(pollArrayList.get(index).answer2);
         answer3.setText(pollArrayList.get(index).answer3);
+        answer4.setText(pollArrayList.get(index).answer4);
 //        getNextPoll();
 
         answer1.setOnClickListener(new View.OnClickListener() {
@@ -153,9 +154,13 @@ public class FragmentPollQuestion extends Fragment {
     public void setButtonsColor(){
         if(!pollMap.containsKey(pollArrayList.get(index).question)){
             answer1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
+            answer1.setAlpha(1);
             answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
+            answer2.setAlpha(1);
             answer3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
+            answer3.setAlpha(1);
             answer4.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
+            answer4.setAlpha(1);
             return;
         }
         else{
@@ -164,39 +169,37 @@ public class FragmentPollQuestion extends Fragment {
                 answer1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
 
 
-                answer1.setIcon(getResources().getDrawable(R.drawable.ic_check));
-                answer1.setPadding(0,0,150,0);
-                answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
+
                 answer1.setAlpha(1);
+                answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
+
                 answer2.setAlpha((float)0.25);
-                answer2.setIcon(null);
-                answer2.setPadding(0,0,0,0);
+
+
                 answer3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer3.setAlpha((float)0.25);
-                answer3.setIcon(null);
-                answer3.setPadding(0,0,0,0);
+
                 answer4.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer4.setAlpha((float)0.25);
-                answer4.setIcon(null);
-                answer4.setPadding(0,0,0,0);
+
+
                 return;
             }
             if(answer2.getText().toString().equals(ans)) {
                 answer1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer1.setAlpha((float)0.25);
-                answer1.setIcon(null);
-                answer1.setPadding(0,0,0,0);
+
                 answer2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
-                answer2.setPadding(0,0,150,0);
+
                 answer2.setAlpha(1);
-                answer2.setIcon(getResources().getDrawable(R.drawable.ic_check));
+
                 answer3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer3.setAlpha((float)0.25);
-                answer3.setIcon(null);
-                answer3.setPadding(0,0,0,0);
+
+
                 answer4.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                answer4.setIcon(null);
-                answer4.setPadding(0,0,0,0);
+
+
                 answer4.setAlpha((float)0.25);
 
 
@@ -204,39 +207,39 @@ public class FragmentPollQuestion extends Fragment {
             }
             if(answer3.getText().toString().equals(ans)) {
                 answer1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                answer1.setIcon(null);
-                answer1.setPadding(0,0,0,0);
+
+
                 answer1.setAlpha((float)0.25);
                 answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                answer2.setIcon(null);
-                answer2.setPadding(0,0,0,0);
+
+
                 answer2.setAlpha((float)0.25);
                 answer3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
-                answer3.setPadding(0,0,150,0);
+
                 answer3.setAlpha(1);
-                answer3.setIcon(getResources().getDrawable(R.drawable.ic_check));
+
                 answer4.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                answer4.setIcon(null);
-                answer4.setPadding(0,0,0,0);
+
+
                 answer4.setAlpha((float)0.25);
                 return;
             }
             if(answer4.getText().toString().equals(ans)) {
                 answer1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                answer1.setIcon(null);
-                answer1.setPadding(0,0,0,0);
+
+
                 answer1.setAlpha((float)0.25);
                 answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                answer2.setIcon(null);
-                answer2.setPadding(0,0,0,0);
+
+
                 answer2.setAlpha((float)0.25);
                 answer3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                answer3.setIcon(null);
-                answer3.setPadding(0,0,0,0);
+
+
                 answer3.setAlpha((float)0.25);
                 answer4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
-                answer4.setIcon(getResources().getDrawable(R.drawable.ic_check));
-                answer4.setPadding(0,0,150,0);
+
+
                 answer4.setAlpha(1);
                 return;
             }
@@ -256,6 +259,7 @@ public class FragmentPollQuestion extends Fragment {
         answer1.setText(current.answer1);
         answer2.setText(current.answer2);
         answer3.setText(current.answer3);
+        answer4.setText(current.answer4);
     }
 
     public void getPrevPoll(){
@@ -266,6 +270,7 @@ public class FragmentPollQuestion extends Fragment {
         answer1.setText(current.answer1);
         answer2.setText(current.answer2);
         answer3.setText(current.answer3);
+        answer4.setText(current.answer4);
     }
 
 }

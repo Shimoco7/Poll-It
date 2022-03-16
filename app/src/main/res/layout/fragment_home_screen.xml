@@ -38,7 +38,7 @@
         android:layout_height="45dp"
         android:layout_marginEnd="80dp"
         android:fontFamily="sans-serif-black"
-        android:gravity="center"
+        android:gravity="start"
         android:text="User Name"
         android:maxLines="1"
         android:textColor="@color/white"
