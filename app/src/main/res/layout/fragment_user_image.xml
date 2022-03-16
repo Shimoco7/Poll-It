@@ -66,13 +66,18 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/userImg_img_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="100dp"
             android:adjustViewBounds="true"
-            android:maxWidth="300dp"
-            android:maxHeight="300dp"
+            android:maxWidth="250dp"
+            android:maxHeight="250dp"
+            android:minWidth="150dp"
+            android:minHeight="150dp"
+
+            android:padding="8dp"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,16 +93,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
 
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/primeRed"
+            android:layout_marginTop="45dp"
+            android:backgroundTint="@color/black"
             android:drawableRight="@drawable/ic_upload"
             android:fontFamily="sans-serif-black"
             android:paddingLeft="30dp"
             android:text="@string/upload"
-            android:textSize="16dp"
+            android:textSize="12dp"
             app:cornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/userImg_btn_upload_cam"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,17 +108,23 @@
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/userImg_btn_upload_cam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="45dp"
             android:layout_marginEnd="12dp"
-            android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintBottom_toBottomOf="@+id/userImg_btn_upload_gallery"
+            android:backgroundTint="@color/black"
+            android:paddingLeft="32dp"
+
+
+            app:cornerRadius="30dp"
+            app:icon="@drawable/ic_camera"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/userImg_btn_upload_gallery"
-            app:layout_constraintTop_toTopOf="@+id/userImg_btn_upload_gallery" />
+            app:layout_constraintTop_toBottomOf="@+id/userImg_img_user" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
