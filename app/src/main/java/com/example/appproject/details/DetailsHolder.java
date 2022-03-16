@@ -32,10 +32,25 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
 
         questionTv.setHint(question.getQuestion());
         questionTv.setTag(question.getQuestionId());
-        String[] array = question.getMultiChoice().toArray(new String[0]);
-        ArrayAdapter adapter = new ArrayAdapter<>(multiChoiceAc.getContext(), R.layout.drop_down, array);
-        multiChoiceAc.setAdapter(adapter);
+        Model.instance.getUserDetailById(MyApplication.getUserKey(), question.getQuestion(), returnedDetail -> {
+            if (returnedDetail == null) {
+                String[] array = question.getMultiChoice().toArray(new String[0]);
+                ArrayAdapter adapter = new ArrayAdapter<>(MyApplication.getContext(), R.layout.drop_down, array);
+                multiChoiceAc.post(() -> multiChoiceAc.setAdapter(adapter));
+                questionTv.post(() -> questionTv.setError("Mandatory Field"));
+
+            } else {
+                questionTv.post(() -> questionTv.setError(null));
+                multiChoiceAc.post(() -> multiChoiceAc.setText(returnedDetail.getAnswer()));
+                String[] array = question.getMultiChoice().toArray(new String[0]);
+                ArrayAdapter adapter = new ArrayAdapter<>(MyApplication.getContext(), R.layout.drop_down, array);
+                multiChoiceAc.post(() -> multiChoiceAc.setAdapter(adapter));
+            }
+        });
+
+
         multiChoiceAc.setOnItemClickListener((adapterView, view, i, l) -> {
+            questionTv.setError(null);
             String answer = (String) adapterView.getItemAtPosition(i);
             Detail detail = new Detail(questionTv.getTag().toString().trim(), questionTv.getHint().toString().trim(), multiChoiceAc.getText().toString().trim());
             detail.setAnswer(answer);
