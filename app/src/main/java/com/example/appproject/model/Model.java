@@ -16,6 +16,7 @@ import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
+import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.SaveImageListener;
 import com.example.appproject.model.user.SaveUserListener;
@@ -25,6 +26,7 @@ import com.example.appproject.model.user.UsersListLoadingState;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -88,22 +90,27 @@ public class Model {
     }
 
     public boolean validateAddress(String address){
-        final String addressRegex = "^[a-zA-Z\\s]+";
-        final String addressRegexNumeric = "-?\\d+(\\.\\d+)?";
-        String[] addressList = address.split(",");
-        if(addressList.length!=4) {
-            return false;
-        }
-        for(int i=0; i<3; i++){
-            if(!addressList[i].matches(addressRegex)){
-                return false;
-            }
-        }
+//        final String addressRegex = "^[a-zA-Z\\s]+";
+//        final String addressRegexNumeric = "-?\\d+(\\.\\d+)?";
+//        String[] addressList = address.split(",");
+//        if(addressList.length!=4) {
+//            return false;
+//        }
+//        for(int i=0; i<3; i++){
+//            if(!addressList[i].matches(addressRegex)){
+//                return false;
+//            }
+//        }
+//
+//        return addressList[3].matches(addressRegexNumeric);
 
-        return addressList[3].matches(addressRegexNumeric);
+        if (address != "" && address != null)
+            return true;
+        return false;
 
     }
 
+    //TODO-async
     public void clearCaches() {
         executor.execute(()->{
             AppLocalDb.db.clearAllTables();
@@ -179,14 +186,19 @@ public class Model {
      *
      */
     MutableLiveData<List<Detail>> detailsList = new MutableLiveData<>();
+    public MutableLiveData<String> userLocation = new MutableLiveData<>();
+    public MutableLiveData<List<String>> locationsList = new MutableLiveData<>();
     MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
-    public void saveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
-        modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener);
-        executor.execute(()->{
-            AppLocalDb.db.detailDao().insertAll(detail);
-        });
+    public void saveDetailOnLocalDb(Detail detail) {
+        executor.execute(()-> AppLocalDb.db.detailDao().insertAll(detail));
     }
+
+    public void saveDetailOnRemoteDb(Detail detail, SaveDetailListener saveDetailListener) {
+        modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener);
+    }
+
+
     public LiveData<List<Detail>> getDetails() {
         if (detailsList == null) { refreshDetails(); };
         return detailsList;
@@ -196,7 +208,7 @@ public class Model {
         modelFirebaseDb.getDetails(list -> detailsList.setValue(list));
     }
 
-    public LiveData<List<Question>> getQuestions() {
+    public MutableLiveData<List<Question>> getQuestions() {
         if (questionList == null) { refreshQuestions(); };
         return questionList;
 
@@ -211,4 +223,34 @@ public class Model {
             listener.onComplete(detail);
         });
     }
+
+    public void updateAnswerByDetailId(String detailId, String answer, UpdateAnswerByDetailIdListener listener) {
+        executor.execute(()->{
+            AppLocalDb.db.detailDao().updateAnswerByDetailId(detailId,answer);
+            listener.onComplete();
+        });
+    }
+
+    public MutableLiveData<String> getUserLocation() {
+        if (userLocation.getValue() == null) { refreshUserLocation(); }
+        return userLocation;
+    }
+
+    public void refreshUserLocation(){
+        modelFirebaseDb.getUserLocation(location->userLocation.postValue(location));
+    }
+
+
+    public MutableLiveData<List<String>> getLocations() {
+        if (locationsList.getValue() == null) { refreshLocations(); };
+        return locationsList;
+    }
+
+    public void refreshLocations(){
+        modelFirebaseDb.getLocations(list->locationsList.postValue(list));
+    }
+
+
+
+
 }

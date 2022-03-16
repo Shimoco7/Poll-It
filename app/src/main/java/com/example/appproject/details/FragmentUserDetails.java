@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -40,6 +42,7 @@ public class FragmentUserDetails extends Fragment {
     DetailsAdapter detailsAdapter;
     ProgressBar detailsProgressBar;
     Boolean isNameEmpty=true,isAddressEmpty=true;
+
 
     RecyclerView list;
 
@@ -134,7 +137,9 @@ public class FragmentUserDetails extends Fragment {
                     addressTi.setError(null);
                     isAddressEmpty = true; }
 
-            }
+
+                }
+
 
         });
 
@@ -166,17 +171,17 @@ public class FragmentUserDetails extends Fragment {
             nameTi.setErrorIconDrawable(null);
 
         }
-        for (int i = 0; i < list.getChildCount(); i++) {
-            DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-            if (holder==null|| holder.multiChoiceAc.getText().toString().trim().equals("")) {
-                errors.add("Invalid "+holder.questionTv.getHint().toString());
-                holder.questionTv.setError(getString(R.string.missing_answer));
-                holder.multiChoiceAc.setOnItemClickListener((parent, view, position, id) -> holder.questionTv.setError(null));
-
-            }
-
-
-        }
+//        for (int i = 0; i < list.getChildCount(); i++) {
+//            DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
+//            if (holder==null|| holder.multiChoiceAc.getText().toString().trim().equals("")) {
+//                errors.add("Invalid "+holder.questionTv.getHint().toString());
+//                holder.questionTv.setError(getString(R.string.missing_answer));
+//                holder.multiChoiceAc.setOnItemClickListener((parent, view, position, id) -> holder.questionTv.setError(null));
+//
+//            }
+//
+//
+//        }
         if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_address));
             if (isAddressEmpty) addressTi.setError(getString(R.string.missing_address));
@@ -189,14 +194,8 @@ public class FragmentUserDetails extends Fragment {
 
 
     public void uploadDetailsToDB(){
-        Detail detail;
         Model.instance.updateUser(MyApplication.getUserKey(),"name",nameEt.getText().toString().trim(), ()->{});
         Model.instance.updateUser(MyApplication.getUserKey(),"address",addressEt.getText().toString().trim(), ()->{});
-        for (int i = 0; i < list.getChildCount(); i++) {
-            DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-            detail = new Detail(holder.questionTv.getTag().toString().trim(), holder.questionTv.getHint().toString().trim(),holder.multiChoiceAc.getText().toString().trim());
-            Model.instance.saveDetailOnDb(detail,()->{ });
-        }
     }
 
 }
