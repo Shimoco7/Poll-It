@@ -14,10 +14,12 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.detail.GetAllDetailsListener;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
 import com.example.appproject.model.question.Question;
+import com.example.appproject.model.user.FinishRegistrationListener;
 import com.example.appproject.model.user.SaveImageListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -110,7 +112,6 @@ public class Model {
 
     }
 
-    //TODO-async
     public void clearCaches() {
         executor.execute(()->{
             AppLocalDb.db.clearAllTables();
@@ -251,6 +252,14 @@ public class Model {
     }
 
 
+    public void getAllDetails(String userKey, GetAllDetailsListener getAllDetailsListener) {
+        executor.execute(()->{
+            List<Detail> list = AppLocalDb.db.detailDao().getAllDetails(userKey);
+            getAllDetailsListener.onComplete(list);
+        });
+    }
 
-
+    public void isFinishedRegistration(FinishRegistrationListener listener) {
+         modelFirebaseDb.isFinishedRegistration(listener);
+    }
 }

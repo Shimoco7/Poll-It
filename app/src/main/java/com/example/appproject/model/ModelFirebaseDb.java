@@ -14,6 +14,7 @@ import com.example.appproject.model.detail.GetUserLocationListener;
 import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.question.Question;
+import com.example.appproject.model.user.FinishRegistrationListener;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -141,6 +142,17 @@ public class ModelFirebaseDb {
                         }
                     }
                     listener.onComplete(userLocation);
+                });
+    }
+
+    public void isFinishedRegistration(FinishRegistrationListener listener) {
+        db.collection(MyApplication.getContext().getString(R.string.details_collection))
+                .whereEqualTo("uid",MyApplication.getUserKey())
+                .get()
+                .addOnCompleteListener(task->{
+                    if(task.isSuccessful()){
+                        listener.onComplete(!task.getResult().isEmpty());
+                    }
                 });
     }
 }

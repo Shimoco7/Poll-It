@@ -34,11 +34,11 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgpoll_img_user"
+            app:layout_constraintStart_toEndOf="@+id/feedrow_img_user"
             app:layout_constraintTop_toBottomOf="@+id/feedrow_txt_username" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgpoll_img_user"
+            android:id="@+id/feedrow_img_user"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
             app:layout_constraintBottom_toTopOf="@+id/feedrow_txt_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgpoll_img_user"
+            app:layout_constraintStart_toEndOf="@+id/feedrow_img_user"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView

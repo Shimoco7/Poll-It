@@ -58,7 +58,7 @@ tools:context=".FragmentPollImage">
 
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgpoll_img_user"
+            android:id="@+id/feedrow_img_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -92,7 +92,7 @@ tools:context=".FragmentPollImage">
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgpoll_img_user"
+            app:layout_constraintTop_toBottomOf="@+id/feedrow_img_user"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>

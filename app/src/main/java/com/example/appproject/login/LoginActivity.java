@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.appproject.R;
+import com.example.appproject.model.Model;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,6 +25,9 @@ public class LoginActivity extends AppCompatActivity {
         assert navHost != null;
         navController = navHost.getNavController();
         NavigationUI.setupActionBarWithNavController(this,navController);
+        if(Model.instance.isSignedIn()){
+            navController.navigate(R.id.fragmentUserDetails);
+        }
     }
 
     @Override

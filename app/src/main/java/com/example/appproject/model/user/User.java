@@ -21,7 +21,8 @@ public class User {
     String email;
     String name="";
     String address="";
-    String profilePicUrl = "";
+    String gender;
+    String profilePicUrl;
     Long lastUpdateDate;
 
     public User() { }
@@ -41,17 +42,26 @@ public class User {
         String uid = (String) data.get("uid");
         String email = (String) data.get("email");
         String name = (String) data.get("name");
+        String gender = (String) data.get("gender");
         String address = (String) data.get("address");
         Timestamp ts = (Timestamp) data.get("update_date");
-        assert ts != null;
-        Long lastUpdateDate = ts.getSeconds();
         String profilePicUrl = (String) data.get("profile_pic_url");
+
+        assert ts != null;
+        assert uid != null;
+        assert email != null;
+        Long lastUpdateDate = ts.getSeconds();
 
         User user = new User(uid,email);
         user.setLastUpdateDate(lastUpdateDate);
-        user.setProfilePicUrl(profilePicUrl);
         user.setName(name);
         user.setAddress(address);
+        if(profilePicUrl != null){
+            user.setProfilePicUrl(profilePicUrl);
+        }
+        if(gender != null){
+            user.setGender(gender);
+        }
         return user;
     }
 
@@ -90,6 +100,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getAddress() {

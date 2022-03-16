@@ -22,6 +22,7 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
+import com.example.appproject.model.detail.Detail;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -107,23 +108,30 @@ public class FragmentUserImage extends Fragment {
         });
     }
 
-    //Todo - Save to storage and Url to DB
     private void finish(ViewGroup container) {
         General.progressBarOn(getActivity(),container,progressBar);
-        if(bitMap == null){
-            toMainActivity();
-        }
-        else{
-            Model.instance.saveImage(bitMap,MyApplication.getUserKey()+".jpg",url->{
-                if(url == null){
-                    General.showToast(getActivity(),new ArrayList<>(Collections.singletonList(getString(R.string.image_upload_failed))));
-                    General.progressBarOff(getActivity(),container,progressBar);
+        Model.instance.getAllDetails(MyApplication.getUserKey(),list->{
+            for(Detail d : list){
+                if(d.getQuestion().equals("Gender")){
+                    Model.instance.updateUser(d.getUserUid(),"gender",d.getAnswer(),()->{});
                 }
-                else{
-                    Model.instance.updateUser(MyApplication.getUserKey(),"profile_pic_url",url, this::toMainActivity);
-                }
-            });
-        }
+                Model.instance.saveDetailOnRemoteDb(d,()->{});
+            }
+            if(bitMap == null){
+                toMainActivity();
+            }
+            else{
+                Model.instance.saveImage(bitMap,MyApplication.getUserKey()+".jpg",url->{
+                    if(url == null){
+                        General.showToast(getActivity(),new ArrayList<>(Collections.singletonList(getString(R.string.image_upload_failed))));
+                        General.progressBarOff(getActivity(),container,progressBar);
+                    }
+                    else{
+                        Model.instance.updateUser(MyApplication.getUserKey(),"profile_pic_url",url, this::toMainActivity);
+                    }
+                });
+            }
+        });
     }
 
     private void openCam() {

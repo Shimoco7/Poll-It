@@ -13,10 +13,14 @@ import android.widget.TextView;
 
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.Picasso;
 
 public class FragmentUserDisplayDetails extends Fragment {
 
     TextView userName;
+    ShapeableImageView profilePic;
+
     public FragmentUserDisplayDetails() { }
 
     @Override
@@ -25,12 +29,25 @@ public class FragmentUserDisplayDetails extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_user_display_details, container, false);
         String userId = FragmentUserDisplayDetailsArgs.fromBundle(getArguments()).getUserUid();
-
+        profilePic = view.findViewById(R.id.user_display_details_img_main);
         userName = view.findViewById(R.id.user_display_details_txt_username);
         Button backToFeedBtn = view.findViewById(R.id.user_display_back_btn);
 
         Model.instance.getUserById(userId,user->{
             userName.setText(user.getEmail());
+            if(user.getProfilePicUrl() != null){
+                Model.instance.getMainThread().post(()->{
+                    Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);
+                });
+            }
+            else{
+                if(user.getGender().equals("Female")){
+                    profilePic.setImageResource(R.drawable.female_avatar);
+                }
+                else{
+                    profilePic.setImageResource(R.drawable.avatar);
+                }
+            }
         });
         backToFeedBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();

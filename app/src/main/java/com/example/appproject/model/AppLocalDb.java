@@ -12,7 +12,7 @@ import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserDao;
 
 
-@Database(entities ={User.class, Detail.class},version = 16 ,exportSchema = false)
+@Database(entities ={User.class, Detail.class},version = 17 ,exportSchema = false)
 @TypeConverters({Converters.class})
 abstract class AppLocalDbRepository extends RoomDatabase{
     public abstract UserDao userDao();

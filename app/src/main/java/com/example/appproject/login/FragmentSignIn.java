@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.ColorRes;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -130,8 +131,6 @@ public class FragmentSignIn extends Fragment {
     @SuppressLint("ResourceAsColor")
     private void setSignInBtnListener(ViewGroup container) {
         signInBtn.setOnClickListener(v -> {
-
-
             if ((isPassEmpty)||(isEmailEmpty)||(emailLayout.getError()!=null)) {
                 if (isEmailEmpty) {
                     emailLayout.setErrorIconDrawable(null);
@@ -141,15 +140,21 @@ public class FragmentSignIn extends Fragment {
                 if(isPassEmpty) {
                     passwordLayout.setError("Please Enter Password");
                 }
-
             }
             else {
                 General.progressBarOn(getActivity(), container, progressBar);
                 Model.instance.signIn(emailAddress.getText().toString().trim(), password.getText().toString().trim(), (user, message) -> {
                     if (user != null) {
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        startActivity(intent);
-                        Objects.requireNonNull(getActivity()).finish();
+                        Model.instance.isFinishedRegistration(isFinished -> {
+                            if(isFinished){
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                startActivity(intent);
+                                Objects.requireNonNull(getActivity()).finish();
+                            }
+                            else{
+                                Navigation.findNavController(v).navigate(R.id.fragmentUserDetails);
+                            }
+                        });
                     } else {
                         General.progressBarOff(getActivity(), container, progressBar);
                         Toast.makeText(getContext(), getString(R.string.email_or_password_is_incorrect), Toast.LENGTH_LONG).show();
@@ -160,8 +165,6 @@ public class FragmentSignIn extends Fragment {
 
                 });
             }
-
-
         });
     }
 }

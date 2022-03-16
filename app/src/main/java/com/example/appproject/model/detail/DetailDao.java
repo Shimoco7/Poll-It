@@ -18,4 +18,7 @@ public interface DetailDao {
 
     @Query("UPDATE detail SET answer=:answer WHERE detailId = :detailId")
     void updateAnswerByDetailId(String detailId, String answer);
+
+    @Query("SELECT * FROM detail WHERE userUid = :uid")
+    List<Detail> getAllDetails(String uid);
 }

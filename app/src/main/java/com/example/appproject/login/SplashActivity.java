@@ -23,7 +23,14 @@ public class SplashActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if(Model.instance.isSignedIn()){
-                Model.instance.getMainThread().post(this::toFeedActivity);
+                Model.instance.isFinishedRegistration(isFinished -> {
+                    if(isFinished){
+                        Model.instance.getMainThread().post(this::toFeedActivity);
+                    }
+                    else{
+                        Model.instance.getMainThread().post(this::toLoginActivity);
+                    }
+                });
             }
             else{
                 Model.instance.clearCaches();
