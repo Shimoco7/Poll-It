@@ -33,8 +33,7 @@ import java.util.Collections;
 public class FragmentUserImage extends Fragment {
 
     Button finishBtn;
-    ImageButton camBtn;
-    MaterialButton galleryBtn;
+    MaterialButton galleryBtn,camBtn;
     ProgressBar progressBar;
     ActivityResultLauncher<Void> cameraActivityResultLauncher;
     ActivityResultLauncher<String> galleryActivityResultLauncher;
