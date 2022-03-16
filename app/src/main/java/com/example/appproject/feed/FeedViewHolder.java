@@ -26,8 +26,8 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    //TODO - add name instead of email and add location
     public void bind(User user) {
-        nameTv.setText(user.getEmail());
+        nameTv.setText(user.getName());
+        locationTv.setText(user.getAddress());
     }
 }

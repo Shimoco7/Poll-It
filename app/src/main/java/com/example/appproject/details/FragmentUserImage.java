@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -21,8 +22,6 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
-import com.example.appproject.model.detail.Detail;
-import com.example.appproject.model.detail.DetailDao;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -52,9 +51,9 @@ public class FragmentUserImage extends Fragment {
         camBtn = view.findViewById(R.id.userImg_btn_upload_cam);
         galleryBtn = view.findViewById(R.id.userImg_btn_upload_gallery);
         userAvatar = view.findViewById(R.id.userImg_img_user);
-        setUserAvatar();
         progressBar = view.findViewById(R.id.userImg_progress_bar);
         progressBar.setVisibility(View.GONE);
+        setUserAvatar();
         setListeners(container);
 
         return view;
