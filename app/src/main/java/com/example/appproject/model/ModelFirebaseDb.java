@@ -10,9 +10,9 @@ import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.detail.GetLocationsListener;
+import com.example.appproject.model.detail.GetUserLocationListener;
 import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
-import com.example.appproject.model.detail.getUserLocationListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
@@ -129,7 +129,7 @@ public class ModelFirebaseDb {
                 });
     }
 
-    public void getUserLocation(getUserLocationListener listener){
+    public void getUserLocation(GetUserLocationListener listener){
         db.collection(MyApplication.getContext().getString(R.string.users_collection))
                 .whereEqualTo("uid", MyApplication.getUserKey())
                 .get()

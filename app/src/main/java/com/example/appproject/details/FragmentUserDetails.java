@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -40,6 +42,7 @@ public class FragmentUserDetails extends Fragment {
     DetailsAdapter detailsAdapter;
     ProgressBar detailsProgressBar;
     Boolean isNameEmpty=true,isAddressEmpty=true;
+
 
     RecyclerView list;
 
@@ -134,7 +137,9 @@ public class FragmentUserDetails extends Fragment {
                     addressTi.setError(null);
                     isAddressEmpty = true; }
 
-            }
+
+                }
+
 
         });
 
