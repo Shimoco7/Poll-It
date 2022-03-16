@@ -35,14 +35,12 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         nameTv.setText(user.getName());
         locationTv.setText(user.getAddress());
         if(user.getProfilePicUrl() != null){
-            Model.instance.getUsersListLoadingState().postValue(UsersListLoadingState.loading);
             if(user.getGender().equals("Female")){
                 Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.female_avatar).into(profilePic);
             }
             else{
                 Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);
             }
-            Model.instance.getUsersListLoadingState().postValue(UsersListLoadingState.loaded);
         }
         else{
             if(user.getGender().equals("Female")){

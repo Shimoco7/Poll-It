@@ -28,7 +28,6 @@ import com.example.appproject.model.user.UsersListLoadingState;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -179,7 +178,7 @@ public class Model {
     }
 
     public void updateUser(String userId, String key,String value, SaveUserListener saveUserListener) {
-        modelFirebaseDb.setUserProfilePicUrl(userId,key,value,saveUserListener);
+        modelFirebaseDb.updateUser(userId,key,value,saveUserListener);
     }
 
     /**

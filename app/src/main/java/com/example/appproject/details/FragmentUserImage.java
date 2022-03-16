@@ -6,15 +6,14 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.example.appproject.MainActivity;
@@ -32,7 +31,7 @@ import java.util.Collections;
 
 public class FragmentUserImage extends Fragment {
 
-    Button finishBtn;
+    Button finishBtn,backBtn;
     MaterialButton galleryBtn,camBtn;
     ProgressBar progressBar;
     ActivityResultLauncher<Void> cameraActivityResultLauncher;
@@ -48,6 +47,7 @@ public class FragmentUserImage extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_image, container, false);
         finishBtn = view.findViewById(R.id.userImg_finish_btn);
+        backBtn = view.findViewById(R.id.userImg_btn_back);
         camBtn = view.findViewById(R.id.userImg_btn_upload_cam);
         galleryBtn = view.findViewById(R.id.userImg_btn_upload_gallery);
         userAvatar = view.findViewById(R.id.userImg_img_user);
@@ -91,8 +91,7 @@ public class FragmentUserImage extends Fragment {
                 result -> {
                     try {
                         bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),result);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (IOException ignored) {
                     }
                     userAvatar.setImageBitmap(bitMap);
                 }
@@ -104,6 +103,10 @@ public class FragmentUserImage extends Fragment {
 
         finishBtn.setOnClickListener(v->{
             finish(container);
+        });
+
+        backBtn.setOnClickListener(v->{
+            Navigation.findNavController(v).navigateUp();
         });
     }
 

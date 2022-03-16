@@ -108,7 +108,7 @@ public class ModelFirebaseDb {
                 });
     }
 
-    public void setUserProfilePicUrl(String userId, String key,String value, SaveUserListener saveUserListener) {
+    public void updateUser(String userId, String key, String value, SaveUserListener saveUserListener) {
         DocumentReference docRef = db.collection(MyApplication.getContext().getString(R.string.users_collection)).document(userId);
         docRef.update(key,value)
                 .addOnCompleteListener(l->saveUserListener.onComplete());
