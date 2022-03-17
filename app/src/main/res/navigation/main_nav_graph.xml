@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentActivePoll"
-        android:name="com.example.appproject.FragmentActivePoll"
+        android:name="com.example.appproject.poll.FragmentActivePoll"
         android:label="Let's Get Started"
         tools:layout="@layout/fragment_active_poll">
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentPollQuestion"
-        android:name="com.example.appproject.FragmentPollQuestion"
+        android:name="com.example.appproject.poll.FragmentPollQuestion"
         android:label="Active Poll"
         tools:layout="@layout/fragment_poll_question" >
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentPollImage"
-        android:name="com.example.appproject.FragmentPollImage"
+        android:name="com.example.appproject.poll.FragmentPollImage"
         android:label="Active Poll"
         tools:layout="@layout/fragment_poll_image" />
     <fragment

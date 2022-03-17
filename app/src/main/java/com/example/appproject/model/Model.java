@@ -48,6 +48,7 @@ public class Model {
 
     private Model(){
         usersListLoadingState.setValue(UsersListLoadingState.loaded);
+        pollsListLoadingState.setValue(PollsListLoadingState.loaded);
     }
 
     public Executor getExecutor() {
@@ -308,5 +309,11 @@ public class Model {
 
     private void getPollQuestionsById(String pollId, GetPollQuestionsListener listener) {
         modelFirebaseDb.getPollQuestionsById(pollId,listener);
+    }
+
+    public void getPollQuestionsFromLocalDb(String pollId,GetPollQuestionsListener listener){
+        executor.execute(()->{
+            listener.onComplete(AppLocalDb.db.pollDao().getPollWithQuestions(pollId).get(0).pollQuestions);
+        });
     }
 }
