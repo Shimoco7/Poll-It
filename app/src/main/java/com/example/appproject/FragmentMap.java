@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -49,6 +50,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map=googleMap;
@@ -58,13 +60,14 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         subscribeToObservers();
 
 
+
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 //      String title = marker.getTitle();
                 //      LatLng position = marker.getPosition();
-                //      Toast.makeText(getActivity(), title+" "+position, Toast.LENGTH_LONG).show();
-                //      marker.showInfoWindow();
+                //     Toast.makeText(getActivity(), title+" "+position, Toast.LENGTH_LONG).show();
+//                      marker.showInfoWindow();
 
                 //      Navigation.findNavController(getView()).navigate(R.id.action_fragmentMaps_to_fragmetnUserDetails);
                 return true;
@@ -99,12 +102,36 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             address=coder.getFromLocationName(location,1);
             if(address != null && address.size() > 0 ){
                 Address loc = address.get(0);
-                markers.add(new MarkerOptions().position(new LatLng(loc.getLatitude(),loc.getLongitude())).title(location));
+                markers.add(new MarkerOptions()
+                        .position(new LatLng(loc.getLatitude(),loc.getLongitude()))
+                        .title(location)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                        .snippet(location));
+
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         setMarkers(markers);
+//        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+//            @Override
+//            public void onInfoWindowClick(@NonNull Marker marker) {
+//
+//                //move to the user feed
+//                marker.hideInfoWindow();
+//            }
+//        });
+
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                Log.d("TAG","marker is clicked"+marker.isInfoWindowShown());
+
+                    marker.showInfoWindow();
+
+                return true;
+            }
+        });
         map.moveCamera(CameraUpdateFactory.newLatLng(markers.get(0).getPosition()));
     }
 
@@ -118,19 +145,43 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 address=coder.getFromLocationName(location,1);
                 if(address != null && address.size()>0 ){
                     Address loc = address.get(0);
-                    markers.add(new MarkerOptions().position(new LatLng(loc.getLatitude(), loc.getLongitude())).title(location));
+                    markers.add(new MarkerOptions()
+                            .position(new LatLng(loc.getLatitude(), loc.getLongitude()))
+                            .title(location)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                            .snippet(location));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                marker.showInfoWindow();
+
+                return true;
+            }
+        });
+//        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+//            @Override
+//            public void onInfoWindowClick(@NonNull Marker marker) {
+//
+//                //move to the user feed
+//                marker.hideInfoWindow();
+//            }
+//        });
         setMarkers(markers);
     }
+
+
 
     private void setMarkers(List<MarkerOptions> markers){
         for(MarkerOptions m: markers){
             map.addMarker(m);
         }
     }
+
+
 
 }
