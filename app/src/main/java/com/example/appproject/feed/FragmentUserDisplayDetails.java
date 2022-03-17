@@ -31,10 +31,10 @@ public class FragmentUserDisplayDetails extends Fragment {
         String userId = FragmentUserDisplayDetailsArgs.fromBundle(getArguments()).getUserUid();
         profilePic = view.findViewById(R.id.user_display_details_img_main);
         userName = view.findViewById(R.id.user_display_details_txt_username);
-        Button backToFeedBtn = view.findViewById(R.id.user_display_back_btn);
+        Button backToFeedBtn = view.findViewById(R.id.feed_back_btn);
 
         Model.instance.getUserById(userId,user->{
-            userName.setText(user.getEmail());
+            userName.setText(user.getName());
             if(user.getProfilePicUrl() != null){
                 Model.instance.getMainThread().post(()->{
                     Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);

@@ -1,10 +1,12 @@
 package com.example.appproject.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -47,8 +49,8 @@ public class ModelFirebaseAuth {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            appContext.getSharedPreferences("Status",Context.MODE_PRIVATE).edit().putString(
-                                    appContext.getString(R.string.user_email),user.getEmail()).apply();
+                            assert user != null;
+                            MyApplication.setUserEmail(user.getEmail());
                             Model.instance.getMainThread().post(()->{
                                 userListener.onComplete(user, appContext.getString(R.string.success));
                             });
@@ -76,8 +78,13 @@ public class ModelFirebaseAuth {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            appContext.getSharedPreferences("Status",Context.MODE_PRIVATE).edit().putString(
-                                    appContext.getString(R.string.user_email),user.getEmail()).apply();
+                            assert user != null;
+                            Model.instance.modelFirebaseDb.getUserById(user.getUid(), list->{
+                                User u = list.get(0);
+                                MyApplication.setUserEmail(u.getEmail());
+                                MyApplication.setUserName(u.getName());
+                                MyApplication.setUserAddress(u.getAddress());
+                            });
                             Model.instance.getMainThread().post(()->{
                                 userListener.onComplete(user, appContext.getString(R.string.success));
                             });
@@ -92,8 +99,7 @@ public class ModelFirebaseAuth {
     }
 
     public void signOut() {
-        appContext.getSharedPreferences("Status",Context.MODE_PRIVATE).edit().putString(
-                appContext.getString(R.string.user_email),"").apply();
+        appContext.getSharedPreferences("Status",Context.MODE_PRIVATE).edit().clear().apply();
         mAuth.signOut();
     }
 }

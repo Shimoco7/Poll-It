@@ -15,9 +15,6 @@
         <action
             android:id="@+id/action_fragmentHomeScreen_to_fragmentFeed"
             app:destination="@id/fragmentFeed" />
-        <action
-            android:id="@+id/action_fragmentHomeScreen_to_fragmentMap"
-            app:destination="@id/fragmentMap" />
     </fragment>
     <fragment
         android:id="@+id/fragmentActivePoll"
@@ -49,12 +46,12 @@
     <fragment
         android:id="@+id/fragmentPollImage"
         android:name="com.example.appproject.FragmentPollImage"
-        android:label="fragment_poll_image"
+        android:label="Active Poll"
         tools:layout="@layout/fragment_poll_image" />
     <fragment
         android:id="@+id/fragmentMap"
         android:name="com.example.appproject.FragmentMap"
-        android:label="Check Out Other Users"
+        android:label="Users Around You"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/fragmentUserDisplayDetails"
@@ -65,4 +62,5 @@
             android:name="userUid"
             app:argType="string" />
     </fragment>
+    <action android:id="@+id/action_global_fragmentMap" app:destination="@id/fragmentMap" />
 </navigation>

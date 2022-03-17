@@ -59,6 +59,8 @@
     <string name="firebasekey">firebasekey</string>
     <string name="users_list_last_update_date">users_list_last_update_date</string>
     <string name="user_email">user_email</string>
+    <string name="user_name">user_name</string>
+    <string name="user_address">user_address</string>
 
 
 

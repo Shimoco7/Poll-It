@@ -16,9 +16,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
+import com.google.android.material.button.MaterialButton;
 
 public class FragmentFeed extends Fragment {
 
@@ -41,6 +43,8 @@ public class FragmentFeed extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         swipeRefresh = view.findViewById(R.id.feed_layout_refresh);
         list = view.findViewById(R.id.feed_rv);
+        MaterialButton mapBtn = view.findViewById(R.id.feed_btn_map);
+        MaterialButton backBtn = view.findViewById(R.id.feed_back_btn);
 
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -50,7 +54,10 @@ public class FragmentFeed extends Fragment {
             String userId = feedViewModel.getUsers().getValue().get(pos).getUid();
             Navigation.findNavController(v).navigate(FragmentFeedDirections.actionFragmentFeedToFragmentUserDisplayDetails(userId));
         });
-
+        backBtn.setOnClickListener(v->{
+            Navigation.findNavController(v).navigateUp();
+        });
+        mapBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentFeedDirections.actionGlobalFragmentMap()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshList);
         feedViewModel.getUsers().observe(getViewLifecycleOwner(),usersList->refresh());
         observeUserLoadingState();

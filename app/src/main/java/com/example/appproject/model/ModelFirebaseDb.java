@@ -55,10 +55,25 @@ public class ModelFirebaseDb {
                 .addOnCompleteListener(task -> {
                    List<User> list = new ArrayList<>();
                    if(task.isSuccessful()){
-                       String curUid = MyApplication.getUserKey();
                        for(QueryDocumentSnapshot doc : task.getResult()){
                            User user = User.create(doc.getData());
-                               list.add(user);
+                           list.add(user);
+                       }
+                   }
+                   listener.onComplete(list);
+                });
+    }
+
+    public void getUserById(String uid,GetUsersListener listener){
+        db.collection(MyApplication.getContext().getString(R.string.users_collection))
+                .whereEqualTo("uid",uid)
+                .get()
+                .addOnCompleteListener(task -> {
+                   List<User> list = new ArrayList<>();
+                   if(task.isSuccessful()){
+                       for(QueryDocumentSnapshot doc : task.getResult()){
+                           User user = User.create(doc.getData());
+                           list.add(user);
                        }
                    }
                    listener.onComplete(list);

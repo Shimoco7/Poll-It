@@ -114,6 +114,7 @@ public class Model {
     public void clearCaches() {
         executor.execute(()->{
             AppLocalDb.db.clearAllTables();
+            MyApplication.getContext().getSharedPreferences("Status",Context.MODE_PRIVATE).edit().clear().apply();
             MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
                    MyApplication.getContext().getString(R.string.users_list_last_update_date),0).apply();
         });

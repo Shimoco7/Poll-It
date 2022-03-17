@@ -194,8 +194,12 @@ public class FragmentUserDetails extends Fragment {
 
 
     public void uploadDetailsToDB(){
-        Model.instance.updateUser(MyApplication.getUserKey(),"name",nameEt.getText().toString().trim(), ()->{});
-        Model.instance.updateUser(MyApplication.getUserKey(),"address",addressEt.getText().toString().trim(), ()->{});
+        Model.instance.updateUser(MyApplication.getUserKey(),"name",nameEt.getText().toString().trim(), ()->{
+            MyApplication.setUserName(nameEt.getText().toString().trim());
+        });
+        Model.instance.updateUser(MyApplication.getUserKey(),"address",addressEt.getText().toString().trim(), ()->{
+            MyApplication.setUserName(addressEt.getText().toString().trim());
+        });
     }
 
 }
