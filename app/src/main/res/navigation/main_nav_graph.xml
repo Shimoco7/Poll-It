@@ -6,7 +6,7 @@
     app:startDestination="@id/fragmentHomeScreen">
     <fragment
         android:id="@+id/fragmentHomeScreen"
-        android:name="com.example.appproject.FragmentHomeScreen"
+        android:name="com.example.appproject.home.FragmentHomeScreen"
         android:label="Poll-It"
         tools:layout="@layout/fragment_home_screen">
         <action
@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_fragmentActivePoll_to_fragmentPollQuestion"
             app:destination="@id/fragmentPollQuestion" />
+        <argument
+            android:name="poll_id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentPollQuestion"
@@ -33,6 +36,9 @@
         <action
             android:id="@+id/action_fragmentPollQuestion_to_fragmentPollImage"
             app:destination="@id/fragmentPollImage" />
+        <argument
+            android:name="poll_id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFeed"

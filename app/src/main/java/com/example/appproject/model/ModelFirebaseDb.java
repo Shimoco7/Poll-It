@@ -11,6 +11,10 @@ import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.detail.GetLocationsListener;
 import com.example.appproject.model.detail.GetUserLocationListener;
+import com.example.appproject.model.poll.GetPollQuestionsListener;
+import com.example.appproject.model.poll.GetPollsListener;
+import com.example.appproject.model.poll.Poll;
+import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.question.Question;
@@ -170,4 +174,35 @@ public class ModelFirebaseDb {
                     }
                 });
     }
+
+    public void getPolls(GetPollsListener listener) {
+        db.collection(MyApplication.getContext().getString(R.string.polls_collection))
+                .get()
+                .addOnCompleteListener(task -> {
+                    List<Poll> list = new ArrayList<>();
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot doc : task.getResult()){
+                            Poll poll = Poll.create(doc.getData());
+                            list.add(poll);
+                        }
+                    }
+                    listener.onComplete(list);
+                });
+    }
+
+    public void getPollQuestionsById(String pollId, GetPollQuestionsListener listener) {
+        db.collection(MyApplication.getContext().getString(R.string.polls_questions_collection))
+                .get()
+                .addOnCompleteListener(task -> {
+                    List<PollQuestion> list = new ArrayList<>();
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot doc : task.getResult()){
+                            PollQuestion pollQuestion = PollQuestion.create(doc.getData());
+                            list.add(pollQuestion);
+                        }
+                    }
+                    listener.onComplete(list);
+                });
+    }
+
 }

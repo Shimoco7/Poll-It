@@ -8,7 +8,7 @@
     <string name="username">Username:</string>
     <string name="to_learn_about_our_honstey_policy">To learn about our honstey policy</string>
     <string name="click_here">CLICK HERE</string>
-    <string name="first_poll">First Poll</string>
+    <string name="poll_name">Poll\'s Name</string>
     <string name="upload">UPLOAD</string>
     <string name="last_one">LAST ONE</string>
     <string name="finish">FINISH</string>
@@ -54,6 +54,9 @@
     <string name="users_collection">users</string>
     <string name="details_collection">details</string>
     <string name="questions_collection">questions</string>
+    <string name="polls_collection">polls</string>
+    <string name="polls_questions_collection">polls_questions</string>
+    <string name="answers">answers</string>
 
     <!--Shared Preferences Strings-->
     <string name="firebasekey">firebasekey</string>

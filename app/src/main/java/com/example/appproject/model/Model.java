@@ -18,6 +18,10 @@ import com.example.appproject.model.detail.GetAllDetailsListener;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
+import com.example.appproject.model.poll.GetPollQuestionsListener;
+import com.example.appproject.model.poll.Poll;
+import com.example.appproject.model.poll.PollQuestion;
+import com.example.appproject.model.poll.PollsListLoadingState;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.FinishRegistrationListener;
 import com.example.appproject.model.user.SaveImageListener;
@@ -182,6 +186,10 @@ public class Model {
         modelFirebaseDb.updateUser(userId,key,value,saveUserListener);
     }
 
+    public void isFinishedRegistration(FinishRegistrationListener listener) {
+        modelFirebaseDb.isFinishedRegistration(listener);
+    }
+
     /**
      * Data - User Details
      *
@@ -259,7 +267,46 @@ public class Model {
         });
     }
 
-    public void isFinishedRegistration(FinishRegistrationListener listener) {
-         modelFirebaseDb.isFinishedRegistration(listener);
+
+    /**
+     * Data - Polls
+     *
+     */
+
+    MutableLiveData<List<Poll>> pollsList = new MutableLiveData<>();
+    MutableLiveData<PollsListLoadingState> pollsListLoadingState = new MutableLiveData<>();
+
+    public LiveData<List<Poll>> getPolls() {
+        return pollsList;
+    }
+
+    public MutableLiveData<PollsListLoadingState> getPollsListLoadingState() {
+        return pollsListLoadingState;
+    }
+
+
+    public void refreshPollsList() {
+        pollsListLoadingState.setValue(PollsListLoadingState.loading);
+        modelFirebaseDb.getPolls(polls->{
+            executor.execute(()->{
+                for(Poll poll : polls){
+                    AppLocalDb.db.pollDao().insertAll(poll);
+                    getPollQuestionsById(poll.getPollId(),pollQuestions->{
+                        for(PollQuestion pollQuestion : pollQuestions){
+                            executor.execute(()->{
+                                AppLocalDb.db.pollQuestionDao().insertAll(pollQuestion);
+                            });
+                        }
+                    });
+                }
+                //Update App User's List last update date
+                pollsList.postValue(polls);
+                pollsListLoadingState.postValue(PollsListLoadingState.loaded);
+            });
+        });
+    }
+
+    private void getPollQuestionsById(String pollId, GetPollQuestionsListener listener) {
+        modelFirebaseDb.getPollQuestionsById(pollId,listener);
     }
 }

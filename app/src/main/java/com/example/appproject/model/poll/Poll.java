@@ -1,22 +1,59 @@
 package com.example.appproject.model.poll;
 
-public  class Poll {
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
-    public String question;
-    public String answer1;
-    public String answer2;
-    public String answer3;
-    public String answer4;
+import java.util.Map;
+import java.util.UUID;
+
+@Entity
+public class Poll {
+
+    @PrimaryKey
+    @NonNull
+    public String pollId;
+    public String pollName;
 
 
+    public Poll() { }
 
-    public Poll(String question, String answer1, String answer2, String answer3, String answer4) {
-        this.question = question;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.answer3 = answer3;
-        this.answer4 = answer4;
+    @Ignore
+    public Poll(String pollName) {
+        this.pollId = UUID.randomUUID().toString();
+        this.pollName = pollName;
+    }
 
+    public Poll(@NonNull String pollId, String pollName) {
+        this.pollId = pollId;
+        this.pollName = pollName;
+    }
+
+    public static Poll create(Map<String, Object> data){
+        String pollId = (String) data.get("poll_id");
+        String pollName = (String) data.get("poll_name");
+        assert pollId != null;
+        assert pollName != null;
+
+        return new Poll(pollId,pollName);
+    }
+
+    @NonNull
+    public String getPollId() {
+        return pollId;
+    }
+
+    public void setPollId(@NonNull String pollId) {
+        this.pollId = pollId;
+    }
+
+    public String getPollName() {
+        return pollName;
+    }
+
+    public void setPollName(String pollName) {
+        this.pollName = pollName;
     }
 }
 
