@@ -9,20 +9,6 @@ android:background="#F1E7E7"
 android:backgroundTint="#000000"
 tools:context=".poll.FragmentPollImage">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/imgpoll_btn_line"
-        android:layout_width="0dp"
-        android:layout_height="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#978F8F"
-        app:cornerRadius="100px"
-        app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.853"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/imgpoll_question_title"
         android:layout_width="358dp"
@@ -62,10 +48,10 @@ tools:context=".poll.FragmentPollImage">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:padding="3dp"
             android:adjustViewBounds="true"
             android:maxWidth="400dp"
             android:maxHeight="400dp"
+            android:padding="3dp"
 
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,16 +65,16 @@ tools:context=".poll.FragmentPollImage">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/imgpoll_btn_up"
-            android:layout_marginTop="45dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
+            android:layout_marginTop="45dp"
+            android:backgroundTint="@color/primeRed"
             android:drawableRight="@drawable/ic_upload"
             android:fontFamily="sans-serif-black"
+            android:paddingLeft="30dp"
             android:text="@string/upload"
             android:textSize="16dp"
             app:cornerRadius="30dp"
-            android:backgroundTint="@color/primeRed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +82,34 @@ tools:context=".poll.FragmentPollImage">
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/imgpoll_btn_line"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#978F8F"
+        app:cornerRadius="100px"
+        app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.853"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/imgpoll_btn_left"
+
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="50dp"
+        android:drawableTop="@drawable/ic_leftarrow"
+        app:cornerRadius="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/white"
+        app:strokeWidth="1dp" />
 
     <com.google.android.material.card.MaterialCardView
     android:id="@+id/materialCardView2"
@@ -123,35 +137,21 @@ tools:context=".poll.FragmentPollImage">
             android:textSize="24sp" />
 </com.google.android.material.card.MaterialCardView>
 
-<com.google.android.material.button.MaterialButton
-    android:id="@+id/imgpoll_btn_left"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/imgpoll_btn_right"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="sans-serif-black"
+        android:minWidth="70dp"
+        android:text="@string/finish"
+        app:cornerRadius="100dp"
 
-    android:layout_width="70dp"
-    android:layout_height="50dp"
-    android:layout_marginStart="30dp"
-    android:layout_marginBottom="50dp"
-    android:drawableTop="@drawable/ic_leftarrow"
-    app:cornerRadius="100dp"
-    app:strokeColor="@color/white"
-    app:strokeWidth="1dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
 
-<com.google.android.material.button.MaterialButton
-    android:id="@+id/imgpoll_btn_right"
-    android:layout_width="70dp"
-    android:layout_height="50dp"
-    android:minWidth="70dp"
-    android:layout_marginEnd="30dp"
-    android:layout_marginBottom="50dp"
-    app:strokeColor="@color/white"
-    app:strokeWidth="1dp"
-    android:text="@string/finish"
-    android:textSize="10dp"
-    android:fontFamily="sans-serif-black"
-
-    app:cornerRadius="100dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:strokeColor="@color/white"
+        app:strokeWidth="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
