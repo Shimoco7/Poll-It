@@ -3,8 +3,6 @@ package com.example.appproject.login;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -12,8 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -216,7 +212,7 @@ public class FragmentRegister extends Fragment {
     }
 
     private void afterRegisterFlow() {
-        Navigation.findNavController(registerBtn).navigate(R.id.action_global_fragmetnUserDetails);
+        Navigation.findNavController(registerBtn).navigate(R.id.action_global_fragmentUserDetails);
     }
 
 

@@ -36,7 +36,7 @@
             app:destination="@id/fragmentUserImage" />
     </fragment>
     <action
-        android:id="@+id/action_global_fragmetnUserDetails"
+        android:id="@+id/action_global_fragmentUserDetails"
         app:destination="@id/fragmentUserDetails"
         app:popUpTo="@id/fragmentWelcome"
         app:popUpToInclusive="true" />
