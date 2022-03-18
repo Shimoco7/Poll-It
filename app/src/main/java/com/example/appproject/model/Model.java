@@ -22,6 +22,7 @@ import com.example.appproject.model.poll.GetPollQuestionsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.PollsListLoadingState;
+import com.example.appproject.model.question.GetQuestionsLocalDBListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.FinishRegistrationListener;
 import com.example.appproject.model.user.SaveImageListener;
@@ -96,23 +97,8 @@ public class Model {
     }
 
     public boolean validateAddress(String address){
-//        final String addressRegex = "^[a-zA-Z\\s]+";
-//        final String addressRegexNumeric = "-?\\d+(\\.\\d+)?";
-//        String[] addressList = address.split(",");
-//        if(addressList.length!=4) {
-//            return false;
-//        }
-//        for(int i=0; i<3; i++){
-//            if(!addressList[i].matches(addressRegex)){
-//                return false;
-//            }
-//        }
-//
-//        return addressList[3].matches(addressRegexNumeric);
 
-        if (address != "" && address != null)
-            return true;
-        return false;
+        return !address.equals("");
 
     }
 
@@ -220,15 +206,6 @@ public class Model {
         modelFirebaseDb.getDetails(list -> detailsList.setValue(list));
     }
 
-    public MutableLiveData<List<Question>> getQuestions() {
-        if (questionList == null) { refreshQuestions(); };
-        return questionList;
-
-    }
-    public void refreshQuestions(){
-        modelFirebaseDb.getQuestions(list -> questionList.setValue(list));
-    }
-
     public void getUserDetailById(String userKey, String question, GetUserDetailByIdListener listener) {
         executor.execute(()->{
             Detail detail = AppLocalDb.db.detailDao().loadDetailByUserId(userKey,question);
@@ -267,6 +244,35 @@ public class Model {
         executor.execute(()->{
             List<Detail> list = AppLocalDb.db.detailDao().getAllDetails(userKey);
             getAllDetailsListener.onComplete(list);
+        });
+    }
+
+    /**
+     * Data - Questions
+     */
+
+    public MutableLiveData<List<Question>> getQuestions() {
+        if (questionList == null) {
+            refreshQuestions();
+        }
+        ;
+        return questionList;
+
+    }
+
+    public void refreshQuestions() {
+        modelFirebaseDb.getQuestions(questions ->
+                executor.execute(() -> {
+                    for (Question question : questions) {
+                        AppLocalDb.db.questionDao().insertAll(question);
+                    }
+                    questionList.postValue(questions);
+                }));
+    }
+
+    public void getQuestionsFromLocalDb(GetQuestionsLocalDBListener listener) {
+        executor.execute(() -> {
+            listener.onComplete(AppLocalDb.db.questionDao().getAll());
         });
     }
 

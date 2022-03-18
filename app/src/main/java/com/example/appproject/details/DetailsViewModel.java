@@ -3,29 +3,27 @@ package com.example.appproject.details;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.question.Question;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DetailsViewModel extends ViewModel {
-   // LiveData<List<Detail>> details;
+    Map<String, String> answersMap;
     LiveData<List<Question>> questions;
 
     public DetailsViewModel() {
-       // details = Model.instance.getDetails();
         questions = Model.instance.getQuestions();
+        answersMap = new HashMap<>();
 
     }
-
-//    public LiveData<List<Detail>> getDetails() {
-//        return details;
-//    }
 
     public LiveData<List<Question>> getQuestions() {
         return questions;
     }
-
+    public Map<String, String> getAnswersMap() {
+        return answersMap;
+    }
 }

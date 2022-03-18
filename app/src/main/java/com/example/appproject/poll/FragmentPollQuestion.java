@@ -36,7 +36,7 @@ public class FragmentPollQuestion extends Fragment {
     TextView page;
     MaterialButton answer1,answer2,answer3,answer4;
     MaterialButton nextBtn, prevBtn;
-    Button finishBtn;
+
 
     public FragmentPollQuestion() {
     }
@@ -54,15 +54,15 @@ public class FragmentPollQuestion extends Fragment {
         pollId = FragmentActivePollArgs.fromBundle(getArguments()).getPollId();
         nextBtn= view.findViewById(R.id.poll_btn_right);
         prevBtn=view.findViewById(R.id.poll_btn_left);
-        finishBtn = view.findViewById(R.id.poll_finish_btn);
+
         questionTitle = view.findViewById(R.id.poll_question_title);
         answer1 = view.findViewById(R.id.poll_btn_op1);
         answer2 = view.findViewById(R.id.poll_btn_op2);
         answer3 = view.findViewById(R.id.poll_btn_op3);
         answer4 = view.findViewById(R.id.poll_btn_op4);
-        finishBtn.setVisibility(View.GONE);
+
         page= view.findViewById(R.id.poll_txt_qnumber);
-        finishBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage()));
+
 
         setPoll();
 
@@ -91,9 +91,17 @@ public class FragmentPollQuestion extends Fragment {
         nextBtn.setOnClickListener(v -> {
             if(viewModel.index==numOfQuestions)
                 return;
+
             if(isAnswerSelected()) {
+                if(viewModel.index==numOfQuestions-1) {
+                    Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentPollQuestion_to_fragmentPollImage);
+
+                    FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage();
+
+                }
+                else{
                 getNextPoll();
-                setButtonsColor();
+                setButtonsColor();}
             }
             else {
                 Toast.makeText(getActivity(),"Please Select An Answer", Toast.LENGTH_LONG).show();
@@ -102,7 +110,7 @@ public class FragmentPollQuestion extends Fragment {
         prevBtn.setOnClickListener(v -> {
             if(viewModel.index==0)
                 return;
-            finishBtn.setVisibility(View.GONE);
+
             getPrevPoll();
             setButtonsColor();
         });
@@ -114,7 +122,7 @@ public class FragmentPollQuestion extends Fragment {
             viewModel.setPollQuestions(list);
             numOfQuestions = list.size();
             PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            page.setText((viewModel.index+1)+"/"+(numOfQuestions));
+            page.setText((viewModel.index+1)+"/"+(numOfQuestions+1));
             questionTitle.setText(pollQuestion.getPollQuestion());
             answer1.setText(pollQuestion.getChoices().get(0));
             answer2.setText(pollQuestion.getChoices().get(1));
@@ -190,13 +198,10 @@ public class FragmentPollQuestion extends Fragment {
 
 
     public void getNextPoll(){
-        if(viewModel.index==numOfQuestions-1) {
-            finishBtn.setVisibility(View.VISIBLE);
-            return;
-        }
+
         PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
         viewModel.index++;
-        page.setText((viewModel.index+1)+"/"+(numOfQuestions));
+        page.setText((viewModel.index+1)+"/"+(numOfQuestions+1));
         questionTitle.setText(pollQuestion.getPollQuestion());
         answer1.setText(pollQuestion.getChoices().get(0));
         answer2.setText(pollQuestion.getChoices().get(1));
@@ -207,7 +212,7 @@ public class FragmentPollQuestion extends Fragment {
     public void getPrevPoll(){
         PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
         viewModel.index--;
-        page.setText((viewModel.index+1)+"/"+(numOfQuestions));
+        page.setText((viewModel.index+1)+"/"+(numOfQuestions+1));
         questionTitle.setText(pollQuestion.getPollQuestion());
         answer1.setText(pollQuestion.getChoices().get(0));
         answer2.setText(pollQuestion.getChoices().get(1));
