@@ -39,6 +39,11 @@ public class FragmentPollQuestion extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(PollQuestionViewModel.class);
+        pollId = FragmentActivePollArgs.fromBundle(getArguments()).getPollId();
+        Model.instance.getPollQuestionsFromLocalDb(pollId,list->{
+            viewModel.setPollQuestions(list);
+            numOfQuestions = list.size();
+        });
     }
 
 
@@ -57,69 +62,20 @@ public class FragmentPollQuestion extends Fragment {
 
         page= view.findViewById(R.id.poll_txt_qnumber);
 
-
+        setListeners();
         setPoll();
-
-        answer1.setOnClickListener(v -> {
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer1.getText().toString()));
-            setButtonsColor();
-        });
-        answer2.setOnClickListener(v -> {
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer2.getText().toString()));
-            setButtonsColor();
-        });
-        answer3.setOnClickListener(v -> {
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer3.getText().toString()));
-            setButtonsColor();
-
-        });
-        answer4.setOnClickListener(v -> {
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer4.getText().toString()));
-            setButtonsColor();
-
-        });
-        nextBtn.setOnClickListener(v -> {
-            if(viewModel.index==numOfQuestions)
-                return;
-            if(isAnswerSelected()) {
-                if(viewModel.index==numOfQuestions-1) {
-                    Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentPollQuestion_to_fragmentPollImage);
-                    FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage();
-                }
-                else{
-                getNextPoll();
-                setButtonsColor();}
-            }
-            else {
-                Toast.makeText(getActivity(),"Please Select An Answer", Toast.LENGTH_LONG).show();
-            }
-        });
-        prevBtn.setOnClickListener(v -> {
-            if(viewModel.index==0)
-                return;
-
-            getPrevPoll();
-            setButtonsColor();
-        });
+        setButtonsColor();
         return view;
     }
 
     public void setPoll(){
-        Model.instance.getPollQuestionsFromLocalDb(pollId,list->{
-            viewModel.setPollQuestions(list);
-            numOfQuestions = list.size();
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            page.setText((viewModel.index+1)+"/"+(numOfQuestions+1));
-            questionTitle.setText(pollQuestion.getPollQuestion());
-            answer1.setText(pollQuestion.getChoices().get(0));
-            answer2.setText(pollQuestion.getChoices().get(1));
-            answer3.setText(pollQuestion.getChoices().get(2));
-            answer4.setText(pollQuestion.getChoices().get(3));
-        });
+        PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
+        page.setText((viewModel.index+1)+"/"+(numOfQuestions+1));
+        questionTitle.setText(pollQuestion.getPollQuestion());
+        answer1.setText(pollQuestion.getChoices().get(0));
+        answer2.setText(pollQuestion.getChoices().get(1));
+        answer3.setText(pollQuestion.getChoices().get(2));
+        answer4.setText(pollQuestion.getChoices().get(3));
     }
 
     public boolean isAnswerSelected(){
@@ -188,7 +144,7 @@ public class FragmentPollQuestion extends Fragment {
     }
 
 
-    public void getNextPoll(){
+    public void getNextPollQuestion(){
 
         viewModel.index++;
         PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
@@ -200,7 +156,7 @@ public class FragmentPollQuestion extends Fragment {
         answer4.setText(pollQuestion.getChoices().get(3));
     }
 
-    public void getPrevPoll(){
+    public void getPrevPollQuestion(){
         viewModel.index--;
         PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
         page.setText((viewModel.index+1)+"/"+(numOfQuestions+1));
@@ -211,5 +167,52 @@ public class FragmentPollQuestion extends Fragment {
         answer4.setText(pollQuestion.getChoices().get(3));
     }
 
+    public void setListeners(){
+        answer1.setOnClickListener(v -> {
+            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
+            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer1.getText().toString()));
+            setButtonsColor();
+        });
+        answer2.setOnClickListener(v -> {
+            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
+            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer2.getText().toString()));
+            setButtonsColor();
+        });
+        answer3.setOnClickListener(v -> {
+            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
+            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer3.getText().toString()));
+            setButtonsColor();
+
+        });
+        answer4.setOnClickListener(v -> {
+            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
+            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer4.getText().toString()));
+            setButtonsColor();
+
+        });
+        nextBtn.setOnClickListener(v -> {
+            if(viewModel.index==numOfQuestions)
+                return;
+            if(isAnswerSelected()) {
+                if(viewModel.index==numOfQuestions-1) {
+                    Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentPollQuestion_to_fragmentPollImage);
+                    FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage();
+                }
+                else{
+                    getNextPollQuestion();
+                    setButtonsColor();}
+            }
+            else {
+                Toast.makeText(getActivity(),"Please Select An Answer", Toast.LENGTH_LONG).show();
+            }
+        });
+        prevBtn.setOnClickListener(v -> {
+            if(viewModel.index==0)
+                return;
+
+            getPrevPollQuestion();
+            setButtonsColor();
+        });
+    }
 }
 
