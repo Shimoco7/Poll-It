@@ -37,7 +37,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder>{
     public DetailsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) MyApplication.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.details_list_row,parent,false);
-        return new DetailsHolder(view);
+        return new DetailsHolder(view, detailsViewModel);
     }
 
     @Override

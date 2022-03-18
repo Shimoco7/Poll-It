@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -28,9 +30,12 @@ import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.question.Question;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 
 public class FragmentUserDetails extends Fragment {
     Button nextBtn;
@@ -175,17 +180,23 @@ public class FragmentUserDetails extends Fragment {
             nameTi.setErrorIconDrawable(null);
 
         }
-//        for (int i = 0; i < list.getChildCount(); i++) {
-//            DetailsHolder holder = (DetailsHolder) list.findViewHolderForAdapterPosition(i);
-//            if (holder==null|| holder.multiChoiceAc.getText().toString().trim().equals("")) {
-//                errors.add("Invalid "+holder.questionTv.getHint().toString());
-//                holder.questionTv.setError(getString(R.string.missing_answer));
-//                holder.multiChoiceAc.setOnItemClickListener((parent, view, position, id) -> holder.questionTv.setError(null));
+//        Model.instance.getQuestionsFromLocalDb(list->{
+//            for(Question question : list){
+//                Model.instance.getUserDetailById(MyApplication.getUserKey(), question.getQuestion(), returnedDetail -> {
+//                    if(returnedDetail==null)
+//                        Log.d("TAG", "TEST");
+//                });
 //
 //            }
 //
-//
-//        }
+//        });
+
+        for(String question: detailsViewModel.getAnswersMap().keySet()){
+            if(Objects.equals(detailsViewModel.getAnswersMap().get(question), "")){
+                errors.add(question+" is not filled");
+            }
+        }
+
         if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_address));
             if (isAddressEmpty) addressTi.setError(getString(R.string.missing_address));
