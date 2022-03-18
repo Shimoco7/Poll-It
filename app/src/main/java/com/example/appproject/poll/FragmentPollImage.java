@@ -22,7 +22,7 @@ public class FragmentPollImage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_poll_image, container, false);
-
+        backBtn = view.findViewById(R.id.imgpoll_btn_back);
         backBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();
         });
