@@ -1,6 +1,7 @@
 package com.example.appproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -8,6 +9,7 @@ import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigateUp();
                     return true;
                 case R.id.main_menu_logout:
-                    Model.instance.signOut();
-                    toLoginActivity();
+                    showPopup();
                     return true;
                 default:
                     NavigationUI.onNavDestinationSelected(item,navController);
@@ -54,6 +55,24 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    private void showPopup() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+        alert.setMessage("Are you sure ?")
+                .setPositiveButton("Logout", new DialogInterface.OnClickListener()                 {
+
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Model.instance.signOut(); // Last step. Logout function
+                        toLoginActivity();
+
+                    }
+                }).setNegativeButton("Cancel", null);
+
+        AlertDialog alert1 = alert.create();
+        alert1.show();
+    }
+
 
     private void toLoginActivity(){
         Intent intent = new Intent(this, LoginActivity.class);
