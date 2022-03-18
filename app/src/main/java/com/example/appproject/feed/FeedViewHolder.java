@@ -8,11 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appproject.MyApplication;
 import com.example.appproject.R;
-import com.example.appproject.model.Model;
 import com.example.appproject.model.user.User;
-import com.example.appproject.model.user.UsersListLoadingState;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -53,11 +50,13 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                 });
         }
         else{
-            if(user.getGender().equals("Female")){
-                profilePic.setImageResource(R.drawable.female_avatar);
-            }
-            else{
-                profilePic.setImageResource(R.drawable.avatar);
+            if(user.getGender()!=null){
+                if(user.getGender().equals("Female")){
+                    profilePic.setImageResource(R.drawable.female_avatar);
+                }
+                else{
+                    profilePic.setImageResource(R.drawable.avatar);
+                }
             }
         }
 
