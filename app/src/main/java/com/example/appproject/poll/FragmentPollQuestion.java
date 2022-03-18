@@ -91,13 +91,10 @@ public class FragmentPollQuestion extends Fragment {
         nextBtn.setOnClickListener(v -> {
             if(viewModel.index==numOfQuestions)
                 return;
-
             if(isAnswerSelected()) {
                 if(viewModel.index==numOfQuestions-1) {
                     Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentPollQuestion_to_fragmentPollImage);
-
                     FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage();
-
                 }
                 else{
                 getNextPoll();
@@ -199,8 +196,8 @@ public class FragmentPollQuestion extends Fragment {
 
     public void getNextPoll(){
 
-        PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
         viewModel.index++;
+        PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
         page.setText((viewModel.index+1)+"/"+(numOfQuestions+1));
         questionTitle.setText(pollQuestion.getPollQuestion());
         answer1.setText(pollQuestion.getChoices().get(0));
@@ -210,8 +207,8 @@ public class FragmentPollQuestion extends Fragment {
     }
 
     public void getPrevPoll(){
-        PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
         viewModel.index--;
+        PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
         page.setText((viewModel.index+1)+"/"+(numOfQuestions+1));
         questionTitle.setText(pollQuestion.getPollQuestion());
         answer1.setText(pollQuestion.getChoices().get(0));

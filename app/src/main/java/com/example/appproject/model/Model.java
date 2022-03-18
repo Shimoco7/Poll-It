@@ -79,11 +79,8 @@ public class Model {
 
 
     public void signOut() {
-
         modelFirebaseAuth.signOut();
     }
-
-
 
     public boolean validateEmailAddress(String emailAddress) {
         return EmailValidator.getInstance().isValid(emailAddress);
@@ -100,9 +97,7 @@ public class Model {
     }
 
     public boolean validateAddress(String address){
-
         return !address.equals("");
-
     }
 
     public void clearCaches() {

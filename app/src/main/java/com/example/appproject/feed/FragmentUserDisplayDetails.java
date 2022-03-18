@@ -41,8 +41,13 @@ public class FragmentUserDisplayDetails extends Fragment {
                 });
             }
             else{
-                if(user.getGender().equals("Female")){
-                    profilePic.setImageResource(R.drawable.female_avatar);
+                if(user.getGender()!=null){
+                    if(user.getGender().equals("Female")){
+                        profilePic.setImageResource(R.drawable.female_avatar);
+                    }
+                    else{
+                        profilePic.setImageResource(R.drawable.avatar);
+                    }
                 }
                 else{
                     profilePic.setImageResource(R.drawable.avatar);
