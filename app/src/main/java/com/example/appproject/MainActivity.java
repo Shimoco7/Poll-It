@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.main_menu_logout:
                     showPopup();
                     return true;
+                case R.id.main_menu_settings:
+                navController.navigate(R.id.action_fragmentHomeScreen_to_fragmentUserDetails);
                 default:
                     NavigationUI.onNavDestinationSelected(item,navController);
             }
