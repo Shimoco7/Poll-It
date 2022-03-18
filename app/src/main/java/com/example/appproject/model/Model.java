@@ -24,7 +24,7 @@ import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.PollsListLoadingState;
 import com.example.appproject.model.question.GetQuestionsLocalDBListener;
 import com.example.appproject.model.question.Question;
-import com.example.appproject.model.user.FinishRegistrationListener;
+import com.example.appproject.model.user.BooleanListener;
 import com.example.appproject.model.user.SaveImageListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -173,8 +173,12 @@ public class Model {
         modelFirebaseDb.updateUser(userId,key,value,saveUserListener);
     }
 
-    public void isFinishedRegistration(FinishRegistrationListener listener) {
+    public void isFinishedRegistration(BooleanListener listener) {
         modelFirebaseDb.isFinishedRegistration(listener);
+    }
+
+    public void isExist(BooleanListener listener){
+        modelFirebaseDb.isExist(listener);
     }
 
     /**

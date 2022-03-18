@@ -44,7 +44,7 @@ tools:context=".poll.FragmentPollImage">
 
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/feedrow_img_user"
+            android:id="@+id/imgpoll_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -64,7 +64,7 @@ tools:context=".poll.FragmentPollImage">
             app:strokeWidth="2dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/imgpoll_btn_up"
+            android:id="@+id/imgpoll_btn_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
@@ -78,7 +78,7 @@ tools:context=".poll.FragmentPollImage">
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feedrow_img_user"
+            app:layout_constraintTop_toBottomOf="@+id/imgpoll_image"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,7 +98,7 @@ tools:context=".poll.FragmentPollImage">
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/imgpoll_btn_left"
+        android:id="@+id/imgpoll_btn_back"
 
         android:layout_width="70dp"
         android:layout_height="50dp"
@@ -138,7 +138,7 @@ tools:context=".poll.FragmentPollImage">
 </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/imgpoll_btn_right"
+        android:id="@+id/imgpoll_btn_finish"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginEnd="30dp"

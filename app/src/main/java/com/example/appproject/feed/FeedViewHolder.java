@@ -24,7 +24,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         nameTv = itemView.findViewById(R.id.feedrow_txt_username);
         locationTv = itemView.findViewById(R.id.feedrow_txt_location);
-        profilePic = itemView.findViewById(R.id.feedrow_img_user);
+        profilePic = itemView.findViewById(R.id.imgpoll_image);
         progressBar = itemView.findViewById(R.id.feedrow_progressBar);
         progressBar.setVisibility(View.GONE);
         itemView.setOnClickListener(v->{

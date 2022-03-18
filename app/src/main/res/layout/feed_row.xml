@@ -34,11 +34,11 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/feedrow_img_user"
+            app:layout_constraintStart_toEndOf="@+id/imgpoll_image"
             app:layout_constraintTop_toBottomOf="@+id/feedrow_txt_username" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/feedrow_img_user"
+            android:id="@+id/imgpoll_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
             app:layout_constraintBottom_toTopOf="@+id/feedrow_txt_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/feedrow_img_user"
+            app:layout_constraintStart_toEndOf="@+id/imgpoll_image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -83,9 +83,9 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/feedrow_img_user"
-            app:layout_constraintEnd_toEndOf="@+id/feedrow_img_user"
-            app:layout_constraintStart_toStartOf="@+id/feedrow_img_user"
-            app:layout_constraintTop_toTopOf="@+id/feedrow_img_user" />
+            app:layout_constraintBottom_toBottomOf="@+id/imgpoll_image"
+            app:layout_constraintEnd_toEndOf="@+id/imgpoll_image"
+            app:layout_constraintStart_toStartOf="@+id/imgpoll_image"
+            app:layout_constraintTop_toTopOf="@+id/imgpoll_image" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -13,7 +13,7 @@ import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.question.Question;
-import com.example.appproject.model.user.FinishRegistrationListener;
+import com.example.appproject.model.user.BooleanListener;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -160,8 +160,19 @@ public class ModelFirebaseDb {
                 });
     }
 
-    public void isFinishedRegistration(FinishRegistrationListener listener) {
+    public void isFinishedRegistration(BooleanListener listener) {
         db.collection(MyApplication.getContext().getString(R.string.details_collection))
+                .whereEqualTo("uid",MyApplication.getUserKey())
+                .get()
+                .addOnCompleteListener(task->{
+                    if(task.isSuccessful()){
+                        listener.onComplete(!task.getResult().isEmpty());
+                    }
+                });
+    }
+
+    public void isExist(BooleanListener listener) {
+        db.collection(MyApplication.getContext().getString(R.string.users_collection))
                 .whereEqualTo("uid",MyApplication.getUserKey())
                 .get()
                 .addOnCompleteListener(task->{
@@ -200,5 +211,4 @@ public class ModelFirebaseDb {
                     listener.onComplete(list);
                 });
     }
-
 }
