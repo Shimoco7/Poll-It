@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.appproject.model.Model;
+import com.example.appproject.model.user.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -65,9 +68,10 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 //      String title = marker.getTitle();
+
                 //      LatLng position = marker.getPosition();
                 //     Toast.makeText(getActivity(), title+" "+position, Toast.LENGTH_LONG).show();
-//                      marker.showInfoWindow();
+                      marker.showInfoWindow();
 
                 //      Navigation.findNavController(getView()).navigate(R.id.action_fragmentMaps_to_fragmetnUserDetails);
                 return true;
@@ -88,9 +92,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             @Override
             public void onChanged(List<String> strings) {
                 addLocationsToMap(strings);
-
             }
         });
+
     }
 
     private void addUserLocationToMap(String location) {
@@ -98,13 +102,15 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         Geocoder coder = new Geocoder(this.getContext());
         List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
 
+
         try{
+            MutableLiveData <List<User>> users = Model.instance.getUserByLocation(location);
             address=coder.getFromLocationName(location,1);
             if(address != null && address.size() > 0 ){
                 Address loc = address.get(0);
                 markers.add(new MarkerOptions()
                         .position(new LatLng(loc.getLatitude(),loc.getLongitude()))
-                        .title(location)
+                        .title(users.getValue().get(0).getName())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                         .snippet(location));
 
@@ -113,26 +119,8 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             e.printStackTrace();
         }
         setMarkers(markers);
-//        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-//            @Override
-//            public void onInfoWindowClick(@NonNull Marker marker) {
-//
-//                //move to the user feed
-//                marker.hideInfoWindow();
-//            }
-//        });
-
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                Log.d("TAG","marker is clicked"+marker.isInfoWindowShown());
-
-                    marker.showInfoWindow();
-
-                return true;
-            }
-        });
-        map.moveCamera(CameraUpdateFactory.newLatLng(markers.get(0).getPosition()));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(markers.get(0).getPosition()));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(),15));
     }
 
     private void addLocationsToMap(List<String> locations) {
@@ -140,14 +128,16 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         Geocoder coder = new Geocoder(this.getContext());
         List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
 
+
         for(String location: locations){
             try{
+                MutableLiveData <List<User>> users = Model.instance.getUserByLocation(location);
                 address=coder.getFromLocationName(location,1);
                 if(address != null && address.size()>0 ){
                     Address loc = address.get(0);
                     markers.add(new MarkerOptions()
                             .position(new LatLng(loc.getLatitude(), loc.getLongitude()))
-                            .title(location)
+                            .title(users.getValue().get(0).getName())
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                             .snippet(location));
                 }
@@ -155,22 +145,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 e.printStackTrace();
             }
         }
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                marker.showInfoWindow();
-
-                return true;
-            }
-        });
-//        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-//            @Override
-//            public void onInfoWindowClick(@NonNull Marker marker) {
-//
-//                //move to the user feed
-//                marker.hideInfoWindow();
-//            }
-//        });
         setMarkers(markers);
     }
 
