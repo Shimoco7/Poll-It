@@ -1,16 +1,10 @@
 package com.example.appproject.model;
 
-import android.content.Context;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.detail.GetLocationsListener;
-import com.example.appproject.model.detail.GetUserByLocationListener;
 import com.example.appproject.model.detail.GetUserLocationListener;
 import com.example.appproject.model.poll.GetPollQuestionsListener;
 import com.example.appproject.model.poll.GetPollsListener;
@@ -23,7 +17,6 @@ import com.example.appproject.model.user.FinishRegistrationListener;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -81,25 +74,11 @@ public class ModelFirebaseDb {
                            list.add(user);
                        }
                    }
+
                    listener.onComplete(list);
                 });
     }
 
-    public void getUserByLocation(String location, GetUserByLocationListener listener){
-        db.collection("users")
-                .whereEqualTo("address",location)
-                .get()
-                .addOnCompleteListener(task -> {
-                    List<User> users = new ArrayList<>();
-                    if (task.isSuccessful()){
-                        for(QueryDocumentSnapshot doc : task.getResult()){
-                            User user = User.create(doc.getData());
-                            users.add(user);
-                        }
-                    }
-                    listener.onComplete(users);
-                });
-    }
 
 
     public void SaveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {

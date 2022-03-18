@@ -15,7 +15,6 @@ import com.example.appproject.R;
 import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetAllDetailsListener;
-import com.example.appproject.model.detail.GetUserByLocationListener;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
@@ -133,8 +132,7 @@ public class Model {
     
     MutableLiveData<List<User>> usersList = new MutableLiveData<>();
     MutableLiveData<UsersListLoadingState> usersListLoadingState = new MutableLiveData<>();
-    public MutableLiveData<List<User>> usersListLocation = new MutableLiveData<>();
-    
+
     public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
         modelFirebaseDb.SaveUserOnDb(user, saveUserListener::onComplete);
     }
@@ -150,14 +148,7 @@ public class Model {
         });
     }
 
-    public MutableLiveData<List<User>> getUserByLocation(String location){
-        if(usersListLocation.getValue() == null) { refershUsersListLocation(location);}
-        return usersListLocation;
-    }
 
-    public void refershUsersListLocation(String location){
-        modelFirebaseDb.getUserByLocation(location,list -> usersListLocation.setValue(list));
-    }
 
     public void refreshList() {
         usersListLoadingState.setValue(UsersListLoadingState.loading);

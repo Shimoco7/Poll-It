@@ -58,7 +58,11 @@
         android:id="@+id/fragmentMap"
         android:name="com.example.appproject.FragmentMap"
         android:label="Users Around You"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_fragmentMap_to_fragmentUserDisplayDetails"
+            app:destination="@id/fragmentUserDisplayDetails" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentUserDisplayDetails"
         android:name="com.example.appproject.feed.FragmentUserDisplayDetails"
