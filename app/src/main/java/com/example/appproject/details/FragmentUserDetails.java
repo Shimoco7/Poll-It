@@ -202,7 +202,7 @@ public class FragmentUserDetails extends Fragment {
             MyApplication.setUserName(nameEt.getText().toString().trim());
         });
         Model.instance.updateUser(MyApplication.getUserKey(),"address",addressEt.getText().toString().trim(), ()->{
-            MyApplication.setUserName(addressEt.getText().toString().trim());
+            MyApplication.setUserAddress(addressEt.getText().toString().trim());
         });
     }
 
