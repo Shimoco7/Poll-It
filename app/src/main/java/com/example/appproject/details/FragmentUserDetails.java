@@ -65,6 +65,10 @@ public class FragmentUserDetails extends Fragment {
         nameTi = view.findViewById(R.id.details_ti);
         addressEt = view.findViewById(R.id.details_address_et);
         addressTi = view.findViewById(R.id.details_address_ti);
+        if (!MyApplication.getUserAddress().equals(""))
+            addressEt.setText(MyApplication.getUserAddress());
+        if (!MyApplication.getUserName().equals(""))
+            nameEt.setText(MyApplication.getUserName());
         nextBtn = view.findViewById(R.id.userDetails_next_btn);
         detailsProgressBar = view.findViewById(R.id.details_progress_bar);
         nameEt.setVisibility(View.GONE);
