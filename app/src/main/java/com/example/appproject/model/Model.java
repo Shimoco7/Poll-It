@@ -15,6 +15,7 @@ import com.example.appproject.R;
 import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetAllDetailsListener;
+import com.example.appproject.model.detail.GetUserByLocationListener;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
@@ -47,7 +48,7 @@ public class Model {
     Executor executor = Executors.newSingleThreadExecutor();
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    private Model() {
+    private Model(){
         usersListLoadingState.setValue(UsersListLoadingState.loaded);
         pollsListLoadingState.setValue(PollsListLoadingState.loaded);
     }
@@ -61,18 +62,19 @@ public class Model {
     }
 
     /**
-     * Authentication
+    * Authentication
+     *
      */
 
     public void createUser(String emailAddress, String password, UserListener userListener) {
-        modelFirebaseAuth.createUser(emailAddress, password, userListener);
+        modelFirebaseAuth.createUser(emailAddress,password,userListener);
     }
 
     public void signIn(String emailAddress, String password, UserListener userListener) {
-        modelFirebaseAuth.signIn(emailAddress, password, userListener);
+        modelFirebaseAuth.signIn(emailAddress,password, userListener);
     }
 
-    public boolean isSignedIn() {
+    public boolean isSignedIn(){
         return modelFirebaseAuth.isSignedIn();
     }
 
@@ -95,7 +97,7 @@ public class Model {
         return name.matches(nameRegex);
     }
 
-    public boolean validateAddress(String address) {
+    public boolean validateAddress(String address){
 //        final String addressRegex = "^[a-zA-Z\\s]+";
 //        final String addressRegexNumeric = "-?\\d+(\\.\\d+)?";
 //        String[] addressList = address.split(",");
@@ -117,21 +119,23 @@ public class Model {
     }
 
     public void clearCaches() {
-        executor.execute(() -> {
+        executor.execute(()->{
             AppLocalDb.db.clearAllTables();
-            MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().clear().apply();
+            MyApplication.getContext().getSharedPreferences("Status",Context.MODE_PRIVATE).edit().clear().apply();
             MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
-                    MyApplication.getContext().getString(R.string.users_list_last_update_date), 0).apply();
+                   MyApplication.getContext().getString(R.string.users_list_last_update_date),0).apply();
         });
     }
 
     /**
      * Data - User
+     *
      */
-
+    
     MutableLiveData<List<User>> usersList = new MutableLiveData<>();
     MutableLiveData<UsersListLoadingState> usersListLoadingState = new MutableLiveData<>();
-
+    public MutableLiveData<List<User>> usersListLocation = new MutableLiveData<>();
+    
     public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
         modelFirebaseDb.SaveUserOnDb(user, saveUserListener::onComplete);
     }
@@ -141,36 +145,45 @@ public class Model {
     }
 
     public void getUserById(String userId, GetUserByIdListener listener) {
-        executor.execute(() -> {
+        executor.execute(()->{
             User user = AppLocalDb.db.userDao().loadUserById(userId);
             listener.onComplete(user);
         });
     }
 
+    public MutableLiveData<List<User>> getUserByLocation(String location){
+        if(usersListLocation.getValue() == null) { refershUsersListLocation(location);}
+        return usersListLocation;
+    }
+
+    public void refershUsersListLocation(String location){
+        modelFirebaseDb.getUserByLocation(location,list -> usersListLocation.setValue(list));
+    }
+
     public void refreshList() {
         usersListLoadingState.setValue(UsersListLoadingState.loading);
         Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getLong(
-                MyApplication.getContext().getString(R.string.users_list_last_update_date), 0);
+                MyApplication.getContext().getString(R.string.users_list_last_update_date),0);
         //Show current cache users
-        executor.execute(() -> {
+        executor.execute(()->{
             usersList.postValue(AppLocalDb.db.userDao().getAll());
         });
         modelFirebaseDb.getUsers(list -> {
-            executor.execute(() -> {
+            executor.execute(()->{
                 Long lud = 0L;
-                for (User user : list) {
+                for(User user : list){
                     AppLocalDb.db.userDao().insertAll(user);
-                    if (lud < user.getLastUpdateDate()) {
+                    if(lud<user.getLastUpdateDate()){
                         lud = user.getLastUpdateDate();
                     }
                 }
                 //Update App User's List last update date
                 MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
-                        MyApplication.getContext().getString(R.string.users_list_last_update_date), lud).apply();
+                        MyApplication.getContext().getString(R.string.users_list_last_update_date),lud).apply();
                 usersList.postValue(AppLocalDb.db.userDao().getAll());
                 usersListLoadingState.postValue(UsersListLoadingState.loaded);
             });
-        }, lastUpdateDate);
+        },lastUpdateDate);
     }
 
     public MutableLiveData<UsersListLoadingState> getUsersListLoadingState() {
@@ -179,11 +192,11 @@ public class Model {
 
 
     public void saveImage(Bitmap bitMap, String imageName, SaveImageListener saveImageListener) {
-        modelFirebaseStorage.saveImage(bitMap, imageName, saveImageListener);
+        modelFirebaseStorage.saveImage(bitMap,imageName,saveImageListener);
     }
 
-    public void updateUser(String userId, String key, String value, SaveUserListener saveUserListener) {
-        modelFirebaseDb.updateUser(userId, key, value, saveUserListener);
+    public void updateUser(String userId, String key,String value, SaveUserListener saveUserListener) {
+        modelFirebaseDb.updateUser(userId,key,value,saveUserListener);
     }
 
     public void isFinishedRegistration(FinishRegistrationListener listener) {
@@ -192,6 +205,7 @@ public class Model {
 
     /**
      * Data - User Details
+     *
      */
     MutableLiveData<List<Detail>> detailsList = new MutableLiveData<>();
     public MutableLiveData<String> userLocation = new MutableLiveData<>();
@@ -199,7 +213,7 @@ public class Model {
     MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
     public void saveDetailOnLocalDb(Detail detail) {
-        executor.execute(() -> AppLocalDb.db.detailDao().insertAll(detail));
+        executor.execute(()-> AppLocalDb.db.detailDao().insertAll(detail));
     }
 
     public void saveDetailOnRemoteDb(Detail detail, SaveDetailListener saveDetailListener) {
@@ -208,60 +222,50 @@ public class Model {
 
 
     public LiveData<List<Detail>> getDetails() {
-        if (detailsList == null) {
-            refreshDetails();
-        }
-        ;
+        if (detailsList == null) { refreshDetails(); };
         return detailsList;
 
     }
-
-    public void refreshDetails() {
+    public void refreshDetails(){
         modelFirebaseDb.getDetails(list -> detailsList.setValue(list));
     }
 
-
     public void getUserDetailById(String userKey, String question, GetUserDetailByIdListener listener) {
-        executor.execute(() -> {
-            Detail detail = AppLocalDb.db.detailDao().loadDetailByUserId(userKey, question);
+        executor.execute(()->{
+            Detail detail = AppLocalDb.db.detailDao().loadDetailByUserId(userKey,question);
             listener.onComplete(detail);
         });
     }
 
     public void updateAnswerByDetailId(String detailId, String answer, UpdateAnswerByDetailIdListener listener) {
-        executor.execute(() -> {
-            AppLocalDb.db.detailDao().updateAnswerByDetailId(detailId, answer);
+        executor.execute(()->{
+            AppLocalDb.db.detailDao().updateAnswerByDetailId(detailId,answer);
             listener.onComplete();
         });
     }
 
     public MutableLiveData<String> getUserLocation() {
-        if (userLocation.getValue() == null) {
-            refreshUserLocation();
-        }
+        if (userLocation.getValue() == null) { refreshUserLocation(); }
         return userLocation;
     }
 
-    public void refreshUserLocation() {
-        modelFirebaseDb.getUserLocation(location -> userLocation.postValue(location));
+    public void refreshUserLocation(){
+        modelFirebaseDb.getUserLocation(location->userLocation.postValue(location));
     }
 
 
     public MutableLiveData<List<String>> getLocations() {
-        if (locationsList.getValue() == null) {
-            refreshLocations();
-        }
-        ;
+        if (locationsList.getValue() == null) { refreshLocations(); };
         return locationsList;
     }
 
-    public void refreshLocations() {
-        modelFirebaseDb.getLocations(list -> locationsList.postValue(list));
+    public void refreshLocations(){
+        modelFirebaseDb.getLocations(list->locationsList.postValue(list));
     }
 
 
     public void getAllDetails(String userKey, GetAllDetailsListener getAllDetailsListener) {
-        executor.execute(() -> {
+        executor.execute(()->{
             List<Detail> list = AppLocalDb.db.detailDao().getAllDetails(userKey);
             getAllDetailsListener.onComplete(list);
         });
@@ -296,8 +300,10 @@ public class Model {
         });
     }
 
+
     /**
      * Data - Polls
+     *
      */
 
     MutableLiveData<List<Poll>> pollsList = new MutableLiveData<>();
@@ -314,13 +320,13 @@ public class Model {
 
     public void refreshPollsList() {
         pollsListLoadingState.setValue(PollsListLoadingState.loading);
-        modelFirebaseDb.getPolls(polls -> {
-            executor.execute(() -> {
-                for (Poll poll : polls) {
+        modelFirebaseDb.getPolls(polls->{
+            executor.execute(()->{
+                for(Poll poll : polls){
                     AppLocalDb.db.pollDao().insertAll(poll);
-                    getPollQuestionsById(poll.getPollId(), pollQuestions -> {
-                        for (PollQuestion pollQuestion : pollQuestions) {
-                            executor.execute(() -> {
+                    getPollQuestionsById(poll.getPollId(),pollQuestions->{
+                        for(PollQuestion pollQuestion : pollQuestions){
+                            executor.execute(()->{
                                 AppLocalDb.db.pollQuestionDao().insertAll(pollQuestion);
                             });
                         }
@@ -334,11 +340,11 @@ public class Model {
     }
 
     private void getPollQuestionsById(String pollId, GetPollQuestionsListener listener) {
-        modelFirebaseDb.getPollQuestionsById(pollId, listener);
+        modelFirebaseDb.getPollQuestionsById(pollId,listener);
     }
 
-    public void getPollQuestionsFromLocalDb(String pollId, GetPollQuestionsListener listener) {
-        executor.execute(() -> {
+    public void getPollQuestionsFromLocalDb(String pollId,GetPollQuestionsListener listener){
+        executor.execute(()->{
             listener.onComplete(AppLocalDb.db.pollDao().getPollWithQuestions(pollId).get(0).pollQuestions);
         });
     }
