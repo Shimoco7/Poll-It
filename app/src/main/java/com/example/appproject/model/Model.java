@@ -98,23 +98,8 @@ public class Model {
     }
 
     public boolean validateAddress(String address){
-//        final String addressRegex = "^[a-zA-Z\\s]+";
-//        final String addressRegexNumeric = "-?\\d+(\\.\\d+)?";
-//        String[] addressList = address.split(",");
-//        if(addressList.length!=4) {
-//            return false;
-//        }
-//        for(int i=0; i<3; i++){
-//            if(!addressList[i].matches(addressRegex)){
-//                return false;
-//            }
-//        }
-//
-//        return addressList[3].matches(addressRegexNumeric);
 
-        if (address != "" && address != null)
-            return true;
-        return false;
+        return !address.equals("");
 
     }
 
