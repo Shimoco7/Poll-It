@@ -1,7 +1,6 @@
 package com.example.appproject.model;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.appproject.MyApplication;
@@ -84,6 +83,7 @@ public class ModelFirebaseAuth {
                                 MyApplication.setUserEmail(u.getEmail());
                                 MyApplication.setUserName(u.getName());
                                 MyApplication.setUserAddress(u.getAddress());
+                                MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
                             });
                             Model.instance.getMainThread().post(()->{
                                 userListener.onComplete(user, appContext.getString(R.string.success));

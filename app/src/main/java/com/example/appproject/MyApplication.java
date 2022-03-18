@@ -56,6 +56,17 @@ public class MyApplication extends Application {
                 .apply();
     }
 
+    public static void setUserProfilePicUrl(String url){
+        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                .edit()
+                .putString(context.getString(R.string.profile_pic_url),url)
+                .apply();
+    }
+
+    public static String getUserProfilePicUrl(){
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.profile_pic_url),"");
+    }
+
     public static String getUserAddress(){
         return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.user_address),"");
     }

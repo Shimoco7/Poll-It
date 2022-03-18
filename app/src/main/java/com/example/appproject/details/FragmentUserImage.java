@@ -2,10 +2,12 @@ package com.example.appproject.details;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
@@ -22,9 +25,15 @@ import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,14 +70,28 @@ public class FragmentUserImage extends Fragment {
 
 
     private void setUserAvatar() {
-        Model.instance.getUserDetailById(MyApplication.getUserKey(),"Gender",gender -> {
-            if(gender.getAnswer().equals("Female")){
-                userAvatar.setImageResource(R.drawable.female_avatar);
-            }
-            else{
-                userAvatar.setImageResource(R.drawable.avatar);
-            }
-        });
+        if(MyApplication.getUserProfilePicUrl().equals("")) {
+            Model.instance.getUserDetailById(MyApplication.getUserKey(), "Gender", gender -> {
+                if (gender.getAnswer().equals("Female")) {
+                    userAvatar.setImageResource(R.drawable.female_avatar);
+                } else {
+                    userAvatar.setImageResource(R.drawable.avatar);
+                }
+            });
+        }
+        else {
+            progressBar.setVisibility(View.VISIBLE);
+            Picasso.get().load(MyApplication.getUserProfilePicUrl()).into(userAvatar, new Callback() {
+                @Override
+                public void onSuccess() {
+                    progressBar.setVisibility(View.GONE);
+                }
+                @Override
+                public void onError(Exception e) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     private void setListeners(ViewGroup container) {
@@ -130,6 +153,7 @@ public class FragmentUserImage extends Fragment {
                     }
                     else{
                         Model.instance.updateUser(MyApplication.getUserKey(),"profile_pic_url",url, this::toMainActivity);
+                        MyApplication.setUserProfilePicUrl(url);
                     }
                 });
             }

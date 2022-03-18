@@ -15,6 +15,27 @@
         <action
             android:id="@+id/action_fragmentHomeScreen_to_fragmentFeed"
             app:destination="@id/fragmentFeed" />
+        <action
+            android:id="@+id/action_fragmentHomeScreen_to_fragmentUserDetails"
+            app:destination="@id/fragmentUserDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentUserDetails"
+        android:name="com.example.appproject.details.FragmentUserDetails"
+        android:label="Edit Your Details"
+        tools:layout="@layout/fragment_user_details">
+        <action
+            android:id="@+id/action_fragmentUserDetails_to_userImage"
+            app:destination="@id/fragmentUserImage" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentUserImage"
+        android:name="com.example.appproject.details.FragmentUserImage"
+        android:label="Edit Your Profile Picture"
+        tools:layout="@layout/fragment_user_image">
+        <action
+            android:id="@+id/action_fragmentUserImage_to_fragmentHomeScreen2"
+            app:destination="@id/fragmentHomeScreen" />
     </fragment>
     <fragment
         android:id="@+id/fragmentActivePoll"
