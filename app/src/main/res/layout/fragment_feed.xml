@@ -20,7 +20,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/feed_layout_const"
         android:layout_width="0dp"
-        android:layout_height="367dp"
+        android:layout_height="400dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
@@ -41,7 +41,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/feed_rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/white"
+                android:scrollbarSize="3dp"
+
+                />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
