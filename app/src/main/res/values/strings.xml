@@ -56,7 +56,7 @@
     <string name="questions_collection">questions</string>
     <string name="polls_collection">polls</string>
     <string name="polls_questions_collection">polls_questions</string>
-    <string name="answers">answers</string>
+    <string name="answers_collection">answers</string>
 
     <!--Shared Preferences Strings-->
     <string name="firebasekey">firebasekey</string>

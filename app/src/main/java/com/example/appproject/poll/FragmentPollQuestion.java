@@ -8,14 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.Answer;
+import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.google.android.material.button.MaterialButton;
 import java.util.Objects;
@@ -30,7 +36,8 @@ public class FragmentPollQuestion extends Fragment {
     TextView page;
     MaterialButton answer1,answer2,answer3,answer4;
     MaterialButton nextBtn, prevBtn;
-
+    ProgressBar progressBar;
+    ViewGroup container;
 
     public FragmentPollQuestion() {
     }
@@ -50,21 +57,53 @@ public class FragmentPollQuestion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_poll_question, container, false);
+        this.container = container;
         pollId = FragmentActivePollArgs.fromBundle(getArguments()).getPollId();
         nextBtn= view.findViewById(R.id.poll_btn_right);
         prevBtn=view.findViewById(R.id.poll_btn_left);
-
+        progressBar = view.findViewById(R.id.poll_question_progress_bar);
         questionTitle = view.findViewById(R.id.poll_question_title);
         answer1 = view.findViewById(R.id.poll_btn_op1);
         answer2 = view.findViewById(R.id.poll_btn_op2);
         answer3 = view.findViewById(R.id.poll_btn_op3);
         answer4 = view.findViewById(R.id.poll_btn_op4);
-
         page= view.findViewById(R.id.poll_txt_qnumber);
 
+        progressBar.setVisibility(View.GONE);
         setListeners();
+        General.progressBarOn(getActivity(),container,progressBar);
+        Model.instance.getUserWithPolls(MyApplication.getUserKey(),polls->{
+            if(polls != null){
+                for(Poll poll : polls){
+                    if(poll.getPollId().equals(pollId)){
+                        Model.instance.getPollQuestionsWithAnswersFromLocalDb(pollId, map->{
+                            viewModel.setPollMap(map);
+                            Model.instance.getMainThread().post(()->{
+                                General.progressBarOff(getActivity(),container,progressBar);
+                                setPoll();
+                                setButtonsColor();
+                            });
+                        });
+                        break;
+                    }
+                    else{
+                        setPoll();
+                        setButtonsColor();
+                        Model.instance.getMainThread().post(()->{
+                            General.progressBarOff(getActivity(),container,progressBar);
+                        });
+                    }
+                }
+            }
+            else{
+                setPoll();
+                setButtonsColor();
+                Model.instance.getMainThread().post(()->{
+                    General.progressBarOff(getActivity(),container,progressBar);
+                });
+            }
+        });
         setPoll();
-        setButtonsColor();
         return view;
     }
 
@@ -79,12 +118,12 @@ public class FragmentPollQuestion extends Fragment {
     }
 
     public boolean isAnswerSelected(){
-        return viewModel.pollMap.containsKey(viewModel.getPollQuestions().get(viewModel.index));
+        return viewModel.pollMap.containsKey(viewModel.getPollQuestions().get(viewModel.index).getPollQuestionId());
     }
 
 
     public void setButtonsColor(){
-        if(!viewModel.pollMap.containsKey(viewModel.getPollQuestions().get(viewModel.index))){
+        if(!viewModel.pollMap.containsKey(viewModel.getPollQuestions().get(viewModel.index).getPollQuestionId())){
             answer1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
             answer1.setAlpha(1);
             answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
@@ -95,7 +134,7 @@ public class FragmentPollQuestion extends Fragment {
             answer4.setAlpha(1);
         }
         else{
-            String ans = Objects.requireNonNull(viewModel.pollMap.get(viewModel.getPollQuestions().get(viewModel.index))).answer;
+            String ans = Objects.requireNonNull(viewModel.pollMap.get(viewModel.getPollQuestions().get(viewModel.index).getPollQuestionId())).answer;
             if(answer1.getText().toString().equals(ans)) {
                 answer1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
                 answer1.setAlpha(1);
@@ -168,35 +207,23 @@ public class FragmentPollQuestion extends Fragment {
     }
 
     public void setListeners(){
-        answer1.setOnClickListener(v -> {
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer1.getText().toString()));
-            setButtonsColor();
-        });
-        answer2.setOnClickListener(v -> {
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer2.getText().toString()));
-            setButtonsColor();
-        });
-        answer3.setOnClickListener(v -> {
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer3.getText().toString()));
-            setButtonsColor();
+        setAnswerListener(answer1);
+        setAnswerListener(answer2);
+        setAnswerListener(answer3);
+        setAnswerListener(answer4);
 
-        });
-        answer4.setOnClickListener(v -> {
-            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
-            viewModel.pollMap.put(pollQuestion,new Answer(pollQuestion.pollQuestionId,answer4.getText().toString()));
-            setButtonsColor();
-
-        });
         nextBtn.setOnClickListener(v -> {
             if(viewModel.index==numOfQuestions)
                 return;
             if(isAnswerSelected()) {
                 if(viewModel.index==numOfQuestions-1) {
-                    Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentPollQuestion_to_fragmentPollImage);
-                    FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage();
+                    General.progressBarOn(getActivity(),container,progressBar);
+                    Model.instance.savePollAnswersOnDb(viewModel.pollMap,pollId,()->{
+                        Model.instance.getMainThread().post(()->{
+                            Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentPollQuestion_to_fragmentPollImage);
+                            FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage();
+                        });
+                    });
                 }
                 else{
                     getNextPollQuestion();
@@ -211,6 +238,22 @@ public class FragmentPollQuestion extends Fragment {
                 return;
 
             getPrevPollQuestion();
+            setButtonsColor();
+        });
+    }
+
+    private void setAnswerListener(MaterialButton answer) {
+        answer.setOnClickListener(v -> {
+            PollQuestion pollQuestion = viewModel.getPollQuestions().get(viewModel.index);
+            if(viewModel.pollMap.containsKey(pollQuestion.getPollQuestionId())){
+                Answer ans = viewModel.pollMap.get(pollQuestion.getPollQuestionId());
+                assert ans != null;
+                ans.setAnswer(answer.getText().toString());
+                viewModel.pollMap.put(pollQuestion.getPollQuestionId(),ans);
+            }
+            else{
+                viewModel.pollMap.put(pollQuestion.getPollQuestionId(),new Answer(MyApplication.getUserKey(),pollId,pollQuestion.pollQuestionId,answer.getText().toString()));
+            }
             setButtonsColor();
         });
     }

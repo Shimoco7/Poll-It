@@ -25,6 +25,7 @@ public class Poll {
         this.pollName = pollName;
     }
 
+    @Ignore
     public Poll(@NonNull String pollId, String pollName) {
         this.pollId = pollId;
         this.pollName = pollName;

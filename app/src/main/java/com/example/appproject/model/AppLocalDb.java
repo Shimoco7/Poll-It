@@ -9,6 +9,7 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.DetailDao;
 import com.example.appproject.model.poll.Answer;
+import com.example.appproject.model.poll.AnswerDao;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollDao;
 import com.example.appproject.model.poll.PollQuestion;
@@ -20,7 +21,7 @@ import com.example.appproject.model.user.UserDao;
 import com.example.appproject.model.user.UserPollCrossRef;
 
 
-@Database(entities ={User.class, Detail.class, Question.class, PollQuestion.class, Poll.class, Answer.class, UserPollCrossRef.class},version = 19 ,exportSchema = false)
+@Database(entities ={User.class, Detail.class, Question.class, PollQuestion.class, Poll.class, Answer.class, UserPollCrossRef.class},version = 24 ,exportSchema = false)
 @TypeConverters({Converters.class})
 abstract class AppLocalDbRepository extends RoomDatabase{
     public abstract UserDao userDao();
@@ -28,6 +29,7 @@ abstract class AppLocalDbRepository extends RoomDatabase{
     public abstract PollDao pollDao();
     public abstract PollQuestionDao pollQuestionDao();
     public abstract QuestionDao questionDao();
+    public abstract AnswerDao answerDao();
 }
 
 public class AppLocalDb {

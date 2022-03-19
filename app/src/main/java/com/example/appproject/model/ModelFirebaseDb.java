@@ -6,10 +6,12 @@ import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.detail.GetLocationsListener;
 import com.example.appproject.model.detail.GetUserLocationListener;
+import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.poll.GetPollQuestionsListener;
 import com.example.appproject.model.poll.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
+import com.example.appproject.model.poll.SavePollAnswerListener;
 import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.question.Question;
@@ -22,6 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,5 +213,17 @@ public class ModelFirebaseDb {
                     }
                     listener.onComplete(list);
                 });
+    }
+
+    public void SavePollAnswersOnDb(Map<String, Answer> pollMap, SavePollAnswerListener listener) {
+        WriteBatch batch = db.batch();
+        for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
+            Answer answer = entry.getValue();
+            DocumentReference ansRef = db.collection(MyApplication.getContext().getString(R.string.answers_collection)).document(answer.getAnswerId());
+            batch.set(ansRef,answer.toJson());
+        }
+        batch.commit().addOnCompleteListener(task -> {
+           listener.onComplete();
+        });
     }
 }

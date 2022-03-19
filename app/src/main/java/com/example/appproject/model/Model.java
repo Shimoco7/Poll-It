@@ -18,10 +18,16 @@ import com.example.appproject.model.detail.GetAllDetailsListener;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
+import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.poll.GetPollQuestionsListener;
+import com.example.appproject.model.poll.GetPollQuestionsWithAnswersListener;
+import com.example.appproject.model.poll.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
+import com.example.appproject.model.poll.PollQuestionWithAnswer;
+import com.example.appproject.model.poll.PollWithPollQuestionsAndAnswers;
 import com.example.appproject.model.poll.PollsListLoadingState;
+import com.example.appproject.model.poll.SavePollAnswerListener;
 import com.example.appproject.model.question.GetQuestionsLocalDBListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.BooleanListener;
@@ -29,11 +35,15 @@ import com.example.appproject.model.user.SaveImageListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserListener;
+import com.example.appproject.model.user.UserPollCrossRef;
+import com.example.appproject.model.user.UserWithPolls;
 import com.example.appproject.model.user.UsersListLoadingState;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -324,6 +334,43 @@ public class Model {
     public void getPollQuestionsFromLocalDb(String pollId,GetPollQuestionsListener listener){
         executor.execute(()->{
             listener.onComplete(AppLocalDb.db.pollDao().getPollWithQuestions(pollId).get(0).pollQuestions);
+        });
+    }
+
+    public void savePollAnswersOnDb(Map<String, Answer> pollMap,String pollId, SavePollAnswerListener listener) {
+        modelFirebaseDb.SavePollAnswersOnDb(pollMap, ()->{
+            executor.execute(()->{
+                for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
+                    AppLocalDb.db.answerDao().insertAll(entry.getValue());
+                }
+                UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
+                AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
+                listener.onComplete();
+            });
+        });
+    }
+
+    public void getUserWithPolls(String userKey, GetPollsListener listener) {
+        executor.execute(()->{
+            List<UserWithPolls> polls = AppLocalDb.db.pollDao().getUserWithPolls(userKey);
+            if(!polls.get(0).polls.isEmpty()){
+                listener.onComplete(polls.get(0).polls);
+            }
+            else{
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void getPollQuestionsWithAnswersFromLocalDb(String pollId, GetPollQuestionsWithAnswersListener listener){
+        executor.execute(()->{
+            HashMap<String,Answer> map = new HashMap<>();
+            List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsWithAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
+            List<PollQuestionWithAnswer> pollQuestionsWithAnswersList = pollWithPollQuestionsWithAnswers.get(0).pollQuestionWithAnswers;
+            for(PollQuestionWithAnswer pqwa : pollQuestionsWithAnswersList){
+                map.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
+            }
+            listener.onComplete(map);
         });
     }
 }
