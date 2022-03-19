@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/homescr_btn_poll"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
         app:cardBackgroundColor="@color/primeOrng"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,8 +29,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:scaleType="centerCrop"
+                android:layout_height="50dp"
+                android:scaleType="fitStart"
                 app:srcCompat="@drawable/ic_poll" />
 
             <LinearLayout
@@ -46,19 +44,19 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/poll_list_square_poll_name"
-                    android:layout_width="50dp"
-                    android:layout_height="36dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:fontFamily="sans-serif-medium"
                     android:padding="2dp"
                     android:text="@string/poll_name"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textColor="@color/white"
+                    android:textSize="16dp"
 
-                    android:textSize="14dp"
+
                     android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
