@@ -43,16 +43,18 @@ public class FragmentUserImage extends Fragment {
 
     public FragmentUserImage() {
     }
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//    }
-//    @Override
-//    public void onPrepareOptionsMenu(Menu menu) {
-//        menu.findItem(R.id.main_menu_settings).setVisible(false);
-//        super.onPrepareOptionsMenu(menu);
-//    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        if(menu.findItem(R.id.main_menu_settings)!=null) {
+            menu.findItem(R.id.main_menu_settings).setVisible(false);
+            super.onPrepareOptionsMenu(menu);
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
