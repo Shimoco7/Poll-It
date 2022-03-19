@@ -20,7 +20,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
                 android:layout_marginTop="5dp"
 
                 android:drawableStart="@drawable/ic_account"
-                android:drawablePadding="20dp"
+                android:drawablePadding="10dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="left"
                 android:paddingLeft="20dp"
@@ -84,7 +84,7 @@
                 android:layout_marginTop="15dp"
 
                 android:drawableStart="@drawable/ic_white_location"
-                android:drawablePadding="20dp"
+                android:drawablePadding="10dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="left"
                 android:paddingLeft="20dp"
@@ -100,7 +100,7 @@
                 android:layout_marginTop="15dp"
 
                 android:drawableStart="@drawable/ic_education"
-                android:drawablePadding="20dp"
+                android:drawablePadding="10dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="left"
                 android:paddingLeft="20dp"
@@ -110,13 +110,13 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/user_display_detailsl_txt_email"
+                android:id="@+id/user_display_details_txt_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
 
                 android:drawableStart="@drawable/sex_icon"
-                android:drawablePadding="20dp"
+                android:drawablePadding="10dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="left"
                 android:paddingLeft="20dp"
