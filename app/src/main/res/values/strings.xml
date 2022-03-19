@@ -65,9 +65,7 @@
     <string name="user_name">user_name</string>
     <string name="user_address">user_address</string>
     <string name="profile_pic_url">profile_pic_url</string>
-
-
-
+    <string name="question_1">Question 1:</string>
 
 
 </resources>
