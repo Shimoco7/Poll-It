@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -31,7 +32,16 @@ public class FragmentPollQuestion extends Fragment {
     MaterialButton answer1,answer2,answer3,answer4;
     MaterialButton nextBtn, prevBtn;
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.main_menu_settings).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
     public FragmentPollQuestion() {
     }
 

@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -41,6 +42,17 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     GoogleMap map;
     HashMap<String,String> nameToId = new HashMap<>();
     public FragmentMap() { }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.main_menu_settings).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
