@@ -25,6 +25,8 @@ import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.Objects;
 
 
@@ -242,7 +244,8 @@ public class FragmentPollQuestion extends Fragment {
                     setButtonsColor();}
             }
             else {
-                Toast.makeText(getActivity(),"Please Select An Answer", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(),"Please Select An Answer", Toast.LENGTH_LONG).show();
+                Snackbar.make(getView(),"Please Select An Answer",Snackbar.LENGTH_LONG).show();
             }
         });
         prevBtn.setOnClickListener(v -> {

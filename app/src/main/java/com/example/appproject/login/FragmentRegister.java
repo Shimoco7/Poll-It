@@ -21,6 +21,7 @@ import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.user.User;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class FragmentRegister extends Fragment {
     TextInputLayout emailLayout,passwordLayout,confirmLayout;
     Boolean isPassEmpty=true,isEmailEmpty=true,isConfirmEmpty=true;
     MenuItem backMenu;
+    Boolean failToCreate=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -173,22 +175,33 @@ public class FragmentRegister extends Fragment {
                 General.progressBarOn(getActivity(), container, progressBar);
                 ArrayList<String> errors = new ArrayList<>();
                 if (!Model.instance.validateEmailAddress(email.getText().toString().trim())) {
-                    errors.add(getString(R.string.invalid_email_address));
+//                    errors.add(getString(R.string.invalid_email_address));
+                    Snackbar.make(getView(),getString(R.string.invalid_email_address),Snackbar.LENGTH_LONG).show();
+                    failToCreate=true;
                 }
                 if (password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())) {
                     if (!Model.instance.validatePassword(password.getText().toString().trim())) {
-                        errors.add(getString(R.string.invalid_password));
-                        password.setText("");
-                        confirmPassword.setText("");
+//                        errors.add(getString(R.string.invalid_password));
+                        Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                            password.setText("");
+                            confirmPassword.setText("");
+                        }).show();
+                        failToCreate=true;
+
                     }
                 } else {
-                    errors.add(getString(R.string.passwords_do_not_match));
-                    password.setText("");
-                    confirmPassword.setText("");
+//                    errors.add(getString(R.string.passwords_do_not_match));
+//                    password.setText("");
+//                    confirmPassword.setText("");
+                    Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                        password.setText("");
+                        confirmPassword.setText("");
+                    }).show();
+                    failToCreate=true;
                 }
 
-                if (!errors.isEmpty()) {
-                    General.showToast(getActivity(), errors);
+                if (failToCreate) {
+//                    General.showToast(getActivity(), errors);
                     General.progressBarOff(getActivity(), container, progressBar);
 
 
@@ -203,7 +216,8 @@ public class FragmentRegister extends Fragment {
                         General.progressBarOff(getActivity(), container, progressBar);
                     } else {
                         General.progressBarOff(getActivity(), container, progressBar);
-                        General.showToast(getActivity(), new ArrayList<>(Collections.singletonList(message)));
+//                        General.showToast(getActivity(), new ArrayList<>(Collections.singletonList(message)));
+                        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
 
                     }
                 });
