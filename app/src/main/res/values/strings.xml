@@ -46,8 +46,8 @@
     <string name="invalid_address">Invalid Address</string>
     <string name="invalid_name">Invalid Name</string>
     <string name="missing_answer">Please Choose an Answer</string>
-    <string name="missing_name">Please Choose a Name</string>
-    <string name="missing_address">Please Choose an Address</string>
+    <string name="missing_name">Name is Required</string>
+    <string name="missing_address">Address is Required</string>
 
 
     <!--Collection Strings-->

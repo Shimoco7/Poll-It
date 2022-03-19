@@ -30,6 +30,7 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Question question) {
+        questionTv.setError(null);
         if(!detailsViewModel.getAnswersMap().containsKey(question.getQuestion())){
             detailsViewModel.answersMap.put(question.getQuestion(), "");
         }
@@ -40,10 +41,8 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
                 String[] array = question.getMultiChoice().toArray(new String[0]);
                 ArrayAdapter adapter = new ArrayAdapter<>(MyApplication.getContext(), R.layout.drop_down, array);
                 multiChoiceAc.post(() -> multiChoiceAc.setAdapter(adapter));
-                questionTv.post(() -> questionTv.setError("Mandatory Field"));
 
             } else {
-                questionTv.post(() -> questionTv.setError(null));
                 multiChoiceAc.post(() -> multiChoiceAc.setText(returnedDetail.getAnswer()));
                 detailsViewModel.getAnswersMap().put(question.getQuestion(), returnedDetail.getAnswer());
                 String[] array = question.getMultiChoice().toArray(new String[0]);
@@ -53,11 +52,11 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
         });
 
         multiChoiceAc.setOnItemClickListener((adapterView, view, i, l) -> {
-            questionTv.setError(null);
             String answer = (String) adapterView.getItemAtPosition(i);
             Detail detail = new Detail(questionTv.getTag().toString().trim(), questionTv.getHint().toString().trim(), multiChoiceAc.getText().toString().trim());
             detail.setAnswer(answer);
             detailsViewModel.answersMap.put(question.getQuestion(), answer);
+            questionTv.setError(null);
 
             Model.instance.getUserDetailById(MyApplication.getUserKey(), question.getQuestion(), returnedDetail -> {
                 if (returnedDetail == null) {
@@ -71,5 +70,9 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
 
 
         });
+
+        if(detailsViewModel.getAnswersMap().get(question.getQuestion()).equals("Empty")){
+            questionTv.setError(question.getQuestion() +" is Required");
+        }
     }
 }
