@@ -16,9 +16,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.appproject.feed.FragmentFeedDirections;
+import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.user.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,6 +44,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     GoogleMap map;
     HashMap<String,String> nameToId = new HashMap<>();
     Boolean userLocationExist=false;
+    ProgressBar progressBar;
     public FragmentMap() { }
 
     @Override
@@ -57,9 +60,12 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         // Inflate the layout for this fragment
         initMap();
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        return view;
     }
 
     private void initMap(){
@@ -109,6 +115,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     }
 
     private void addUserLocationToMap(String location) {
+
         List<Address> address=null;
         Geocoder coder = new Geocoder(this.getContext());
         List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
