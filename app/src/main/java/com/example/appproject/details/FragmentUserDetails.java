@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -59,6 +60,19 @@ public class FragmentUserDetails extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         detailsViewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        if(menu.findItem(R.id.main_menu_settings)!=null) {
+            menu.findItem(R.id.main_menu_settings).setVisible(false);
+            super.onPrepareOptionsMenu(menu);
+        }
     }
 
     @Override
@@ -167,6 +181,7 @@ public class FragmentUserDetails extends Fragment {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public boolean allDetailsFilled(){
 
         ArrayList<String> errors = new ArrayList<>();
