@@ -181,6 +181,7 @@ public class FragmentUserDetails extends Fragment {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public boolean allDetailsFilled(){
 
         ArrayList<String> errors = new ArrayList<>();
