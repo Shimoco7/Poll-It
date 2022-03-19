@@ -41,6 +41,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     GoogleMap map;
     HashMap<String,String> nameToId = new HashMap<>();
+    Boolean userLocationExist=false;
     public FragmentMap() { }
 
     @Override
@@ -122,21 +123,23 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                    nameToId.put(selectedUser.getName(),selectedUser.getUid());
                }
            }
+           if(selectedUser!=null){
             address=coder.getFromLocationName(location,1);
-            if(address != null && address.size() > 0 ){
+            if(address != null && address.size() > 0 ) {
                 Address loc = address.get(0);
                 markers.add(new MarkerOptions()
-                        .position(new LatLng(loc.getLatitude(),loc.getLongitude()))
+                        .position(new LatLng(loc.getLatitude(), loc.getLongitude()))
                         .title(selectedUser.getName())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                         .snippet(location));
-
+                userLocationExist=true;
+                setMarkers(markers);
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 15));
+            }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setMarkers(markers);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(),15));
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(@NonNull Marker marker) {
@@ -160,20 +163,29 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                         nameToId.put(selectedUser.getName(),selectedUser.getUid());
                     }
                 }
-                address=coder.getFromLocationName(location,1);
-                if(address != null && address.size()>0 ){
-                    Address loc = address.get(0);
-                    markers.add(new MarkerOptions()
-                            .position(new LatLng(loc.getLatitude(), loc.getLongitude()))
-                            .title(selectedUser.getName())
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                            .snippet(location));
+
+                if(selectedUser!=null) {
+                    address = coder.getFromLocationName(location, 1);
+                    if (address != null && address.size() > 0) {
+                        Address loc = address.get(0);
+                        markers.add(new MarkerOptions()
+                                .position(new LatLng(loc.getLatitude(), loc.getLongitude()))
+                                .title(selectedUser.getName())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                                .snippet(location));
+
+                    }
                 }
+                setMarkers(markers);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        setMarkers(markers);
+
+        if(!userLocationExist){
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 10));
+        }
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(@NonNull Marker marker) {
