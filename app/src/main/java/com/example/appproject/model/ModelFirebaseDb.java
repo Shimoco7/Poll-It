@@ -19,6 +19,7 @@ import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -125,6 +126,7 @@ public class ModelFirebaseDb {
 
     public void updateUser(String userId, String key, String value, SaveUserListener saveUserListener) {
         DocumentReference docRef = db.collection(MyApplication.getContext().getString(R.string.users_collection)).document(userId);
+        docRef.update("update_date", FieldValue.serverTimestamp());
         docRef.update(key,value)
                 .addOnCompleteListener(l->saveUserListener.onComplete());
     }
