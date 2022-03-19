@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,6 +31,17 @@ public class FragmentFeed extends Fragment {
     SwipeRefreshLayout swipeRefresh;
 
     public FragmentFeed() { }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.main_menu_settings).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {

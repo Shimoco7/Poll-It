@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -59,6 +60,19 @@ public class FragmentUserDetails extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         detailsViewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        if(menu.findItem(R.id.main_menu_settings)!=null) {
+            menu.findItem(R.id.main_menu_settings).setVisible(false);
+            super.onPrepareOptionsMenu(menu);
+        }
     }
 
     @Override
@@ -167,6 +181,7 @@ public class FragmentUserDetails extends Fragment {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public boolean allDetailsFilled(){
 
         ArrayList<String> errors = new ArrayList<>();
@@ -180,22 +195,16 @@ public class FragmentUserDetails extends Fragment {
             nameTi.setErrorIconDrawable(null);
 
         }
-//        Model.instance.getQuestionsFromLocalDb(list->{
-//            for(Question question : list){
-//                Model.instance.getUserDetailById(MyApplication.getUserKey(), question.getQuestion(), returnedDetail -> {
-//                    if(returnedDetail==null)
-//                        Log.d("TAG", "TEST");
-//                });
-//
-//            }
-//
-//        });
 
         for(String question: detailsViewModel.getAnswersMap().keySet()){
             if(Objects.equals(detailsViewModel.getAnswersMap().get(question), "")){
-                errors.add(question+" is not filled");
+                detailsViewModel.getAnswersMap().put(question, "Empty");
+            }
+            if(Objects.equals(detailsViewModel.getAnswersMap().get(question), "Empty")){
+                errors.add(question+" is Required");
             }
         }
+
 
         if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_address));
@@ -203,7 +212,11 @@ public class FragmentUserDetails extends Fragment {
             else addressTi.setError(getString(R.string.invalid_address));
             addressTi.setErrorIconDrawable(null);
         }
-        return errors.size() <= 0;
+        if(errors.size()>0){
+            detailsAdapter.notifyDataSetChanged();
+            return false;
+        }
+        return true;
 
     }
 

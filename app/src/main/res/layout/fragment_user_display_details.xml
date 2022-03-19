@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:scrollbars="vertical"
+    android:scrollbarSize="3dp"
+    android:scrollbarStyle="insideInset"
     tools:context=".feed.FragmentUserDisplayDetails">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,11 +15,27 @@
         android:layout_height="match_parent"
         android:paddingTop="10dp">
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/user_display_details_img_main"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:srcCompat="@drawable/avatar"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/user_display_details_txt_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-black"
             android:gravity="center"
             android:text="User Name"
@@ -26,142 +44,110 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/otheruser_img_cardview" />
-
-        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-            android:id="@+id/otheruser_img_cardview"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:innerRadius="0dp"
-            app:strokeWidth="2dp"
-            android:shape="ring"
-            android:thicknessRatio="1.9"
-            app:cardCornerRadius="60dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/user_display_details_img_main"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:paddingLeft="-20dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                tools:src="@tools:sample/avatars" />
-        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+            app:layout_constraintTop_toBottomOf="@+id/user_display_details_img_main" />
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearLayoutCompat5"
+            android:id="@+id/user_dusplay_details_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_display_details_txt_username">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/linearLayoutCompat3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/textviewbg"
-                android:orientation="horizontal">
 
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/otheruser_txt_imgfact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="left"
-                    android:text="Fact 1:"
-                    android:textColor="@color/white"
-                    android:textSize="28dp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/otheruser_txt_answer1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:gravity="left"
-                    android:paddingLeft="10dp"
-                    android:text="the fact"
-
-                    android:textColor="@color/white"
-                    android:textSize="28dp" />
-
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="10dp"
-                ></Space>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_display_details_txt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/textviewbg"
-                android:padding="5dp"
+                android:layout_marginTop="5dp"
 
-                >
+                android:drawableStart="@drawable/ic_account"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:text="@string/email"
+                android:textColor="@color/white"
+                android:textSize="28dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_display_details_txt_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+
+                android:drawableStart="@drawable/ic_white_location"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:text="address"
+                android:textColor="@color/white"
+                android:textSize="28dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_display_details_txt_education"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+
+                android:drawableStart="@drawable/ic_education"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:text="education"
+                android:textColor="@color/white"
+                android:textSize="28dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_display_details_txt_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+
+                android:drawableStart="@drawable/sex_icon"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:text="SEX"
+                android:textColor="@color/white"
+                android:textSize="28dp"
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/user_display_details_poll_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/textviewbg">
 
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/otheruser_txt_facts"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/user_display_details_rv"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="left"
-                    android:paddingTop="20dp"
-                    android:paddingLeft="10dp"
-                    android:text="Image fact: "
-                    android:textColor="@color/white"
-                    android:textSize="28dp"
-                    android:textStyle="bold" />
-
-                <Space
-                    android:layout_width="50dp"
-                    android:layout_height="1dp"
-                    ></Space>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/otheruser_card_factimg"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    app:cardCornerRadius="20dp">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/otheruser_img_factimg"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:paddingLeft="-15dp"
-                        tools:src="@tools:sample/avatars" />
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-                </androidx.cardview.widget.CardView>
-
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/feed_back_btn"
@@ -176,7 +162,7 @@
             android:textSize="20sp"
             app:cornerRadius="35dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat5"
+            app:layout_constraintTop_toBottomOf="@+id/user_dusplay_details_layout"
             app:strokeColor="@color/primeOrng"
             app:strokeWidth="1dp" />
 

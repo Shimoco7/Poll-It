@@ -28,21 +28,21 @@ public class MainActivity extends AppCompatActivity {
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         assert navHost != null;
         navController = navHost.getNavController();
-        NavigationUI.setupActionBarWithNavController(this,navController);
+        NavigationUI.setupActionBarWithNavController(this, navController);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(!super.onOptionsItemSelected(item)){
-            switch (item.getItemId()){
+        if (!super.onOptionsItemSelected(item)) {
+            switch (item.getItemId()) {
                 case android.R.id.home:
                     navController.navigateUp();
                     return true;
@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
                     showPopup();
                     return true;
                 case R.id.main_menu_settings:
-                navController.navigate(R.id.action_fragmentHomeScreen_to_fragmentUserDetails);
+                    navController.navigate(R.id.action_fragmentHomeScreen_to_fragmentUserDetails);
                 default:
-                    NavigationUI.onNavDestinationSelected(item,navController);
+                    NavigationUI.onNavDestinationSelected(item, navController);
             }
         }
         return false;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void toLoginActivity(){
+    private void toLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();

@@ -19,6 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingRight="7dp"
         android:background="@drawable/userfeedstroke">
 
         <com.google.android.material.textview.MaterialTextView

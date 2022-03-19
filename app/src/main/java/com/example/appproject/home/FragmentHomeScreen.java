@@ -2,6 +2,7 @@ package com.example.appproject.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -59,10 +60,19 @@ public class FragmentHomeScreen extends Fragment {
         mapsBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionGlobalFragmentMap())));
 
         list.setHasFixedSize(true);
-        int numOfColumns = 4;
-        list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns));
+        int numOfColumns = 2;
+        list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns,GridLayoutManager.VERTICAL,false));
         homeAdapter = new HomeAdapter(homeViewModel,getLayoutInflater());
         list.setAdapter(homeAdapter);
+
+
+        list.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                outRect.set(5,20,5,20);
+
+            }
+        });
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
             Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));

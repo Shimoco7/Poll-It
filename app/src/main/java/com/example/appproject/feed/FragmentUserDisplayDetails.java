@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,10 +19,20 @@ import com.squareup.picasso.Picasso;
 
 public class FragmentUserDisplayDetails extends Fragment {
 
-    TextView userName;
+    TextView userName,email,education,gender,address;
     ShapeableImageView profilePic;
 
     public FragmentUserDisplayDetails() { }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.main_menu_settings).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,10 +42,24 @@ public class FragmentUserDisplayDetails extends Fragment {
         String userId = FragmentUserDisplayDetailsArgs.fromBundle(getArguments()).getUserUid();
         profilePic = view.findViewById(R.id.user_display_details_img_main);
         userName = view.findViewById(R.id.user_display_details_txt_username);
+        email=view.findViewById(R.id.user_display_details_txt_email);
+        education=view.findViewById(R.id.user_display_details_txt_education);
+        gender=view.findViewById(R.id.user_display_details_txt_gender);
+        address=view.findViewById(R.id.user_display_details_txt_address);
         Button backToFeedBtn = view.findViewById(R.id.feed_back_btn);
 
         Model.instance.getUserById(userId,user->{
             userName.setText(user.getName());
+            email.setText(user.getEmail());
+            address.setText(user.getAddress());
+
+            //ToDo shimon
+//            Model.instance.getUserDetailById(user.getUid(),"Education Level",edu->{
+//                education.setText(edu.getAnswer());
+//            });
+
+            gender.setText(user.getGender());
+
             if(user.getProfilePicUrl() != null){
                 Model.instance.getMainThread().post(()->{
                     Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);
