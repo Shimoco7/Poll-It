@@ -117,10 +117,15 @@ public class FragmentUserImage extends Fragment {
                 new ActivityResultContracts.GetContent(),
                 result -> {
                     try {
-                        bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), result);
+                        if(result!=null)
+                            bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), result);
                     } catch (IOException ignored) {
                     }
-                    userAvatar.setImageBitmap(bitMap);
+                    if(result!=null)
+                        userAvatar.setImageBitmap(bitMap);
+                    else{
+                        setUserAvatar();
+                    }
                 }
         );
 
