@@ -81,6 +81,7 @@ public class FragmentHomeScreen extends Fragment {
         swipeRefresh.setOnRefreshListener(Model.instance::refreshPollsList);
         homeViewModel.getPolls().observe(getViewLifecycleOwner(),usersList->refresh());
         observePollsLoadingState();
+        Model.instance.refreshList();
         Model.instance.refreshPollsList();
 
         return view;

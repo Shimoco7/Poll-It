@@ -9,4 +9,9 @@ public class UserPollCrossRef {
     public String uid;
     @NonNull
     public String pollId;
+
+    public UserPollCrossRef(@NonNull String uid, @NonNull String pollId) {
+        this.uid = uid;
+        this.pollId = pollId;
+    }
 }

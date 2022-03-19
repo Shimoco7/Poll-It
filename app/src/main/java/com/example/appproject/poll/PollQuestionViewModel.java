@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class PollQuestionViewModel extends ViewModel {
     List<PollQuestion> pollQuestions;
-    Map<PollQuestion, Answer> pollMap;
+    Map<String, Answer> pollMap;
     int index=0;
 
 
@@ -27,5 +27,13 @@ public class PollQuestionViewModel extends ViewModel {
 
     public void setPollQuestions(List<PollQuestion> pollQuestions) {
         this.pollQuestions = pollQuestions;
+    }
+
+    public Map<String, Answer> getPollMap() {
+        return pollMap;
+    }
+
+    public void setPollMap(Map<String, Answer> pollMap) {
+        this.pollMap = pollMap;
     }
 }
