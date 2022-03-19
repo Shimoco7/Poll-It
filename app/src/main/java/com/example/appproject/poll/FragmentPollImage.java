@@ -54,10 +54,12 @@ public class FragmentPollImage extends Fragment {
                 new ActivityResultContracts.GetContent(),
                 result -> {
                     try {
-                        bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), result);
+                        if (result!=null)
+                            bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), result);
                     } catch (IOException ignored) {
                     }
-                    image.setImageBitmap(bitMap);
+                    if(result!=null)
+                        image.setImageBitmap(bitMap);
                 }
         );
         uploadBtn=view.findViewById(R.id.imgpoll_btn_upload);
