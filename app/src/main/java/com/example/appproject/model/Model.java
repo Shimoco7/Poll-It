@@ -41,6 +41,7 @@ import com.example.appproject.model.user.UsersListLoadingState;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -165,7 +166,18 @@ public class Model {
                 MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
                         MyApplication.getContext().getString(R.string.users_list_last_update_date),lud).apply();
                 usersList.postValue(AppLocalDb.db.userDao().getAll());
-                usersListLoadingState.postValue(UsersListLoadingState.loaded);
+                List<String> userIds = new ArrayList<>();
+                for(User user : list){
+                    userIds.add(user.getUid());
+                }
+                modelFirebaseDb.getUsersWithDetails(userIds,details->{
+                    for(Detail d : details){
+                        executor.execute(()->{
+                            AppLocalDb.db.detailDao().insertAll(d);
+                        });
+                    }
+                    usersListLoadingState.postValue(UsersListLoadingState.loaded);
+                });
             });
         },lastUpdateDate);
     }

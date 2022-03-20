@@ -53,7 +53,7 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
 
         multiChoiceAc.setOnItemClickListener((adapterView, view, i, l) -> {
             String answer = (String) adapterView.getItemAtPosition(i);
-            Detail detail = new Detail(questionTv.getTag().toString().trim(), questionTv.getHint().toString().trim(), multiChoiceAc.getText().toString().trim());
+            Detail detail = new Detail(MyApplication.getUserKey(),questionTv.getTag().toString().trim(), questionTv.getHint().toString().trim(), multiChoiceAc.getText().toString().trim());
             detail.setAnswer(answer);
             detailsViewModel.answersMap.put(question.getQuestion(), answer);
             questionTv.setError(null);

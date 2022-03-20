@@ -53,10 +53,9 @@ public class FragmentUserDisplayDetails extends Fragment {
             email.setText(user.getEmail());
             address.setText(user.getAddress());
 
-            //ToDo shimon
-//            Model.instance.getUserDetailById(user.getUid(),"Education Level",edu->{
-//                education.setText(edu.getAnswer());
-//            });
+            Model.instance.getUserDetailById(user.getUid(),"Education Level",edu->{
+                education.setText(edu.getAnswer());
+            });
 
             gender.setText(user.getGender());
 

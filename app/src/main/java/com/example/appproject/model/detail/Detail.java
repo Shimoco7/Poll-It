@@ -28,8 +28,8 @@ public class Detail {
 
 
     @Ignore
-    public Detail(@NonNull String questionId,@NonNull String question, String answer) {
-        this.userUid = MyApplication.getUserKey();
+    public Detail(@NonNull String userUid,@NonNull String questionId,@NonNull String question, String answer) {
+        this.userUid = userUid;
         this.detailId = UUID.randomUUID().toString();
         this.questionId = questionId;
         this.question = question;
@@ -41,52 +41,20 @@ public class Detail {
      *
      */
     public static Detail create(Map<String, Object> data) {
+        String userId = (String)data.get("uid");
         String detailId = (String)data.get("detail_id");
         String questionId = (String)data.get("question_id");
         String question = (String)data.get("question");
         String answer = (String)data.get("answer");
-        Detail detail = new Detail( questionId, question,answer);
+
+        assert userId != null;
+        assert answer != null;
+        assert questionId != null;
+        assert question != null;
+        assert detailId != null;
+        Detail detail = new Detail(userId,questionId, question,answer);
         detail.setDetailId(detailId);
         return detail;
-    }
-
-
-    @NonNull
-    public String getUserUid() {
-        return userUid;
-    }
-    public void setUserUid(@NonNull String userUid) {
-        this.userUid = userUid;
-    }
-
-    @NonNull
-    public String getDetailId() {
-        return detailId;
-    }
-    public void setDetailId(@NonNull String detailId) {
-        this.detailId = detailId;
-    }
-
-    @NonNull
-    public String getQuestionId() {
-        return questionId;
-    }
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
     public Map<String,Object> toJson(){
@@ -98,6 +66,45 @@ public class Detail {
         json.put("question",question);
         json.put("answer", answer);
         return json;
+    }
+
+    @NonNull
+    public String getUserUid() {
+        return userUid;
+    }
+
+    public void setUserUid(@NonNull String userUid) {
+        this.userUid = userUid;
+    }
+    @NonNull
+    public String getDetailId() {
+        return detailId;
+    }
+
+    public void setDetailId(@NonNull String detailId) {
+        this.detailId = detailId;
+    }
+    @NonNull
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
 }

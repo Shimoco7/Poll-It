@@ -228,4 +228,22 @@ public class ModelFirebaseDb {
            listener.onComplete();
         });
     }
+
+    public void getUsersWithDetails(List<String> listUserIds, GetDetailsListener listener) {
+        if(!listUserIds.isEmpty()){
+            db.collection(MyApplication.getContext().getString(R.string.details_collection))
+                    .whereIn("uid",listUserIds)
+                    .get()
+                    .addOnCompleteListener(task->{
+                        List<Detail> details = new ArrayList<>();
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot doc : task.getResult()){
+                                Detail detail = Detail.create(doc.getData());
+                                details.add(detail);
+                            }
+                            listener.onComplete(details);
+                        }
+                    });
+        }
+    }
 }
