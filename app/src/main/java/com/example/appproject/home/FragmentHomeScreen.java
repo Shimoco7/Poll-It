@@ -78,7 +78,10 @@ public class FragmentHomeScreen extends Fragment {
             Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
         });
 
-        swipeRefresh.setOnRefreshListener(Model.instance::refreshPollsList);
+        swipeRefresh.setOnRefreshListener(()->{
+            Model.instance.refreshPollsList();
+            Model.instance.refreshList();
+        });
         homeViewModel.getPolls().observe(getViewLifecycleOwner(),usersList->refresh());
         observePollsLoadingState();
         Model.instance.refreshList();

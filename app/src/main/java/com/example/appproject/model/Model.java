@@ -19,6 +19,7 @@ import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
 import com.example.appproject.model.poll.Answer;
+import com.example.appproject.model.poll.GetPollQuestionListener;
 import com.example.appproject.model.poll.GetPollQuestionsListener;
 import com.example.appproject.model.poll.GetPollQuestionsWithAnswersListener;
 import com.example.appproject.model.poll.GetPollsListener;
@@ -187,8 +188,8 @@ public class Model {
     }
 
 
-    public void saveImage(Bitmap bitMap, String imageName, SaveImageListener saveImageListener) {
-        modelFirebaseStorage.saveImage(bitMap,imageName,saveImageListener);
+    public void saveImage(Bitmap bitMap, String imageName,String folder, SaveImageListener saveImageListener) {
+        modelFirebaseStorage.saveImage(bitMap,imageName,folder,saveImageListener);
     }
 
     public void updateUser(String userId, String key,String value, SaveUserListener saveUserListener) {
@@ -349,16 +350,35 @@ public class Model {
         });
     }
 
-    public void savePollAnswersOnDb(Map<String, Answer> pollMap,String pollId, SavePollAnswerListener listener) {
-        modelFirebaseDb.SavePollAnswersOnDb(pollMap, ()->{
-            executor.execute(()->{
-                for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
-                    AppLocalDb.db.answerDao().insertAll(entry.getValue());
+    public void savePollAnswersOnDb(String userId,String pollId, SavePollAnswerListener listener) {
+        Map<String,Answer> pollMap = new HashMap<>();
+        executor.execute(()->{
+            List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
+            List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
+            for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
+                if(pqwa.answer.getUserId().equals(userId)){
+                    pollMap.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
                 }
-                UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
-                AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
-                listener.onComplete();
+            }
+            modelFirebaseDb.SavePollAnswersOnDb(pollMap, ()->{
+                executor.execute(()->{
+                    for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
+                        AppLocalDb.db.answerDao().insertAll(entry.getValue());
+                    }
+                    UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
+                    AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
+                    listener.onComplete();
+                });
             });
+        });
+    }
+
+    public void savePollAnswersOnLocalDb(Map<String, Answer> pollMap, SavePollAnswerListener listener){
+        executor.execute(()->{
+            for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
+                AppLocalDb.db.answerDao().insertAll(entry.getValue());
+            }
+            listener.onComplete();
         });
     }
 
@@ -383,6 +403,13 @@ public class Model {
                 map.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
             }
             listener.onComplete(map);
+        });
+    }
+
+    public void getPollQuestion(String pollQuestionId, GetPollQuestionListener listener) {
+        executor.execute(()->{
+           PollQuestion pollQuestion = AppLocalDb.db.pollQuestionDao().getPollQuestionById(pollQuestionId);
+           listener.onComplete(pollQuestion);
         });
     }
 }

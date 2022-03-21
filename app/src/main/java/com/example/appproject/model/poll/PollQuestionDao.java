@@ -14,4 +14,7 @@ public interface PollQuestionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(PollQuestion... pollQuestion);
+
+    @Query("SELECT * FROM PollQuestion WHERE pollQuestionId = :pollQuestionId")
+    PollQuestion getPollQuestionById(String pollQuestionId);
 }

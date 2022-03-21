@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/ImageframeLayout"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="#F1E7E7"
-android:backgroundTint="#000000"
-tools:context=".poll.FragmentPollImage">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ImageframeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1E7E7"
+    android:backgroundTint="#000000"
+    tools:context=".poll.FragmentPollImage">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/imgpoll_question_title"
@@ -17,8 +17,8 @@ tools:context=".poll.FragmentPollImage">
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="sans-serif-black"
-        android:text="@string/what_is_happy_image"
         android:gravity="center"
+        android:text="@string/what_is_happy_image"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
@@ -112,17 +112,17 @@ tools:context=".poll.FragmentPollImage">
         app:strokeWidth="1dp" />
 
     <com.google.android.material.card.MaterialCardView
-    android:id="@+id/materialCardView2"
-    android:layout_width="wrap_content"
-    android:layout_height="60dp"
-    android:layout_marginBottom="45dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:strokeColor="@color/primeOrng"
-    app:strokeWidth="2dp"
-    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
+        android:id="@+id/materialCardView2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+        app:strokeColor="@color/primeOrng"
+        app:strokeWidth="2dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/imgpoll_txt_qnumber"
@@ -135,7 +135,7 @@ tools:context=".poll.FragmentPollImage">
             android:text="4/4"
             android:textColor="@color/white"
             android:textSize="24sp" />
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/imgpoll_btn_finish"
@@ -153,5 +153,16 @@ tools:context=".poll.FragmentPollImage">
         app:layout_constraintEnd_toEndOf="parent"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp" />
+
+    <ProgressBar
+        android:id="@+id/imgpoll_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

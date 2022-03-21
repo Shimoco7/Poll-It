@@ -62,6 +62,14 @@ public class FragmentPollQuestion extends Fragment {
         viewModel = new ViewModelProvider(this).get(PollQuestionViewModel.class);
         pollId = FragmentActivePollArgs.fromBundle(getArguments()).getPollId();
         Model.instance.getPollQuestionsFromLocalDb(pollId,list->{
+            PollQuestion toRemove =null;
+            for(PollQuestion pq : list){
+                if(pq.getChoices() == null){
+                    viewModel.setImagePollQuestionId(pq.getPollQuestionId());
+                    toRemove = pq;
+                }
+            }
+            list.remove(toRemove);
             viewModel.setPollQuestions(list);
             numOfQuestions = list.size();
         });
@@ -91,6 +99,7 @@ public class FragmentPollQuestion extends Fragment {
                 for(Poll poll : polls){
                     if(poll.getPollId().equals(pollId)){
                         Model.instance.getPollQuestionsWithAnswersFromLocalDb(pollId, map->{
+                            map.remove(viewModel.imagePollQuestionId);
                             viewModel.setPollMap(map);
                             Model.instance.getMainThread().post(()->{
                                 General.progressBarOff(getActivity(),container,progressBar);
@@ -232,10 +241,9 @@ public class FragmentPollQuestion extends Fragment {
             if(isAnswerSelected()) {
                 if(viewModel.index==numOfQuestions-1) {
                     General.progressBarOn(getActivity(),container,progressBar);
-                    Model.instance.savePollAnswersOnDb(viewModel.pollMap,pollId,()->{
+                    Model.instance.savePollAnswersOnLocalDb(viewModel.pollMap,()->{
                         Model.instance.getMainThread().post(()->{
-                            Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentPollQuestion_to_fragmentPollImage);
-                            FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage();
+                            Navigation.findNavController(nextBtn).navigate(FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage(viewModel.imagePollQuestionId));
                         });
                     });
                 }

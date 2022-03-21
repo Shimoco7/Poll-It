@@ -15,7 +15,7 @@ public interface UserDao {
     @Query("SELECT * FROM User")
     List<User> getAll();
 
-    @Query("SELECT * FROM user WHERE uid = :uid")
+    @Query("SELECT * FROM User WHERE uid = :uid")
     User loadUserById(String uid);
 
     @Transaction

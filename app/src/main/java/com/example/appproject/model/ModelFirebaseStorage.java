@@ -13,9 +13,9 @@ import java.io.ByteArrayOutputStream;
 public class ModelFirebaseStorage {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    public void saveImage(Bitmap bitMap, String imageName, SaveImageListener saveImageListener) {
+    public void saveImage(Bitmap bitMap, String imageName,String folder, SaveImageListener saveImageListener) {
         StorageReference storageRef = storage.getReference();
-        StorageReference imgRef = storageRef.child("user_avatars/" + imageName);
+        StorageReference imgRef = storageRef.child(folder + imageName);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitMap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

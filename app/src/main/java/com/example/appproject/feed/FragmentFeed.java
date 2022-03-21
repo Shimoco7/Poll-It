@@ -70,10 +70,14 @@ public class FragmentFeed extends Fragment {
             Navigation.findNavController(v).navigateUp();
         });
         mapBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentFeedDirections.actionGlobalFragmentMap()));
-        swipeRefresh.setOnRefreshListener(Model.instance::refreshList);
+        swipeRefresh.setOnRefreshListener(()->{
+            Model.instance.refreshList();
+            Model.instance.refreshPollsList();
+        });
         feedViewModel.getUsers().observe(getViewLifecycleOwner(),usersList->refresh());
         observeUserLoadingState();
         Model.instance.refreshList();
+        Model.instance.refreshPollsList();
 
         return view;
     }

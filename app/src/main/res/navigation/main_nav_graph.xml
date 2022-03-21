@@ -74,7 +74,15 @@
         android:id="@+id/fragmentPollImage"
         android:name="com.example.appproject.poll.FragmentPollImage"
         android:label="Active Poll"
-        tools:layout="@layout/fragment_poll_image" />
+        tools:layout="@layout/fragment_poll_image" >
+        <argument
+            android:name="imagePollQuestionId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentPollImage_to_fragmentHomeScreen"
+            app:destination="@id/fragmentHomeScreen"
+            app:popUpTo="@id/fragmentHomeScreen" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentMap"
         android:name="com.example.appproject.FragmentMap"
