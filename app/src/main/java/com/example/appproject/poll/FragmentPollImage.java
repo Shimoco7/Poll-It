@@ -76,7 +76,6 @@ public class FragmentPollImage extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_poll_image, container, false);
         image = view.findViewById(R.id.imgpoll_image);
-        image.setVisibility(View.GONE);
         backBtn = view.findViewById(R.id.imgpoll_btn_back);
         backBtn.setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();
@@ -118,9 +117,11 @@ public class FragmentPollImage extends Fragment {
                 }));
 
             }
+            else{
+                image.setImageResource(R.drawable.noimage1);
+            }
 
         });
-        image.setVisibility(View.VISIBLE);
         finishBtn.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
             if (bitMap == null) {
