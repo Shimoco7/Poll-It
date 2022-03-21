@@ -40,6 +40,7 @@
     <string name="success">Success</string>
     <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
     <string name="image_upload_failed">Upload failed</string>
+    <string name="no_image_upload">Please upload an image</string>
 
 
     <!--Details Strings-->

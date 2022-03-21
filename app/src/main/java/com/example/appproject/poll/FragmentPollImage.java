@@ -134,7 +134,7 @@ public class FragmentPollImage extends Fragment {
                         });
                     } else {
                         progressBar.post(() -> progressBar.setVisibility(View.GONE));
-                        Snackbar.make(getView(), getString(R.string.image_upload_failed), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getView(), getString(R.string.no_image_upload), Snackbar.LENGTH_SHORT).show();
                     }
 
                 });
