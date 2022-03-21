@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -176,6 +177,31 @@ public class Model {
                         executor.execute(()->{
                             AppLocalDb.db.detailDao().insertAll(d);
                         });
+                    }
+                });
+                modelFirebaseDb.getPollQuestionsAnswers(userIds,answers->{
+                    Map<String,List<String>> userPollIdsMap = new HashMap<>();
+                    for(Answer a : answers){
+                        if(!userPollIdsMap.containsKey(a.getUserId())){
+                            userPollIdsMap.put(a.getUserId(),new ArrayList<>());
+                        }
+                        else{
+                            Objects.requireNonNull(userPollIdsMap.get(a.getUserId())).add(a.getPollId());
+                        }
+                        executor.execute(()->{
+                            AppLocalDb.db.answerDao().insertAll(a);
+                        });
+                    }
+                    for(Map.Entry<String,List<String>> entry : userPollIdsMap.entrySet()){
+                        String userId = entry.getKey();
+                        List<String> pollsIds = entry.getValue();
+                        for(String pollId : pollsIds){
+                            UserPollCrossRef userPollCrossRef = new UserPollCrossRef(userId,pollId);
+                            executor.execute(()->{
+                                AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
+                            });
+                        }
+
                     }
                     usersListLoadingState.postValue(UsersListLoadingState.loaded);
                 });
@@ -362,9 +388,6 @@ public class Model {
             }
             modelFirebaseDb.SavePollAnswersOnDb(pollMap, ()->{
                 executor.execute(()->{
-                    for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
-                        AppLocalDb.db.answerDao().insertAll(entry.getValue());
-                    }
                     UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
                     AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
                     listener.onComplete();

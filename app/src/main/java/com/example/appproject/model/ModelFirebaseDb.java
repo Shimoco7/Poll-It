@@ -7,6 +7,7 @@ import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.detail.GetLocationsListener;
 import com.example.appproject.model.detail.GetUserLocationListener;
 import com.example.appproject.model.poll.Answer;
+import com.example.appproject.model.poll.GetPollQuestionsAnswersListener;
 import com.example.appproject.model.poll.GetPollQuestionsListener;
 import com.example.appproject.model.poll.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
@@ -242,6 +243,24 @@ public class ModelFirebaseDb {
                                 details.add(detail);
                             }
                             listener.onComplete(details);
+                        }
+                    });
+        }
+    }
+
+    public void getPollQuestionsAnswers(List<String> listUserIds, GetPollQuestionsAnswersListener listener) {
+        if(!listUserIds.isEmpty()){
+            db.collection(MyApplication.getContext().getString(R.string.answers_collection))
+                    .whereIn("user_id",listUserIds)
+                    .get()
+                    .addOnCompleteListener(task->{
+                        List<Answer> answers = new ArrayList<>();
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot doc : task.getResult()){
+                                Answer answer = Answer.create(doc.getData());
+                                answers.add(answer);
+                            }
+                            listener.onComplete(answers);
                         }
                     });
         }

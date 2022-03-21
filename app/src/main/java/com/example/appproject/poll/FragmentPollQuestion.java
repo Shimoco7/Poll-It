@@ -28,6 +28,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
+import java.util.UUID;
 
 
 public class FragmentPollQuestion extends Fragment {
@@ -275,7 +276,7 @@ public class FragmentPollQuestion extends Fragment {
                 viewModel.pollMap.put(pollQuestion.getPollQuestionId(),ans);
             }
             else{
-                viewModel.pollMap.put(pollQuestion.getPollQuestionId(),new Answer(MyApplication.getUserKey(),pollId,pollQuestion.pollQuestionId,answer.getText().toString()));
+                viewModel.pollMap.put(pollQuestion.getPollQuestionId(),new Answer(UUID.randomUUID().toString(),MyApplication.getUserKey(),pollId,pollQuestion.pollQuestionId,answer.getText().toString()));
             }
             setButtonsColor();
         });

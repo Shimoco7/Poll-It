@@ -31,6 +31,7 @@ import com.google.android.material.textview.MaterialTextView;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class FragmentPollImage extends Fragment {
@@ -108,7 +109,7 @@ public class FragmentPollImage extends Fragment {
                         General.progressBarOff(getActivity(), container, progressBar);
                     } else {
                         Map<String,Answer> map = new HashMap<>();
-                        map.put(viewModel.getPollQuestion().getPollQuestionId(), new Answer(MyApplication.getUserKey(),viewModel.pollQuestion.getPollId(),viewModel.getPollQuestion().getPollQuestionId(),url));
+                        map.put(viewModel.getPollQuestion().getPollQuestionId(), new Answer(UUID.randomUUID().toString(),MyApplication.getUserKey(),viewModel.pollQuestion.getPollId(),viewModel.getPollQuestion().getPollQuestionId(),url));
                         Model.instance.savePollAnswersOnLocalDb(map,()->{
                             Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(),viewModel.getPollQuestion().getPollId(),()->{
                                 Model.instance.getMainThread().post(()->{

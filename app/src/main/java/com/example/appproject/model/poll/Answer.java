@@ -28,12 +28,12 @@ public class Answer {
     }
 
     @Ignore
-    public Answer(@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer) {
+    public Answer(@NonNull String answerId,@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer) {
+        this.answerId = answerId;
         this.userId = userId;
         this.pollId = pollId;
         this.pollQuestionId = pollQuestionId;
         this.answer = answer;
-        this.answerId = UUID.randomUUID().toString();
     }
 
     /**
@@ -54,7 +54,7 @@ public class Answer {
         assert answer != null;
         assert pollQuestionId != null;
 
-        return new Answer(userId,pollId,pollQuestionId,answer);
+        return new Answer(answerId,userId,pollId,pollQuestionId,answer);
     }
 
     public Map<String, Object> toJson() {
