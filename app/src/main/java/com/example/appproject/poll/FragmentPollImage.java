@@ -104,7 +104,6 @@ public class FragmentPollImage extends Fragment {
         progressBar.setVisibility(View.GONE);
         Model.instance.getPollQuestionsWithAnswersFromLocalDb(viewModel.getPollQuestion().getPollId(), map -> {
             if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
-                Log.d("TAG", "TEST-1");
                 progressBar.post(() -> progressBar.setVisibility(View.VISIBLE));
                 Model.instance.getMainThread().post(() -> Picasso.get().load(map.get(viewModel.getPollQuestion().getPollQuestionId()).getAnswer()).into(image, new Callback() {
                     @Override
@@ -118,8 +117,6 @@ public class FragmentPollImage extends Fragment {
                     }
                 }));
 
-            } else {
-                Log.d("TAG", "TEST0");
             }
 
         });
@@ -129,16 +126,13 @@ public class FragmentPollImage extends Fragment {
             if (bitMap == null) {
                 Model.instance.getPollQuestionsWithAnswersFromLocalDb(viewModel.getPollQuestion().getPollId(), map -> {
                     if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
-                        Log.d("TAG", "TEST1");
                         Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
                             progressBar.post(() -> progressBar.setVisibility(View.GONE));
                             Model.instance.getMainThread().post(() -> {
                                 Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
                             });
                         });
-                    }
-                    else{
-                        Log.d("TAG", "TEST2");
+                    } else {
                         progressBar.post(() -> progressBar.setVisibility(View.GONE));
                         Snackbar.make(getView(), getString(R.string.image_upload_failed), Snackbar.LENGTH_SHORT).show();
                     }
@@ -148,21 +142,17 @@ public class FragmentPollImage extends Fragment {
             } else {
                 Model.instance.saveImage(bitMap, MyApplication.getUserKey() + viewModel.getPollQuestion().getPollQuestionId() + ".jpg", "users_poll_images/", url -> {
                     if (url == null) {
-                        Log.d("TAG", "TEST3");
                         Snackbar.make(getView(), getString(R.string.image_upload_failed), Snackbar.LENGTH_SHORT).show();
                     } else {
                         Model.instance.getPollQuestionsWithAnswersFromLocalDb(viewModel.getPollQuestion().getPollId(), map -> {
                             if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
-                                Log.d("TAG", "TEST4");
                                 Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
                                     Model.instance.getMainThread().post(() -> {
                                         Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
                                     });
                                 });
-                            }
-                            else{
+                            } else {
                                 Map<String, Answer> newMap = new HashMap<>();
-                                Log.d("TAG", "TEST5");
                                 newMap.put(viewModel.getPollQuestion().getPollQuestionId(), new Answer(UUID.randomUUID().toString(), MyApplication.getUserKey(), viewModel.pollQuestion.getPollId(), viewModel.getPollQuestion().getPollQuestionId(), url));
                                 Model.instance.savePollAnswersOnLocalDb(newMap, () -> {
                                     Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
