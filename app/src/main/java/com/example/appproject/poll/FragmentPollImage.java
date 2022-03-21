@@ -103,7 +103,7 @@ public class FragmentPollImage extends Fragment {
                 //TODO - Amir - present SnackBar
             }
             else{
-                Model.instance.saveImage(bitMap, MyApplication.getUserKey() + ".jpg","users_poll_images/", url -> {
+                Model.instance.saveImage(bitMap, MyApplication.getUserKey()+ viewModel.getPollQuestion().getPollQuestionId()+".jpg","users_poll_images/", url -> {
                     if (url == null) {
                         Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
                         General.progressBarOff(getActivity(), container, progressBar);
