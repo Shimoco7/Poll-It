@@ -272,7 +272,7 @@ public class Model {
     }
 
     public MutableLiveData<String> getUserLocation() {
-        if (userLocation.getValue() == null) { refreshUserLocation(); }
+        refreshUserLocation();
         return userLocation;
     }
 
@@ -282,7 +282,7 @@ public class Model {
 
 
     public MutableLiveData<List<String>> getLocations() {
-        if (locationsList.getValue() == null) { refreshLocations(); };
+        refreshLocations();
         return locationsList;
     }
 
