@@ -37,6 +37,8 @@ public class General {
             progressBar.setVisibility(View.VISIBLE);
             General.enableDisableClickView(container, false);
             ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            ((AppCompatActivity)activity).getSupportActionBar().hide();
+
         });
     }
 
@@ -45,6 +47,9 @@ public class General {
             progressBar.setVisibility(View.GONE);
             General.enableDisableClickView(container, true);
             ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity)activity).getSupportActionBar().show();
         });
     }
+
+
 }
