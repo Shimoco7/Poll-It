@@ -94,7 +94,6 @@ public class Model {
         return modelFirebaseAuth.isSignedIn();
     }
 
-
     public void signOut() {
         modelFirebaseAuth.signOut();
     }
@@ -229,7 +228,6 @@ public class Model {
         return usersListLoadingState;
     }
 
-
     public void saveImage(Bitmap bitMap, String imageName,String folder, SaveImageListener saveImageListener) {
         modelFirebaseStorage.saveImage(bitMap,imageName,folder,saveImageListener);
     }
@@ -322,9 +320,7 @@ public class Model {
         if (questionList == null) {
             refreshQuestions();
         }
-        ;
         return questionList;
-
     }
 
     public void refreshQuestions() {
@@ -343,7 +339,6 @@ public class Model {
         });
     }
 
-
     /**
      * Data - Polls
      *
@@ -359,7 +354,6 @@ public class Model {
     public MutableLiveData<PollsListLoadingState> getPollsListLoadingState() {
         return pollsListLoadingState;
     }
-
 
     public void refreshPollsList() {
         pollsListLoadingState.setValue(PollsListLoadingState.loading);
@@ -433,7 +427,6 @@ public class Model {
         });
     }
 
-
     public void getAllAnswersByUserAndPollIds(String userId, String pollId, GetPollQuestionsWithAnswersListener listener){
         executor.execute(()->{
             HashMap<String,Answer> map = new HashMap<>();
@@ -444,7 +437,6 @@ public class Model {
             listener.onComplete(map);
         });
     }
-
 
     public void getPollQuestion(String pollQuestionId, GetPollQuestionListener listener) {
         executor.execute(()->{

@@ -16,7 +16,6 @@ public class Poll {
     public String pollId;
     public String pollName;
 
-
     public Poll() { }
 
     @Ignore

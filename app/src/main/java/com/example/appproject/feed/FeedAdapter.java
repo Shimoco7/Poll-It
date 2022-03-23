@@ -25,7 +25,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder>{
         this.layoutInflater = layoutInflater;
     }
 
-
     @NonNull
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
