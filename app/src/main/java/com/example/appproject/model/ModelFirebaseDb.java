@@ -84,8 +84,6 @@ public class ModelFirebaseDb {
                 });
     }
 
-
-
     public void SaveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
         Map<String, Object> json = detail.toJson();
         db.collection(MyApplication.getContext().getString(R.string.details_collection))
@@ -95,7 +93,6 @@ public class ModelFirebaseDb {
     }
 
     public void getDetails(GetDetailsListener listener){
-
         db.collection(MyApplication.getContext().getString(R.string.details_collection))
                 .whereEqualTo("uid", MyApplication.getUserKey())
                 .get()
@@ -111,9 +108,7 @@ public class ModelFirebaseDb {
                 });
     }
 
-
     public void getQuestions(GetQuestionsListener listener){
-
         db.collection(MyApplication.getContext().getString(R.string.questions_collection))
                 .get()
                 .addOnCompleteListener(task -> {

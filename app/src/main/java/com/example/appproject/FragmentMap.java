@@ -74,7 +74,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map=googleMap;
@@ -199,7 +198,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             }
         });
     }
-
 
     private void setMarkers(List<MarkerOptions> markers){
         for(MarkerOptions m: markers){

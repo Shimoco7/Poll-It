@@ -25,8 +25,7 @@ public class Answer {
     public String answer;
     public Boolean isDeleted;
 
-    public Answer() {
-    }
+    public Answer() { }
 
     @Ignore
     public Answer(@NonNull String answerId,@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer,Boolean isDeleted) {

@@ -53,9 +53,7 @@ public class FragmentUserDetails extends Fragment {
     ViewGroup container;
     RecyclerView list;
 
-
-    public FragmentUserDetails() {
-    }
+    public FragmentUserDetails() { }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -68,6 +66,7 @@ public class FragmentUserDetails extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         if(menu.findItem(R.id.main_menu_settings)!=null) {
@@ -169,14 +168,8 @@ public class FragmentUserDetails extends Fragment {
                 if (s.toString().length() == 0) {
                     addressTi.setError(null);
                     isAddressEmpty = true; }
-
-
                 }
-
-
         });
-
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -203,7 +196,6 @@ public class FragmentUserDetails extends Fragment {
                 nameTi.setError(getString(R.string.invalid_name));
             }
             nameTi.setErrorIconDrawable(null);
-
         }
 
         for(String question: detailsViewModel.getAnswersMap().keySet()){
@@ -214,7 +206,6 @@ public class FragmentUserDetails extends Fragment {
                 errors.add(question+" is Required");
             }
         }
-
 
         if(!Model.instance.validateAddress(addressEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_address));
@@ -230,7 +221,6 @@ public class FragmentUserDetails extends Fragment {
 
     }
 
-
     public void uploadDetailsToDB(){
         Model.instance.updateUser(MyApplication.getUserKey(),"name",nameEt.getText().toString().trim(), ()->{
             MyApplication.setUserName(nameEt.getText().toString().trim());
@@ -239,5 +229,4 @@ public class FragmentUserDetails extends Fragment {
             MyApplication.setUserAddress(addressEt.getText().toString().trim());
         });
     }
-
 }

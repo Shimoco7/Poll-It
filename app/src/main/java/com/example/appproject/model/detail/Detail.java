@@ -26,7 +26,6 @@ public class Detail {
 
     public Detail() { }
 
-
     @Ignore
     public Detail(@NonNull String userUid,@NonNull String questionId,@NonNull String question, String answer) {
         this.userUid = userUid;

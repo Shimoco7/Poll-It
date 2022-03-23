@@ -31,7 +31,6 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder>{
         this.layoutInflater = layoutInflater;
     }
 
-
     @NonNull
     @Override
     public DetailsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

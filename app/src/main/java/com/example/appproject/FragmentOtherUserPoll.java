@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 
 public class FragmentOtherUserPoll extends Fragment {
 
-
-    public FragmentOtherUserPoll() {
-    }
+    public FragmentOtherUserPoll() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

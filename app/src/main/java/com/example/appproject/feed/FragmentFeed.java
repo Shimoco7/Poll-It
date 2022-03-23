@@ -37,6 +37,7 @@ public class FragmentFeed extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.main_menu_settings).setVisible(false);

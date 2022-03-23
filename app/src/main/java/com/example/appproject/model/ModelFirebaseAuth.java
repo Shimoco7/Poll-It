@@ -27,8 +27,7 @@ public class ModelFirebaseAuth {
             if (firebaseUser != null) {
                 String uid = firebaseUser.getUid();
                 MyApplication.setUserKey(uid);
-            }
-            else{
+            } else {
                 Model.instance.clearCaches();
                 MyApplication.setUserKey("");
             }

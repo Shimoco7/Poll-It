@@ -17,7 +17,6 @@ import com.google.android.material.textfield.TextInputLayout;
 public class DetailsHolder extends RecyclerView.ViewHolder {
 
     TextInputLayout questionTv;
-
     AutoCompleteTextView multiChoiceAc;
     DetailsViewModel detailsViewModel;
 

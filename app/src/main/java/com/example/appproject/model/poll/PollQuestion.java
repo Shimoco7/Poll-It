@@ -21,8 +21,7 @@ public class PollQuestion {
     public String pollId;
     public List<String> choices;
 
-    public PollQuestion() {
-    }
+    public PollQuestion() { }
 
     @Ignore
     public PollQuestion(@NonNull String question,@NonNull String pollId) {
