@@ -116,6 +116,11 @@ public class FragmentHomeScreen extends Fragment {
         });
     }
 
+    private void ifpollFilled(){
+
+
+    }
+
     private void showPopup() {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
         alert.setMessage("Please Choose an Action:")

@@ -42,21 +42,21 @@
                     android:scaleType="fitStart"
                     app:strokeWidth="0dp"
 
+
                     app:srcCompat="@drawable/ic_poll" />
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"/>
 
                 <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/homescr_poll_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_gravity="right"
-
-                    app:strokeWidth="0dp"
-
+                    app:srcCompat="@drawable/ic_feed_arrow"
 
 
-                    />
+                    app:strokeWidth="0dp" />
 <!--                android:alpha="0.4"-->
 <!--                app:srcCompat="@drawable/ic_edit"-->
 
@@ -80,6 +80,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-medium"
                     android:padding="2dp"
+
 
                     android:text="@string/poll_name"
                     android:textAppearance="?attr/textAppearanceHeadline6"
