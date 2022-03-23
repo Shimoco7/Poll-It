@@ -130,8 +130,10 @@ public class FragmentPollImage extends Fragment {
                     if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
                         Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
                             General.progressBarOff(getActivity(),container,progressBar);
-                            Model.instance.getMainThread().post(() -> {
-                                Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
+                            Model.instance.updateUpdateDateUser(MyApplication.getUserKey(),()->{
+                                Model.instance.getMainThread().post(() -> {
+                                    Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
+                                });
                             });
                         });
                     } else {
@@ -149,8 +151,10 @@ public class FragmentPollImage extends Fragment {
                         Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(),viewModel.getPollQuestion().getPollId(), map -> {
                             if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
                                 Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
-                                    Model.instance.getMainThread().post(() -> {
-                                        Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
+                                    Model.instance.updateUpdateDateUser(MyApplication.getUserKey(),()->{
+                                        Model.instance.getMainThread().post(() -> {
+                                            Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
+                                        });
                                     });
                                 });
                             } else {
@@ -158,8 +162,10 @@ public class FragmentPollImage extends Fragment {
                                 newMap.put(viewModel.getPollQuestion().getPollQuestionId(), new Answer(UUID.randomUUID().toString(), MyApplication.getUserKey(), viewModel.pollQuestion.getPollId(), viewModel.getPollQuestion().getPollQuestionId(), url,false));
                                 Model.instance.savePollAnswersOnLocalDb(newMap, () -> {
                                     Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
-                                        Model.instance.getMainThread().post(() -> {
-                                            Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
+                                        Model.instance.updateUpdateDateUser(MyApplication.getUserKey(),()->{
+                                            Model.instance.getMainThread().post(() -> {
+                                                Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
+                                            });
                                         });
                                     });
                                 });

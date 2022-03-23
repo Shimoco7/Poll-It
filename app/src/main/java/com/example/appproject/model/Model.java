@@ -19,7 +19,6 @@ import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
 import com.example.appproject.model.poll.Answer;
-import com.example.appproject.model.poll.GetAnswersListener;
 import com.example.appproject.model.poll.GetPollQuestionListener;
 import com.example.appproject.model.poll.GetPollQuestionsListener;
 import com.example.appproject.model.poll.GetPollQuestionsWithAnswersListener;
@@ -396,7 +395,7 @@ public class Model {
                     pollMap.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
                 }
             }
-            modelFirebaseDb.SavePollAnswersOnDb(pollMap, ()->{
+            modelFirebaseDb.savePollAnswersOnDb(pollMap, ()->{
                 executor.execute(()->{
                     UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
                     AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
@@ -469,5 +468,31 @@ public class Model {
                 listener.onComplete(false);
             }
         });
+    }
+
+    public void deletePoll(String userKey, String pollId, DeletePollListener listener) {
+
+        Model.instance.getAllAnswersByUserAndPollIds(userKey,pollId,answers->{
+            for(Map.Entry<String,Answer> entry : answers.entrySet()){
+                entry.getValue().setDeleted(true);
+            }
+            modelFirebaseDb.savePollAnswersOnDb(answers,()->{
+                executor.execute(()->{
+                    UserPollCrossRef ref = AppLocalDb.db.pollDao().getUserPollRef(pollId,userKey);
+                    executor.execute(()->{
+                        AppLocalDb.db.pollDao().delete(ref);
+                    });
+                });
+                for(Map.Entry<String,Answer> entry : answers.entrySet()){
+                    executor.execute(()->{
+                        AppLocalDb.db.answerDao().delete(entry.getValue());
+                    });
+                }
+            });
+        });
+    }
+
+    public void updateUpdateDateUser(String userId, SaveUserListener saveUserListener){
+        modelFirebaseDb.updateUpdateDateUser(userId,saveUserListener);
     }
 }

@@ -42,6 +42,7 @@ public class ModelFirebaseDb {
         db.setFirestoreSettings(settings);
     }
 
+
     //TODO: addOnFailureListener
     public void SaveUserOnDb(User user, SaveUserListener saveUserListener) {
         Map<String,Object> json = user.toJson();
@@ -130,6 +131,13 @@ public class ModelFirebaseDb {
                 .addOnCompleteListener(l->saveUserListener.onComplete());
     }
 
+    public void updateUpdateDateUser(String userId, SaveUserListener saveUserListener) {
+        DocumentReference docRef = db.collection(MyApplication.getContext().getString(R.string.users_collection)).document(userId);
+        docRef.update("update_date", FieldValue.serverTimestamp()).addOnCompleteListener(l->{
+            saveUserListener.onComplete();
+        });
+    }
+
     public void getLocations(GetLocationsListener listener){
         db.collection(MyApplication.getContext().getString(R.string.users_collection))
                 .whereNotEqualTo("uid", MyApplication.getUserKey())
@@ -213,7 +221,7 @@ public class ModelFirebaseDb {
                 });
     }
 
-    public void SavePollAnswersOnDb(Map<String, Answer> pollMap, SavePollAnswerListener listener) {
+    public void savePollAnswersOnDb(Map<String, Answer> pollMap, SavePollAnswerListener listener) {
         WriteBatch batch = db.batch();
         for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
             Answer answer = entry.getValue();
@@ -260,4 +268,5 @@ public class ModelFirebaseDb {
                     });
         }
     }
+
 }

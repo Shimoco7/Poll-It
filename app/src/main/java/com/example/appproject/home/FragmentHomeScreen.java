@@ -83,10 +83,14 @@ public class FragmentHomeScreen extends Fragment {
                             alert.setMessage("Are You Sure?")
                                     .setPositiveButton("Edit", (dialog, which) -> {
                                         Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
-
-                                    }).setNegativeButton("Delete", (dialog, which) -> {
-
-                            })
+                                    })
+                                    .setNegativeButton("Delete", (dialog, which) -> {
+                                        Model.instance.deletePoll(MyApplication.getUserKey(),pollId, ()->{
+                                            Model.instance.updateUpdateDateUser(MyApplication.getUserKey(),()->{
+                                                refresh();
+                                            });
+                                        });
+                                    })
                                     .setNeutralButton("Cancel", null);
                             AlertDialog alert1 = alert.create();
                             alert1.show();
@@ -94,7 +98,7 @@ public class FragmentHomeScreen extends Fragment {
                     }
                 });
                 Model.instance.getMainThread().post(() -> {
-                    if (!isFilled&&(flag==false)) {
+                    if (!isFilled&&(!flag)) {
                         Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
                         flag = false;
                     }

@@ -26,6 +26,9 @@ public interface PollDao {
     @Query("SELECT * FROM Poll WHERE pollId=:pollId")
     Poll getPollByPollId(String pollId);
 
+    @Query("SELECT * FROM UserPollCrossRef WHERE pollId=:pollId AND uid=:uid")
+    UserPollCrossRef getUserPollRef(String pollId,String uid);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(UserPollCrossRef... userPollCrossRefs);
 
