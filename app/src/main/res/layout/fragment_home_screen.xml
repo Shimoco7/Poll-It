@@ -94,7 +94,7 @@
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="85dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,6 +106,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
 
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/black"
         android:drawableTop="@drawable/ic_feed"
         android:fontFamily="sans-serif-medium"
@@ -125,6 +126,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
 
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/black"
         android:drawableTop="@drawable/ic_map"
         android:fontFamily="sans-serif-medium"
