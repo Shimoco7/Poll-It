@@ -36,6 +36,7 @@ public class FragmentHomeScreen extends Fragment {
     HomeAdapter homeAdapter;
     RecyclerView list;
     SwipeRefreshLayout swipeRefresh;
+    Boolean flag=true;
 
     public FragmentHomeScreen() { }
 
@@ -75,9 +76,42 @@ public class FragmentHomeScreen extends Fragment {
         homeAdapter.setOnItemClickListener((v,pos)->{
 
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
-            if (true) Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
-            else showPopup(v, pollId);
 
+            Model.instance.isPollFilled(MyApplication.getUserKey(), pollId, isFilled -> {
+                this.flag=false;
+                Model.instance.getMainThread().post(() -> {
+
+
+                    if (isFilled&&!flag) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                        alert.setMessage("Do You Want To Edit The Poll?")
+                                .setPositiveButton("Edit", (dialog, which) -> {
+                                    Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
+
+                                }).setNegativeButton("Cancel", null);
+
+                        AlertDialog alert1 = alert.create();
+                        alert1.show();
+                        flag=true;
+
+
+
+
+                    }
+
+                });
+                Model.instance.getMainThread().post(() -> {
+                    if (!isFilled&&(flag==false)) {
+                        Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
+                        flag = false;
+                    }
+
+
+                });
+
+
+
+            });
 
         });
 
@@ -115,18 +149,9 @@ public class FragmentHomeScreen extends Fragment {
         });
     }
 
-    private void ifpollFilled() { }
 
-    private void showPopup(View v, String pollId) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-        alert.setMessage("Please Choose an Action:")
-                .setPositiveButton("Edit", (dialog, which) -> {
-                    Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
-                }).setNegativeButton("Delete",(dialog, which) -> {
-                    // Emil Fill in the Logic behind the button
-                })
-                .setNeutralButton("Cancel", null);
-        AlertDialog alert1 = alert.create();
-        alert1.show();
-    }
+
+
+
+
 }

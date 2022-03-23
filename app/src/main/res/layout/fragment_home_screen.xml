@@ -94,7 +94,7 @@
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="90dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +106,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/black"
         android:drawableTop="@drawable/ic_feed"
         android:fontFamily="sans-serif-medium"
@@ -118,6 +118,7 @@
         app:layout_constraintEnd_toStartOf="@+id/homescr_btn_map"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
@@ -126,7 +127,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/black"
         android:drawableTop="@drawable/ic_map"
         android:fontFamily="sans-serif-medium"
@@ -138,6 +139,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/homescr_btn_feed"
+        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
