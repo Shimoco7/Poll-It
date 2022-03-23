@@ -66,7 +66,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="32dp"
         android:enabled="false"
-        app:strokeWidth="0"
+        app:strokeWidth="0dp"
 
         android:backgroundTint="@color/black"
         android:text="Not sure? For more information click here"
