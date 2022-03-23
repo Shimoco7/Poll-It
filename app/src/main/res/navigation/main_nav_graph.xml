@@ -100,6 +100,18 @@
         <argument
             android:name="userUid"
             app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentUserDisplayDetails_to_fragmentOtherUserPoll"
+            app:destination="@id/fragmentOtherUserPoll" />
     </fragment>
     <action android:id="@+id/action_global_fragmentMap" app:destination="@id/fragmentMap" />
+    <fragment
+        android:id="@+id/fragmentOtherUserPoll"
+        android:name="com.example.appproject.FragmentOtherUserPoll"
+        android:label="FragmentOtherUserPoll"
+        tools:layout="@layout/fragment_other_user_poll">
+        <argument
+            android:name="pollId"
+            app:argType="string" />
+    </fragment>
 </navigation>

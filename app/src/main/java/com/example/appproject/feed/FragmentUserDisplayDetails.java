@@ -1,28 +1,52 @@
 package com.example.appproject.feed;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.appproject.FragmentOtherUserPoll;
+import com.example.appproject.FragmentOtherUserPollDirections;
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 public class FragmentUserDisplayDetails extends Fragment {
 
     TextView userName,email,education,gender,address;
     ShapeableImageView profilePic;
+    UserDisplayDetailsViewModel viewModel;
+    UserDisplayDetailsAdapter adapter;
+    RecyclerView list;
+    ProgressBar progressBar;
 
     public FragmentUserDisplayDetails() { }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(UserDisplayDetailsViewModel.class);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +70,31 @@ public class FragmentUserDisplayDetails extends Fragment {
         education=view.findViewById(R.id.user_display_details_txt_education);
         gender=view.findViewById(R.id.user_display_details_txt_gender);
         address=view.findViewById(R.id.user_display_details_txt_address);
+        progressBar=view.findViewById(R.id.user_display_details_progress_bar);
         Button backToFeedBtn = view.findViewById(R.id.feed_back_btn);
+
+        list = view.findViewById(R.id.user_display_details_rv);
+        list.setHasFixedSize(true);
+        int numOfColumns = 2;
+        list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns,GridLayoutManager.VERTICAL,false));
+        adapter = new UserDisplayDetailsAdapter(viewModel,getLayoutInflater());
+        list.setAdapter(adapter);
+        list.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                outRect.set(5,20,5,20);
+            }
+        });
+
+        adapter.setOnItemClickListener((v,pos)->{
+            String pollId = Objects.requireNonNull(viewModel.getUserFilledPolls().get(pos).getPollId());
+            Navigation.findNavController(v).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentOtherUserPoll(pollId));
+        });
+
+        General.progressBarOn(getActivity(),container,progressBar);
+        Model.instance.getUserWithPolls(userId,userWithPolls->{
+            viewModel.setUserFilledPolls(userWithPolls);
+        });
 
         Model.instance.getUserById(userId,user->{
             userName.setText(user.getName());
@@ -77,6 +125,7 @@ public class FragmentUserDisplayDetails extends Fragment {
                     profilePic.setImageResource(R.drawable.avatar);
                 }
             }
+            General.progressBarOff(getActivity(),container,progressBar);
         });
         backToFeedBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();

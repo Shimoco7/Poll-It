@@ -15,8 +15,7 @@ import com.example.appproject.model.poll.Poll;
 
 import java.util.Objects;
 
-public class
-HomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
+public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
 
     HomeViewModel homeViewModel;
     LayoutInflater layoutInflater;
