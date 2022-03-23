@@ -87,6 +87,7 @@ public class FragmentRegister extends Fragment {
                         emailLayout.setError("Invalid Email Address");
                         isEmailEmpty = false;
                     }
+
                     else if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
                         emailLayout.setError(null);
                         isEmailEmpty = false;
@@ -203,6 +204,7 @@ public class FragmentRegister extends Fragment {
                 if (failToCreate) {
 //                    General.showToast(getActivity(), errors);
                     General.progressBarOff(getActivity(), container, progressBar);
+
 
 
 

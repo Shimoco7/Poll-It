@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
@@ -74,6 +76,7 @@ public class FragmentHomeScreen extends Fragment {
             }
         });
         homeAdapter.setOnItemClickListener((v,pos)->{
+            showPopup();
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
             Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
         });
@@ -111,5 +114,18 @@ public class FragmentHomeScreen extends Fragment {
                     break;
             }
         });
+    }
+
+    private void showPopup() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setMessage("Please Choose an Action:")
+                .setPositiveButton("Edit", (dialog, which) -> {
+                    // Emil Fill in the Logic behind the button
+                }).setNegativeButton("Delete",(dialog, which) -> {
+                    // Emil Fill in the Logic behind the button
+                })
+                .setNeutralButton("Cancel", null);
+        AlertDialog alert1 = alert.create();
+        alert1.show();
     }
 }

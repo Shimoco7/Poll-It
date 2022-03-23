@@ -138,7 +138,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/homescr_btn_feed"
         app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line"
-        app:strokeColor="@color/primeGray"
+        app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

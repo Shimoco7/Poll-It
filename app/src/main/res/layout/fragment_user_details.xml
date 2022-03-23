@@ -45,6 +45,9 @@
 
                 android:fontFamily="sans-serif-black"
                 android:hint="@string/name"
+                app:helperTextEnabled="true"
+                app:helperText="*Full Name (4-15 Characters)"
+                app:helperTextTextColor="@color/white"
                 android:textColorHint="@color/white"
                 app:boxStrokeColor="@color/primeOrng"
                 app:boxStrokeErrorColor="@color/primeRed"

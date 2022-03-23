@@ -80,13 +80,10 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         map=googleMap;
         map.getUiSettings().setZoomControlsEnabled(true);
+        Model.instance.refreshList();
         Model.instance.getUserLocation();
         Model.instance.getLocations();
-        Model.instance.refreshList();
         subscribeToObservers();
-
-
-
 
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
