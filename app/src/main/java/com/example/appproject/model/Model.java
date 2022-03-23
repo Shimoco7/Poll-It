@@ -132,7 +132,7 @@ public class Model {
     MutableLiveData<UsersListLoadingState> usersListLoadingState = new MutableLiveData<>();
 
     public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
-        modelFirebaseDb.SaveUserOnDb(user, saveUserListener::onComplete);
+        modelFirebaseDb.SaveUserOnDb(user, saveUserListener);
     }
 
     public LiveData<List<User>> getUsers() {
@@ -145,8 +145,6 @@ public class Model {
             listener.onComplete(user);
         });
     }
-
-
 
     public void refreshList() {
         usersListLoadingState.setValue(UsersListLoadingState.loading);
@@ -446,6 +444,18 @@ public class Model {
         executor.execute(()->{
            PollQuestion pollQuestion = AppLocalDb.db.pollQuestionDao().getPollQuestionById(pollQuestionId);
            listener.onComplete(pollQuestion);
+        });
+    }
+
+    public void isPollFilled(String userId,String pollId, BooleanListener listener){
+        executor.execute(()->{
+            List<UserWithPolls> userWithPolls = AppLocalDb.db.pollDao().getUserWithPolls(userId);
+            for(Poll poll : userWithPolls.get(0).polls){
+                if(poll.getPollId().equals(pollId)){
+                    listener.onComplete(true);
+                }
+            }
+            listener.onComplete(false);
         });
     }
 }
