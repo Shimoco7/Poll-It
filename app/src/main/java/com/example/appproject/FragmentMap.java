@@ -189,7 +189,13 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         }
 
         if(!userLocationExist){
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 10));
+            if(markers.size()>0){
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 10));
+            }
+            else{
+                MarkerOptions markerOptions=new MarkerOptions().position(new LatLng(31.969858,34.772142));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 10));
+            }
         }
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
