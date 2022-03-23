@@ -137,9 +137,9 @@ public class FragmentUserDetails extends Fragment {
                     nameTi.setError(null);
                     isNameEmpty =true;
                 }
-                String regex= "^[a-zA-Z\\s]+.{4,20}";
 
-                if(!s.toString().matches(regex)||s.toString().length()>15){
+
+                if(!Model.instance.validateName(s.toString())){
                     nameTi.setError("Invalid Name");
                 }
                 if(s.toString().length()==0){
@@ -194,6 +194,7 @@ public class FragmentUserDetails extends Fragment {
     public boolean allDetailsFilled(){
 
         ArrayList<String> errors = new ArrayList<>();
+
         if(!Model.instance.validateName(nameEt.getText().toString().trim())){
             errors.add(getString(R.string.invalid_name));
             if (isNameEmpty) {

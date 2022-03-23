@@ -156,7 +156,7 @@ public class FragmentPollQuestion extends Fragment {
         else{
             String ans = Objects.requireNonNull(viewModel.pollMap.get(viewModel.getPollQuestions().get(viewModel.index).getPollQuestionId())).answer;
             if(answer1.getText().toString().equals(ans)) {
-                answer1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
+                answer1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGreen)));
                 answer1.setAlpha(1);
                 answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer2.setAlpha((float)0.25);
@@ -169,7 +169,7 @@ public class FragmentPollQuestion extends Fragment {
             if(answer2.getText().toString().equals(ans)) {
                 answer1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer1.setAlpha((float)0.25);
-                answer2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
+                answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGreen)));
                 answer2.setAlpha(1);
                 answer3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer3.setAlpha((float)0.25);
@@ -182,7 +182,7 @@ public class FragmentPollQuestion extends Fragment {
                 answer1.setAlpha((float)0.25);
                 answer2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer2.setAlpha((float)0.25);
-                answer3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
+                answer3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGreen)));
                 answer3.setAlpha(1);
                 answer4.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 answer4.setAlpha((float)0.25);

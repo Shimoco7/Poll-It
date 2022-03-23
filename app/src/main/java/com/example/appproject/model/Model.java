@@ -106,7 +106,7 @@ public class Model {
     }
 
     public boolean validateName(String name) {
-        final String nameRegex = "^[a-zA-Z\\s]+";
+        final String nameRegex = "^[a-zA-Z\\s]{3,15}";
         return name.matches(nameRegex);
     }
 
