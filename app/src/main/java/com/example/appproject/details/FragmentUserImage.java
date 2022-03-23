@@ -78,9 +78,9 @@ public class FragmentUserImage extends Fragment {
         if (MyApplication.getUserProfilePicUrl().equals("")) {
             Model.instance.getUserDetailById(MyApplication.getUserKey(), "Gender", gender -> {
                 if (gender.getAnswer().equals("Female")) {
-                    userAvatar.setImageResource(R.drawable.female_avatar);
+                    Model.instance.getMainThread().post(()->userAvatar.setImageResource(R.drawable.female_avatar));
                 } else {
-                    userAvatar.setImageResource(R.drawable.avatar);
+                    Model.instance.getMainThread().post(()->userAvatar.setImageResource(R.drawable.avatar));
                 }
             });
         } else {
