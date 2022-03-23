@@ -118,7 +118,7 @@ public class FragmentPollImage extends Fragment {
                     }));
                 }
                 else{
-                    Model.instance.getMainThread().post(()->image.setImageResource(R.drawable.noimage1));
+                    Model.instance.getMainThread().post(()->image.setImageResource(R.drawable.noimage_5));
                 }
             });
         });
