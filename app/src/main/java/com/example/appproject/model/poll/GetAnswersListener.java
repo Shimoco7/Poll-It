@@ -2,6 +2,6 @@ package com.example.appproject.model.poll;
 
 import java.util.List;
 
-public interface GetPollQuestionsAnswersListener {
+public interface GetAnswersListener {
     void onComplete(List<Answer> list);
 }

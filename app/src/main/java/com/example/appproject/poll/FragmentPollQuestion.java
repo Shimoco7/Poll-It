@@ -27,6 +27,7 @@ import com.example.appproject.model.poll.PollQuestion;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -95,28 +96,23 @@ public class FragmentPollQuestion extends Fragment {
         progressBar.setVisibility(View.GONE);
         setListeners();
         General.progressBarOn(getActivity(),container,progressBar);
-        Model.instance.getUserWithPolls(MyApplication.getUserKey(),polls->{
-            if(polls != null){
-                for(Poll poll : polls){
-                    if(poll.getPollId().equals(pollId)){
-                        Model.instance.getPollQuestionsWithAnswersFromLocalDb(pollId, map->{
-                            map.remove(viewModel.imagePollQuestionId);
-                            viewModel.setPollMap(map);
-                            Model.instance.getMainThread().post(()->{
-                                General.progressBarOff(getActivity(),container,progressBar);
-                                setPoll();
-                                setButtonsColor();
-                            });
-                        });
-                        break;
-                    }
-                    else{
+        //Get only poll question and answers that are related to the user without the image question and its answer
+        Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(),pollId,map->{
+            if(map != null){
+                if(!map.isEmpty()){
+                    viewModel.setPollMap(map);
+                    Model.instance.getMainThread().post(()->{
+                        General.progressBarOff(getActivity(),container,progressBar);
                         setPoll();
                         setButtonsColor();
-                        Model.instance.getMainThread().post(()->{
-                            General.progressBarOff(getActivity(),container,progressBar);
-                        });
-                    }
+                    });
+                }
+                else{
+                    setPoll();
+                    setButtonsColor();
+                    Model.instance.getMainThread().post(()->{
+                        General.progressBarOff(getActivity(),container,progressBar);
+                    });
                 }
             }
             else{

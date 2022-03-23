@@ -7,7 +7,7 @@ import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.detail.GetLocationsListener;
 import com.example.appproject.model.detail.GetUserLocationListener;
 import com.example.appproject.model.poll.Answer;
-import com.example.appproject.model.poll.GetPollQuestionsAnswersListener;
+import com.example.appproject.model.poll.GetAnswersListener;
 import com.example.appproject.model.poll.GetPollQuestionsListener;
 import com.example.appproject.model.poll.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
@@ -248,7 +248,7 @@ public class ModelFirebaseDb {
         }
     }
 
-    public void getPollQuestionsAnswers(List<String> listUserIds, GetPollQuestionsAnswersListener listener) {
+    public void getPollQuestionsAnswers(List<String> listUserIds, GetAnswersListener listener) {
         if(!listUserIds.isEmpty()){
             db.collection(MyApplication.getContext().getString(R.string.answers_collection))
                     .whereIn("user_id",listUserIds)
