@@ -1,6 +1,7 @@
 package com.example.appproject.home;
 
 import android.view.View;
+import android.widget.Space;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
     MaterialTextView pollsName;
     MaterialCardView pollCard;
     ShapeableImageView pollIcon,pollMainImage,pollDoneImage;
+    Space space;
 
     public HomeViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
@@ -27,6 +29,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
         pollIcon = itemView.findViewById(R.id.homescr_poll_icon);
         pollMainImage = itemView.findViewById(R.id.homescr_poll_mainImage);
         pollDoneImage = itemView.findViewById(R.id.homescr_poll_doneImage);
+        space=itemView.findViewById(R.id.homescr_poll_space);
 
 
         itemView.setOnClickListener(v->{
