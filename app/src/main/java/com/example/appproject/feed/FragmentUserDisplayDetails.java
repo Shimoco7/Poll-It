@@ -88,7 +88,7 @@ public class FragmentUserDisplayDetails extends Fragment {
 
         adapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(viewModel.getUserFilledPolls().get(pos).getPollId());
-            Navigation.findNavController(v).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentOtherUserPoll(pollId));
+            Navigation.findNavController(v).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentOtherUserPoll(pollId,userId));
         });
 
         General.progressBarOn(getActivity(),container,progressBar);
@@ -115,14 +115,21 @@ public class FragmentUserDisplayDetails extends Fragment {
             else{
                 if(user.getGender()!=null){
                     if(user.getGender().equals("Female")){
-                        profilePic.setImageResource(R.drawable.female_avatar);
+                        Model.instance.getMainThread().post(()->{
+                            profilePic.setImageResource(R.drawable.female_avatar);
+                        });
                     }
                     else{
-                        profilePic.setImageResource(R.drawable.avatar);
+                        Model.instance.getMainThread().post(()->{
+                            profilePic.setImageResource(R.drawable.avatar);
+                        });
                     }
                 }
                 else{
-                    profilePic.setImageResource(R.drawable.avatar);
+                    Model.instance.getMainThread().post(()->{
+                        profilePic.setImageResource(R.drawable.avatar);
+
+                    });
                 }
             }
             General.progressBarOff(getActivity(),container,progressBar);
