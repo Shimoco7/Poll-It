@@ -76,9 +76,12 @@ public class FragmentHomeScreen extends Fragment {
             }
         });
         homeAdapter.setOnItemClickListener((v,pos)->{
-            showPopup();
+
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
-            Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
+            if (true) Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
+            else showPopup(v, pollId);
+
+
         });
 
         swipeRefresh.setOnRefreshListener(()->{
@@ -121,11 +124,11 @@ public class FragmentHomeScreen extends Fragment {
 
     }
 
-    private void showPopup() {
+    private void showPopup(View v, String pollId) {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
         alert.setMessage("Please Choose an Action:")
                 .setPositiveButton("Edit", (dialog, which) -> {
-                    // Emil Fill in the Logic behind the button
+                    Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
                 }).setNegativeButton("Delete",(dialog, which) -> {
                     // Emil Fill in the Logic behind the button
                 })
