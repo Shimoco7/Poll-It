@@ -455,12 +455,17 @@ public class Model {
     public void isPollFilled(String userId,String pollId, BooleanListener listener){
         executor.execute(()->{
             List<UserWithPolls> userWithPolls = AppLocalDb.db.pollDao().getUserWithPolls(userId);
-            for(Poll poll : userWithPolls.get(0).polls){
-                if(poll.getPollId().equals(pollId)){
-                    listener.onComplete(true);
-                }
+            if(userWithPolls.isEmpty()){
+                listener.onComplete(false);
             }
-            listener.onComplete(false);
+            else{
+                for(Poll poll : userWithPolls.get(0).polls){
+                    if(poll.getPollId().equals(pollId)){
+                        listener.onComplete(true);
+                    }
+                }
+                listener.onComplete(false);
+            }
         });
     }
 }
