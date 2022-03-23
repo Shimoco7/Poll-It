@@ -29,6 +29,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -53,10 +54,6 @@ public class FragmentPollImage extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(PollImageViewModel.class);
-        String imagePollQuestionId = FragmentPollImageArgs.fromBundle(getArguments()).getImagePollQuestionId();
-        Model.instance.getPollQuestion(imagePollQuestionId, pollQuestion -> {
-            viewModel.setPollQuestion(pollQuestion);
-        });
     }
 
     @Override
@@ -76,6 +73,9 @@ public class FragmentPollImage extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_poll_image, container, false);
         image = view.findViewById(R.id.imgpoll_image);
+        imageQuestion = view.findViewById(R.id.imgpoll_question_title);
+        progressBar = view.findViewById(R.id.imgpoll_progress_bar);
+        progressBar.setVisibility(View.GONE);
         backBtn = view.findViewById(R.id.imgpoll_btn_back);
         backBtn.setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();
@@ -96,45 +96,46 @@ public class FragmentPollImage extends Fragment {
         uploadBtn.setOnClickListener(v -> {
             openGallery();
         });
-        imageQuestion = view.findViewById(R.id.imgpoll_question_title);
-        imageQuestion.setText(viewModel.getPollQuestion().getPollQuestion());
-        finishBtn = view.findViewById(R.id.imgpoll_btn_finish);
-        progressBar = view.findViewById(R.id.imgpoll_progress_bar);
-        progressBar.setVisibility(View.GONE);
-        Model.instance.getPollQuestionsWithAnswersFromLocalDb(viewModel.getPollQuestion().getPollId(), map -> {
-            if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
-                progressBar.post(() -> progressBar.setVisibility(View.VISIBLE));
-                Model.instance.getMainThread().post(() -> Picasso.get().load(map.get(viewModel.getPollQuestion().getPollQuestionId()).getAnswer()).into(image, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        progressBar.post(() -> progressBar.setVisibility(View.GONE));
-                    }
+        String imagePollQuestionId = FragmentPollImageArgs.fromBundle(getArguments()).getImagePollQuestionId();
+        Model.instance.getPollQuestion(imagePollQuestionId, pollQuestion -> {
+            viewModel.setPollQuestion(pollQuestion);
+            Model.instance.getMainThread().post(()->{
+                imageQuestion.setText(viewModel.getPollQuestion().getPollQuestion());
+            });
+            Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(),viewModel.getPollQuestion().getPollId(), map -> {
+                if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
+                    General.progressBarOn(getActivity(),container,progressBar);
+                    Model.instance.getMainThread().post(() -> Picasso.get().load(map.get(viewModel.getPollQuestion().getPollQuestionId()).getAnswer()).memoryPolicy(MemoryPolicy.NO_CACHE).into(image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            General.progressBarOff(getActivity(),container,progressBar);
+                        }
 
-                    @Override
-                    public void onError(Exception e) {
-                        progressBar.post(() -> progressBar.setVisibility(View.GONE));
-                    }
-                }));
-
-            }
-            else{
-                Model.instance.getMainThread().post(()->image.setImageResource(R.drawable.noimage1));
-            }
-
+                        @Override
+                        public void onError(Exception e) {
+                            General.progressBarOff(getActivity(),container,progressBar);
+                        }
+                    }));
+                }
+                else{
+                    Model.instance.getMainThread().post(()->image.setImageResource(R.drawable.noimage1));
+                }
+            });
         });
+        finishBtn = view.findViewById(R.id.imgpoll_btn_finish);
         finishBtn.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
+            General.progressBarOn(getActivity(),container,progressBar);
             if (bitMap == null) {
-                Model.instance.getPollQuestionsWithAnswersFromLocalDb(viewModel.getPollQuestion().getPollId(), map -> {
+                Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(),viewModel.getPollQuestion().getPollId(), map -> {
                     if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
                         Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
-                            progressBar.post(() -> progressBar.setVisibility(View.GONE));
+                            General.progressBarOff(getActivity(),container,progressBar);
                             Model.instance.getMainThread().post(() -> {
                                 Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
                             });
                         });
                     } else {
-                        progressBar.post(() -> progressBar.setVisibility(View.GONE));
+                        General.progressBarOff(getActivity(),container,progressBar);
                         Snackbar.make(getView(), getString(R.string.no_image_upload), Snackbar.LENGTH_SHORT).show();
                     }
 
@@ -145,7 +146,7 @@ public class FragmentPollImage extends Fragment {
                     if (url == null) {
                         Snackbar.make(getView(), getString(R.string.image_upload_failed), Snackbar.LENGTH_SHORT).show();
                     } else {
-                        Model.instance.getPollQuestionsWithAnswersFromLocalDb(viewModel.getPollQuestion().getPollId(), map -> {
+                        Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(),viewModel.getPollQuestion().getPollId(), map -> {
                             if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
                                 Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
                                     Model.instance.getMainThread().post(() -> {

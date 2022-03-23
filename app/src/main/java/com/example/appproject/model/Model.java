@@ -430,20 +430,6 @@ public class Model {
         });
     }
 
-    public void getPollQuestionsWithAnswersFromLocalDb(String userId,String pollId, GetPollQuestionsWithAnswersListener listener){
-        executor.execute(()->{
-            HashMap<String,Answer> map = new HashMap<>();
-            List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsWithAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
-            List<PollQuestionWithAnswer> pollQuestionsWithAnswersList = pollWithPollQuestionsWithAnswers.get(0).pollQuestionWithAnswers;
-            for(PollQuestionWithAnswer pqwa : pollQuestionsWithAnswersList){
-                if(pqwa.answer.getUserId().equals(userId) && pqwa.pollQuestion.getChoices() != null){
-                    map.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
-                }
-            }
-            listener.onComplete(map);
-        });
-    }
-
     public void getAllAnswersByUserAndPollIds(String userId, String pollId, GetPollQuestionsWithAnswersListener listener){
         executor.execute(()->{
             HashMap<String,Answer> map = new HashMap<>();

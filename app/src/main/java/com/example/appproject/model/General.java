@@ -33,14 +33,18 @@ public class General {
     }
 
     public static void progressBarOn(Activity activity, ViewGroup container, ProgressBar progressBar) {
-        progressBar.setVisibility(View.VISIBLE);
-        General.enableDisableClickView(container, false);
-        ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Model.instance.getMainThread().post(()->{
+            progressBar.setVisibility(View.VISIBLE);
+            General.enableDisableClickView(container, false);
+            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        });
     }
 
     public static void progressBarOff(Activity activity, ViewGroup container, ProgressBar progressBar) {
-        progressBar.setVisibility(View.GONE);
-        General.enableDisableClickView(container, true);
-        ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Model.instance.getMainThread().post(()->{
+            progressBar.setVisibility(View.GONE);
+            General.enableDisableClickView(container, true);
+            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        });
     }
 }

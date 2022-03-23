@@ -50,8 +50,7 @@ public class FragmentUserDetails extends Fragment {
     DetailsAdapter detailsAdapter;
     ProgressBar detailsProgressBar;
     Boolean isNameEmpty=true,isAddressEmpty=true;
-
-
+    ViewGroup container;
     RecyclerView list;
 
 
@@ -81,6 +80,7 @@ public class FragmentUserDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
+        this.container = container;
         list = view.findViewById(R.id.details_list_rv);
         nameEt = view.findViewById(R.id.details_name_et);
         nameTi = view.findViewById(R.id.details_ti);
@@ -187,8 +187,7 @@ public class FragmentUserDetails extends Fragment {
         addressEt.setVisibility(View.VISIBLE);
         addressTi.setVisibility(View.VISIBLE);
         nextBtn.setVisibility(View.VISIBLE);
-        detailsProgressBar.setVisibility(View.GONE);
-
+        General.progressBarOff(getActivity(),container,detailsProgressBar);
     }
 
     @SuppressLint("NotifyDataSetChanged")
