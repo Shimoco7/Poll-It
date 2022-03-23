@@ -74,45 +74,32 @@ public class FragmentHomeScreen extends Fragment {
         });
 
         homeAdapter.setOnItemClickListener((v,pos)->{
-
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
-
             Model.instance.isPollFilled(MyApplication.getUserKey(), pollId, isFilled -> {
-                this.flag=false;
+                this.flag = false;
                 Model.instance.getMainThread().post(() -> {
-
-
-                    if (isFilled&&!flag) {
+                    if (isFilled && !flag) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                        alert.setMessage("Do You Want To Edit The Poll?")
-                                .setPositiveButton("Edit", (dialog, which) -> {
-                                    Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
+                            alert.setMessage("Are You Sure?")
+                                    .setPositiveButton("Edit", (dialog, which) -> {
+                                        Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
 
-                                }).setNegativeButton("Cancel", null);
+                                    }).setNegativeButton("Delete", (dialog, which) -> {
 
-                        AlertDialog alert1 = alert.create();
-                        alert1.show();
-                        flag=true;
-
-
-
-
+                            })
+                                    .setNeutralButton("Cancel", null);
+                            AlertDialog alert1 = alert.create();
+                            alert1.show();
+                            flag=true;
                     }
-
                 });
                 Model.instance.getMainThread().post(() -> {
                     if (!isFilled&&(flag==false)) {
                         Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
                         flag = false;
                     }
-
-
                 });
-
-
-
             });
-
         });
 
         swipeRefresh.setOnRefreshListener(()->{

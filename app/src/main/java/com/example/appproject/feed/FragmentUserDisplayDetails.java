@@ -90,6 +90,7 @@ public class FragmentUserDisplayDetails extends Fragment {
         adapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(viewModel.getUserFilledPolls().get(pos).getPollId());
             Navigation.findNavController(v).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentOtherUserPoll(pollId,userId));
+
         });
 
         General.progressBarOn(getActivity(),container,progressBar);
