@@ -79,24 +79,18 @@ public class FragmentRegister extends Fragment {
                 if (s.toString().length() == 0) {
                     emailLayout.setError(null);
                     isEmailEmpty =true;
-
-
-                }
-                else {
+                } else {
                     if (!Model.instance.validateEmailAddress(email.getText().toString().trim())) {
                         emailLayout.setError("Invalid Email Address");
                         isEmailEmpty = false;
-                    }
-
-                    else if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
+                    } else if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
                         emailLayout.setError(null);
                         isEmailEmpty = false;
                     }
                 }
-
-
             }
         });
+
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -114,14 +108,13 @@ public class FragmentRegister extends Fragment {
                 if(s.toString().length()==0){
                     passwordLayout.setError("Please Enter Password");
                     isPassEmpty=true;
-                }
-                else{
+                } else {
                     passwordLayout.setError(null);
                     isPassEmpty=false;
                 }
-
             }
         });
+
         confirmPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -139,27 +132,22 @@ public class FragmentRegister extends Fragment {
                 if(s.toString().length()==0){
                     confirmLayout.setError("Please Confirm Password");
                     isConfirmEmpty=true;
-                }
-                else{
+                } else {
                     passwordLayout.setError(null);
                     isConfirmEmpty=false;
                 }
-
             }
         });
     }
 
-
     private void setRegisterBtnListener(ViewGroup container) {
         registerBtn.setOnClickListener(v->{
 
-
-
             if ((isPassEmpty)||(isEmailEmpty)||(isConfirmEmpty)) {
-                    if (isEmailEmpty) {
-                    emailLayout.setErrorIconDrawable(null);
-                    emailLayout.setError("Please Enter Email");
-                    password.setText("");
+                if (isEmailEmpty) {
+                emailLayout.setErrorIconDrawable(null);
+                emailLayout.setError("Please Enter Email");
+                password.setText("");
                 }
                 if(isPassEmpty) {
                     passwordLayout.setErrorIconDrawable(null);
@@ -169,7 +157,6 @@ public class FragmentRegister extends Fragment {
                     confirmLayout.setErrorIconDrawable(null);
                     confirmLayout.setError("Please Confirm Password");
                 }
-
             }
 
             else {
@@ -186,23 +173,16 @@ public class FragmentRegister extends Fragment {
                             confirmPassword.setText("");
                         }).show();
                         failToCreate=true;
-
                     }
                 } else {
-
                     Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
                         password.setText("");
                         confirmPassword.setText("");
                     }).show();
                     failToCreate=true;
                 }
-
                 if (failToCreate) {
                     General.progressBarOff(getActivity(), container, progressBar);
-
-
-
-
                     return;
                 }
 
@@ -214,7 +194,6 @@ public class FragmentRegister extends Fragment {
                     } else {
                         General.progressBarOff(getActivity(), container, progressBar);
                         Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
-
                     }
                 });
             }

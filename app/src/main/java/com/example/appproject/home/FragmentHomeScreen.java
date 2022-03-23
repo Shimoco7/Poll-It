@@ -37,8 +37,7 @@ public class FragmentHomeScreen extends Fragment {
     RecyclerView list;
     SwipeRefreshLayout swipeRefresh;
 
-    public FragmentHomeScreen() {
-    }
+    public FragmentHomeScreen() { }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -92,7 +91,6 @@ public class FragmentHomeScreen extends Fragment {
         Model.instance.refreshPollsList();
 
         return view;
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -117,10 +115,7 @@ public class FragmentHomeScreen extends Fragment {
         });
     }
 
-    private void ifpollFilled(){
-
-
-    }
+    private void ifpollFilled() { }
 
     private void showPopup(View v, String pollId) {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());

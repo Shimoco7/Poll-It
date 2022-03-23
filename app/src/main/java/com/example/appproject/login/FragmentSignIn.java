@@ -39,9 +39,7 @@ public class FragmentSignIn extends Fragment {
     Boolean isPassEmpty=true, isEmailEmpty =true;
     ProgressBar progressBar;
 
-    public FragmentSignIn() {
-    }
-
+    public FragmentSignIn() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,23 +83,19 @@ public class FragmentSignIn extends Fragment {
                 if (s.toString().length() == 0) {
                     emailLayout.setError(null);
                     isEmailEmpty =true;
+                } else {
 
-
-                }
-                else {
                     if (!Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
                         emailLayout.setError("Invalid Email Address");
                         isEmailEmpty = false;
-                    }
-                    else if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
+                    } else if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
                         emailLayout.setError(null);
                         isEmailEmpty = false;
                     }
                 }
-
-
             }
         });
+
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -119,12 +113,10 @@ public class FragmentSignIn extends Fragment {
                 if(s.toString().length()==0){
                     passwordLayout.setError("Please Enter Password");
                     isPassEmpty=true;
-                }
-                else{
+                } else {
                     passwordLayout.setError(null);
                     isPassEmpty=false;
                 }
-
             }
         });
     }
@@ -141,8 +133,7 @@ public class FragmentSignIn extends Fragment {
                 if(isPassEmpty) {
                     passwordLayout.setError("Please Enter Password");
                 }
-            }
-            else {
+            } else {
                 General.progressBarOn(getActivity(), container, progressBar);
                 Model.instance.signIn(emailAddress.getText().toString().trim(), password.getText().toString().trim(), (user, message) -> {
                     if (user != null) {
@@ -151,8 +142,7 @@ public class FragmentSignIn extends Fragment {
                                 Intent intent = new Intent(getContext(), MainActivity.class);
                                 startActivity(intent);
                                 Objects.requireNonNull(getActivity()).finish();
-                            }
-                            else{
+                            } else {
                                 Navigation.findNavController(v).navigate(R.id.fragmentUserDetails);
                             }
                         });
@@ -161,10 +151,7 @@ public class FragmentSignIn extends Fragment {
                         Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
                             password.setText("");
                         }).show();
-
                     }
-
-
                 });
             }
         });

@@ -42,13 +42,14 @@ public class FragmentUserImage extends Fragment {
     ShapeableImageView userAvatar;
     Bitmap bitMap;
 
-    public FragmentUserImage() {
-    }
+    public FragmentUserImage() { }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         if(menu.findItem(R.id.main_menu_settings)!=null) {
@@ -56,6 +57,7 @@ public class FragmentUserImage extends Fragment {
             super.onPrepareOptionsMenu(menu);
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +74,6 @@ public class FragmentUserImage extends Fragment {
 
         return view;
     }
-
 
     private void setUserAvatar() {
         if (MyApplication.getUserProfilePicUrl().equals("")) {
@@ -120,8 +121,8 @@ public class FragmentUserImage extends Fragment {
                     try {
                         if(result!=null)
                             bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), result);
-                    } catch (IOException ignored) {
-                    }
+                    } catch (IOException ignored) { }
+
                     if(result!=null)
                         userAvatar.setImageBitmap(bitMap);
                     else{

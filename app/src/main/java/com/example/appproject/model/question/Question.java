@@ -28,7 +28,6 @@ public class Question {
         multiChoice = new ArrayList<>();
     }
 
-
     @Ignore
     public Question(@NonNull String questionId, String question, List<String> multiChoice) {
         this.questionId = questionId;

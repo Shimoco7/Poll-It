@@ -30,6 +30,7 @@ import com.example.appproject.model.poll.PollQuestionWithAnswer;
 import com.example.appproject.model.poll.PollWithPollQuestionsAndAnswers;
 import com.example.appproject.model.poll.PollsListLoadingState;
 import com.example.appproject.model.poll.SavePollAnswerListener;
+import com.example.appproject.model.question.GetPollListener;
 import com.example.appproject.model.question.GetQuestionsLocalDBListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.BooleanListener;
@@ -92,7 +93,6 @@ public class Model {
     public boolean isSignedIn(){
         return modelFirebaseAuth.isSignedIn();
     }
-
 
     public void signOut() {
         modelFirebaseAuth.signOut();
@@ -228,7 +228,6 @@ public class Model {
         return usersListLoadingState;
     }
 
-
     public void saveImage(Bitmap bitMap, String imageName,String folder, SaveImageListener saveImageListener) {
         modelFirebaseStorage.saveImage(bitMap,imageName,folder,saveImageListener);
     }
@@ -321,9 +320,7 @@ public class Model {
         if (questionList == null) {
             refreshQuestions();
         }
-        ;
         return questionList;
-
     }
 
     public void refreshQuestions() {
@@ -342,7 +339,6 @@ public class Model {
         });
     }
 
-
     /**
      * Data - Polls
      *
@@ -358,7 +354,6 @@ public class Model {
     public MutableLiveData<PollsListLoadingState> getPollsListLoadingState() {
         return pollsListLoadingState;
     }
-
 
     public void refreshPollsList() {
         pollsListLoadingState.setValue(PollsListLoadingState.loading);
@@ -432,7 +427,6 @@ public class Model {
         });
     }
 
-
     public void getAllAnswersByUserAndPollIds(String userId, String pollId, GetPollQuestionsWithAnswersListener listener){
         executor.execute(()->{
             HashMap<String,Answer> map = new HashMap<>();
@@ -444,13 +438,21 @@ public class Model {
         });
     }
 
-
     public void getPollQuestion(String pollQuestionId, GetPollQuestionListener listener) {
         executor.execute(()->{
            PollQuestion pollQuestion = AppLocalDb.db.pollQuestionDao().getPollQuestionById(pollQuestionId);
            listener.onComplete(pollQuestion);
         });
     }
+
+
+    public void getPollByPollId(String pollId, GetPollListener listener) {
+        executor.execute(()->{
+            Poll poll = AppLocalDb.db.pollDao().getPollByPollId(pollId);
+            listener.onComplete(poll);
+        });
+    }
+
 
     public void isPollFilled(String userId,String pollId, BooleanListener listener){
         executor.execute(()->{
