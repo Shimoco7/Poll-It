@@ -155,7 +155,7 @@ public class FragmentPollImage extends Fragment {
                                 });
                             } else {
                                 Map<String, Answer> newMap = new HashMap<>();
-                                newMap.put(viewModel.getPollQuestion().getPollQuestionId(), new Answer(UUID.randomUUID().toString(), MyApplication.getUserKey(), viewModel.pollQuestion.getPollId(), viewModel.getPollQuestion().getPollQuestionId(), url));
+                                newMap.put(viewModel.getPollQuestion().getPollQuestionId(), new Answer(UUID.randomUUID().toString(), MyApplication.getUserKey(), viewModel.pollQuestion.getPollId(), viewModel.getPollQuestion().getPollQuestionId(), url,false));
                                 Model.instance.savePollAnswersOnLocalDb(newMap, () -> {
                                     Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
                                         Model.instance.getMainThread().post(() -> {

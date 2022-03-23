@@ -45,9 +45,11 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -180,6 +182,7 @@ public class Model {
                 });
                 modelFirebaseDb.getPollQuestionsAnswers(userIds,answers->{
                     Map<String,List<String>> userPollIdsMap = new HashMap<>();
+                    Set<String> pollsToDelete = new HashSet<>();
                     for(Answer a : answers){
                         if(!userPollIdsMap.containsKey(a.getUserId())){
                             userPollIdsMap.put(a.getUserId(),new ArrayList<>());
@@ -187,15 +190,28 @@ public class Model {
                         else{
                             Objects.requireNonNull(userPollIdsMap.get(a.getUserId())).add(a.getPollId());
                         }
-                        executor.execute(()->{
-                            AppLocalDb.db.answerDao().insertAll(a);
-                        });
+                        if(a.getDeleted()){
+                            pollsToDelete.add(a.getPollId());
+                            executor.execute(()->{
+                                AppLocalDb.db.answerDao().delete(a);
+                            });
+                        }
+                        else{
+                            executor.execute(()->{
+                                AppLocalDb.db.answerDao().insertAll(a);
+                            });
+                        }
                     }
                     for(Map.Entry<String,List<String>> entry : userPollIdsMap.entrySet()){
                         String userId = entry.getKey();
                         List<String> pollsIds = entry.getValue();
                         for(String pollId : pollsIds){
                             UserPollCrossRef userPollCrossRef = new UserPollCrossRef(userId,pollId);
+                            if(pollsToDelete.contains(pollId)){
+                                executor.execute(()->{
+                                    AppLocalDb.db.pollDao().delete(userPollCrossRef);
+                                });
+                            }
                             executor.execute(()->{
                                 AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
                             });
@@ -416,17 +432,6 @@ public class Model {
         });
     }
 
-    public void getPollQuestionsWithAnswersFromLocalDb(String pollId, GetPollQuestionsWithAnswersListener listener){
-        executor.execute(()->{
-            HashMap<String,Answer> map = new HashMap<>();
-            List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsWithAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
-            List<PollQuestionWithAnswer> pollQuestionsWithAnswersList = pollWithPollQuestionsWithAnswers.get(0).pollQuestionWithAnswers;
-            for(PollQuestionWithAnswer pqwa : pollQuestionsWithAnswersList){
-                map.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
-            }
-            listener.onComplete(map);
-        });
-    }
 
     public void getAllAnswersByUserAndPollIds(String userId, String pollId, GetPollQuestionsWithAnswersListener listener){
         executor.execute(()->{

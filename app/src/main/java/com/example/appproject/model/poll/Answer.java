@@ -23,17 +23,19 @@ public class Answer {
     @NonNull
     public String userId;
     public String answer;
+    public Boolean isDeleted;
 
     public Answer() {
     }
 
     @Ignore
-    public Answer(@NonNull String answerId,@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer) {
+    public Answer(@NonNull String answerId,@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer,Boolean isDeleted) {
         this.answerId = answerId;
         this.userId = userId;
         this.pollId = pollId;
         this.pollQuestionId = pollQuestionId;
         this.answer = answer;
+        this.isDeleted = isDeleted;
     }
 
     /**
@@ -47,6 +49,7 @@ public class Answer {
         String pollId = (String)data.get("poll_id");
         String pollQuestionId = (String)data.get("poll_question_id");
         String answer = (String)data.get("answer");
+        Boolean isDeleted = (Boolean) data.get("is_deleted");
 
         assert answerId != null;
         assert userId != null;
@@ -54,7 +57,7 @@ public class Answer {
         assert answer != null;
         assert pollQuestionId != null;
 
-        return new Answer(answerId,userId,pollId,pollQuestionId,answer);
+        return new Answer(answerId,userId,pollId,pollQuestionId,answer,isDeleted);
     }
 
     public Map<String, Object> toJson() {
@@ -64,6 +67,7 @@ public class Answer {
         json.put("poll_id",pollId);
         json.put("poll_question_id",pollQuestionId);
         json.put("answer", answer);
+        json.put("is_deleted", isDeleted);
         return json;
     }
 
@@ -109,5 +113,13 @@ public class Answer {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

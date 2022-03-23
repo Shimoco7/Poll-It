@@ -1,6 +1,7 @@
 package com.example.appproject.model.poll;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -39,4 +40,8 @@ public interface PollDao {
     @Transaction
     @Query("SELECT * FROM Poll WHERE pollId=:pollId")
     List<PollWithPollQuestionsAndAnswers> getPollWithPollQuestionsAndAnswers(String pollId);
+
+    @Delete
+    void delete(UserPollCrossRef userPollCrossRef);
+
 }
