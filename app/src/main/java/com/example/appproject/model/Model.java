@@ -30,6 +30,7 @@ import com.example.appproject.model.poll.PollQuestionWithAnswer;
 import com.example.appproject.model.poll.PollWithPollQuestionsAndAnswers;
 import com.example.appproject.model.poll.PollsListLoadingState;
 import com.example.appproject.model.poll.SavePollAnswerListener;
+import com.example.appproject.model.question.GetPollListener;
 import com.example.appproject.model.question.GetQuestionsLocalDBListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.BooleanListener;
@@ -451,6 +452,15 @@ public class Model {
            listener.onComplete(pollQuestion);
         });
     }
+
+
+    public void getPollByPollId(String pollId, GetPollListener listener) {
+        executor.execute(()->{
+            Poll poll = AppLocalDb.db.pollDao().getPollByPollId(pollId);
+            listener.onComplete(poll);
+        });
+    }
+
 
     public void isPollFilled(String userId,String pollId, BooleanListener listener){
         executor.execute(()->{
