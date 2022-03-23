@@ -36,9 +36,9 @@ public class General {
         Model.instance.getMainThread().post(()->{
             progressBar.setVisibility(View.VISIBLE);
             General.enableDisableClickView(container, false);
-            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            if(((AppCompatActivity)activity).getSupportActionBar()!=null)
             ((AppCompatActivity)activity).getSupportActionBar().hide();
-
         });
     }
 
@@ -46,8 +46,9 @@ public class General {
         Model.instance.getMainThread().post(()->{
             progressBar.setVisibility(View.GONE);
             General.enableDisableClickView(container, true);
-            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            ((AppCompatActivity)activity).getSupportActionBar().show();
+//            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            if(((AppCompatActivity)activity).getSupportActionBar()!=null)
+                ((AppCompatActivity)activity).getSupportActionBar().show();
         });
     }
 
