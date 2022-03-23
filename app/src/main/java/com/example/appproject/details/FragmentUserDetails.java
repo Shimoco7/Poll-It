@@ -37,6 +37,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FragmentUserDetails extends Fragment {
     Button nextBtn;
@@ -134,9 +136,17 @@ public class FragmentUserDetails extends Fragment {
                 if (s.toString().length() == 0) {
                     nameTi.setError(null);
                     isNameEmpty =true;
-
-
                 }
+                String regex= "^[a-zA-Z\\s]+.{4,20}";
+
+                if(!s.toString().matches(regex)||s.toString().length()>15){
+                    nameTi.setError("Invalid Name");
+                }
+                if(s.toString().length()==0){
+                    nameTi.setError(null);
+                    nameTi.setHelperTextEnabled(true);
+                }
+
 
             }
         });
