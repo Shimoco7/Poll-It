@@ -129,7 +129,7 @@
                     android:fontFamily="sans-serif-black"
                     android:gravity="left"
                     android:paddingLeft="10dp"
-                    android:text="Question 3"
+                    android:text="Question 3:"
                     android:textColor="@color/white"
                     android:textSize="28dp"
                     android:textStyle="bold" />
@@ -150,42 +150,7 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/OtherUserPoll_layout_ans4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/textviewbg"
-                android:orientation="vertical">
 
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/otherUserPoll_txt_Q4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="left"
-                    android:paddingLeft="10dp"
-                    android:text="Question 4"
-                    android:textColor="@color/white"
-                    android:textSize="28dp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/otherUserPoll_txt_ans4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:gravity="left"
-                    android:paddingLeft="10dp"
-                    android:text="answer"
-
-                    android:textColor="@color/white"
-                    android:textSize="28dp" />
-
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
