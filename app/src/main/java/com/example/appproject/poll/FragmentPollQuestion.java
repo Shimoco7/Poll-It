@@ -249,7 +249,6 @@ public class FragmentPollQuestion extends Fragment {
                     setButtonsColor();}
             }
             else {
-//                Toast.makeText(getActivity(),"Please Select An Answer", Toast.LENGTH_LONG).show();
                 Snackbar.make(getView(),"Please Select An Answer",Snackbar.LENGTH_LONG).show();
             }
         });

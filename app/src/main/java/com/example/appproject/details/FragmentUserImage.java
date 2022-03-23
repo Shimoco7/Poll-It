@@ -160,7 +160,6 @@ public class FragmentUserImage extends Fragment {
                 Model.instance.saveImage(bitMap, MyApplication.getUserKey() + ".jpg","users_avatar/", url -> {
                     if (url == null) {
                         Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
-//                        General.showToast(getActivity(), new ArrayList<>(Collections.singletonList(getString(R.string.image_upload_failed))));
                         General.progressBarOff(getActivity(), container, progressBar);
                     } else {
                         Model.instance.updateUser(MyApplication.getUserKey(), "profile_pic_url", url, this::toMainActivity);

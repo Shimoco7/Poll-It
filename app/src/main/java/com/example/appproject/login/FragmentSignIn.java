@@ -158,7 +158,6 @@ public class FragmentSignIn extends Fragment {
                         });
                     } else {
                         General.progressBarOff(getActivity(), container, progressBar);
-//                        Toast.makeText(getContext(), getString(R.string.email_or_password_is_incorrect), Toast.LENGTH_LONG).show();
                         Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
                             password.setText("");
                         }).show();
