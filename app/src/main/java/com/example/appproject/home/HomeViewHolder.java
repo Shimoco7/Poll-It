@@ -44,7 +44,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
 //                pollCard.setStrokeColor(MyApplication.getContext().getResources().getColor(R.color.primeGreen));
                 pollMainImage.setAlpha((float)0.4);
                 pollsName.setAlpha((float)0.4);
-                pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_edit));
+                Model.instance.getMainThread().post(()->pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_edit)));
                 pollDoneImage.setVisibility(View.VISIBLE);
             }
 //            else{
