@@ -15,7 +15,7 @@ public class UserDisplayDetailsHolder extends RecyclerView.ViewHolder {
 
     public UserDisplayDetailsHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
         super(itemView);
-        pollsName = itemView.findViewById(R.id.poll_list_square_poll_name);
+        pollsName = itemView.findViewById(R.id.homescr_poll_pollName);
         itemView.setOnClickListener(v->{
             int pos = getAdapterPosition();
             onItemClickListener.onItemClick(v,pos);
