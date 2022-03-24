@@ -89,15 +89,18 @@ public class FragmentUserDisplayDetails extends Fragment {
         Model.instance.getUserWithPolls(userId,userWithPolls->{
             viewModel.setUserFilledPolls(userWithPolls);
             Model.instance.getUserById(userId,user->{
-                userName.setText(user.getName());
-                email.setText(user.getEmail());
-                address.setText(user.getAddress());
+                Model.instance.getMainThread().post(()->{
+                    userName.setText(user.getName());
+                    email.setText(user.getEmail());
+                    address.setText(user.getAddress());
+                });
 
                 Model.instance.getUserDetailById(user.getUid(),"Education Level",edu->{
                     education.setText(edu.getAnswer());
                 });
-
-                gender.setText(user.getGender());
+                Model.instance.getMainThread().post(()->{
+                    gender.setText(user.getGender());
+                });
 
                 if(user.getProfilePicUrl() != null){
                     Model.instance.getMainThread().post(()->{
@@ -120,7 +123,6 @@ public class FragmentUserDisplayDetails extends Fragment {
                     else{
                         Model.instance.getMainThread().post(()->{
                             profilePic.setImageResource(R.drawable.avatar);
-
                         });
                     }
                 }
