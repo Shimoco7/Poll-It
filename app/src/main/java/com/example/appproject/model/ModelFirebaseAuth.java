@@ -90,7 +90,7 @@ public class ModelFirebaseAuth {
                         } else {
                             Log.d("TAG", "signInWithEmail:failure", task.getException());
                             Model.instance.getMainThread().post(()->{
-                                userListener.onComplete(null, null); //TODO
+                                userListener.onComplete(null, null);
                             });
                         }
                     });

@@ -42,8 +42,6 @@ public class ModelFirebaseDb {
         db.setFirestoreSettings(settings);
     }
 
-
-    //TODO: addOnFailureListener
     public void SaveUserOnDb(User user, SaveUserListener saveUserListener) {
         Map<String,Object> json = user.toJson();
         db.collection(MyApplication.getContext().getString(R.string.users_collection))

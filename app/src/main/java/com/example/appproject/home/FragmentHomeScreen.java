@@ -4,24 +4,19 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
@@ -36,7 +31,6 @@ public class FragmentHomeScreen extends Fragment {
     HomeAdapter homeAdapter;
     RecyclerView list;
     SwipeRefreshLayout swipeRefresh;
-    Boolean flag=true;
 
     public FragmentHomeScreen() { }
 
@@ -73,12 +67,14 @@ public class FragmentHomeScreen extends Fragment {
             }
         });
 
+        homeViewModel.getPolls().observe(getViewLifecycleOwner(),usersList->refresh());
+        Model.instance.refreshPollsList();
+        Model.instance.refreshList();
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
             Model.instance.isPollFilled(MyApplication.getUserKey(), pollId, isFilled -> {
-                this.flag = false;
                 Model.instance.getMainThread().post(() -> {
-                    if (isFilled && !flag) {
+                    if (isFilled) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                             alert.setMessage("Are You Sure?")
                                     .setPositiveButton("Edit", (dialog, which) -> {
@@ -86,21 +82,15 @@ public class FragmentHomeScreen extends Fragment {
                                     })
                                     .setNegativeButton("Delete", (dialog, which) -> {
                                         Model.instance.deletePoll(MyApplication.getUserKey(),pollId, ()->{
-                                            Model.instance.updateUpdateDateUser(MyApplication.getUserKey(),()->{
-                                                refresh();
-                                            });
+                                            Model.instance.updateUpdateDateUser(MyApplication.getUserKey(), this::refresh);
                                         });
                                     })
                                     .setNeutralButton("Cancel", null);
                             AlertDialog alert1 = alert.create();
                             alert1.show();
-                            flag=true;
                     }
-                });
-                Model.instance.getMainThread().post(() -> {
-                    if (!isFilled&&(!flag)) {
+                    else{
                         Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
-                        flag = false;
                     }
                 });
             });
@@ -110,11 +100,7 @@ public class FragmentHomeScreen extends Fragment {
             Model.instance.refreshPollsList();
             Model.instance.refreshList();
         });
-        homeViewModel.getPolls().observe(getViewLifecycleOwner(),usersList->refresh());
         observePollsLoadingState();
-        Model.instance.refreshList();
-        Model.instance.refreshPollsList();
-
         return view;
     }
 
@@ -130,10 +116,6 @@ public class FragmentHomeScreen extends Fragment {
                     swipeRefresh.setRefreshing(true);
                     break;
                 case loaded:
-                    swipeRefresh.setRefreshing(false);
-                    break;
-                //TODO - handle error
-                case error:
                     swipeRefresh.setRefreshing(false);
                     break;
             }

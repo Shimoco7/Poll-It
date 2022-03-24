@@ -3,36 +3,23 @@ package com.example.appproject;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.example.appproject.feed.FragmentFeedDirections;
-import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.user.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,32 +70,19 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         Model.instance.getLocations();
         subscribeToObservers();
 
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
+        map.setOnMarkerClickListener(marker -> {
 
-                marker.showInfoWindow();
+            marker.showInfoWindow();
 
-                return true;
-            }
+            return true;
         });
     }
 
     private void subscribeToObservers() {
 
-        Model.instance.userLocation.observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                addUserLocationToMap(s);
-            }
-        });
+        Model.instance.userLocation.observe(getViewLifecycleOwner(), s -> addUserLocationToMap(s));
 
-        Model.instance.locationsList.observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                addLocationsToMap(strings);
-            }
-        });
+        Model.instance.locationsList.observe(getViewLifecycleOwner(), strings -> addLocationsToMap(strings));
 
     }
 
@@ -145,12 +119,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(@NonNull Marker marker) {
-                Navigation.findNavController(getView()).navigate(FragmentMapDirections.actionFragmentMapToFragmentUserDisplayDetails(nameToId.get(marker.getTitle())));
-            }
-        });
+        map.setOnInfoWindowClickListener(marker -> Navigation.findNavController(getView()).navigate(FragmentMapDirections.actionFragmentMapToFragmentUserDisplayDetails(nameToId.get(marker.getTitle()))));
     }
 
     private void addLocationsToMap(List<String> locations) {
@@ -197,12 +166,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 10));
             }
         }
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(@NonNull Marker marker) {
-                Navigation.findNavController(getView()).navigate(FragmentMapDirections.actionFragmentMapToFragmentUserDisplayDetails(nameToId.get(marker.getTitle())));
-            }
-        });
+        map.setOnInfoWindowClickListener(marker -> Navigation.findNavController(getView()).navigate(FragmentMapDirections.actionFragmentMapToFragmentUserDisplayDetails(nameToId.get(marker.getTitle()))));
     }
 
     private void setMarkers(List<MarkerOptions> markers){

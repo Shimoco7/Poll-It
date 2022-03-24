@@ -18,7 +18,6 @@ public class UserDisplayDetailsAdapter extends RecyclerView.Adapter<UserDisplayD
 
     UserDisplayDetailsViewModel viewModel;
     LayoutInflater layoutInflater;
-    OnItemClickListener onItemClickListener;
 
     public UserDisplayDetailsAdapter(UserDisplayDetailsViewModel viewModel, LayoutInflater layoutInflater) {
         this.viewModel = viewModel;
@@ -30,7 +29,7 @@ public class UserDisplayDetailsAdapter extends RecyclerView.Adapter<UserDisplayD
     public UserDisplayDetailsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) MyApplication.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.poll_list_square,parent,false);
-        return new UserDisplayDetailsHolder(view,onItemClickListener);
+        return new UserDisplayDetailsHolder(view,viewModel);
     }
 
     @Override
@@ -47,7 +46,4 @@ public class UserDisplayDetailsAdapter extends RecyclerView.Adapter<UserDisplayD
         return viewModel.getUserFilledPolls().size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.onItemClickListener = listener;
-    }
 }

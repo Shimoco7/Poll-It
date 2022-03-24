@@ -181,21 +181,26 @@ public class Model {
                 });
                 modelFirebaseDb.getPollQuestionsAnswers(userIds,answers->{
                     Map<String,List<String>> userPollIdsMap = new HashMap<>();
-                    Set<String> pollsToDelete = new HashSet<>();
+                    Map<String,List<String>> pollsToDelete = new HashMap<>();
+                    Set<String> pollsToKeep = new HashSet<>();
                     for(Answer a : answers){
                         if(!userPollIdsMap.containsKey(a.getUserId())){
                             userPollIdsMap.put(a.getUserId(),new ArrayList<>());
                         }
-                        else{
-                            Objects.requireNonNull(userPollIdsMap.get(a.getUserId())).add(a.getPollId());
-                        }
+                        Objects.requireNonNull(userPollIdsMap.get(a.getUserId())).add(a.getPollId());
                         if(a.getDeleted()){
-                            pollsToDelete.add(a.getPollId());
+                            if(!pollsToDelete.containsKey(a.getUserId())){
+                                pollsToDelete.put(a.getUserId(),new ArrayList<>());
+                            }
+                            else{
+                                Objects.requireNonNull(pollsToDelete.get(a.getUserId())).add(a.getPollId());
+                            }
                             executor.execute(()->{
                                 AppLocalDb.db.answerDao().delete(a);
                             });
                         }
                         else{
+                            pollsToKeep.add(a.getPollId());
                             executor.execute(()->{
                                 AppLocalDb.db.answerDao().insertAll(a);
                             });
@@ -206,14 +211,16 @@ public class Model {
                         List<String> pollsIds = entry.getValue();
                         for(String pollId : pollsIds){
                             UserPollCrossRef userPollCrossRef = new UserPollCrossRef(userId,pollId);
-                            if(pollsToDelete.contains(pollId)){
+                            if(pollsToDelete.containsKey(userId)&&pollsToDelete.get(userId).contains(pollId)&&!pollsToKeep.contains(pollId)){
                                 executor.execute(()->{
                                     AppLocalDb.db.pollDao().delete(userPollCrossRef);
                                 });
                             }
-                            executor.execute(()->{
-                                AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
-                            });
+                            else{
+                                executor.execute(()->{
+                                    AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
+                                });
+                            }
                         }
 
                     }
@@ -241,6 +248,10 @@ public class Model {
 
     public void isExist(BooleanListener listener){
         modelFirebaseDb.isExist(listener);
+    }
+
+    public void updateUpdateDateUser(String userId, SaveUserListener saveUserListener){
+        modelFirebaseDb.updateUpdateDateUser(userId,saveUserListener);
     }
 
     /**
@@ -456,17 +467,15 @@ public class Model {
     public void isPollFilled(String userId,String pollId, BooleanListener listener){
         executor.execute(()->{
             List<UserWithPolls> userWithPolls = AppLocalDb.db.pollDao().getUserWithPolls(userId);
-            if(userWithPolls.isEmpty()){
-                listener.onComplete(false);
-            }
-            else{
-                for(Poll poll : userWithPolls.get(0).polls){
-                    if(poll.getPollId().equals(pollId)){
+            if (!userWithPolls.isEmpty()) {
+                for (Poll poll : userWithPolls.get(0).polls) {
+                    if (poll.getPollId().equals(pollId)) {
                         listener.onComplete(true);
+                        return;
                     }
                 }
-                listener.onComplete(false);
             }
+            listener.onComplete(false);
         });
     }
 
@@ -488,11 +497,9 @@ public class Model {
                         AppLocalDb.db.answerDao().delete(entry.getValue());
                     });
                 }
+                listener.onComplete();
             });
         });
     }
 
-    public void updateUpdateDateUser(String userId, SaveUserListener saveUserListener){
-        modelFirebaseDb.updateUpdateDateUser(userId,saveUserListener);
-    }
 }

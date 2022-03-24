@@ -2,13 +2,9 @@ package com.example.appproject.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
-
-import androidx.annotation.ColorRes;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -18,16 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.example.appproject.MainActivity;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.collection.LLRBNode;
-
 import java.util.Objects;
 
 public class FragmentSignIn extends Fragment {

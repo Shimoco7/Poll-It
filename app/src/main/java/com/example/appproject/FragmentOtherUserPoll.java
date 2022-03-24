@@ -1,20 +1,16 @@
 package com.example.appproject;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
+import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
-
-import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.PollQuestion;
-import com.example.appproject.poll.FragmentActivePollArgs;
-import com.example.appproject.poll.PollQuestionViewModel;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Callback;
@@ -27,6 +23,7 @@ public class FragmentOtherUserPoll extends Fragment {
     ShapeableImageView pollImage;
     String pollId, userId;
     ProgressBar progressBar;
+    Button backBtn;
 
     public FragmentOtherUserPoll() {
     }
@@ -57,6 +54,7 @@ public class FragmentOtherUserPoll extends Fragment {
         ans3Tv = view.findViewById(R.id.otherUserPoll_txt_ans3);
         imageTv = view.findViewById(R.id.otherUserPoll_txt_imgQ);
         pollImage = view.findViewById(R.id.otheruser_img_factimg);
+        backBtn = view.findViewById(R.id.otherUserPoll_btn_back);
         progressBar = view.findViewById(R.id.otherUserPoll_progress_bar);
         progressBar.setVisibility(View.GONE);
         pollId = FragmentOtherUserPollArgs.fromBundle(getArguments()).getPollId();
@@ -67,11 +65,9 @@ public class FragmentOtherUserPoll extends Fragment {
         });
 
 
-        Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(), pollId, map -> {
+        Model.instance.getAllAnswersByUserAndPollIds(userId, pollId, map -> {
             if (map != null) {
                 if (!map.isEmpty()) {
-
-
                     Model.instance.getPollQuestionsFromLocalDb(pollId, list -> {
                         Model.instance.getMainThread().post(() -> {
                             for (PollQuestion pq : list) {
@@ -93,8 +89,6 @@ public class FragmentOtherUserPoll extends Fragment {
                                     break;
                                 }
                             }
-
-
                             ans1Tv.setText(map.get(list.get(0).getPollQuestionId()).getAnswer());
                             ans2Tv.setText(map.get(list.get(1).getPollQuestionId()).getAnswer());
                             ans3Tv.setText(map.get(list.get(2).getPollQuestionId()).getAnswer());
@@ -103,10 +97,12 @@ public class FragmentOtherUserPoll extends Fragment {
                             question3Tv.setText(list.get(2).getPollQuestion());
                         });
                     });
-
-
                 }
             }
+        });
+
+        backBtn.setOnClickListener(v->{
+            Navigation.findNavController(v).navigateUp();
         });
         return view;
     }

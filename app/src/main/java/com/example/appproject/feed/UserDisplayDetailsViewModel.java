@@ -8,6 +8,7 @@ import java.util.List;
 
 public class UserDisplayDetailsViewModel extends ViewModel {
     List<Poll> userFilledPolls;
+    String userId;
 
     public UserDisplayDetailsViewModel() { }
 
@@ -17,5 +18,13 @@ public class UserDisplayDetailsViewModel extends ViewModel {
 
     public List<Poll> getUserFilledPolls() {
         return userFilledPolls;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

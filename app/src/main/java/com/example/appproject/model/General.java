@@ -4,22 +4,9 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
 public class General {
-    public static void showToast(Activity activity, ArrayList<String> errors){
-        StringBuilder message = new StringBuilder();
-        for (String error : errors) {
-            message.append(error);
-            message.append("\n");
-        }
-        Toast.makeText(activity, message.toString().trim(),
-                Toast.LENGTH_LONG).show();
-    }
 
     public static void enableDisableClickView(View view, boolean enabled) {
         view.setClickable(enabled);

@@ -45,7 +45,6 @@
                 android:id="@+id/OtherUserPoll_layout_ans1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/textviewbg"
                 android:orientation="vertical">
 
 
@@ -53,12 +52,12 @@
                     android:id="@+id/otherUserPoll_txt_Q1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="left"
                     android:paddingLeft="10dp"
                     android:text="@string/question_1"
                     android:textColor="@color/white"
-                    android:textSize="28dp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -81,8 +80,7 @@
                 android:id="@+id/OtherUserPoll_layout_ans2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/textviewbg"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
 
@@ -90,19 +88,18 @@
                     android:id="@+id/otherUserPoll_txt_Q2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="left"
                     android:paddingLeft="10dp"
                     android:text="Question 2:"
                     android:textColor="@color/white"
-                    android:textSize="28dp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/otherUserPoll_txt_ans2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:fontFamily="sans-serif-condensed-light"
                     android:gravity="left"
                     android:paddingLeft="10dp"
@@ -117,8 +114,7 @@
                 android:id="@+id/OtherUserPoll_layout_ans3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/textviewbg"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
 
@@ -126,12 +122,12 @@
                     android:id="@+id/otherUserPoll_txt_Q3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="left"
                     android:paddingLeft="10dp"
                     android:text="Question 3:"
                     android:textColor="@color/white"
-                    android:textSize="28dp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -154,29 +150,26 @@
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/textviewbg"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:padding="5dp"
-
-                >
-
+                android:padding="5dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/otherUserPoll_txt_imgQ"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="left"
                     android:paddingLeft="10dp"
                     android:paddingTop="20dp"
                     android:text="Image fact: "
                     android:textColor="@color/white"
-                    android:textSize="28dp"
-                    android:textStyle="bold" />
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="top"/>
 
                 <Space
                     android:layout_width="50dp"
@@ -185,9 +178,17 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/otheruser_img_factimg"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="2dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="120dp"
+                    android:minWidth="120dp"
+                    android:maxHeight="140dp"
+                    android:maxWidth="140dp"
+                    android:layout_gravity="center"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"

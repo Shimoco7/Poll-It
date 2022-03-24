@@ -19,9 +19,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.appproject.FragmentOtherUserPoll;
-import com.example.appproject.FragmentOtherUserPollDirections;
-import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
@@ -65,6 +62,7 @@ public class FragmentUserDisplayDetails extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_user_display_details, container, false);
         String userId = FragmentUserDisplayDetailsArgs.fromBundle(getArguments()).getUserUid();
+        viewModel.setUserId(userId);
         profilePic = view.findViewById(R.id.user_display_details_img_main);
         userName = view.findViewById(R.id.user_display_details_txt_username);
         email=view.findViewById(R.id.user_display_details_txt_email);
@@ -87,58 +85,56 @@ public class FragmentUserDisplayDetails extends Fragment {
             }
         });
 
-        adapter.setOnItemClickListener((v,pos)->{
-            String pollId = Objects.requireNonNull(viewModel.getUserFilledPolls().get(pos).getPollId());
-            Navigation.findNavController(v).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentOtherUserPoll(pollId,userId));
-
-        });
-
         General.progressBarOn(getActivity(),container,progressBar);
         Model.instance.getUserWithPolls(userId,userWithPolls->{
             viewModel.setUserFilledPolls(userWithPolls);
-        });
+            Model.instance.getUserById(userId,user->{
+                userName.setText(user.getName());
+                email.setText(user.getEmail());
+                address.setText(user.getAddress());
 
-        Model.instance.getUserById(userId,user->{
-            userName.setText(user.getName());
-            email.setText(user.getEmail());
-            address.setText(user.getAddress());
-
-            Model.instance.getUserDetailById(user.getUid(),"Education Level",edu->{
-                education.setText(edu.getAnswer());
-            });
-
-            gender.setText(user.getGender());
-
-            if(user.getProfilePicUrl() != null){
-                Model.instance.getMainThread().post(()->{
-                    Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);
+                Model.instance.getUserDetailById(user.getUid(),"Education Level",edu->{
+                    education.setText(edu.getAnswer());
                 });
-            }
-            else{
-                if(user.getGender()!=null){
-                    if(user.getGender().equals("Female")){
-                        Model.instance.getMainThread().post(()->{
-                            profilePic.setImageResource(R.drawable.female_avatar);
-                        });
+
+                gender.setText(user.getGender());
+
+                if(user.getProfilePicUrl() != null){
+                    Model.instance.getMainThread().post(()->{
+                        Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);
+                    });
+                }
+                else{
+                    if(user.getGender()!=null){
+                        if(user.getGender().equals("Female")){
+                            Model.instance.getMainThread().post(()->{
+                                profilePic.setImageResource(R.drawable.female_avatar);
+                            });
+                        }
+                        else{
+                            Model.instance.getMainThread().post(()->{
+                                profilePic.setImageResource(R.drawable.avatar);
+                            });
+                        }
                     }
                     else{
                         Model.instance.getMainThread().post(()->{
                             profilePic.setImageResource(R.drawable.avatar);
+
                         });
                     }
                 }
-                else{
-                    Model.instance.getMainThread().post(()->{
-                        profilePic.setImageResource(R.drawable.avatar);
+                General.progressBarOff(getActivity(),container,progressBar);
+            });
 
-                    });
-                }
-            }
-            General.progressBarOff(getActivity(),container,progressBar);
         });
+
         backToFeedBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();
         });
+
+        Model.instance.refreshPollsList();
+        Model.instance.refreshList();
 
         return view;
     }

@@ -20,7 +20,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
     MaterialTextView pollsName;
     MaterialCardView pollCard;
     ShapeableImageView pollIcon,pollMainImage,pollDoneImage;
-    Space space;
 
     public HomeViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
@@ -29,8 +28,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
         pollIcon = itemView.findViewById(R.id.homescr_poll_icon);
         pollMainImage = itemView.findViewById(R.id.homescr_poll_mainImage);
         pollDoneImage = itemView.findViewById(R.id.homescr_poll_doneImage);
-        space=itemView.findViewById(R.id.homescr_poll_space);
-
 
         itemView.setOnClickListener(v->{
             int pos = getAdapterPosition();
@@ -41,14 +38,20 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
     public void bind(Poll poll) {
         pollsName.setText(poll.getPollName());
         Model.instance.isPollFilled(MyApplication.getUserKey(),poll.getPollId(),isFilled->{
-            if(isFilled){
-                Model.instance.getMainThread().post(()->{
+            Model.instance.getMainThread().post(()->{
+                if(isFilled){
                     pollMainImage.setAlpha((float)0.4);
                     pollsName.setAlpha((float)0.4);
                     pollDoneImage.setVisibility(View.VISIBLE);
                     pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_edit));
-                });
-            }
+                }
+                else{
+                    pollMainImage.setAlpha((float)1);
+                    pollsName.setAlpha((float)1);
+                    pollDoneImage.setVisibility(View.GONE);
+                    pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_feed_arrow));
+                }
+            });
         });
 
     }

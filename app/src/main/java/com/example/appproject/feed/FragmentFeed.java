@@ -11,14 +11,10 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
 import com.google.android.material.button.MaterialButton;
@@ -95,10 +91,6 @@ public class FragmentFeed extends Fragment {
                     swipeRefresh.setRefreshing(true);
                     break;
                 case loaded:
-                    swipeRefresh.setRefreshing(false);
-                    break;
-                //TODO - handle error
-                case error:
                     swipeRefresh.setRefreshing(false);
                     break;
             }

@@ -3,6 +3,7 @@ package com.example.appproject.feed;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
@@ -14,20 +15,18 @@ public class UserDisplayDetailsHolder extends RecyclerView.ViewHolder {
 
     MaterialTextView pollsName;
     ShapeableImageView icon;
-
-    public UserDisplayDetailsHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+    UserDisplayDetailsViewModel viewModel;
+    public UserDisplayDetailsHolder(@NonNull View itemView,UserDisplayDetailsViewModel viewModel) {
         super(itemView);
+        this.viewModel = viewModel;
         pollsName = itemView.findViewById(R.id.homescr_poll_pollName);
         icon=itemView.findViewById(R.id.homescr_poll_icon);
-        itemView.setOnClickListener(v->{
-            int pos = getAdapterPosition();
-            onItemClickListener.onItemClick(v,pos);
-        });
     }
 
     public void bind(Poll poll) {
-//        icon.setVisibility(View.INVISIBLE);
         pollsName.setText(poll.getPollName());
-
+        icon.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentOtherUserPoll(poll.getPollId(), viewModel.getUserId()));
+        });
     }
 }

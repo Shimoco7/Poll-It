@@ -4,13 +4,13 @@
         android:id="@+id/homescr_btn_poll"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_weight="1"
         android:clickable="true"
         android:focusable="true"
         android:layout_width="110dp"
         android:layout_height="90dp"
         android:layout_gravity="center"
         app:cardBackgroundColor="@color/primeOrng"
-
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:strokeWidth="2dp"
         android:theme="@style/Theme.MaterialComponents.Light">
-<!--    app:cardBackgroundColor="@color/primeGreen"-->
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -28,11 +27,9 @@
             android:orientation="vertical"
             android:paddingTop="5dp">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="top"
                 android:orientation="horizontal">
 
@@ -42,8 +39,6 @@
                     android:layout_height="40dp"
                     android:scaleType="fitStart"
                     app:strokeWidth="0dp"
-
-
                     app:srcCompat="@drawable/ic_poll" />
 
                 <Space
@@ -57,23 +52,13 @@
                     android:layout_height="30dp"
                     android:layout_gravity="end"
                     app:srcCompat="@drawable/ic_feed_arrow"
-
-
                     app:strokeWidth="0dp" />
 
-                <!--                android:alpha="0.4"-->
-<!--                app:srcCompat="@drawable/ic_edit"-->
-
-
-
             </LinearLayout>
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-
                 android:orientation="horizontal"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp">
@@ -83,17 +68,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-medium"
-
-
-
                     android:text="@string/poll_name"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textColor="@color/white"
                     android:textSize="14dp"
-
-
                     android:textStyle="bold" />
-<!--                android:alpha="0.4"-->
 
             </LinearLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -102,10 +81,7 @@
         android:id="@+id/homescr_poll_doneImage"
         android:layout_width="60dp"
         android:layout_height="50dp"
-        android:layout_weight="1"
         android:visibility="gone"
-
-
         app:srcCompat="@drawable/done_nobg" />
 
 </com.google.android.material.card.MaterialCardView>
