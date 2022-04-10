@@ -60,6 +60,7 @@ public class Model {
     ModelFirebaseDb modelFirebaseDb = new ModelFirebaseDb();
     ModelFirebaseAuth modelFirebaseAuth = new ModelFirebaseAuth();
     ModelFirebaseStorage modelFirebaseStorage = new ModelFirebaseStorage();
+    ModelNode modelNode = new ModelNode();
     Executor executor = Executors.newSingleThreadExecutor();
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
@@ -81,8 +82,8 @@ public class Model {
      *
      */
 
-    public void createUser(String emailAddress, String password, UserListener userListener) {
-        modelFirebaseAuth.createUser(emailAddress,password,userListener);
+    public void register(String emailAddress, String password,UserListener userListener) {
+        modelNode.register(emailAddress,password,userListener);
     }
 
     public void signIn(String emailAddress, String password, UserListener userListener) {

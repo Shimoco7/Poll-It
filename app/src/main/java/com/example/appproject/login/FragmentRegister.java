@@ -25,7 +25,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class FragmentRegister extends Fragment {
@@ -186,16 +185,17 @@ public class FragmentRegister extends Fragment {
                     return;
                 }
 
-                Model.instance.createUser(email.getText().toString().trim(), password.getText().toString().trim(), (user, message) -> {
-                    if (user != null) {
-                        User u = new User(user.getUid(), email.getText().toString().trim());
-                        Model.instance.saveUserOnDb(u, this::afterRegisterFlow);
-                        General.progressBarOff(getActivity(), container, progressBar);
-                    } else {
-                        General.progressBarOff(getActivity(), container, progressBar);
-                        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
+                Model.instance.register(email.getText().toString().trim(), password.getText().toString().trim(),(user, message) -> {
+                        if (user != null) {
+                            General.progressBarOff(getActivity(), container, progressBar);
+                            afterRegisterFlow();
+                        }
+                        else {
+                            General.progressBarOff(getActivity(), container, progressBar);
+                            Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
+                        }
                     }
-                });
+                );
             }
         });
     }

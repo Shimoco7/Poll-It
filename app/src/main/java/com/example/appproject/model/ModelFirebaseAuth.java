@@ -40,34 +40,35 @@ public class ModelFirebaseAuth {
         return currentUser != null;
     }
 
-    public void createUser(String emailAddress, String password, UserListener userListener) {
-        Model.instance.getExecutor().execute(()->{
-            mAuth.createUserWithEmailAndPassword(emailAddress, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            assert user != null;
-                            MyApplication.setUserEmail(user.getEmail());
-                            Model.instance.getMainThread().post(()->{
-                                userListener.onComplete(user, appContext.getString(R.string.success));
-                            });
-                        } else {
-                            Log.d("TAG", "createUserWithEmail:failure", task.getException());
-                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                Model.instance.getMainThread().post(()->{
-                                    userListener.onComplete(null, appContext.getString(R.string.user_already_exists));
-                                });
-                            }
-                            else{
-                                Model.instance.getMainThread().post(()->{
-                                    userListener.onComplete(null, appContext.getString(R.string.registration_failed));
-                                });
-                            }
-                        }
-                    });
-        });
-    }
+
+//    public void createUser(String emailAddress, String password, UserListener userListener) {
+//        Model.instance.getExecutor().execute(()->{
+//            mAuth.createUserWithEmailAndPassword(emailAddress, password)
+//                    .addOnCompleteListener(task -> {
+//                        if (task.isSuccessful()) {
+//                            Log.d("TAG", "createUserWithEmail:success");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            assert user != null;
+//                            MyApplication.setUserEmail(user.getEmail());
+//                            Model.instance.getMainThread().post(()->{
+//                                userListener.onComplete(user, appContext.getString(R.string.success));
+//                            });
+//                        } else {
+//                            Log.d("TAG", "createUserWithEmail:failure", task.getException());
+//                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+//                                Model.instance.getMainThread().post(()->{
+//                                    userListener.onComplete(null, appContext.getString(R.string.user_already_exists));
+//                                });
+//                            }
+//                            else{
+//                                Model.instance.getMainThread().post(()->{
+//                                    userListener.onComplete(null, appContext.getString(R.string.registration_failed));
+//                                });
+//                            }
+//                        }
+//                    });
+//        });
+//    }
 
     public void signIn(String emailAddress, String password, UserListener userListener){
         Model.instance.getExecutor().execute(()->{
@@ -85,7 +86,7 @@ public class ModelFirebaseAuth {
                                 MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
                             });
                             Model.instance.getMainThread().post(()->{
-                                userListener.onComplete(user, appContext.getString(R.string.success));
+//                                userListener.onComplete(user, appContext.getString(R.string.success));
                             });
                         } else {
                             Log.d("TAG", "signInWithEmail:failure", task.getException());
@@ -96,6 +97,7 @@ public class ModelFirebaseAuth {
                     });
         });
     }
+
 
     public void signOut() {
         appContext.getSharedPreferences("Status",Context.MODE_PRIVATE).edit().clear().apply();

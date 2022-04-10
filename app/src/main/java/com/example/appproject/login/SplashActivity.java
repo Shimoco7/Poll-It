@@ -22,29 +22,29 @@ public class SplashActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(Model.instance.isSignedIn()){
-                Model.instance.isExist(exist->{
-                    if(exist){
-                        Model.instance.isFinishedRegistration(isFinished -> {
-                            if(isFinished){
-                                Model.instance.getMainThread().post(this::toFeedActivity);
-                            }
-                            else{
-                                Model.instance.getMainThread().post(this::toLoginActivity);
-                            }
-                        });
-                    }
-                    else{
-                        Model.instance.signOut();
-                        Model.instance.clearCaches();
-                        Model.instance.getMainThread().post(this::toLoginActivity);
-                    }
-                });
-            }
-            else{
+//            if(Model.instance.isSignedIn()){
+//                Model.instance.isExist(exist->{
+//                    if(exist){
+//                        Model.instance.isFinishedRegistration(isFinished -> {
+//                            if(isFinished){
+//                                Model.instance.getMainThread().post(this::toFeedActivity);
+//                            }
+//                            else{
+//                                Model.instance.getMainThread().post(this::toLoginActivity);
+//                            }
+//                        });
+//                    }
+//                    else{
+//                        Model.instance.signOut();
+//                        Model.instance.clearCaches();
+//                        Model.instance.getMainThread().post(this::toLoginActivity);
+//                    }
+//                });
+//            }
+//            else{
                 Model.instance.clearCaches();
                 Model.instance.getMainThread().post(this::toLoginActivity);
-            }
+//            }
         });
     }
 
