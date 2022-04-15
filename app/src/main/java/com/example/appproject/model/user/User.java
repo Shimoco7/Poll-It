@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,13 +17,14 @@ public class User {
 
     @PrimaryKey
     @NonNull
+    @SerializedName("_id")
     String uid;
     @NonNull
     String email;
     String name="";
     String address="";
-    String gender;
-    String profilePicUrl;
+    String gender="";
+    String profilePicUrl="";
     Long lastUpdateDate;
 
     public User() { }

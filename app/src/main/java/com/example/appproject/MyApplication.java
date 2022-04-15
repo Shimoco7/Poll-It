@@ -73,4 +73,37 @@ public class MyApplication extends Application {
         return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.profile_pic_url),"");
     }
 
+    public static void setAccessToken(String accessToken) {
+        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                .edit()
+                .putString(context.getString(R.string.access_token),accessToken)
+                .apply();
+    }
+
+    public static String getAccessToken(){
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.access_token),"");
+    }
+
+    public static void setRefreshToken(String refreshToken) {
+        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                .edit()
+                .putString(context.getString(R.string.refresh_token),refreshToken)
+                .apply();
+    }
+
+    public static String getRefreshToken(){
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.refresh_token),"");
+    }
+
+    public static void setGender(String gender) {
+        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                .edit()
+                .putString(context.getString(R.string.gender),gender)
+                .apply();
+    }
+
+    public static String getGender(){
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.gender),"");
+    }
+
 }

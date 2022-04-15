@@ -36,6 +36,7 @@
     <string name="invalid_password">Invalid Password</string>
     <string name="invalid_email_address">Invalid Email Address</string>
     <string name="registration_failed">Registration Failed</string>
+    <string name="registration_details_needed">Registration Details are needed</string>
     <string name="user_already_exists">User is already exists</string>
     <string name="success">Success</string>
     <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
@@ -64,8 +65,12 @@
     <string name="users_list_last_update_date">users_list_last_update_date</string>
     <string name="user_email">user_email</string>
     <string name="user_name">user_name</string>
+    <string name="gender">gender</string>
     <string name="user_address">user_address</string>
     <string name="profile_pic_url">profile_pic_url</string>
+    <string name="access_token">access_token</string>
+    <string name="refresh_token">refresh_token</string>
+
     <string name="question_1">Question 1:</string>
 
 

@@ -86,8 +86,8 @@ public class Model {
         modelNode.register(emailAddress,password,userListener);
     }
 
-    public void signIn(String emailAddress, String password, UserListener userListener) {
-        modelFirebaseAuth.signIn(emailAddress,password, userListener);
+    public void login(String emailAddress, String password, UserListener userListener) {
+        modelNode.login(emailAddress,password, userListener);
     }
 
     public boolean isSignedIn(){

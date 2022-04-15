@@ -70,33 +70,33 @@ public class ModelFirebaseAuth {
 //        });
 //    }
 
-    public void signIn(String emailAddress, String password, UserListener userListener){
-        Model.instance.getExecutor().execute(()->{
-            mAuth.signInWithEmailAndPassword(emailAddress, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            assert user != null;
-                            Model.instance.modelFirebaseDb.getUserById(user.getUid(), list->{
-                                User u = list.get(0);
-                                MyApplication.setUserEmail(u.getEmail());
-                                MyApplication.setUserName(u.getName());
-                                MyApplication.setUserAddress(u.getAddress());
-                                MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
-                            });
-                            Model.instance.getMainThread().post(()->{
-//                                userListener.onComplete(user, appContext.getString(R.string.success));
-                            });
-                        } else {
-                            Log.d("TAG", "signInWithEmail:failure", task.getException());
-                            Model.instance.getMainThread().post(()->{
-                                userListener.onComplete(null, null);
-                            });
-                        }
-                    });
-        });
-    }
+//    public void signIn(String emailAddress, String password, UserListener userListener){
+//        Model.instance.getExecutor().execute(()->{
+//            mAuth.signInWithEmailAndPassword(emailAddress, password)
+//                    .addOnCompleteListener(task -> {
+//                        if (task.isSuccessful()) {
+//                            Log.d("TAG", "signInWithEmail:success");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            assert user != null;
+//                            Model.instance.modelFirebaseDb.getUserById(user.getUid(), list->{
+//                                User u = list.get(0);
+//                                MyApplication.setUserEmail(u.getEmail());
+//                                MyApplication.setUserName(u.getName());
+//                                MyApplication.setUserAddress(u.getAddress());
+//                                MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
+//                            });
+//                            Model.instance.getMainThread().post(()->{
+////                                userListener.onComplete(user, appContext.getString(R.string.success));
+//                            });
+//                        } else {
+//                            Log.d("TAG", "signInWithEmail:failure", task.getException());
+//                            Model.instance.getMainThread().post(()->{
+//                                userListener.onComplete(null, null);
+//                            });
+//                        }
+//                    });
+//        });
+//    }
 
 
     public void signOut() {

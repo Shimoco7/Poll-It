@@ -127,18 +127,18 @@ public class FragmentSignIn extends Fragment {
                 }
             } else {
                 General.progressBarOn(getActivity(), container, progressBar);
-                Model.instance.signIn(emailAddress.getText().toString().trim(), password.getText().toString().trim(), (user, message) -> {
+                Model.instance.login(emailAddress.getText().toString().trim(), password.getText().toString().trim(), (user, message) -> {
                     if (user != null) {
-                        Model.instance.isFinishedRegistration(isFinished -> {
-                            if(isFinished){
-                                Intent intent = new Intent(getContext(), MainActivity.class);
-                                startActivity(intent);
-                                Objects.requireNonNull(getActivity()).finish();
-                            } else {
-                                Navigation.findNavController(v).navigate(R.id.fragmentUserDetails);
-                            }
-                        });
-                    } else {
+                        if(message.equals(getString(R.string.success))){
+                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            startActivity(intent);
+                            Objects.requireNonNull(getActivity()).finish();
+                        }
+                        else if(message.equals(getString(R.string.registration_details_needed))){
+                            Navigation.findNavController(v).navigate(R.id.fragmentUserDetails);
+                        }
+                    }
+                    else {
                         General.progressBarOff(getActivity(), container, progressBar);
                         Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
                             password.setText("");

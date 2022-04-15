@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,11 +19,8 @@ import android.widget.ProgressBar;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
-import com.example.appproject.model.user.User;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.ArrayList;
 
 
 public class FragmentRegister extends Fragment {
@@ -35,7 +31,6 @@ public class FragmentRegister extends Fragment {
     ProgressBar progressBar;
     TextInputLayout emailLayout,passwordLayout,confirmLayout;
     Boolean isPassEmpty=true,isEmailEmpty=true,isConfirmEmpty=true;
-    MenuItem backMenu;
     Boolean failToCreate=false;
 
     @Override
@@ -160,7 +155,6 @@ public class FragmentRegister extends Fragment {
 
             else {
                 General.progressBarOn(getActivity(), container, progressBar);
-                ArrayList<String> errors = new ArrayList<>();
                 if (!Model.instance.validateEmailAddress(email.getText().toString().trim())) {
                     Snackbar.make(getView(),getString(R.string.invalid_email_address),Snackbar.LENGTH_LONG).show();
                     failToCreate=true;
