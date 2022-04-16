@@ -331,7 +331,7 @@ public class Model {
     }
 
     public void refreshQuestions() {
-        modelFirebaseDb.getQuestions(questions ->
+        modelNode.getQuestions(questions ->
                 executor.execute(() -> {
                     for (Question question : questions) {
                         AppLocalDb.db.questionDao().insertAll(question);

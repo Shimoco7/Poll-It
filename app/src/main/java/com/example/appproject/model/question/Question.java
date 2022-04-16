@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +17,10 @@ public class Question {
 
     @PrimaryKey
     @NonNull
+    @SerializedName("_id")
     public String questionId;
     public String question;
+    @SerializedName("multi_choice")
     public List<String> multiChoice;
 
     public Question() { }
