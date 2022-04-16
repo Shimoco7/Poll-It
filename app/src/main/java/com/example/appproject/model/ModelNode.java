@@ -5,11 +5,11 @@ import android.util.Log;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.question.Question;
-import com.example.appproject.model.user.BooleanListener;
+import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.user.LoginResult;
-import com.example.appproject.model.user.RegisterResult;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.user.UserListener;
 import java.io.IOException;
@@ -78,7 +78,7 @@ public class ModelNode {
                 Model.instance.getMainThread().post(()->{
                     userListener.onComplete(null, "Ops, We Ran Into An Issue...");
                 });
-                Log.d("TAG" , "FAILURE: " + t.getMessage());
+                Log.e("TAG" , "Register FAILURE: " + t.getMessage());
             }
         });
     }
@@ -118,7 +118,7 @@ public class ModelNode {
                     }
                 }
                 else{
-                    Log.d("TAG", "signInWithEmail:failure - " + response.code());
+                    Log.e("TAG", "signInWithEmail:failure - " + response.code());
                     Model.instance.getMainThread().post(()->{
                         userListener.onComplete(null, "Response code from server: " + response.code());
                     });
@@ -127,7 +127,7 @@ public class ModelNode {
 
             @Override
             public void onFailure(Call<LoginResult> call, Throwable t) {
-                Log.d("TAG", "signInWithEmail:failure", t.getCause());
+                Log.e("TAG", "signInWithEmail:failure", t.getCause());
                 Model.instance.getMainThread().post(()->{
                     userListener.onComplete(null, null);
                 });
@@ -148,6 +148,7 @@ public class ModelNode {
                     assert tokenResult != null;
                     MyApplication.setAccessToken(tokenResult.getAccessToken());
                     MyApplication.setRefreshToken(tokenResult.getRefreshToken());
+                    Log.d("TAG","refresh token: " + tokenResult.getRefreshToken());
                     booleanListener.onComplete(true);
                 }
                 else{
@@ -158,6 +159,31 @@ public class ModelNode {
             @Override
             public void onFailure(Call<RefreshTokenResult> call, Throwable t) {
                 booleanListener.onComplete(false);
+            }
+        });
+    }
+
+    public void signOut(VoidListener listener){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("refresh_token", MyApplication.getRefreshToken());
+
+        Call<Void> call = methodsInterface.logout(map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete();
+                }
+                else{
+                    listener.onComplete();
+                    Log.e("TAG" , "Logout FAILURE: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("TAG" , "Logout FAILURE: " + t.getMessage());
+                listener.onComplete();
             }
         });
     }
@@ -180,14 +206,14 @@ public class ModelNode {
                     listener.onComplete(questions);
                 }
                 else{
-                    Log.d("TAG", "getAllQuestions:failure " + response.code());
+                    Log.d("TAG", "getAllQuestions FAILURE: " + response.code());
                     listener.onComplete(null);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Question>> call, Throwable t) {
-                Log.d("TAG", "getAllQuestions:failure", t.getCause());
+                Log.d("TAG" , "getAllQuestions FAILURE: " + t.getMessage());
                 listener.onComplete(null);
             }
         });

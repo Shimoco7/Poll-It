@@ -13,10 +13,8 @@ import com.example.appproject.model.poll.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.SavePollAnswerListener;
-import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.detail.SaveDetailListener;
-import com.example.appproject.model.question.Question;
-import com.example.appproject.model.user.BooleanListener;
+import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -107,20 +105,20 @@ public class ModelFirebaseDb {
                 });
     }
 
-    public void getQuestions(GetQuestionsListener listener){
-        db.collection(MyApplication.getContext().getString(R.string.questions_collection))
-                .get()
-                .addOnCompleteListener(task -> {
-                    List<Question> list = new ArrayList<>();
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot doc : task.getResult()){
-                            Question question = Question.create(doc.getData());
-                            list.add(question);
-                        }
-                    }
-                    listener.onComplete(list);
-                });
-    }
+//    public void getQuestions(GetQuestionsListener listener){
+//        db.collection(MyApplication.getContext().getString(R.string.questions_collection))
+//                .get()
+//                .addOnCompleteListener(task -> {
+//                    List<Question> list = new ArrayList<>();
+//                    if(task.isSuccessful()){
+//                        for(QueryDocumentSnapshot doc : task.getResult()){
+//                            Question question = Question.create(doc.getData());
+//                            list.add(question);
+//                        }
+//                    }
+//                    listener.onComplete(list);
+//                });
+//    }
 
     public void updateUser(String userId, String key, String value, SaveUserListener saveUserListener) {
         DocumentReference docRef = db.collection(MyApplication.getContext().getString(R.string.users_collection)).document(userId);

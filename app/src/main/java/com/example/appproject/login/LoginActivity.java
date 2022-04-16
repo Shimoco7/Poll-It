@@ -11,8 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.appproject.R;
-import com.example.appproject.model.Model;
-import com.example.appproject.model.user.BooleanListener;
 
 public class LoginActivity extends AppCompatActivity {
 

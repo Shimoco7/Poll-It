@@ -18,6 +18,7 @@ import com.example.appproject.model.detail.GetAllDetailsListener;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
+import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.poll.GetPollQuestionListener;
 import com.example.appproject.model.poll.GetPollQuestionsListener;
@@ -32,7 +33,7 @@ import com.example.appproject.model.poll.SavePollAnswerListener;
 import com.example.appproject.model.question.GetPollListener;
 import com.example.appproject.model.question.GetQuestionsLocalDBListener;
 import com.example.appproject.model.question.Question;
-import com.example.appproject.model.user.BooleanListener;
+import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.user.SaveImageListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -58,7 +59,6 @@ public class Model {
 
     public static final Model instance = new Model();
     ModelFirebaseDb modelFirebaseDb = new ModelFirebaseDb();
-    ModelFirebaseAuth modelFirebaseAuth = new ModelFirebaseAuth();
     ModelFirebaseStorage modelFirebaseStorage = new ModelFirebaseStorage();
     ModelNode modelNode = new ModelNode();
     Executor executor = Executors.newSingleThreadExecutor();
@@ -101,8 +101,11 @@ public class Model {
          modelNode.isSignedIn(booleanListener);
     }
 
-    public void signOut() {
-        modelFirebaseAuth.signOut();
+    public void signOut(VoidListener listener) {
+        modelNode.signOut(()->{
+            Model.instance.clearCaches();
+            listener.onComplete();
+        });
     }
 
     public boolean validateEmailAddress(String emailAddress) {
@@ -127,8 +130,6 @@ public class Model {
         executor.execute(()->{
             AppLocalDb.db.clearAllTables();
             MyApplication.getContext().getSharedPreferences("Status",Context.MODE_PRIVATE).edit().clear().apply();
-            MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
-                   MyApplication.getContext().getString(R.string.users_list_last_update_date),0).apply();
         });
     }
 

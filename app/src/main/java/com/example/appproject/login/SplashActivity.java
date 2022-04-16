@@ -9,6 +9,7 @@ import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
+import com.google.android.material.snackbar.Snackbar;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -35,10 +36,10 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Model.instance.signOut();
-                    Model.instance.clearCaches();
-                    Model.instance.getMainThread().post(()->{
-                        toLoginActivity(false);
+                    Model.instance.signOut(()->{
+                        Model.instance.getMainThread().post(()->{
+                            toLoginActivity(false);
+                        });
                     });
                 }
             });

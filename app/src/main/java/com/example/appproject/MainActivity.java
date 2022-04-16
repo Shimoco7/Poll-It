@@ -62,15 +62,19 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
         alert.setMessage("Are you sure ?")
                 .setPositiveButton("Logout", (dialog, which) -> {
-                    Model.instance.signOut(); // Last step. Logout function
-                    toLoginActivity();
+                    Model.instance.signOut(()->{
+                       Model.instance.getMainThread().post(()->{
+                           toLoginActivity(false);
+                       });
+                    });
                 }).setNegativeButton("Cancel", null);
         AlertDialog alert1 = alert.create();
         alert1.show();
     }
 
-    private void toLoginActivity() {
+    private void toLoginActivity(Boolean isSignedIn) {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra(getString(R.string.is_signed_in),isSignedIn);
         startActivity(intent);
         finish();
     }
