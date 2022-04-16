@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.common.base.Stopwatch;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,10 @@ public class Question {
     public String questionId;
     public String question;
     public List<String> multiChoice;
+
+
+
+    Stopwatch stopwatch;
 
     public Question() { }
 
@@ -68,6 +74,19 @@ public class Question {
     }
     public void setMultiChoice(ArrayList<String> multiChoice) {
         this.multiChoice = multiChoice;
+    }
+
+    public Stopwatch getStopwatch() {
+        return stopwatch;
+
+    }
+
+    public void startWatch() {
+        
+        this.stopwatch.start();
+    }
+    public void Stopwatch() {
+        this.stopwatch.stop();
     }
 
 
