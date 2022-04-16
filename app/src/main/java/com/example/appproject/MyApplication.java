@@ -81,7 +81,7 @@ public class MyApplication extends Application {
     }
 
     public static String getAccessToken(){
-        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.access_token),"");
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.access_token),null);
     }
 
     public static void setRefreshToken(String refreshToken) {
@@ -92,7 +92,7 @@ public class MyApplication extends Application {
     }
 
     public static String getRefreshToken(){
-        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.refresh_token),"");
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.refresh_token),null);
     }
 
     public static void setGender(String gender) {

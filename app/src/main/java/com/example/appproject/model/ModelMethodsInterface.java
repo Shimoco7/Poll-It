@@ -11,8 +11,11 @@ import retrofit2.http.POST;
 
 public interface ModelMethodsInterface {
     @POST("/auth/register")
-    Call<RegisterResult> register(@Body HashMap<String,String> map);
+    Call<Void> register(@Body HashMap<String,String> map);
 
     @POST("/auth/login")
     Call<LoginResult> login(@Body HashMap<String,String> map);
+
+    @POST("/auth/refreshToken")
+    Call<RefreshTokenResult> refreshToken(@Body HashMap<String,String> map);
 }

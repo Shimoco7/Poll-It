@@ -18,27 +18,27 @@ public class ModelFirebaseAuth {
     Context appContext = MyApplication.getContext();
 
     public ModelFirebaseAuth() {
-        setAuthStateListener();
+//        setAuthStateListener();
     }
 
-    private void setAuthStateListener() {
-        authStateListener = firebaseAuth -> {
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (firebaseUser != null) {
-                String uid = firebaseUser.getUid();
-                MyApplication.setUserKey(uid);
-            } else {
-                Model.instance.clearCaches();
-                MyApplication.setUserKey("");
-            }
-        };
-        mAuth.addAuthStateListener(authStateListener);
-    }
+//    private void setAuthStateListener() {
+//        authStateListener = firebaseAuth -> {
+//            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//            if (firebaseUser != null) {
+//                String uid = firebaseUser.getUid();
+//                MyApplication.setUserKey(uid);
+//            } else {
+//                Model.instance.clearCaches();
+//                MyApplication.setUserKey("");
+//            }
+//        };
+//        mAuth.addAuthStateListener(authStateListener);
+//    }
 
-    public boolean isSignedIn(){
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        return currentUser != null;
-    }
+//    public boolean isSignedIn(){
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        return currentUser != null;
+//    }
 
 
 //    public void createUser(String emailAddress, String password, UserListener userListener) {

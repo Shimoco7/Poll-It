@@ -85,7 +85,7 @@ public class FragmentUserDisplayDetails extends Fragment {
             }
         });
 
-        General.progressBarOn(getActivity(),container,progressBar);
+        General.progressBarOn(getActivity(),container,progressBar,false);
         Model.instance.getUserWithPolls(userId,userWithPolls->{
             viewModel.setUserFilledPolls(userWithPolls);
             Model.instance.getUserById(userId,user->{
@@ -126,7 +126,7 @@ public class FragmentUserDisplayDetails extends Fragment {
                         });
                     }
                 }
-                General.progressBarOff(getActivity(),container,progressBar);
+                General.progressBarOff(getActivity(),container,progressBar,true);
             });
 
         });

@@ -154,7 +154,7 @@ public class FragmentRegister extends Fragment {
             }
 
             else {
-                General.progressBarOn(getActivity(), container, progressBar);
+                General.progressBarOn(getActivity(), container, progressBar,false);
                 if (!Model.instance.validateEmailAddress(email.getText().toString().trim())) {
                     Snackbar.make(getView(),getString(R.string.invalid_email_address),Snackbar.LENGTH_LONG).show();
                     failToCreate=true;
@@ -175,17 +175,17 @@ public class FragmentRegister extends Fragment {
                     failToCreate=true;
                 }
                 if (failToCreate) {
-                    General.progressBarOff(getActivity(), container, progressBar);
+                    General.progressBarOff(getActivity(), container, progressBar,true);
                     return;
                 }
 
                 Model.instance.register(email.getText().toString().trim(), password.getText().toString().trim(),(user, message) -> {
                         if (user != null) {
-                            General.progressBarOff(getActivity(), container, progressBar);
+                            General.progressBarOff(getActivity(), container, progressBar,true);
                             afterRegisterFlow();
                         }
                         else {
-                            General.progressBarOff(getActivity(), container, progressBar);
+                            General.progressBarOff(getActivity(), container, progressBar,true);
                             Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
                         }
                     }

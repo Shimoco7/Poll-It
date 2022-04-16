@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.user.BooleanListener;
 import com.example.appproject.model.user.LoginResult;
 import com.example.appproject.model.user.RegisterResult;
 import com.example.appproject.model.user.User;
@@ -33,23 +34,21 @@ public class ModelNode {
         methodsInterface = retrofit.create(ModelMethodsInterface.class);
     }
 
+    /**
+    * Authentication
+    *
+    */
     public void register(String emailAddress, String password, UserListener userListener) {
         HashMap<String, String> map = new HashMap<>();
         map.put("email", emailAddress);
         map.put("password", password);
 
-        Call<RegisterResult> call = methodsInterface.register(map);
-        call.enqueue(new Callback<RegisterResult>() {
+        Call<Void> call = methodsInterface.register(map);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code() == 200){
-                    RegisterResult registerResult = response.body();
-                    assert registerResult != null;
-                    MyApplication.setUserEmail(emailAddress);
-                    User u = new User(registerResult.getId(),emailAddress);
-                    Model.instance.getMainThread().post(()->{
-                        userListener.onComplete(u, appContext.getString(R.string.success));
-                    });
+                    Model.instance.login(emailAddress,password,userListener);
                 }
                 else if(response.code() == 400){
                     try {
@@ -70,7 +69,7 @@ public class ModelNode {
             }
 
             @Override
-            public void onFailure(Call<RegisterResult> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Model.instance.getMainThread().post(()->{
                     userListener.onComplete(null, "Ops, We Ran Into An Issue...");
                 });
@@ -129,6 +128,34 @@ public class ModelNode {
                 });
             }
         });
+    }
+
+    public void isSignedIn(BooleanListener booleanListener){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("refresh_token", MyApplication.getRefreshToken());
+
+        Call<RefreshTokenResult> call = methodsInterface.refreshToken(map);
+        call.enqueue(new Callback<RefreshTokenResult>() {
+            @Override
+            public void onResponse(Call<RefreshTokenResult> call, Response<RefreshTokenResult> response) {
+                if(response.code() == 200){
+                    RefreshTokenResult tokenResult = response.body();
+                    assert  tokenResult != null;
+                    MyApplication.setAccessToken(tokenResult.getAccessToken());
+                    MyApplication.setRefreshToken(tokenResult.getRefreshToken());
+                    booleanListener.onComplete(true);
+                }
+                else{
+                    booleanListener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RefreshTokenResult> call, Throwable t) {
+                booleanListener.onComplete(false);
+            }
+        });
+
     }
 }
 

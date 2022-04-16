@@ -87,11 +87,18 @@ public class Model {
     }
 
     public void login(String emailAddress, String password, UserListener userListener) {
-        modelNode.login(emailAddress,password, userListener);
+        modelNode.login(emailAddress,password, ((user, message) -> {
+            if(user != null){
+                executor.execute(()->{
+                    AppLocalDb.db.userDao().insertAll(user);
+                });
+            }
+            userListener.onComplete(user,message);
+        }));
     }
 
-    public boolean isSignedIn(){
-        return modelFirebaseAuth.isSignedIn();
+    public void isSignedIn(BooleanListener booleanListener){
+         modelNode.isSignedIn(booleanListener);
     }
 
     public void signOut() {
@@ -132,10 +139,6 @@ public class Model {
     
     MutableLiveData<List<User>> usersList = new MutableLiveData<>();
     MutableLiveData<UsersListLoadingState> usersListLoadingState = new MutableLiveData<>();
-
-    public void saveUserOnDb(User user, SaveUserListener saveUserListener) {
-        modelFirebaseDb.SaveUserOnDb(user, saveUserListener);
-    }
 
     public LiveData<List<User>> getUsers() {
         return usersList;
@@ -243,13 +246,6 @@ public class Model {
         modelFirebaseDb.updateUser(userId,key,value,saveUserListener);
     }
 
-    public void isFinishedRegistration(BooleanListener listener) {
-        modelFirebaseDb.isFinishedRegistration(listener);
-    }
-
-    public void isExist(BooleanListener listener){
-        modelFirebaseDb.isExist(listener);
-    }
 
     public void updateUpdateDateUser(String userId, SaveUserListener saveUserListener){
         modelFirebaseDb.updateUpdateDateUser(userId,saveUserListener);

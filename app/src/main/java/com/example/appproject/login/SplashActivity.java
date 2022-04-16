@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.appproject.MainActivity;
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
 
@@ -22,34 +23,31 @@ public class SplashActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-//            if(Model.instance.isSignedIn()){
-//                Model.instance.isExist(exist->{
-//                    if(exist){
-//                        Model.instance.isFinishedRegistration(isFinished -> {
-//                            if(isFinished){
-//                                Model.instance.getMainThread().post(this::toFeedActivity);
-//                            }
-//                            else{
-//                                Model.instance.getMainThread().post(this::toLoginActivity);
-//                            }
-//                        });
-//                    }
-//                    else{
-//                        Model.instance.signOut();
-//                        Model.instance.clearCaches();
-//                        Model.instance.getMainThread().post(this::toLoginActivity);
-//                    }
-//                });
-//            }
-//            else{
-                Model.instance.clearCaches();
-                Model.instance.getMainThread().post(this::toLoginActivity);
-//            }
+            Model.instance.isSignedIn(signedIn->{
+                if(signedIn){
+                    if(MyApplication.getGender() != null && !MyApplication.getGender().equals("")){
+                        Model.instance.getMainThread().post(this::toFeedActivity);
+                    }
+                    else{
+                        Model.instance.getMainThread().post(()->{
+                            toLoginActivity(true);
+                        });
+                    }
+                }
+                else{
+                    Model.instance.signOut();
+                    Model.instance.clearCaches();
+                    Model.instance.getMainThread().post(()->{
+                        toLoginActivity(false);
+                    });
+                }
+            });
         });
     }
 
-    private void toLoginActivity() {
+    private void toLoginActivity(Boolean isSignedIn) {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra(getString(R.string.is_signed_in),isSignedIn);
         startActivity(intent);
         finish();
     }

@@ -104,16 +104,16 @@ public class FragmentPollImage extends Fragment {
             });
             Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(),viewModel.getPollQuestion().getPollId(), map -> {
                 if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
-                    General.progressBarOn(getActivity(),container,progressBar);
+                    General.progressBarOn(getActivity(),container,progressBar,false);
                     Model.instance.getMainThread().post(() -> Picasso.get().load(map.get(viewModel.getPollQuestion().getPollQuestionId()).getAnswer()).memoryPolicy(MemoryPolicy.NO_CACHE).into(image, new Callback() {
                         @Override
                         public void onSuccess() {
-                            General.progressBarOff(getActivity(),container,progressBar);
+                            General.progressBarOff(getActivity(),container,progressBar,true);
                         }
 
                         @Override
                         public void onError(Exception e) {
-                            General.progressBarOff(getActivity(),container,progressBar);
+                            General.progressBarOff(getActivity(),container,progressBar,true);
                         }
                     }));
                 }
@@ -124,12 +124,12 @@ public class FragmentPollImage extends Fragment {
         });
         finishBtn = view.findViewById(R.id.imgpoll_btn_finish);
         finishBtn.setOnClickListener(v -> {
-            General.progressBarOn(getActivity(),container,progressBar);
+            General.progressBarOn(getActivity(),container,progressBar,false);
             if (bitMap == null) {
                 Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(),viewModel.getPollQuestion().getPollId(), map -> {
                     if (map.get(viewModel.getPollQuestion().getPollQuestionId()) != null) {
                         Model.instance.savePollAnswersOnDb(MyApplication.getUserKey(), viewModel.getPollQuestion().getPollId(), () -> {
-                            General.progressBarOff(getActivity(),container,progressBar);
+                            General.progressBarOff(getActivity(),container,progressBar,true);
                             Model.instance.updateUpdateDateUser(MyApplication.getUserKey(),()->{
                                 Model.instance.getMainThread().post(() -> {
                                     Navigation.findNavController(backBtn).navigate(FragmentPollImageDirections.actionFragmentPollImageToFragmentHomeScreen());
@@ -137,7 +137,7 @@ public class FragmentPollImage extends Fragment {
                             });
                         });
                     } else {
-                        General.progressBarOff(getActivity(),container,progressBar);
+                        General.progressBarOff(getActivity(),container,progressBar,true);
                         Snackbar.make(getView(), getString(R.string.no_image_upload), Snackbar.LENGTH_SHORT).show();
                     }
 

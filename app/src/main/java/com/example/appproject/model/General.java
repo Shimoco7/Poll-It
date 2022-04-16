@@ -19,19 +19,19 @@ public class General {
         }
     }
 
-    public static void progressBarOn(Activity activity, ViewGroup container, ProgressBar progressBar) {
+    public static void progressBarOn(Activity activity, ViewGroup container, ProgressBar progressBar, Boolean showBackButton) {
         Model.instance.getMainThread().post(()->{
             progressBar.setVisibility(View.VISIBLE);
             General.enableDisableClickView(container, false);
-            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(showBackButton);
         });
     }
 
-    public static void progressBarOff(Activity activity, ViewGroup container, ProgressBar progressBar) {
+    public static void progressBarOff(Activity activity, ViewGroup container, ProgressBar progressBar, Boolean showBackButton) {
         Model.instance.getMainThread().post(()->{
             progressBar.setVisibility(View.GONE);
             General.enableDisableClickView(container, true);
-            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(showBackButton);
         });
     }
 

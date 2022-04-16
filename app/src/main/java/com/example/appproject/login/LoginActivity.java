@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
+import com.example.appproject.model.user.BooleanListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         assert navHost != null;
         navController = navHost.getNavController();
         NavigationUI.setupActionBarWithNavController(this,navController);
-        if(Model.instance.isSignedIn()){
+        if(getIntent().getExtras().getBoolean(getString(R.string.is_signed_in))){
             navController.navigate(R.id.fragmentUserDetails);
         }
     }

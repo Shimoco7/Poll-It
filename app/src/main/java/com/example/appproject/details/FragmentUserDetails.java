@@ -109,7 +109,7 @@ public class FragmentUserDetails extends Fragment {
         });
 
         detailsViewModel.getQuestions().observe(getViewLifecycleOwner(), questionsList->refresh());
-        General.progressBarOn(getActivity(),container,detailsProgressBar);
+        General.progressBarOn(getActivity(),container,detailsProgressBar,false);
         Model.instance.refreshQuestions();
         return view;
     }
@@ -180,7 +180,7 @@ public class FragmentUserDetails extends Fragment {
         addressEt.setVisibility(View.VISIBLE);
         addressTi.setVisibility(View.VISIBLE);
         nextBtn.setVisibility(View.VISIBLE);
-        General.progressBarOff(getActivity(),container,detailsProgressBar);
+        General.progressBarOff(getActivity(),container,detailsProgressBar,false);
     }
 
     @SuppressLint("NotifyDataSetChanged")

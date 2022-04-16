@@ -90,14 +90,14 @@ public class FragmentPollQuestion extends Fragment {
 
         progressBar.setVisibility(View.GONE);
         setListeners();
-        General.progressBarOn(getActivity(),container,progressBar);
+        General.progressBarOn(getActivity(),container,progressBar,false);
         //Get only poll question and answers that are related to the user without the image question and its answer
         Model.instance.getAllAnswersByUserAndPollIds(MyApplication.getUserKey(),pollId,map->{
             if(map != null){
                 if(!map.isEmpty()){
                     viewModel.setPollMap(map);
                     Model.instance.getMainThread().post(()->{
-                        General.progressBarOff(getActivity(),container,progressBar);
+                        General.progressBarOff(getActivity(),container,progressBar,true);
                         setPoll();
                         setButtonsColor();
                     });
@@ -106,7 +106,7 @@ public class FragmentPollQuestion extends Fragment {
                     setPoll();
                     setButtonsColor();
                     Model.instance.getMainThread().post(()->{
-                        General.progressBarOff(getActivity(),container,progressBar);
+                        General.progressBarOff(getActivity(),container,progressBar,true);
                     });
                 }
             }
@@ -114,7 +114,7 @@ public class FragmentPollQuestion extends Fragment {
                 setPoll();
                 setButtonsColor();
                 Model.instance.getMainThread().post(()->{
-                    General.progressBarOff(getActivity(),container,progressBar);
+                    General.progressBarOff(getActivity(),container,progressBar,true);
                 });
             }
         });
@@ -232,7 +232,7 @@ public class FragmentPollQuestion extends Fragment {
                 return;
             if(isAnswerSelected()) {
                 if(viewModel.index==numOfQuestions-1) {
-                    General.progressBarOn(getActivity(),container,progressBar);
+                    General.progressBarOn(getActivity(),container,progressBar,false);
                     Model.instance.savePollAnswersOnLocalDb(viewModel.pollMap,()->{
                         Model.instance.getMainThread().post(()->{
                             Navigation.findNavController(nextBtn).navigate(FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage(viewModel.imagePollQuestionId));

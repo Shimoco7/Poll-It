@@ -178,16 +178,7 @@ public class ModelFirebaseDb {
                 });
     }
 
-    public void isExist(BooleanListener listener) {
-        db.collection(MyApplication.getContext().getString(R.string.users_collection))
-                .whereEqualTo("uid",MyApplication.getUserKey())
-                .get()
-                .addOnCompleteListener(task->{
-                    if(task.isSuccessful()){
-                        listener.onComplete(!task.getResult().isEmpty());
-                    }
-                });
-    }
+
 
     public void getPolls(GetPollsListener listener) {
         db.collection(MyApplication.getContext().getString(R.string.polls_collection))

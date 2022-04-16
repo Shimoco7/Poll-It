@@ -25,7 +25,7 @@ public class User {
     String address="";
     String gender="";
     String profilePicUrl="";
-    Long lastUpdateDate;
+    Long lastUpdateDate; //TODO - update last updated by new field on mongo (parse to date and then to Long)
 
     public User() { }
 

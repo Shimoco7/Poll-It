@@ -126,7 +126,7 @@ public class FragmentSignIn extends Fragment {
                     passwordLayout.setError("Please Enter Password");
                 }
             } else {
-                General.progressBarOn(getActivity(), container, progressBar);
+                General.progressBarOn(getActivity(), container, progressBar,false);
                 Model.instance.login(emailAddress.getText().toString().trim(), password.getText().toString().trim(), (user, message) -> {
                     if (user != null) {
                         if(message.equals(getString(R.string.success))){
@@ -139,7 +139,7 @@ public class FragmentSignIn extends Fragment {
                         }
                     }
                     else {
-                        General.progressBarOff(getActivity(), container, progressBar);
+                        General.progressBarOff(getActivity(), container, progressBar,true);
                         Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
                             password.setText("");
                         }).show();

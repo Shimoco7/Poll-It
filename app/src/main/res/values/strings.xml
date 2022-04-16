@@ -29,6 +29,7 @@
     <string name="address">Address (Country, City, Street, Number)</string>
     <string name="register">Register</string>
     <string name="sign_in">SIGN IN</string>
+    <string name="is_signed_in">is_signed_in</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="password_colon">Password:</string>
