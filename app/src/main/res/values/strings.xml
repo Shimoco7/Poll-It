@@ -67,6 +67,7 @@
     <string name="user_address">user_address</string>
     <string name="profile_pic_url">profile_pic_url</string>
     <string name="question_1">Question 1:</string>
+    <string name="you_ve_already_collected">You\'ve Already Collected</string>
 
 
 </resources>
