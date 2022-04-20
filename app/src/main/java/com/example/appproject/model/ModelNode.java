@@ -178,7 +178,7 @@ public class ModelNode {
                 }
                 else{
                     listener.onComplete();
-                    Log.e("TAG" , "Logout FAILURE: " + response.code());
+                    Log.w("TAG" , "Logout Warning: " + response.code());
                 }
             }
 
@@ -197,25 +197,26 @@ public class ModelNode {
      *
      */
 
-    public void updateUser(String userId, Map<String,String> map, VoidListener listener){
+    public void updateUser(String userId, Map<String,String> map, UserListener listener){
         map.put("_id",userId);
-        Call<Void> call = methodsInterface.updateUser("Bearer "+ MyApplication.getAccessToken(),map);
-        call.enqueue(new Callback<Void>() {
+        Call<User> call = methodsInterface.updateUser("Bearer "+ MyApplication.getAccessToken(),map);
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if(response.code() == 200){
-                    listener.onComplete();
+                    User user = response.body();
+                    listener.onComplete(user, appContext.getString(R.string.success));
                 }
                 else{
-                    listener.onComplete();
+                    listener.onComplete(null,null);
                     Log.e("TAG" , "Update user FAILURE: " + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Log.e("TAG" , "Logout FAILURE: " + t.getMessage());
-                listener.onComplete();
+                listener.onComplete(null,null);
             }
         });
     }

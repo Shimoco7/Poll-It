@@ -2,6 +2,7 @@ package com.example.appproject.model;
 
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.LoginResult;
+import com.example.appproject.model.user.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ public interface ModelMethodsInterface {
      */
 
     @POST("/auth/update")
-    Call<Void> updateUser(@Header("Authorization") String accessToken,@Body Map<String,String> map);
+    Call<User> updateUser(@Header("Authorization") String accessToken, @Body Map<String,String> map);
 
     @GET("detail_question/getAllDetailQuestions")
     Call<List<Question>> getAllQuestions(@Header("Authorization") String accessToken);

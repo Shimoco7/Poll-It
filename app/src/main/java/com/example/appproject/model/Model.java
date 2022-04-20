@@ -161,79 +161,79 @@ public class Model {
         executor.execute(()->{
             usersList.postValue(AppLocalDb.db.userDao().getAll());
         });
-        modelFirebaseDb.getUsers(list -> {
-            executor.execute(()->{
-                Long lud = 0L;
-                for(User user : list){
-                    AppLocalDb.db.userDao().insertAll(user);
-                    if(lud<user.getLastUpdateDate()){
-                        lud = user.getLastUpdateDate();
-                    }
-                }
-                //Update App User's List last update date
-                MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
-                        MyApplication.getContext().getString(R.string.users_list_last_update_date),lud).apply();
-                usersList.postValue(AppLocalDb.db.userDao().getAll());
-                List<String> userIds = new ArrayList<>();
-                for(User user : list){
-                    userIds.add(user.getUid());
-                }
-                modelFirebaseDb.getUsersWithDetails(userIds,details->{
-                    for(Detail d : details){
-                        executor.execute(()->{
-                            AppLocalDb.db.detailDao().insertAll(d);
-                        });
-                    }
-                });
-                modelFirebaseDb.getPollQuestionsAnswers(userIds,answers->{
-                    Map<String,List<String>> userPollIdsMap = new HashMap<>();
-                    Map<String,List<String>> pollsToDelete = new HashMap<>();
-                    Set<String> pollsToKeep = new HashSet<>();
-                    for(Answer a : answers){
-                        if(!userPollIdsMap.containsKey(a.getUserId())){
-                            userPollIdsMap.put(a.getUserId(),new ArrayList<>());
-                        }
-                        Objects.requireNonNull(userPollIdsMap.get(a.getUserId())).add(a.getPollId());
-                        if(a.getDeleted()){
-                            if(!pollsToDelete.containsKey(a.getUserId())){
-                                pollsToDelete.put(a.getUserId(),new ArrayList<>());
-                            }
-                            else{
-                                Objects.requireNonNull(pollsToDelete.get(a.getUserId())).add(a.getPollId());
-                            }
-                            executor.execute(()->{
-                                AppLocalDb.db.answerDao().delete(a);
-                            });
-                        }
-                        else{
-                            pollsToKeep.add(a.getPollId());
-                            executor.execute(()->{
-                                AppLocalDb.db.answerDao().insertAll(a);
-                            });
-                        }
-                    }
-                    for(Map.Entry<String,List<String>> entry : userPollIdsMap.entrySet()){
-                        String userId = entry.getKey();
-                        List<String> pollsIds = entry.getValue();
-                        for(String pollId : pollsIds){
-                            UserPollCrossRef userPollCrossRef = new UserPollCrossRef(userId,pollId);
-                            if(pollsToDelete.containsKey(userId)&&pollsToDelete.get(userId).contains(pollId)&&!pollsToKeep.contains(pollId)){
-                                executor.execute(()->{
-                                    AppLocalDb.db.pollDao().delete(userPollCrossRef);
-                                });
-                            }
-                            else{
-                                executor.execute(()->{
-                                    AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
-                                });
-                            }
-                        }
-
-                    }
-                    usersListLoadingState.postValue(UsersListLoadingState.loaded);
-                });
-            });
-        },lastUpdateDate);
+//        modelFirebaseDb.getUsers(list -> {
+//            executor.execute(()->{
+//                Long lud = 0L;
+//                for(User user : list){
+//                    AppLocalDb.db.userDao().insertAll(user);
+//                    if(lud<user.getLastUpdateDate()){
+//                        lud = user.getLastUpdateDate();
+//                    }
+//                }
+//                //Update App User's List last update date
+//                MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
+//                        MyApplication.getContext().getString(R.string.users_list_last_update_date),lud).apply();
+//                usersList.postValue(AppLocalDb.db.userDao().getAll());
+//                List<String> userIds = new ArrayList<>();
+//                for(User user : list){
+//                    userIds.add(user.getUid());
+//                }
+//                modelFirebaseDb.getUsersWithDetails(userIds,details->{
+//                    for(Detail d : details){
+//                        executor.execute(()->{
+//                            AppLocalDb.db.detailDao().insertAll(d);
+//                        });
+//                    }
+//                });
+//                modelFirebaseDb.getPollQuestionsAnswers(userIds,answers->{
+//                    Map<String,List<String>> userPollIdsMap = new HashMap<>();
+//                    Map<String,List<String>> pollsToDelete = new HashMap<>();
+//                    Set<String> pollsToKeep = new HashSet<>();
+//                    for(Answer a : answers){
+//                        if(!userPollIdsMap.containsKey(a.getUserId())){
+//                            userPollIdsMap.put(a.getUserId(),new ArrayList<>());
+//                        }
+//                        Objects.requireNonNull(userPollIdsMap.get(a.getUserId())).add(a.getPollId());
+//                        if(a.getDeleted()){
+//                            if(!pollsToDelete.containsKey(a.getUserId())){
+//                                pollsToDelete.put(a.getUserId(),new ArrayList<>());
+//                            }
+//                            else{
+//                                Objects.requireNonNull(pollsToDelete.get(a.getUserId())).add(a.getPollId());
+//                            }
+//                            executor.execute(()->{
+//                                AppLocalDb.db.answerDao().delete(a);
+//                            });
+//                        }
+//                        else{
+//                            pollsToKeep.add(a.getPollId());
+//                            executor.execute(()->{
+//                                AppLocalDb.db.answerDao().insertAll(a);
+//                            });
+//                        }
+//                    }
+//                    for(Map.Entry<String,List<String>> entry : userPollIdsMap.entrySet()){
+//                        String userId = entry.getKey();
+//                        List<String> pollsIds = entry.getValue();
+//                        for(String pollId : pollsIds){
+//                            UserPollCrossRef userPollCrossRef = new UserPollCrossRef(userId,pollId);
+//                            if(pollsToDelete.containsKey(userId)&&pollsToDelete.get(userId).contains(pollId)&&!pollsToKeep.contains(pollId)){
+//                                executor.execute(()->{
+//                                    AppLocalDb.db.pollDao().delete(userPollCrossRef);
+//                                });
+//                            }
+//                            else{
+//                                executor.execute(()->{
+//                                    AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
+//                                });
+//                            }
+//                        }
+//
+//                    }
+//                    usersListLoadingState.postValue(UsersListLoadingState.loaded);
+//                });
+//            });
+//        },lastUpdateDate);
     }
 
     public MutableLiveData<UsersListLoadingState> getUsersListLoadingState() {
@@ -244,8 +244,16 @@ public class Model {
         modelFirebaseStorage.saveImage(bitMap,imageName,folder,saveImageListener);
     }
 
-    public void updateUser(String userId, Map<String,String> map, VoidListener listener) {
-        modelNode.updateUser(userId,map,listener);
+    public void updateUser(String userId, Map<String,String> map, UserListener listener) {
+        modelNode.updateUser(userId,map,(user,message)->{
+            if(user != null && message.equals(MyApplication.getContext().getString(R.string.success))){
+                executor.execute(()-> AppLocalDb.db.userDao().insertAll(user));
+                listener.onComplete(user,message);
+            }
+            else{
+                listener.onComplete(null,null);
+            }
+        });
     }
 
 

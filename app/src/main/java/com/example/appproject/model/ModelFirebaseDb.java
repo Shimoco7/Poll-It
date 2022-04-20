@@ -39,21 +39,21 @@ public class ModelFirebaseDb {
     }
 
 
-    public void getUsers(GetUsersListener listener, Long lastUpdateDate){
-        db.collection(MyApplication.getContext().getString(R.string.users_collection))
-                .whereGreaterThanOrEqualTo("update_date",new Timestamp(lastUpdateDate,0))
-                .get()
-                .addOnCompleteListener(task -> {
-                   List<User> list = new ArrayList<>();
-                   if(task.isSuccessful()){
-                       for(QueryDocumentSnapshot doc : task.getResult()){
-                           User user = User.create(doc.getData());
-                           list.add(user);
-                       }
-                   }
-                   listener.onComplete(list);
-                });
-    }
+//    public void getUsers(GetUsersListener listener, Long lastUpdateDate){
+//        db.collection(MyApplication.getContext().getString(R.string.users_collection))
+//                .whereGreaterThanOrEqualTo("update_date",new Timestamp(lastUpdateDate,0))
+//                .get()
+//                .addOnCompleteListener(task -> {
+//                   List<User> list = new ArrayList<>();
+//                   if(task.isSuccessful()){
+//                       for(QueryDocumentSnapshot doc : task.getResult()){
+//                           User user = User.create(doc.getData());
+//                           list.add(user);
+//                       }
+//                   }
+//                   listener.onComplete(list);
+//                });
+//    }
 
 
 

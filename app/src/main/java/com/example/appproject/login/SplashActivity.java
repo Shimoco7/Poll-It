@@ -36,10 +36,9 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Model.instance.signOut(()->{
-                        Model.instance.getMainThread().post(()->{
-                            toLoginActivity(false);
-                        });
+                    Model.instance.getMainThread().post(()->{
+                        Model.instance.clearCaches();
+                        toLoginActivity(false);
                     });
                 }
             });

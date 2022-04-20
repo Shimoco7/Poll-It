@@ -151,7 +151,7 @@ public class FragmentUserImage extends Fragment {
                 if(d.getQuestion().equals("Gender")){
                     Map<String,String> map = new HashMap<>();
                     map.put("gender",d.getAnswer());
-                    Model.instance.updateUser(MyApplication.getUserKey(), map, ()->{
+                    Model.instance.updateUser(MyApplication.getUserKey(), map, (user,message)->{
                         MyApplication.setGender(d.getAnswer());
                     });
                 }
@@ -168,7 +168,15 @@ public class FragmentUserImage extends Fragment {
                     else{
                         Map<String,String> map = new HashMap<>();
                         map.put("profilePicUrl",url);
-                        Model.instance.updateUser(MyApplication.getUserKey(), map, this::toMainActivity);
+                        Model.instance.updateUser(MyApplication.getUserKey(), map, (user,message)->{
+                            if(user == null){
+                                Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again",v->{
+                                }).setAction("Next",v-> toMainActivity()).show();
+                            }
+                            else{
+                                toMainActivity();
+                            }
+                        });
                         MyApplication.setUserProfilePicUrl(url);
                     }
                 });

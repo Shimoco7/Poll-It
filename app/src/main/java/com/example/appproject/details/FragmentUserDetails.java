@@ -224,7 +224,7 @@ public class FragmentUserDetails extends Fragment {
         Map<String,String> map = new HashMap<>();
         map.put("name",nameEt.getText().toString().trim());
         map.put("address",addressEt.getText().toString().trim());
-        Model.instance.updateUser(MyApplication.getUserKey(),map,()->{
+        Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
             MyApplication.setUserName(nameEt.getText().toString().trim());
             MyApplication.setUserAddress(addressEt.getText().toString().trim());
         });

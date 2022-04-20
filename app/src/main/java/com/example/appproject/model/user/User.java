@@ -25,6 +25,7 @@ public class User {
     String address="";
     String gender="";
     String profilePicUrl="";
+    String updatedAt ="";
     Long lastUpdateDate; //TODO - update last updated by new field on mongo (parse to date and then to Long)
 
     public User() { }
@@ -40,25 +41,24 @@ public class User {
      * Factory
      *
      */
-    //TODO - remove
-    public static User create(Map<String, Object> data) {
-        String uid = (String) data.get("uid");
-        String email = (String) data.get("email");
-        String name = (String) data.get("name");
-        String gender = (String) data.get("gender");
-        String address = (String) data.get("address");
-        Timestamp ts = (Timestamp) data.get("update_date");
-        String profilePicUrl = (String) data.get("profile_pic_url");
 
-        assert ts != null;
+    //TODO - remove
+    public static User create(Map<String, String> data) {
+        String uid = data.get("_id");
+        String email = data.get("email");
+        String name = data.get("name");
+        String gender = data.get("gender");
+        String address = data.get("address");
+        String profilePicUrl = data.get("profilePicUrl");
+        String updatedAt = data.get("updatedAt");
+
         assert uid != null;
         assert email != null;
-        Long lastUpdateDate = ts.getSeconds();
 
         User user = new User(uid,email);
-        user.setLastUpdateDate(lastUpdateDate);
         user.setName(name);
         user.setAddress(address);
+        user.setUpdatedAt(updatedAt);
         if(profilePicUrl != null){
             user.setProfilePicUrl(profilePicUrl);
         }
@@ -69,16 +69,16 @@ public class User {
     }
 
     //TODO-remove
-    public Map<String,Object> toJson(){
-        Map<String,Object> json = new HashMap<>();
-        json.put("uid",uid);
-        json.put("email",email);
-        json.put("name",name);
-        json.put("address",address);
-        json.put("update_date", FieldValue.serverTimestamp());
-        json.put("profile_pic_url", profilePicUrl);
-        return json;
-    }
+//    public Map<String,Object> toJson(){
+//        Map<String,Object> json = new HashMap<>();
+//        json.put("uid",uid);
+//        json.put("email",email);
+//        json.put("name",name);
+//        json.put("address",address);
+//        json.put("update_date", FieldValue.serverTimestamp());
+//        json.put("profile_pic_url", profilePicUrl);
+//        return json;
+//    }
 
     @NonNull
     public String getUid() {
@@ -138,5 +138,11 @@ public class User {
         this.lastUpdateDate = lastUpdateDate;
     }
 
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
 
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
