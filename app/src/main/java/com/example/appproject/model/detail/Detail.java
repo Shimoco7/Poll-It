@@ -21,6 +21,7 @@ public class Detail {
     @NonNull
     @SerializedName("_id")
     public String detailId;
+    @SerializedName("accountId")
     @NonNull
     public String userUid;
     @NonNull
@@ -43,6 +44,7 @@ public class Detail {
      * Factory
      *
      */
+    //TODO - remove
     public static Detail create(Map<String, Object> data) {
         String userId = (String)data.get("uid");
         String detailId = (String)data.get("detail_id");
@@ -63,8 +65,8 @@ public class Detail {
     public Map<String,String> toJson(){
         Map<String,String> json = new HashMap<>();
         json.put("_id", detailId);
-        json.put("uid", userUid);
-        json.put("question_id", questionId);
+        json.put("accountId", userUid);
+        json.put("questionId", questionId);
         json.put("question",question);
         json.put("answer", answer);
         return json;

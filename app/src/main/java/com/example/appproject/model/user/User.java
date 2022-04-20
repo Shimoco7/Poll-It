@@ -40,6 +40,7 @@ public class User {
      * Factory
      *
      */
+    //TODO - remove
     public static User create(Map<String, Object> data) {
         String uid = (String) data.get("uid");
         String email = (String) data.get("email");
@@ -67,6 +68,7 @@ public class User {
         return user;
     }
 
+    //TODO-remove
     public Map<String,Object> toJson(){
         Map<String,Object> json = new HashMap<>();
         json.put("uid",uid);

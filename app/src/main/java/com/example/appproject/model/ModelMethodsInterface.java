@@ -42,7 +42,7 @@ public interface ModelMethodsInterface {
     @POST("/auth/update")
     Call<Void> updateUser(@Header("Authorization") String accessToken,@Body Map<String,String> map);
 
-    @GET("question/getAllQuestions")
+    @GET("detail_question/getAllDetailQuestions")
     Call<List<Question>> getAllQuestions(@Header("Authorization") String accessToken);
 
     @POST("/detail/create")

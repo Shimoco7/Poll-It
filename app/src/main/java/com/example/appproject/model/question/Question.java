@@ -21,8 +21,9 @@ public class Question {
     @NonNull
     @SerializedName("_id")
     public String questionId;
+    @SerializedName("detailQuestion")
     public String question;
-    @SerializedName("multi_choice")
+    @SerializedName("choices")
     public List<String> multiChoice;
 //    Stopwatch stopwatch;
 
@@ -47,6 +48,7 @@ public class Question {
      *
      */
 
+    //TODO - remove
     public static Question create(Map<String, Object> data) {
         String questionId = (String)data.get("question_id");
         String question = (String)data.get("question");

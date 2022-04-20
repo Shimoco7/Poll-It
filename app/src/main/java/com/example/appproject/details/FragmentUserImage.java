@@ -167,7 +167,7 @@ public class FragmentUserImage extends Fragment {
                     }
                     else{
                         Map<String,String> map = new HashMap<>();
-                        map.put("profile_pic_url",url);
+                        map.put("profilePicUrl",url);
                         Model.instance.updateUser(MyApplication.getUserKey(), map, this::toMainActivity);
                         MyApplication.setUserProfilePicUrl(url);
                     }

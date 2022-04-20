@@ -139,7 +139,7 @@ public class ModelNode {
 
     public void isSignedIn(BooleanListener booleanListener){
         HashMap<String, String> map = new HashMap<>();
-        map.put("refresh_token", MyApplication.getRefreshToken());
+        map.put("refreshToken", MyApplication.getRefreshToken());
 
         Call<RefreshTokenResult> call = methodsInterface.refreshToken(map);
         call.enqueue(new Callback<RefreshTokenResult>() {
@@ -167,7 +167,7 @@ public class ModelNode {
 
     public void signOut(VoidListener listener){
         HashMap<String, String> map = new HashMap<>();
-        map.put("refresh_token", MyApplication.getRefreshToken());
+        map.put("refreshToken", MyApplication.getRefreshToken());
 
         Call<Void> call = methodsInterface.logout(map);
         call.enqueue(new Callback<Void>() {
