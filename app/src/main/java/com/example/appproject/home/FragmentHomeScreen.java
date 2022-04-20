@@ -47,13 +47,13 @@ public class FragmentHomeScreen extends Fragment {
         swipeRefresh = view.findViewById(R.id.home_layout_poll_refresh);
         list = view.findViewById(R.id.home_poll_rv);
         Button feedBtn = view.findViewById(R.id.homescr_btn_feed);
-        Button mapsBtn = view.findViewById(R.id.homescr_btn_map);
+        //Button mapsBtn = view.findViewById(R.id.homescr_btn_map);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
         userName.setText(MyApplication.getUserName());
 
         feedBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentFeed())));
-        mapsBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionGlobalFragmentMap())));
+        //mapsBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionGlobalFragmentMap())));
 
         list.setHasFixedSize(true);
         int numOfColumns = 2;

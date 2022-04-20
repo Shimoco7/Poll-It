@@ -73,6 +73,9 @@
     <string name="refresh_token">refresh_token</string>
 
     <string name="question_1">Question 1:</string>
+    <string name="you_ve_already_collected">You\'ve Already Collected</string>
+    <string name="by">By</string>
+    <string name="collect_prize">Collect Prize</string>
 
 
 </resources>

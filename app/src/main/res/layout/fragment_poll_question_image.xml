@@ -2,19 +2,19 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ImageframeLayout"
+    android:id="@+id/pollImage_ImageframeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1E7E7"
     android:backgroundTint="#000000"
-    tools:context=".poll.FragmentPollQuestion">
+    tools:context=".poll.FragmentQuestionImage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/poll_question_title"
+            android:id="@+id/pollImage_question_title"
             android:layout_width="358dp"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/poll_ConstraintLayout"
+            android:id="@+id/pollImage_linearLayoutCompat4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -41,22 +41,32 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="70dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/poll_btn_line2"
+            app:layout_constraintBottom_toTopOf="@+id/pollImage_btn_line2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/poll_question_title">
+            app:layout_constraintTop_toBottomOf="@+id/pollImage_question_title">
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/poll_rv"
+                android:id="@+id/pollImage_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:scrollbarSize="3dp"
+                android:scrollbarThumbVertical="@color/white"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/poll_btn_line2"
+            android:id="@+id/pollImage_btn_line2"
             android:layout_width="0dp"
             android:layout_height="10dp"
             android:layout_marginStart="30dp"
@@ -64,14 +74,14 @@
             android:layout_marginBottom="28dp"
             android:backgroundTint="#978F8F"
             app:cornerRadius="100px"
-            app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
+            app:layout_constraintBottom_toTopOf="@+id/pollImage_materialCardView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView2"
+            android:id="@+id/pollImage_materialCardView2"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_marginBottom="45dp"
@@ -85,7 +95,7 @@
             app:strokeWidth="2dp">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/poll_txt_qnumber"
+                android:id="@+id/pollImage_txt_qnumber"
                 android:layout_width="154dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="50dp"
@@ -100,7 +110,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/poll_btn_left"
+            android:id="@+id/pollImage_btn_left"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_marginStart="24dp"
@@ -110,12 +120,12 @@
             app:cornerRadius="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/poll_btn_line2"
+            app:layout_constraintTop_toBottomOf="@+id/pollImage_btn_line2"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/poll_btn_right"
+            android:id="@+id/pollImage_btn_right"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_marginTop="33dp"
@@ -127,12 +137,12 @@
             app:cornerRadius="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/poll_btn_line2"
+            app:layout_constraintTop_toBottomOf="@+id/pollImage_btn_line2"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
 
         <ProgressBar
-            android:id="@+id/poll_question_progress_bar"
+            android:id="@+id/pollImage_question_progress_bar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
