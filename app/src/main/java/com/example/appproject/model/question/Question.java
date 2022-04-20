@@ -24,10 +24,7 @@ public class Question {
     public String question;
     @SerializedName("multi_choice")
     public List<String> multiChoice;
-
-
-
-    Stopwatch stopwatch;
+//    Stopwatch stopwatch;
 
     public Question() { }
 
@@ -80,18 +77,18 @@ public class Question {
         this.multiChoice = multiChoice;
     }
 
-    public Stopwatch getStopwatch() {
-        return stopwatch;
-
-    }
-
-    public void startWatch() {
-
-        this.stopwatch.start();
-    }
-    public void Stopwatch() {
-        this.stopwatch.stop();
-    }
+//    public Stopwatch getStopwatch() {
+//        return stopwatch;
+//
+//    }
+//
+//    public void startWatch() {
+//
+//        this.stopwatch.start();
+//    }
+//    public void Stopwatch() {
+//        this.stopwatch.stop();
+//    }
 
 
 }

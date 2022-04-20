@@ -82,10 +82,10 @@ public class FragmentPollQuestion extends Fragment {
         prevBtn=view.findViewById(R.id.poll_btn_left);
         progressBar = view.findViewById(R.id.poll_question_progress_bar);
         questionTitle = view.findViewById(R.id.poll_question_title);
-        answer1 = view.findViewById(R.id.poll_btn_op1);
-        answer2 = view.findViewById(R.id.poll_btn_op2);
-        answer3 = view.findViewById(R.id.poll_btn_op3);
-        answer4 = view.findViewById(R.id.poll_btn_op4);
+//        answer1 = view.findViewById(R.id.poll_btn_op1);
+//        answer2 = view.findViewById(R.id.poll_btn_op2);
+//        answer3 = view.findViewById(R.id.poll_btn_op3);
+//        answer4 = view.findViewById(R.id.poll_btn_op4);
         page= view.findViewById(R.id.poll_txt_qnumber);
 
         progressBar.setVisibility(View.GONE);
