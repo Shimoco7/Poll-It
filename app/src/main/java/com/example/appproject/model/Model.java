@@ -243,8 +243,8 @@ public class Model {
         modelFirebaseStorage.saveImage(bitMap,imageName,folder,saveImageListener);
     }
 
-    public void updateUser(String userId, String key,String value, SaveUserListener saveUserListener) {
-        modelFirebaseDb.updateUser(userId,key,value,saveUserListener);
+    public void updateUser(String userId, Map<String,String> map, VoidListener listener) {
+        modelNode.updateUser(userId,map,listener);
     }
 
 

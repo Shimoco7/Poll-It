@@ -15,6 +15,7 @@ import com.example.appproject.model.user.UserListener;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -194,6 +195,29 @@ public class ModelNode {
      *  User Details
      *
      */
+
+    public void updateUser(String userId, Map<String,String> map, VoidListener listener){
+        map.put("_id",userId);
+        Call<Void> call = methodsInterface.updateUser(map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete();
+                }
+                else{
+                    listener.onComplete();
+                    Log.e("TAG" , "Update user FAILURE: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("TAG" , "Logout FAILURE: " + t.getMessage());
+                listener.onComplete();
+            }
+        });
+    }
 
     public void getQuestions(GetQuestionsListener listener){
         Call<List<Question>> call = methodsInterface.getAllQuestions("Bearer "+ MyApplication.getAccessToken());

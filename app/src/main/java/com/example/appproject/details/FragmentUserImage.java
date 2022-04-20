@@ -31,6 +31,8 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FragmentUserImage extends Fragment {
 
@@ -149,11 +151,11 @@ public class FragmentUserImage extends Fragment {
         Model.instance.getAllDetails(MyApplication.getUserKey(), list -> {
             for (Detail d : list) {
                 if (d.getQuestion().equals("Gender")) {
-                    Model.instance.updateUser(d.getUserUid(), "gender", d.getAnswer(), () -> {
-                    });
+                    Map<String,String> map = new HashMap<>();
+                    map.put("gender",d.getAnswer());
+                    Model.instance.updateUser(d.getUserUid(), map, () -> {});
                 }
-                Model.instance.saveDetailOnRemoteDb(d, () -> {
-                });
+                Model.instance.saveDetailOnRemoteDb(d, () -> {});
             }
             if (bitMap == null) {
                 toMainActivity();
@@ -163,7 +165,9 @@ public class FragmentUserImage extends Fragment {
                         Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
                         General.progressBarOff(getActivity(), container, progressBar,true);
                     } else {
-                        Model.instance.updateUser(MyApplication.getUserKey(), "profile_pic_url", url, this::toMainActivity);
+                        Map<String,String> map = new HashMap<>();
+                        map.put("profile_pic_url",url);
+                        Model.instance.updateUser(MyApplication.getUserKey(), map, this::toMainActivity);
                         MyApplication.setUserProfilePicUrl(url);
                     }
                 });

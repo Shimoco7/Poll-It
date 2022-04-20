@@ -2,10 +2,10 @@ package com.example.appproject.model;
 
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.LoginResult;
-import com.example.appproject.model.user.RegisterResult;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -22,22 +22,25 @@ public interface ModelMethodsInterface {
      */
 
     @POST("/auth/register")
-    Call<Void> register(@Body HashMap<String,String> map);
+    Call<Void> register(@Body Map<String,String> map);
 
     @POST("/auth/login")
-    Call<LoginResult> login(@Body HashMap<String,String> map);
+    Call<LoginResult> login(@Body Map<String,String> map);
 
     @POST("/auth/refreshToken")
-    Call<RefreshTokenResult> refreshToken(@Body HashMap<String,String> map);
+    Call<RefreshTokenResult> refreshToken(@Body Map<String,String> map);
 
-    @DELETE("/auth/logout")
-    Call<Void> logout(@Body HashMap<String,String> map);
+    @POST("/auth/logout")
+    Call<Void> logout(@Body Map<String,String> map);
 
     /**
      *
      *  User Details
      *
      */
+
+    @POST("/auth/update")
+    Call<Void> updateUser(@Body Map<String,String> map);
 
     @GET("question/getAllQuestions")
     Call<List<Question>> getAllQuestions(@Header("Authorization") String accessToken);

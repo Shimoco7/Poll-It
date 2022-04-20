@@ -36,6 +36,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -222,10 +224,11 @@ public class FragmentUserDetails extends Fragment {
     }
 
     public void uploadDetailsToDB(){
-        Model.instance.updateUser(MyApplication.getUserKey(),"name",nameEt.getText().toString().trim(), ()->{
+        Map<String,String> map = new HashMap<>();
+        map.put("name",nameEt.getText().toString().trim());
+        map.put("address",addressEt.getText().toString().trim());
+        Model.instance.updateUser(MyApplication.getUserKey(),map,()->{
             MyApplication.setUserName(nameEt.getText().toString().trim());
-        });
-        Model.instance.updateUser(MyApplication.getUserKey(),"address",addressEt.getText().toString().trim(), ()->{
             MyApplication.setUserAddress(addressEt.getText().toString().trim());
         });
     }
