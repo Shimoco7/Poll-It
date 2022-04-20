@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_fragmentHomeScreen_to_fragmentUserDetails"
             app:destination="@id/fragmentUserDetails" />
+        <action
+            android:id="@+id/action_fragmentHomeScreen_to_fragmentRewardCenter"
+            app:destination="@id/fragmentRewardCenter" />
     </fragment>
     <fragment
         android:id="@+id/fragmentUserDetails"
@@ -117,4 +120,18 @@
             android:name="userId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentRewardCenter"
+        android:name="com.example.appproject.home.FragmentRewardCenter"
+        android:label="fragment_reward_center"
+        tools:layout="@layout/fragment_reward_center" >
+        <action
+            android:id="@+id/action_fragmentRewardCenter_to_fragmentPrize"
+            app:destination="@id/fragmentPrize" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPrize"
+        android:name="com.example.appproject.home.FragmentPrize"
+        android:label="fragment_prize"
+        tools:layout="@layout/fragment_prize" />
 </navigation>

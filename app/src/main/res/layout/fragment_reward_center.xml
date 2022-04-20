@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".FragmentRewardCenter">
+    tools:context=".home.FragmentRewardCenter">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/rewardCenter_img_logo"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rewardCenter_text_headtitle" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/rewardCenter_txt_poll"
+        android:id="@+id/rewardCenter_txt_coins"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_gravity="center"
@@ -124,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_txt_poll">
+        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_txt_coins">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/rewardCenter_layout_refresh"
