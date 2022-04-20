@@ -29,8 +29,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -150,21 +148,24 @@ public class FragmentUserImage extends Fragment {
         General.progressBarOn(getActivity(), container, progressBar,false);
         Model.instance.getAllDetails(MyApplication.getUserKey(), list -> {
             for (Detail d : list) {
-                if (d.getQuestion().equals("Gender")) {
+                if(d.getQuestion().equals("Gender")){
                     Map<String,String> map = new HashMap<>();
                     map.put("gender",d.getAnswer());
-                    Model.instance.updateUser(d.getUserUid(), map, () -> {});
+                    Model.instance.updateUser(MyApplication.getUserKey(), map, ()->{
+                        MyApplication.setGender(d.getAnswer());
+                    });
                 }
-                Model.instance.saveDetailOnRemoteDb(d, () -> {});
+                Model.instance.saveDetailToRemoteDb(d, () -> {});
             }
             if (bitMap == null) {
                 toMainActivity();
             } else {
-                Model.instance.saveImage(bitMap, MyApplication.getUserKey() + ".jpg","users_avatar/", url -> {
+                Model.instance.convertBitmapToString(bitMap,url->{
                     if (url == null) {
                         Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
                         General.progressBarOff(getActivity(), container, progressBar,true);
-                    } else {
+                    }
+                    else{
                         Map<String,String> map = new HashMap<>();
                         map.put("profile_pic_url",url);
                         Model.instance.updateUser(MyApplication.getUserKey(), map, this::toMainActivity);

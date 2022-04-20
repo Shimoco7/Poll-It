@@ -105,7 +105,7 @@ public class FragmentUserDetails extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setInputListeners();
         nextBtn.setOnClickListener(v -> {
-            if(!allDetailsFilled()){ return; };
+            if(!allDetailsFilled()){ return; }
             uploadDetailsToDB();
             Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
         });
@@ -139,7 +139,6 @@ public class FragmentUserDetails extends Fragment {
                     isNameEmpty =true;
                 }
 
-
                 if(!Model.instance.validateName(s.toString())){
                     nameTi.setError("Invalid Name");
                 }
@@ -147,8 +146,6 @@ public class FragmentUserDetails extends Fragment {
                     nameTi.setError(null);
                     nameTi.setHelperTextEnabled(true);
                 }
-
-
             }
         });
 

@@ -6,6 +6,9 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.appproject.MyApplication;
+import com.google.gson.annotations.SerializedName;
+
+import org.bson.types.ObjectId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +19,7 @@ public class Detail {
 
     @PrimaryKey
     @NonNull
+    @SerializedName("_id")
     public String detailId;
     @NonNull
     public String userUid;
@@ -29,7 +33,7 @@ public class Detail {
     @Ignore
     public Detail(@NonNull String userUid,@NonNull String questionId,@NonNull String question, String answer) {
         this.userUid = userUid;
-        this.detailId = UUID.randomUUID().toString();
+        this.detailId = new ObjectId().toString();
         this.questionId = questionId;
         this.question = question;
         this.answer = answer;
@@ -56,10 +60,9 @@ public class Detail {
         return detail;
     }
 
-    public Map<String,Object> toJson(){
-        Map<String,Object> json = new HashMap<>();
-
-        json.put("detail_id", detailId);
+    public Map<String,String> toJson(){
+        Map<String,String> json = new HashMap<>();
+        json.put("_id", detailId);
         json.put("uid", userUid);
         json.put("question_id", questionId);
         json.put("question",question);

@@ -40,8 +40,11 @@ public interface ModelMethodsInterface {
      */
 
     @POST("/auth/update")
-    Call<Void> updateUser(@Body Map<String,String> map);
+    Call<Void> updateUser(@Header("Authorization") String accessToken,@Body Map<String,String> map);
 
     @GET("question/getAllQuestions")
     Call<List<Question>> getAllQuestions(@Header("Authorization") String accessToken);
+
+    @POST("/detail/create")
+    Call<Void> createDetail(@Header("Authorization") String accessToken,@Body Map<String,String> map);
 }

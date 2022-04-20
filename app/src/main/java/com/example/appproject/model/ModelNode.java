@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.question.Question;
@@ -198,7 +199,7 @@ public class ModelNode {
 
     public void updateUser(String userId, Map<String,String> map, VoidListener listener){
         map.put("_id",userId);
-        Call<Void> call = methodsInterface.updateUser(map);
+        Call<Void> call = methodsInterface.updateUser("Bearer "+ MyApplication.getAccessToken(),map);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -242,6 +243,31 @@ public class ModelNode {
             }
         });
     }
+
+    public void saveDetailToDb(Detail detail, VoidListener listener){
+        Map<String,String> map = detail.toJson();
+        Call<Void> call = methodsInterface.createDetail("Bearer "+ MyApplication.getAccessToken(),map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete();
+                }
+                else{
+                    listener.onComplete();
+                    Log.e("TAG" , "Create detail FAILURE: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("TAG" , "Create detail FAILURE: " + t.getMessage());
+                listener.onComplete();
+            }
+        });
+    }
+
+
 }
 
 

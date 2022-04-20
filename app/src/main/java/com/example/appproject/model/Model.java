@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Base64;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -16,7 +17,6 @@ import com.example.appproject.feed.GetUserByIdListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetAllDetailsListener;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
-import com.example.appproject.model.detail.SaveDetailListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.poll.Answer;
@@ -44,6 +44,7 @@ import com.example.appproject.model.user.UsersListLoadingState;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -265,8 +266,8 @@ public class Model {
         executor.execute(()-> AppLocalDb.db.detailDao().insertAll(detail));
     }
 
-    public void saveDetailOnRemoteDb(Detail detail, SaveDetailListener saveDetailListener) {
-        modelFirebaseDb.SaveDetailOnDb(detail, saveDetailListener);
+    public void saveDetailToRemoteDb(Detail detail, VoidListener listener) {
+        modelNode.saveDetailToDb(detail, listener);
     }
 
 
@@ -498,6 +499,18 @@ public class Model {
                 listener.onComplete();
             });
         });
+    }
+
+    /**
+     * Storage
+     *
+     */
+
+    public void convertBitmapToString(Bitmap bitmap,SaveImageListener listener){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[] data = baos.toByteArray();
+        listener.onComplete(Base64.encodeToString(data,Base64.DEFAULT));
     }
 
 }

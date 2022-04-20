@@ -13,8 +13,6 @@ import com.example.appproject.model.poll.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.SavePollAnswerListener;
-import com.example.appproject.model.detail.SaveDetailListener;
-import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.user.GetUsersListener;
 import com.example.appproject.model.user.SaveUserListener;
 import com.example.appproject.model.user.User;
@@ -40,13 +38,6 @@ public class ModelFirebaseDb {
         db.setFirestoreSettings(settings);
     }
 
-    public void SaveUserOnDb(User user, SaveUserListener saveUserListener) {
-        Map<String,Object> json = user.toJson();
-        db.collection(MyApplication.getContext().getString(R.string.users_collection))
-            .document(user.getUid())
-            .set(json)
-            .addOnSuccessListener(task->saveUserListener.onComplete());
-    }
 
     public void getUsers(GetUsersListener listener, Long lastUpdateDate){
         db.collection(MyApplication.getContext().getString(R.string.users_collection))
@@ -64,30 +55,7 @@ public class ModelFirebaseDb {
                 });
     }
 
-    public void getUserById(String uid,GetUsersListener listener){
-        db.collection(MyApplication.getContext().getString(R.string.users_collection))
-                .whereEqualTo("uid",uid)
-                .get()
-                .addOnCompleteListener(task -> {
-                   List<User> list = new ArrayList<>();
-                   if(task.isSuccessful()){
-                       for(QueryDocumentSnapshot doc : task.getResult()){
-                           User user = User.create(doc.getData());
-                           list.add(user);
-                       }
-                   }
 
-                   listener.onComplete(list);
-                });
-    }
-
-    public void SaveDetailOnDb(Detail detail, SaveDetailListener saveDetailListener) {
-        Map<String, Object> json = detail.toJson();
-        db.collection(MyApplication.getContext().getString(R.string.details_collection))
-                .document(detail.getDetailId())
-                .set(json)
-                .addOnSuccessListener(task->saveDetailListener.onComplete());
-    }
 
     public void getDetails(GetDetailsListener listener){
         db.collection(MyApplication.getContext().getString(R.string.details_collection))
@@ -105,27 +73,6 @@ public class ModelFirebaseDb {
                 });
     }
 
-//    public void getQuestions(GetQuestionsListener listener){
-//        db.collection(MyApplication.getContext().getString(R.string.questions_collection))
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                    List<Question> list = new ArrayList<>();
-//                    if(task.isSuccessful()){
-//                        for(QueryDocumentSnapshot doc : task.getResult()){
-//                            Question question = Question.create(doc.getData());
-//                            list.add(question);
-//                        }
-//                    }
-//                    listener.onComplete(list);
-//                });
-//    }
-
-    public void updateUser(String userId, String key, String value, SaveUserListener saveUserListener) {
-        DocumentReference docRef = db.collection(MyApplication.getContext().getString(R.string.users_collection)).document(userId);
-        docRef.update("update_date", FieldValue.serverTimestamp());
-        docRef.update(key,value)
-                .addOnCompleteListener(l->saveUserListener.onComplete());
-    }
 
     public void updateUpdateDateUser(String userId, SaveUserListener saveUserListener) {
         DocumentReference docRef = db.collection(MyApplication.getContext().getString(R.string.users_collection)).document(userId);
@@ -164,18 +111,6 @@ public class ModelFirebaseDb {
                     listener.onComplete(userLocation);
                 });
     }
-
-    public void isFinishedRegistration(BooleanListener listener) {
-        db.collection(MyApplication.getContext().getString(R.string.details_collection))
-                .whereEqualTo("uid",MyApplication.getUserKey())
-                .get()
-                .addOnCompleteListener(task->{
-                    if(task.isSuccessful()){
-                        listener.onComplete(!task.getResult().isEmpty());
-                    }
-                });
-    }
-
 
 
     public void getPolls(GetPollsListener listener) {

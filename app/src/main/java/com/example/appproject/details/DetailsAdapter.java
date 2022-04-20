@@ -14,18 +14,12 @@ import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.question.Question;
 
 import java.util.Objects;
-interface OnItemClickListener{
-    void onItemClick(int position);
-}
+
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder>{
 
     DetailsViewModel detailsViewModel;
     LayoutInflater layoutInflater;
-    OnItemClickListener listener;
 
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = listener;
-    }
     public DetailsAdapter(DetailsViewModel feedViewModel,LayoutInflater layoutInflater) {
         this.detailsViewModel = feedViewModel;
         this.layoutInflater = layoutInflater;
