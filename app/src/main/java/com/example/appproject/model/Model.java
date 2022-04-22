@@ -3,6 +3,7 @@ package com.example.appproject.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
@@ -18,6 +19,7 @@ import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.detail.GetAllDetailsListener;
 import com.example.appproject.model.detail.GetUserDetailByIdListener;
 import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
+import com.example.appproject.model.listeners.BitMapListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.poll.GetPollQuestionListener;
@@ -90,9 +92,18 @@ public class Model {
     public void login(String emailAddress, String password, UserListener userListener) {
         modelNode.login(emailAddress,password, ((user, message) -> {
             if(user != null){
-                executor.execute(()->{
-                    AppLocalDb.db.userDao().insertAll(user);
-                });
+                executor.execute(()-> AppLocalDb.db.userDao().insertAll(user));
+                if(message.equals(MyApplication.getContext().getString(R.string.success))){
+                    modelNode.getDetailsByUserId(MyApplication.getUserKey(),details->{
+                        if(details!=null){
+                            for(Detail d : details){
+                                executor.execute(()->{
+                                    AppLocalDb.db.detailDao().insertAll(d);
+                                });
+                            }
+                        }
+                    });
+                }
             }
             userListener.onComplete(user,message);
         }));
@@ -161,79 +172,6 @@ public class Model {
         executor.execute(()->{
             usersList.postValue(AppLocalDb.db.userDao().getAll());
         });
-//        modelFirebaseDb.getUsers(list -> {
-//            executor.execute(()->{
-//                Long lud = 0L;
-//                for(User user : list){
-//                    AppLocalDb.db.userDao().insertAll(user);
-//                    if(lud<user.getLastUpdateDate()){
-//                        lud = user.getLastUpdateDate();
-//                    }
-//                }
-//                //Update App User's List last update date
-//                MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putLong(
-//                        MyApplication.getContext().getString(R.string.users_list_last_update_date),lud).apply();
-//                usersList.postValue(AppLocalDb.db.userDao().getAll());
-//                List<String> userIds = new ArrayList<>();
-//                for(User user : list){
-//                    userIds.add(user.getUid());
-//                }
-//                modelFirebaseDb.getUsersWithDetails(userIds,details->{
-//                    for(Detail d : details){
-//                        executor.execute(()->{
-//                            AppLocalDb.db.detailDao().insertAll(d);
-//                        });
-//                    }
-//                });
-//                modelFirebaseDb.getPollQuestionsAnswers(userIds,answers->{
-//                    Map<String,List<String>> userPollIdsMap = new HashMap<>();
-//                    Map<String,List<String>> pollsToDelete = new HashMap<>();
-//                    Set<String> pollsToKeep = new HashSet<>();
-//                    for(Answer a : answers){
-//                        if(!userPollIdsMap.containsKey(a.getUserId())){
-//                            userPollIdsMap.put(a.getUserId(),new ArrayList<>());
-//                        }
-//                        Objects.requireNonNull(userPollIdsMap.get(a.getUserId())).add(a.getPollId());
-//                        if(a.getDeleted()){
-//                            if(!pollsToDelete.containsKey(a.getUserId())){
-//                                pollsToDelete.put(a.getUserId(),new ArrayList<>());
-//                            }
-//                            else{
-//                                Objects.requireNonNull(pollsToDelete.get(a.getUserId())).add(a.getPollId());
-//                            }
-//                            executor.execute(()->{
-//                                AppLocalDb.db.answerDao().delete(a);
-//                            });
-//                        }
-//                        else{
-//                            pollsToKeep.add(a.getPollId());
-//                            executor.execute(()->{
-//                                AppLocalDb.db.answerDao().insertAll(a);
-//                            });
-//                        }
-//                    }
-//                    for(Map.Entry<String,List<String>> entry : userPollIdsMap.entrySet()){
-//                        String userId = entry.getKey();
-//                        List<String> pollsIds = entry.getValue();
-//                        for(String pollId : pollsIds){
-//                            UserPollCrossRef userPollCrossRef = new UserPollCrossRef(userId,pollId);
-//                            if(pollsToDelete.containsKey(userId)&&pollsToDelete.get(userId).contains(pollId)&&!pollsToKeep.contains(pollId)){
-//                                executor.execute(()->{
-//                                    AppLocalDb.db.pollDao().delete(userPollCrossRef);
-//                                });
-//                            }
-//                            else{
-//                                executor.execute(()->{
-//                                    AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
-//                                });
-//                            }
-//                        }
-//
-//                    }
-//                    usersListLoadingState.postValue(UsersListLoadingState.loaded);
-//                });
-//            });
-//        },lastUpdateDate);
     }
 
     public MutableLiveData<UsersListLoadingState> getUsersListLoadingState() {
@@ -278,15 +216,6 @@ public class Model {
         modelNode.saveDetailToDb(detail, listener);
     }
 
-
-    public LiveData<List<Detail>> getDetails() {
-        if (detailsList == null) { refreshDetails(); };
-        return detailsList;
-
-    }
-    public void refreshDetails(){
-        modelFirebaseDb.getDetails(list -> detailsList.setValue(list));
-    }
 
     public void getUserDetailById(String userKey, String question, GetUserDetailByIdListener listener) {
         executor.execute(()->{
@@ -519,6 +448,12 @@ public class Model {
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
         byte[] data = baos.toByteArray();
         listener.onComplete(Base64.encodeToString(data,Base64.DEFAULT));
+    }
+
+    public void convertStringToBitMap(String base64PicUrl, BitMapListener listener){
+        byte[] decodedString = Base64.decode(base64PicUrl, Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
+        listener.onComplete(bitmap);
     }
 
 }

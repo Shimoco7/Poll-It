@@ -47,14 +47,12 @@ public class FragmentHomeScreen extends Fragment {
         swipeRefresh = view.findViewById(R.id.home_layout_poll_refresh);
         list = view.findViewById(R.id.home_poll_rv);
         Button feedBtn = view.findViewById(R.id.homescr_btn_feed);
-        //Button mapsBtn = view.findViewById(R.id.homescr_btn_map);
+
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
         userName.setText(MyApplication.getUserName());
 
         feedBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentFeed())));
-        //mapsBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionGlobalFragmentMap())));
-
         list.setHasFixedSize(true);
         int numOfColumns = 2;
         list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns,GridLayoutManager.VERTICAL,false));
@@ -69,7 +67,6 @@ public class FragmentHomeScreen extends Fragment {
 
         homeViewModel.getPolls().observe(getViewLifecycleOwner(),usersList->refresh());
         Model.instance.refreshPollsList();
-        Model.instance.refreshList();
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
             Model.instance.isPollFilled(MyApplication.getUserKey(), pollId, isFilled -> {

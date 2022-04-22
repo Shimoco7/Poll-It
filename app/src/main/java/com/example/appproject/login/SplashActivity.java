@@ -30,9 +30,7 @@ public class SplashActivity extends AppCompatActivity {
                         Model.instance.getMainThread().post(this::toFeedActivity);
                     }
                     else{
-                        Model.instance.getMainThread().post(()->{
-                            toLoginActivity(true);
-                        });
+                        Model.instance.getMainThread().post(()-> toLoginActivity(true));
                     }
                 }
                 else{

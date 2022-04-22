@@ -52,7 +52,6 @@ public class FragmentFeed extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         swipeRefresh = view.findViewById(R.id.feed_layout_refresh);
         list = view.findViewById(R.id.feed_rv);
-        MaterialButton mapBtn = view.findViewById(R.id.feed_btn_map);
         MaterialButton backBtn = view.findViewById(R.id.feed_back_btn);
 
         list.setHasFixedSize(true);
@@ -66,7 +65,6 @@ public class FragmentFeed extends Fragment {
         backBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();
         });
-        mapBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentFeedDirections.actionGlobalFragmentMap()));
         swipeRefresh.setOnRefreshListener(()->{
             Model.instance.refreshList();
             Model.instance.refreshPollsList();

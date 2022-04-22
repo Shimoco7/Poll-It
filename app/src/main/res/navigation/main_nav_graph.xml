@@ -87,15 +87,6 @@
             app:popUpTo="@id/fragmentHomeScreen" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentMap"
-        android:name="com.example.appproject.FragmentMap"
-        android:label="Users Around You"
-        tools:layout="@layout/fragment_map" >
-        <action
-            android:id="@+id/action_fragmentMap_to_fragmentUserDisplayDetails"
-            app:destination="@id/fragmentUserDisplayDetails" />
-    </fragment>
-    <fragment
         android:id="@+id/fragmentUserDisplayDetails"
         android:name="com.example.appproject.feed.FragmentUserDisplayDetails"
         android:label="Poll-It"
@@ -107,7 +98,6 @@
             android:id="@+id/action_fragmentUserDisplayDetails_to_fragmentOtherUserPoll"
             app:destination="@id/fragmentOtherUserPoll" />
     </fragment>
-    <action android:id="@+id/action_global_fragmentMap" app:destination="@id/fragmentMap" />
     <fragment
         android:id="@+id/fragmentOtherUserPoll"
         android:name="com.example.appproject.FragmentOtherUserPoll"

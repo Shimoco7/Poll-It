@@ -1,5 +1,6 @@
 package com.example.appproject.model;
 
+import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.LoginResult;
 import com.example.appproject.model.user.User;
@@ -14,6 +15,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ModelMethodsInterface {
     /**
@@ -48,4 +50,7 @@ public interface ModelMethodsInterface {
 
     @POST("/detail/create")
     Call<Void> createDetail(@Header("Authorization") String accessToken,@Body Map<String,String> map);
+
+    @GET("detail/getDetailsByAccountId/{accountId}")
+    Call<List<Detail>> getDetailsByUserId(@Header("Authorization") String accessToken, @Path("accountId") String accountId);
 }

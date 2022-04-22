@@ -39,41 +39,6 @@ public class ModelFirebaseDb {
     }
 
 
-//    public void getUsers(GetUsersListener listener, Long lastUpdateDate){
-//        db.collection(MyApplication.getContext().getString(R.string.users_collection))
-//                .whereGreaterThanOrEqualTo("update_date",new Timestamp(lastUpdateDate,0))
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                   List<User> list = new ArrayList<>();
-//                   if(task.isSuccessful()){
-//                       for(QueryDocumentSnapshot doc : task.getResult()){
-//                           User user = User.create(doc.getData());
-//                           list.add(user);
-//                       }
-//                   }
-//                   listener.onComplete(list);
-//                });
-//    }
-
-
-
-    public void getDetails(GetDetailsListener listener){
-        db.collection(MyApplication.getContext().getString(R.string.details_collection))
-                .whereEqualTo("uid", MyApplication.getUserKey())
-                .get()
-                .addOnCompleteListener(task -> {
-                    List<Detail> list = new ArrayList<>();
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot doc : task.getResult()){
-                            Detail detail = Detail.create(doc.getData());
-                            list.add(detail);
-                        }
-                    }
-                    listener.onComplete(list);
-                });
-    }
-
-
     public void updateUpdateDateUser(String userId, SaveUserListener saveUserListener) {
         DocumentReference docRef = db.collection(MyApplication.getContext().getString(R.string.users_collection)).document(userId);
         docRef.update("update_date", FieldValue.serverTimestamp()).addOnCompleteListener(l->{

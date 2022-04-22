@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.detail.GetDetailsListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.question.GetQuestionsListener;
 import com.example.appproject.model.question.Question;
@@ -109,14 +110,10 @@ public class ModelNode {
                         MyApplication.setGender(u.getGender());
                         MyApplication.setUserAddress(u.getAddress());
                         MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
-                        Model.instance.getMainThread().post(()->{
-                            userListener.onComplete(u, appContext.getString(R.string.success));
-                        });
+                        Model.instance.getMainThread().post(()-> userListener.onComplete(u, appContext.getString(R.string.success)));
                     }
                     else{
-                        Model.instance.getMainThread().post(()->{
-                            userListener.onComplete(u, appContext.getString(R.string.registration_details_needed));
-                        });
+                        Model.instance.getMainThread().post(()-> userListener.onComplete(u, appContext.getString(R.string.registration_details_needed)));
                     }
                 }
                 else{
@@ -269,6 +266,28 @@ public class ModelNode {
     }
 
 
+    public void getDetailsByUserId(String userKey, GetDetailsListener listener) {
+        Call<List<Detail>> call = methodsInterface.getDetailsByUserId("Bearer "+ MyApplication.getAccessToken(),userKey);
+        call.enqueue(new Callback<List<Detail>>() {
+            @Override
+            public void onResponse(Call<List<Detail>> call, Response<List<Detail>> response) {
+                if(response.code() == 200){
+                    List<Detail> details = response.body();
+                    listener.onComplete(details);
+                }
+                else{
+                    Log.e("TAG" , "Get Details by User Id FAILED: " + response.code());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Detail>> call, Throwable t) {
+                Log.e("TAG" , "Get Details by User Id FAILED: " + t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
 }
 
 
