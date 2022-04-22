@@ -170,8 +170,7 @@ public class FragmentUserImage extends Fragment {
                         map.put("profilePicUrl",url);
                         Model.instance.updateUser(MyApplication.getUserKey(), map, (user,message)->{
                             if(user == null){
-                                Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again",v->{
-                                }).setAction("Next",v-> toMainActivity()).show();
+                                Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again Later",v-> toMainActivity()).show();
                             }
                             else{
                                 toMainActivity();

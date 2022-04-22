@@ -44,23 +44,6 @@ public class Detail {
      * Factory
      *
      */
-    //TODO - remove
-    public static Detail create(Map<String, Object> data) {
-        String userId = (String)data.get("uid");
-        String detailId = (String)data.get("detail_id");
-        String questionId = (String)data.get("question_id");
-        String question = (String)data.get("question");
-        String answer = (String)data.get("answer");
-
-        assert userId != null;
-        assert answer != null;
-        assert questionId != null;
-        assert question != null;
-        assert detailId != null;
-        Detail detail = new Detail(userId,questionId, question,answer);
-        detail.setDetailId(detailId);
-        return detail;
-    }
 
     public Map<String,String> toJson(){
         Map<String,String> json = new HashMap<>();

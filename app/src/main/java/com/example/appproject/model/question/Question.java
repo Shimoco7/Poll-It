@@ -48,14 +48,6 @@ public class Question {
      *
      */
 
-    //TODO - remove
-    public static Question create(Map<String, Object> data) {
-        String questionId = (String)data.get("question_id");
-        String question = (String)data.get("question");
-        List<String> multiChoice = (List<String>)data.get("multi_choice");
-
-        return new Question(questionId,question,multiChoice);
-    }
 
     @NonNull
     public String getQuestionId() {
