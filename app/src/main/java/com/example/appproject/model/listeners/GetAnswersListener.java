@@ -1,4 +1,6 @@
-package com.example.appproject.model.poll;
+package com.example.appproject.model.listeners;
+
+import com.example.appproject.model.poll.Answer;
 
 import java.util.List;
 

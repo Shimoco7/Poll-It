@@ -57,9 +57,6 @@
         android:name="com.example.appproject.poll.FragmentPollQuestion"
         android:label="Active Poll"
         tools:layout="@layout/fragment_poll_question" >
-        <action
-            android:id="@+id/action_fragmentPollQuestion_to_fragmentPollImage"
-            app:destination="@id/fragmentPollImage" />
         <argument
             android:name="poll_id"
             app:argType="string" />
@@ -74,40 +71,12 @@
             app:destination="@id/fragmentUserDisplayDetails" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentPollImage"
-        android:name="com.example.appproject.poll.FragmentPollImage"
-        android:label="Active Poll"
-        tools:layout="@layout/fragment_poll_image" >
-        <argument
-            android:name="imagePollQuestionId"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_fragmentPollImage_to_fragmentHomeScreen"
-            app:destination="@id/fragmentHomeScreen"
-            app:popUpTo="@id/fragmentHomeScreen" />
-    </fragment>
-    <fragment
         android:id="@+id/fragmentUserDisplayDetails"
         android:name="com.example.appproject.feed.FragmentUserDisplayDetails"
         android:label="Poll-It"
         tools:layout="@layout/fragment_user_display_details">
         <argument
             android:name="userUid"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_fragmentUserDisplayDetails_to_fragmentOtherUserPoll"
-            app:destination="@id/fragmentOtherUserPoll" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragmentOtherUserPoll"
-        android:name="com.example.appproject.FragmentOtherUserPoll"
-        android:label="Poll Details"
-        tools:layout="@layout/fragment_other_user_poll">
-        <argument
-            android:name="pollId"
-            app:argType="string" />
-        <argument
-            android:name="userId"
             app:argType="string" />
     </fragment>
     <fragment

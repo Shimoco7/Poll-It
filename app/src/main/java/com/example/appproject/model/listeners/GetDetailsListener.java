@@ -1,5 +1,6 @@
-package com.example.appproject.model.detail;
+package com.example.appproject.model.listeners;
 
+import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.user.User;
 
 import java.util.List;

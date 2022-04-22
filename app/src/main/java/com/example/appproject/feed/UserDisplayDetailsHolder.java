@@ -26,7 +26,6 @@ public class UserDisplayDetailsHolder extends RecyclerView.ViewHolder {
     public void bind(Poll poll) {
         pollsName.setText(poll.getPollName());
         icon.setOnClickListener(v->{
-            Navigation.findNavController(v).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentOtherUserPoll(poll.getPollId(), viewModel.getUserId()));
         });
     }
 }

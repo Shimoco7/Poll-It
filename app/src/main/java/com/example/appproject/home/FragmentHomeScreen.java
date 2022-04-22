@@ -46,13 +46,11 @@ public class FragmentHomeScreen extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
         swipeRefresh = view.findViewById(R.id.home_layout_poll_refresh);
         list = view.findViewById(R.id.home_poll_rv);
-        Button feedBtn = view.findViewById(R.id.homescr_btn_feed);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
         userName.setText(MyApplication.getUserName());
 
-        feedBtn.setOnClickListener(Navigation.createNavigateOnClickListener((FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentFeed())));
         list.setHasFixedSize(true);
         int numOfColumns = 2;
         list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns,GridLayoutManager.VERTICAL,false));
@@ -69,34 +67,10 @@ public class FragmentHomeScreen extends Fragment {
         Model.instance.refreshPollsList();
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
-            Model.instance.isPollFilled(MyApplication.getUserKey(), pollId, isFilled -> {
-                Model.instance.getMainThread().post(() -> {
-                    if (isFilled) {
-                        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                            alert.setMessage("Are You Sure?")
-                                    .setPositiveButton("Edit", (dialog, which) -> {
-                                        Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
-                                    })
-                                    .setNegativeButton("Delete", (dialog, which) -> {
-                                        Model.instance.deletePoll(MyApplication.getUserKey(),pollId, ()->{
-                                            Model.instance.updateUpdateDateUser(MyApplication.getUserKey(), this::refresh);
-                                        });
-                                    })
-                                    .setNeutralButton("Cancel", null);
-                            AlertDialog alert1 = alert.create();
-                            alert1.show();
-                    }
-                    else{
-                        Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
-                    }
-                });
-            });
+            Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
         });
 
-        swipeRefresh.setOnRefreshListener(()->{
-            Model.instance.refreshPollsList();
-            Model.instance.refreshList();
-        });
+        swipeRefresh.setOnRefreshListener(Model.instance::refreshPollsList);
         observePollsLoadingState();
         return view;
     }

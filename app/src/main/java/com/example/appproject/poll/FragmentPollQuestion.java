@@ -235,7 +235,7 @@ public class FragmentPollQuestion extends Fragment {
                     General.progressBarOn(getActivity(),container,progressBar,false);
                     Model.instance.savePollAnswersOnLocalDb(viewModel.pollMap,()->{
                         Model.instance.getMainThread().post(()->{
-                            Navigation.findNavController(nextBtn).navigate(FragmentPollQuestionDirections.actionFragmentPollQuestionToFragmentPollImage(viewModel.imagePollQuestionId));
+
                         });
                     });
                 }

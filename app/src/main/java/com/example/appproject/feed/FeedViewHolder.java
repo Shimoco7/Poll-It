@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
+import com.example.appproject.model.listeners.OnItemClickListener;
 import com.example.appproject.model.user.User;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;

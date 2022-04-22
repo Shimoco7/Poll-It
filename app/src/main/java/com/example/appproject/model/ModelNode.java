@@ -6,14 +6,14 @@ import android.util.Log;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
-import com.example.appproject.model.detail.GetDetailsListener;
+import com.example.appproject.model.listeners.GetDetailsListener;
 import com.example.appproject.model.listeners.VoidListener;
-import com.example.appproject.model.question.GetQuestionsListener;
+import com.example.appproject.model.listeners.GetQuestionsListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.user.LoginResult;
 import com.example.appproject.model.user.User;
-import com.example.appproject.model.user.UserListener;
+import com.example.appproject.model.listeners.LoginListener;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +46,7 @@ public class ModelNode {
      *  Authentication
     *
     */
-    public void register(String emailAddress, String password, UserListener userListener) {
+    public void register(String emailAddress, String password, LoginListener loginListener) {
         HashMap<String, String> map = new HashMap<>();
         map.put("email", emailAddress);
         map.put("password", password);
@@ -56,19 +56,15 @@ public class ModelNode {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code() == 200){
-                    Model.instance.login(emailAddress,password,userListener);
+                    Model.instance.login(emailAddress,password, loginListener);
                 }
                 else if(response.code() == 400){
                     try {
                         if(response.errorBody().string().contains("already registered")){
-                            Model.instance.getMainThread().post(()->{
-                                userListener.onComplete(null, appContext.getString(R.string.user_already_exists));
-                            });
+                            Model.instance.getMainThread().post(()-> loginListener.onComplete(null, appContext.getString(R.string.user_already_exists)));
                         }
                         else{
-                            Model.instance.getMainThread().post(()->{
-                                userListener.onComplete(null, appContext.getString(R.string.registration_failed));
-                            });
+                            Model.instance.getMainThread().post(()-> loginListener.onComplete(null, appContext.getString(R.string.registration_failed)));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -78,9 +74,7 @@ public class ModelNode {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Model.instance.getMainThread().post(()->{
-                    userListener.onComplete(null, "Ops, We Ran Into An Issue...");
-                });
+                Model.instance.getMainThread().post(()-> loginListener.onComplete(null, "Ops, We Ran Into An Issue..."));
                 Log.e("TAG" , "Register FAILURE: " + t.getMessage());
             }
         });
@@ -88,7 +82,7 @@ public class ModelNode {
 
 
 
-    public void login(String emailAddress, String password, UserListener userListener){
+    public void login(String emailAddress, String password, LoginListener loginListener){
         HashMap<String, String> map = new HashMap<>();
         map.put("email", emailAddress);
         map.put("password", password);
@@ -110,16 +104,16 @@ public class ModelNode {
                         MyApplication.setGender(u.getGender());
                         MyApplication.setUserAddress(u.getAddress());
                         MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
-                        Model.instance.getMainThread().post(()-> userListener.onComplete(u, appContext.getString(R.string.success)));
+                        Model.instance.getMainThread().post(()-> loginListener.onComplete(u, appContext.getString(R.string.success)));
                     }
                     else{
-                        Model.instance.getMainThread().post(()-> userListener.onComplete(u, appContext.getString(R.string.registration_details_needed)));
+                        Model.instance.getMainThread().post(()-> loginListener.onComplete(u, appContext.getString(R.string.registration_details_needed)));
                     }
                 }
                 else{
                     Log.e("TAG", "signInWithEmail:failure - " + response.code());
                     Model.instance.getMainThread().post(()->{
-                        userListener.onComplete(null, "Response code from server: " + response.code());
+                        loginListener.onComplete(null, "Response code from server: " + response.code());
                     });
                 }
             }
@@ -128,7 +122,7 @@ public class ModelNode {
             public void onFailure(Call<LoginResult> call, Throwable t) {
                 Log.e("TAG", "signInWithEmail:failure", t.getCause());
                 Model.instance.getMainThread().post(()->{
-                    userListener.onComplete(null, null);
+                    loginListener.onComplete(null, null);
                 });
             }
         });
@@ -194,7 +188,7 @@ public class ModelNode {
      *
      */
 
-    public void updateUser(String userId, Map<String,String> map, UserListener listener){
+    public void updateUser(String userId, Map<String,String> map, LoginListener listener){
         map.put("_id",userId);
         Call<User> call = methodsInterface.updateUser("Bearer "+ MyApplication.getAccessToken(),map);
         call.enqueue(new Callback<User>() {

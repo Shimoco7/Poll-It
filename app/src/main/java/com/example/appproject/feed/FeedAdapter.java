@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.listeners.OnItemClickListener;
 import com.example.appproject.model.user.User;
 
 import java.util.Objects;

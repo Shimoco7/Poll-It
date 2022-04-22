@@ -1,15 +1,13 @@
 package com.example.appproject.home;
 
 import android.view.View;
-import android.widget.Space;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
-import com.example.appproject.feed.OnItemClickListener;
-import com.example.appproject.model.Model;
+import com.example.appproject.model.listeners.OnItemClickListener;
 import com.example.appproject.model.poll.Poll;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -19,7 +17,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
 
     MaterialTextView pollsName;
     MaterialCardView pollCard;
-    ShapeableImageView pollIcon,pollMainImage,pollDoneImage;
+    ShapeableImageView pollIcon,pollMainImage;
 
     public HomeViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
@@ -27,7 +25,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
         pollCard = itemView.findViewById(R.id.homescr_btn_poll);
         pollIcon = itemView.findViewById(R.id.homescr_poll_icon);
         pollMainImage = itemView.findViewById(R.id.homescr_poll_mainImage);
-        pollDoneImage = itemView.findViewById(R.id.homescr_poll_doneImage);
 
         itemView.setOnClickListener(v->{
             int pos = getAdapterPosition();
@@ -37,22 +34,8 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
 
     public void bind(Poll poll) {
         pollsName.setText(poll.getPollName());
-        Model.instance.isPollFilled(MyApplication.getUserKey(),poll.getPollId(),isFilled->{
-            Model.instance.getMainThread().post(()->{
-                if(isFilled){
-                    pollMainImage.setAlpha((float)0.4);
-                    pollsName.setAlpha((float)0.4);
-                    pollDoneImage.setVisibility(View.VISIBLE);
-                    pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_edit));
-                }
-                else{
-                    pollMainImage.setAlpha((float)1);
-                    pollsName.setAlpha((float)1);
-                    pollDoneImage.setVisibility(View.GONE);
-                    pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_feed_arrow));
-                }
-            });
-        });
-
+        pollMainImage.setAlpha((float)1);
+        pollsName.setAlpha((float)1);
+        pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_feed_arrow));
     }
 }

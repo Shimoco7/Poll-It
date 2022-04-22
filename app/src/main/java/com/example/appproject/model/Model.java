@@ -14,32 +14,28 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
-import com.example.appproject.feed.GetUserByIdListener;
+import com.example.appproject.model.listeners.GetUserListener;
 import com.example.appproject.model.detail.Detail;
-import com.example.appproject.model.detail.GetAllDetailsListener;
-import com.example.appproject.model.detail.GetUserDetailByIdListener;
-import com.example.appproject.model.detail.UpdateAnswerByDetailIdListener;
+import com.example.appproject.model.listeners.GetDetailsListener;
+import com.example.appproject.model.listeners.GetDetailListener;
 import com.example.appproject.model.listeners.BitMapListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.poll.Answer;
-import com.example.appproject.model.poll.GetPollQuestionListener;
-import com.example.appproject.model.poll.GetPollQuestionsListener;
-import com.example.appproject.model.poll.GetPollQuestionsWithAnswersListener;
-import com.example.appproject.model.poll.GetPollsListener;
+import com.example.appproject.model.listeners.GetPollQuestionListener;
+import com.example.appproject.model.listeners.GetPollQuestionsListener;
+import com.example.appproject.model.listeners.GetPollQuestionsWithAnswersListener;
+import com.example.appproject.model.listeners.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.PollQuestionWithAnswer;
 import com.example.appproject.model.poll.PollWithPollQuestionsAndAnswers;
 import com.example.appproject.model.poll.PollsListLoadingState;
-import com.example.appproject.model.poll.SavePollAnswerListener;
-import com.example.appproject.model.question.GetPollListener;
-import com.example.appproject.model.question.GetQuestionsLocalDBListener;
+import com.example.appproject.model.listeners.GetPollListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
-import com.example.appproject.model.user.SaveImageListener;
-import com.example.appproject.model.user.SaveUserListener;
+import com.example.appproject.model.listeners.SaveImageListener;
 import com.example.appproject.model.user.User;
-import com.example.appproject.model.user.UserListener;
+import com.example.appproject.model.listeners.LoginListener;
 import com.example.appproject.model.user.UserPollCrossRef;
 import com.example.appproject.model.user.UserWithPolls;
 import com.example.appproject.model.user.UsersListLoadingState;
@@ -47,13 +43,9 @@ import com.example.appproject.model.user.UsersListLoadingState;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -62,7 +54,6 @@ public class Model {
 
     public static final Model instance = new Model();
     ModelFirebaseDb modelFirebaseDb = new ModelFirebaseDb();
-    ModelFirebaseStorage modelFirebaseStorage = new ModelFirebaseStorage();
     ModelNode modelNode = new ModelNode();
     Executor executor = Executors.newSingleThreadExecutor();
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
@@ -85,11 +76,11 @@ public class Model {
      *
      */
 
-    public void register(String emailAddress, String password,UserListener userListener) {
-        modelNode.register(emailAddress,password,userListener);
+    public void register(String emailAddress, String password, LoginListener loginListener) {
+        modelNode.register(emailAddress,password, loginListener);
     }
 
-    public void login(String emailAddress, String password, UserListener userListener) {
+    public void login(String emailAddress, String password, LoginListener loginListener) {
         modelNode.login(emailAddress,password, ((user, message) -> {
             if(user != null){
                 executor.execute(()-> AppLocalDb.db.userDao().insertAll(user));
@@ -105,7 +96,7 @@ public class Model {
                     });
                 }
             }
-            userListener.onComplete(user,message);
+            loginListener.onComplete(user,message);
         }));
     }
 
@@ -157,7 +148,7 @@ public class Model {
         return usersList;
     }
 
-    public void getUserById(String userId, GetUserByIdListener listener) {
+    public void getUserById(String userId, GetUserListener listener) {
         executor.execute(()->{
             User user = AppLocalDb.db.userDao().loadUserById(userId);
             listener.onComplete(user);
@@ -178,11 +169,8 @@ public class Model {
         return usersListLoadingState;
     }
 
-    public void saveImage(Bitmap bitMap, String imageName,String folder, SaveImageListener saveImageListener) {
-        modelFirebaseStorage.saveImage(bitMap,imageName,folder,saveImageListener);
-    }
 
-    public void updateUser(String userId, Map<String,String> map, UserListener listener) {
+    public void updateUser(String userId, Map<String,String> map, LoginListener listener) {
         modelNode.updateUser(userId,map,(user,message)->{
             if(user != null && message.equals(MyApplication.getContext().getString(R.string.success))){
                 executor.execute(()-> AppLocalDb.db.userDao().insertAll(user));
@@ -195,17 +183,11 @@ public class Model {
     }
 
 
-    public void updateUpdateDateUser(String userId, SaveUserListener saveUserListener){
-        modelFirebaseDb.updateUpdateDateUser(userId,saveUserListener);
-    }
-
     /**
      * Data - User Details
      *
      */
-    MutableLiveData<List<Detail>> detailsList = new MutableLiveData<>();
-    public MutableLiveData<String> userLocation = new MutableLiveData<>();
-    public MutableLiveData<List<String>> locationsList = new MutableLiveData<>();
+
     MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
     public void saveDetailOnLocalDb(Detail detail) {
@@ -217,41 +199,21 @@ public class Model {
     }
 
 
-    public void getUserDetailById(String userKey, String question, GetUserDetailByIdListener listener) {
+    public void getUserDetailById(String userKey, String question, GetDetailListener listener) {
         executor.execute(()->{
             Detail detail = AppLocalDb.db.detailDao().loadDetailByUserId(userKey,question);
             listener.onComplete(detail);
         });
     }
 
-    public void updateAnswerByDetailId(String detailId, String answer, UpdateAnswerByDetailIdListener listener) {
+    public void updateAnswerByDetailId(String detailId, String answer, VoidListener listener) {
         executor.execute(()->{
             AppLocalDb.db.detailDao().updateAnswerByDetailId(detailId,answer);
             listener.onComplete();
         });
     }
 
-    public MutableLiveData<String> getUserLocation() {
-        refreshUserLocation();
-        return userLocation;
-    }
-
-    public void refreshUserLocation(){
-        modelFirebaseDb.getUserLocation(location->userLocation.postValue(location));
-    }
-
-
-    public MutableLiveData<List<String>> getLocations() {
-        refreshLocations();
-        return locationsList;
-    }
-
-    public void refreshLocations(){
-        modelFirebaseDb.getLocations(list->locationsList.postValue(list));
-    }
-
-
-    public void getAllDetails(String userKey, GetAllDetailsListener getAllDetailsListener) {
+    public void getAllDetails(String userKey, GetDetailsListener getAllDetailsListener) {
         executor.execute(()->{
             List<Detail> list = AppLocalDb.db.detailDao().getAllDetails(userKey);
             getAllDetailsListener.onComplete(list);
@@ -279,11 +241,6 @@ public class Model {
                 }));
     }
 
-    public void getQuestionsFromLocalDb(GetQuestionsLocalDBListener listener) {
-        executor.execute(() -> {
-            listener.onComplete(AppLocalDb.db.questionDao().getAll());
-        });
-    }
 
     /**
      * Data - Polls
@@ -332,7 +289,7 @@ public class Model {
         });
     }
 
-    public void savePollAnswersOnDb(String userId,String pollId, SavePollAnswerListener listener) {
+    public void savePollAnswersOnDb(String userId,String pollId, VoidListener listener) {
         Map<String,Answer> pollMap = new HashMap<>();
         executor.execute(()->{
             List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
@@ -352,7 +309,7 @@ public class Model {
         });
     }
 
-    public void savePollAnswersOnLocalDb(Map<String, Answer> pollMap, SavePollAnswerListener listener){
+    public void savePollAnswersOnLocalDb(Map<String, Answer> pollMap, VoidListener listener){
         executor.execute(()->{
             for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
                 AppLocalDb.db.answerDao().insertAll(entry.getValue());
@@ -415,7 +372,7 @@ public class Model {
         });
     }
 
-    public void deletePoll(String userKey, String pollId, DeletePollListener listener) {
+    public void deletePoll(String userKey, String pollId, VoidListener listener) {
 
         Model.instance.getAllAnswersByUserAndPollIds(userKey,pollId,answers->{
             for(Map.Entry<String,Answer> entry : answers.entrySet()){
