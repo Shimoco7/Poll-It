@@ -140,9 +140,16 @@ public class FragmentSignIn extends Fragment {
                     }
                     else {
                         General.progressBarOff(getActivity(), container, progressBar,true);
-                        Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
-                            password.setText("");
-                        }).show();
+                        if(message == null){
+                            Snackbar.make(getView(),getString(R.string.server_is_off),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                                password.setText("");
+                            }).show();
+                        }
+                        else{
+                            Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                                password.setText("");
+                            }).show();
+                        }
                     }
                 });
             }
