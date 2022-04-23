@@ -53,7 +53,7 @@
     <string name="missing_address">Address is Required</string>
 
 
-    <!--Collection Strings-->
+    <!--Collection Strings - REMOVE -->
     <string name="users_collection">users</string>
     <string name="details_collection">details</string>
     <string name="questions_collection">questions</string>
@@ -77,5 +77,7 @@
     <string name="by">By</string>
     <string name="collect_prize">Collect Prize</string>
 
+    <!--Storage Strings-->
+    <string name="sd_card_download_path">/sdcard/Download/</string>
 
 </resources>

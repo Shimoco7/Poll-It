@@ -3,10 +3,10 @@ package com.example.appproject.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Base64;
+import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -14,11 +14,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.listeners.FileListener;
 import com.example.appproject.model.listeners.GetUserListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.listeners.GetDetailsListener;
 import com.example.appproject.model.listeners.GetDetailListener;
-import com.example.appproject.model.listeners.BitMapListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.listeners.GetPollQuestionListener;
@@ -43,6 +43,10 @@ import com.example.appproject.model.user.UsersListLoadingState;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -400,17 +404,56 @@ public class Model {
      *
      */
 
-    public void convertBitmapToString(Bitmap bitmap,SaveImageListener listener){
+    public void saveImage(File file, SaveImageListener listener){
+        modelNode.saveImage(file,url -> {
+            if (url != null) {
+                MyApplication.setUserProfilePicUrl(url);
+                HashMap map = new HashMap();
+                map.put("profilePicUrl",url);
+                Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
+                    if(user == null){
+                        Log.e("TAG","FAILED TO UPDATE PROFILE PICTURE URL FOR USER: "+MyApplication.getUserKey());
+                    }
+                });
+            }
+            listener.onComplete(url);
+        });
+    }
+
+    public void convertBitmapToFile(Bitmap bitmap, FileListener listener) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        listener.onComplete(Base64.encodeToString(data,Base64.DEFAULT));
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            File f = new File(MyApplication.getContext().getString(R.string.sd_card_download_path) + MyApplication.getUserKey() + ".jpg");
+            try {
+                if (!f.exists()) {
+                    if (f.createNewFile()) {
+                        OutputStream os = new FileOutputStream(f);
+                        os.write(data);
+                        os.close();
+                        listener.onComplete(f);
+                    } else {
+                        listener.onComplete(null);
+                    }
+                } else {
+                    if (f.delete()) {
+                        if (f.createNewFile()) {
+                            OutputStream os = new FileOutputStream(f);
+                            os.write(data);
+                            os.close();
+                            listener.onComplete(f);
+                        } else {
+                            listener.onComplete(null);
+                        }
+                    } else {
+                        listener.onComplete(null);
+                    }
+                }
+            } catch (Exception e) {
+                listener.onComplete(null);
+            }
+        }
     }
-
-    public void convertStringToBitMap(String base64PicUrl, BitMapListener listener){
-        byte[] decodedString = Base64.decode(base64PicUrl, Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-        listener.onComplete(bitmap);
-    }
-
 }

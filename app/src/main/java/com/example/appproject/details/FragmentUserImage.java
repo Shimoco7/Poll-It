@@ -27,6 +27,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.HashMap;
@@ -86,7 +87,10 @@ public class FragmentUserImage extends Fragment {
             });
         } else {
             progressBar.setVisibility(View.VISIBLE);
-            Picasso.get().load(MyApplication.getUserProfilePicUrl()).into(userAvatar, new Callback() {
+            Picasso.get().load(MyApplication.getUserProfilePicUrl())
+                    .placeholder(R.drawable.avatar)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(userAvatar, new Callback() {
                 @Override
                 public void onSuccess() {
                     progressBar.setVisibility(View.GONE);
@@ -160,23 +164,23 @@ public class FragmentUserImage extends Fragment {
             if (bitMap == null) {
                 toMainActivity();
             } else {
-                Model.instance.convertBitmapToString(bitMap,url->{
-                    if (url == null) {
+                Model.instance.convertBitmapToFile(bitMap, file->{
+                    if (file == null) {
                         Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
                         General.progressBarOff(getActivity(), container, progressBar,true);
                     }
                     else{
-                        Map<String,String> map = new HashMap<>();
-                        map.put("profilePicUrl",url);
-                        Model.instance.updateUser(MyApplication.getUserKey(), map, (user,message)->{
-                            if(user == null){
-                                Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again Later",v-> toMainActivity()).show();
+                        Model.instance.saveImage(file,url->{
+                            if(url == null){
+                                Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again Later",v->{
+                                    progressBar.setVisibility(View.GONE);
+                                    toMainActivity();
+                                }).show();
                             }
                             else{
                                 toMainActivity();
                             }
                         });
-                        MyApplication.setUserProfilePicUrl(url);
                     }
                 });
             }

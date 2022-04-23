@@ -7,6 +7,7 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.listeners.GetDetailsListener;
+import com.example.appproject.model.listeners.SaveImageListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.listeners.GetQuestionsListener;
 import com.example.appproject.model.question.Question;
@@ -14,11 +15,16 @@ import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.user.LoginResult;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.listeners.LoginListener;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -278,6 +284,35 @@ public class ModelNode {
             @Override
             public void onFailure(Call<List<Detail>> call, Throwable t) {
                 Log.e("TAG" , "Get Details by User Id FAILED: " + t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void saveImage(File image, SaveImageListener listener){
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),image);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file",image.getName(),requestFile);
+        Call<UploadImageResult> call = methodsInterface.uploadImage("Bearer "+ MyApplication.getAccessToken(),body);
+        call.enqueue(new Callback<UploadImageResult>() {
+            @Override
+            public void onResponse(Call<UploadImageResult> call, Response<UploadImageResult> response) {
+                if(response.code() == 200){
+                    UploadImageResult result = response.body();
+                    assert result != null;
+                    if(!image.delete()){
+                        Log.w("TAG" , "Delete Image FAILED");
+                    }
+                    listener.onComplete(result.getUrl());
+                }
+                else{
+                    Log.e("TAG" , "Save Image FAILED: " + response.code());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UploadImageResult> call, Throwable t) {
+                Log.e("TAG" , "Save Image FAILED: " + t.getMessage());
                 listener.onComplete(null);
             }
         });
