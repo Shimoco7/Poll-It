@@ -2,10 +2,12 @@ package com.example.appproject.details;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -28,10 +30,18 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class FragmentUserImage extends Fragment {
 
@@ -87,7 +97,14 @@ public class FragmentUserImage extends Fragment {
             });
         } else {
             progressBar.setVisibility(View.VISIBLE);
-            Picasso.get().load(MyApplication.getUserProfilePicUrl())
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
+                Request newRequest = chain.request().newBuilder()
+                        .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
+                        .build();
+                return chain.proceed(newRequest);
+            }).build();
+            Picasso picasso = new Picasso.Builder(Objects.requireNonNull(getContext())).downloader(new OkHttp3Downloader(client)).build();
+            picasso.load(MyApplication.getUserProfilePicUrl())
                     .placeholder(R.drawable.avatar)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .into(userAvatar, new Callback() {
