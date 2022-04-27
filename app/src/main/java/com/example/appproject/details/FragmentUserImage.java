@@ -140,11 +140,13 @@ public class FragmentUserImage extends Fragment {
                             bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imageUri);
                             userAvatar.setImageBitmap(bitMap);
                         } catch (IOException e) {
-                            //TODO - handle exception
+                            setUserAvatar();
+                            Snackbar.make(getView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
                         }
                     }
                     else{
                         setUserAvatar();
+                        Snackbar.make(getView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -159,9 +161,11 @@ public class FragmentUserImage extends Fragment {
                         }
                         else{
                             setUserAvatar();
+                            Snackbar.make(getView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
-                        //TODO - handle exception
+                        setUserAvatar();
+                        Snackbar.make(getView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
                     }
                 }
         );
