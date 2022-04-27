@@ -408,7 +408,7 @@ public class Model {
         modelNode.saveImage(file,url -> {
             if (url != null) {
                 MyApplication.setUserProfilePicUrl(url);
-                HashMap map = new HashMap();
+                HashMap<String,String> map = new HashMap<>();
                 map.put("profilePicUrl",url);
                 Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
                     if(user == null){

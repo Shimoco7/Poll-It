@@ -80,5 +80,6 @@
 
     <!--Storage Strings-->
     <string name="sd_card_download_path">/sdcard/Download/</string>
+    <string name="authorities">com.example.appproject.fileprovider</string>
 
 </resources>

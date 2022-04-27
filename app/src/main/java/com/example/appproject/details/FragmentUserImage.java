@@ -1,5 +1,6 @@
 package com.example.appproject.details;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,10 +9,12 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -32,6 +35,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -48,10 +53,11 @@ public class FragmentUserImage extends Fragment {
     Button finishBtn, backBtn;
     MaterialButton galleryBtn, camBtn;
     ProgressBar progressBar;
-    ActivityResultLauncher<Void> cameraActivityResultLauncher;
+    ActivityResultLauncher<Uri> cameraActivityResultLauncher;
     ActivityResultLauncher<String> galleryActivityResultLauncher;
     ShapeableImageView userAvatar;
     Bitmap bitMap;
+    Uri imageUri;
 
     public FragmentUserImage() { }
 
@@ -103,7 +109,7 @@ public class FragmentUserImage extends Fragment {
                         .build();
                 return chain.proceed(newRequest);
             }).build();
-            Picasso picasso = new Picasso.Builder(Objects.requireNonNull(getContext())).downloader(new OkHttp3Downloader(client)).build();
+            Picasso picasso = new Picasso.Builder(requireContext()).downloader(new OkHttp3Downloader(client)).build();
             picasso.load(MyApplication.getUserProfilePicUrl())
                     .placeholder(R.drawable.avatar)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
@@ -127,11 +133,18 @@ public class FragmentUserImage extends Fragment {
         });
 
         cameraActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.TakePicturePreview(),
+                new ActivityResultContracts.TakePicture(),
                 result -> {
-                    if (result != null) {
-                        bitMap = result;
-                        userAvatar.setImageBitmap(bitMap);
+                    if(result){
+                        try {
+                            bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imageUri);
+                            userAvatar.setImageBitmap(bitMap);
+                        } catch (IOException e) {
+                            //TODO - handle exception
+                        }
+                    }
+                    else{
+                        setUserAvatar();
                     }
                 }
         );
@@ -140,14 +153,15 @@ public class FragmentUserImage extends Fragment {
                 new ActivityResultContracts.GetContent(),
                 result -> {
                     try {
-                        if(result!=null)
+                        if(result!=null){
                             bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), result);
-                    } catch (IOException ignored) { }
-
-                    if(result!=null)
-                        userAvatar.setImageBitmap(bitMap);
-                    else{
-                        setUserAvatar();
+                            userAvatar.setImageBitmap(bitMap);
+                        }
+                        else{
+                            setUserAvatar();
+                        }
+                    } catch (IOException e) {
+                        //TODO - handle exception
                     }
                 }
         );
@@ -205,7 +219,14 @@ public class FragmentUserImage extends Fragment {
     }
 
     private void openCam() {
-        cameraActivityResultLauncher.launch(null);
+        File imagePath = new File(getContext().getFilesDir(),".");
+        File newFile = new File(imagePath, MyApplication.getUserKey()+".jpg");
+        Log.d("TAG", newFile.getAbsolutePath());
+        imageUri = FileProvider.getUriForFile(
+                getContext(),
+                "com.example.appproject.fileprovider",
+                newFile);
+        cameraActivityResultLauncher.launch(imageUri);
     }
 
     private void openGallery() {
