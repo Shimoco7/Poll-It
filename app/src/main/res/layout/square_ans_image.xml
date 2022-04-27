@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/ansimg_btn_ans"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_weight="1"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_width="110dp"
+    android:layout_height="110dp"
+    app:cardBackgroundColor="@color/primeOrng"
+    app:cardCornerRadius="20dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:strokeWidth="1dp"
+    android:theme="@style/Theme.MaterialComponents.Light">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/homescr_poll_mainImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitStart"
+                app:strokeWidth="1dp"
+                app:srcCompat="@drawable/mcdonalds_icon" />
+
+
+
+</com.google.android.material.card.MaterialCardView>
