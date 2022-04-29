@@ -34,6 +34,7 @@ public class PollQuestion {
     public String pollQuestionImage;
     public PollQuestionType pollQuestionType;
     public List<String> choices;
+    public Integer questionNumber;
 
     public PollQuestion() { }
 
@@ -49,23 +50,6 @@ public class PollQuestion {
      * Factory
      *
      */
-
-    public static PollQuestion create(Map<String, Object> data) {
-        String pollQuestionId = (String)data.get("poll_question_id");
-        String pollQuestion = (String)data.get("poll_question");
-        String pollId = (String)data.get("poll_id");
-        List<String> choices = (List<String>)data.get("choices");
-
-        assert pollQuestion != null;
-        assert pollId != null;
-        assert pollQuestionId != null;
-
-        PollQuestion poll = new PollQuestion(pollQuestion,pollId);
-        poll.setChoices(choices);
-        poll.setPollQuestionId(pollQuestionId);
-
-        return poll;
-    }
 
     @NonNull
     public String getPollQuestionId() {
@@ -116,5 +100,13 @@ public class PollQuestion {
 
     public void setPollQuestionType(PollQuestionType pollQuestionType) {
         this.pollQuestionType = pollQuestionType;
+    }
+
+    public Integer getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public void setQuestionNumber(Integer questionNumber) {
+        this.questionNumber = questionNumber;
     }
 }

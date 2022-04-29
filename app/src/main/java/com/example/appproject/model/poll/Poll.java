@@ -18,6 +18,7 @@ public class Poll {
     @SerializedName("_id")
     public String pollId;
     public String pollName;
+    public Integer totalNumberOfQuestions;
 
     public Poll() { }
 
@@ -33,14 +34,6 @@ public class Poll {
         this.pollName = pollName;
     }
 
-    public static Poll create(Map<String, Object> data){
-        String pollId = (String) data.get("poll_id");
-        String pollName = (String) data.get("poll_name");
-        assert pollId != null;
-        assert pollName != null;
-
-        return new Poll(pollId,pollName);
-    }
 
     @NonNull
     public String getPollId() {
@@ -57,6 +50,14 @@ public class Poll {
 
     public void setPollName(String pollName) {
         this.pollName = pollName;
+    }
+
+    public Integer getTotalNumberOfQuestions() {
+        return totalNumberOfQuestions;
+    }
+
+    public void setTotalNumberOfQuestions(Integer totalNumberOfQuestions) {
+        this.totalNumberOfQuestions = totalNumberOfQuestions;
     }
 }
 

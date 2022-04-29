@@ -35,7 +35,7 @@ public class FragmentActivePoll extends Fragment {
         String pollId = FragmentActivePollArgs.fromBundle(getArguments()).getPollId();
         Button startBtn=view.findViewById(R.id.activePoll_start_btn);
 
-        startBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentActivePollDirections.actionFragmentActivePollToFragmentPollQuestion(pollId)));
+//        startBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentActivePollDirections.actionFragmentActivePollToFragmentPollQuestion(pollId)));
         return view;
     }
 }

@@ -60,6 +60,9 @@
         <argument
             android:name="poll_id"
             app:argType="string" />
+        <argument
+            android:name="pollQuestion_id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFeed"

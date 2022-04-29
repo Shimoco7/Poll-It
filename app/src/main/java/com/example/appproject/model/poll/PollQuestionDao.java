@@ -17,4 +17,5 @@ public interface PollQuestionDao {
 
     @Query("SELECT * FROM PollQuestion WHERE pollQuestionId = :pollQuestionId")
     PollQuestion getPollQuestionById(String pollQuestionId);
+
 }

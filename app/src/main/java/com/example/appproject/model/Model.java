@@ -27,8 +27,6 @@ import com.example.appproject.model.listeners.GetPollQuestionsWithAnswersListene
 import com.example.appproject.model.listeners.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
-import com.example.appproject.model.poll.PollQuestionWithAnswer;
-import com.example.appproject.model.poll.PollWithPollQuestionsAndAnswers;
 import com.example.appproject.model.poll.PollsListLoadingState;
 import com.example.appproject.model.listeners.GetPollListener;
 import com.example.appproject.model.question.Question;
@@ -36,7 +34,6 @@ import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.listeners.SaveImageListener;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.listeners.LoginListener;
-import com.example.appproject.model.user.UserPollCrossRef;
 import com.example.appproject.model.user.UserWithPolls;
 import com.example.appproject.model.user.UsersListLoadingState;
 
@@ -51,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Model {
@@ -268,8 +266,12 @@ public class Model {
                     executor.execute(()->AppLocalDb.db.pollDao().insertAll(poll));
                     getPollQuestionsByPollId(poll.getPollId(), pollQuestions->{
                         if(pollQuestions != null){
+                            executor.execute(()->AppLocalDb.db.pollDao().updatePollTotalQuestionsNumberById(poll.getPollId(),pollQuestions.size()));
+                            Integer index = 1;
                             for(PollQuestion pollQuestion : pollQuestions){
+                                pollQuestion.setQuestionNumber(index);
                                 executor.execute(()-> AppLocalDb.db.pollQuestionDao().insertAll(pollQuestion));
+                                index++;
                             }
                         }
                     });

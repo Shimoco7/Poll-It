@@ -48,6 +48,9 @@ public interface PollDao {
     @Query("SELECT * FROM Poll WHERE pollId=:pollId")
     List<PollWithPollQuestionsAndAnswers> getPollWithPollQuestionsAndAnswers(String pollId);
 
+    @Query("UPDATE poll SET totalNumberOfQuestions=:totalNumOfQuestions WHERE pollId = :pollId")
+    void updatePollTotalQuestionsNumberById(String pollId, Integer totalNumOfQuestions);
+
     @Delete
     void delete(UserPollCrossRef userPollCrossRef);
 
