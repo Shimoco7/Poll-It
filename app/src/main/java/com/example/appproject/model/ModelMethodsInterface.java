@@ -1,6 +1,8 @@
 package com.example.appproject.model;
 
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.poll.Poll;
+import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.user.LoginResult;
 import com.example.appproject.model.user.User;
@@ -49,13 +51,13 @@ public interface ModelMethodsInterface {
     @POST("/auth/update")
     Call<User> updateUser(@Header("Authorization") String accessToken, @Body Map<String,String> map);
 
-    @GET("detail_question/getAllDetailQuestions")
+    @GET("/detail_question/getAllDetailQuestions")
     Call<List<Question>> getAllQuestions(@Header("Authorization") String accessToken);
 
     @POST("/detail/create")
     Call<Void> createDetail(@Header("Authorization") String accessToken,@Body Map<String,String> map);
 
-    @GET("detail/getDetailsByAccountId/{accountId}")
+    @GET("/detail/getDetailsByAccountId/{accountId}")
     Call<List<Detail>> getDetailsByUserId(@Header("Authorization") String accessToken, @Path("accountId") String accountId);
 
 
@@ -68,4 +70,16 @@ public interface ModelMethodsInterface {
     @Multipart
     @POST("upload")
     Call<UploadImageResult> uploadImage(@Header("Authorization") String accessToken,@Part MultipartBody.Part file);
+
+    /**
+     *
+     *  Polls
+     *
+     */
+
+    @GET("/poll/getAllPolls")
+    Call<List<Poll>> getPolls(@Header("Authorization") String accessToken);
+
+    @GET("/poll_question/getPollQuestionsByPollId/{pollId}")
+    Call<List<PollQuestion>> getPollQuestionsByPollId(@Header("Authorization") String accessToken, @Path("pollId") String pollId);
 }

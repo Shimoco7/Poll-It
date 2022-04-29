@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Map;
 import java.util.UUID;
 
@@ -13,6 +15,7 @@ public class Poll {
 
     @PrimaryKey
     @NonNull
+    @SerializedName("_id")
     public String pollId;
     public String pollName;
 

@@ -7,9 +7,13 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.listeners.GetDetailsListener;
+import com.example.appproject.model.listeners.GetPollQuestionsListener;
+import com.example.appproject.model.listeners.GetPollsListener;
 import com.example.appproject.model.listeners.SaveImageListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.listeners.GetQuestionsListener;
+import com.example.appproject.model.poll.Poll;
+import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.user.LoginResult;
@@ -313,6 +317,53 @@ public class ModelNode {
             @Override
             public void onFailure(Call<UploadImageResult> call, Throwable t) {
                 Log.e("TAG" , "Save Image FAILED: " + t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void getPolls(GetPollsListener listener) {
+        Call<List<Poll>> call = methodsInterface.getPolls("Bearer "+ MyApplication.getAccessToken());
+        call.enqueue(new Callback<List<Poll>>() {
+            @Override
+            public void onResponse(Call<List<Poll>> call, Response<List<Poll>> response) {
+                if(response.code() == 200){
+                    List<Poll> polls = response.body();
+                    assert polls != null;
+                    listener.onComplete(polls);
+                }
+                else{
+                    Log.d("TAG", "getPolls FAILURE: " + response.code());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Poll>> call, Throwable t) {
+                Log.d("TAG" , "getPolls FAILURE: " + t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void getPollQuestionsByPollId(String pollId, GetPollQuestionsListener listener) {
+        Call<List<PollQuestion>> call = methodsInterface.getPollQuestionsByPollId("Bearer "+ MyApplication.getAccessToken(),pollId);
+        call.enqueue(new Callback<List<PollQuestion>>() {
+            @Override
+            public void onResponse(Call<List<PollQuestion>> call, Response<List<PollQuestion>> response) {
+                if(response.code() == 200){
+                    List<PollQuestion> pollQuestions = response.body();
+                    listener.onComplete(pollQuestions);
+                }
+                else{
+                    Log.e("TAG" , "get PollQuestions By PollId FAILED: " + response.code());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PollQuestion>> call, Throwable t) {
+                Log.e("TAG" , "get PollQuestions By PollId FAILED: " + t.getMessage());
                 listener.onComplete(null);
             }
         });

@@ -13,7 +13,6 @@ import java.util.Map;
 public class PollQuestionViewModel extends ViewModel {
     List<PollQuestion> pollQuestions;
     Map<String, Answer> pollMap;
-    String imagePollQuestionId;
     int index=0;
 
 
@@ -38,11 +37,4 @@ public class PollQuestionViewModel extends ViewModel {
         this.pollMap = pollMap;
     }
 
-    public String getImagePollQuestionId() {
-        return imagePollQuestionId;
-    }
-
-    public void setImagePollQuestionId(String imagePollQuestionId) {
-        this.imagePollQuestionId = imagePollQuestionId;
-    }
 }

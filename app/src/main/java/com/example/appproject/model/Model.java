@@ -45,7 +45,6 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +56,6 @@ import java.util.concurrent.Executors;
 public class Model {
 
     public static final Model instance = new Model();
-    ModelFirebaseDb modelFirebaseDb = new ModelFirebaseDb();
     ModelNode modelNode = new ModelNode();
     Executor executor = Executors.newSingleThreadExecutor();
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
@@ -264,27 +262,26 @@ public class Model {
 
     public void refreshPollsList() {
         pollsListLoadingState.setValue(PollsListLoadingState.loading);
-        modelFirebaseDb.getPolls(polls->{
-            executor.execute(()->{
+        modelNode.getPolls(polls->{
+            if(polls != null){
                 for(Poll poll : polls){
-                    AppLocalDb.db.pollDao().insertAll(poll);
-                    getPollQuestionsById(poll.getPollId(),pollQuestions->{
-                        for(PollQuestion pollQuestion : pollQuestions){
-                            executor.execute(()->{
-                                AppLocalDb.db.pollQuestionDao().insertAll(pollQuestion);
-                            });
+                    executor.execute(()->AppLocalDb.db.pollDao().insertAll(poll));
+                    getPollQuestionsByPollId(poll.getPollId(), pollQuestions->{
+                        if(pollQuestions != null){
+                            for(PollQuestion pollQuestion : pollQuestions){
+                                executor.execute(()-> AppLocalDb.db.pollQuestionDao().insertAll(pollQuestion));
+                            }
                         }
                     });
                 }
-                //Update App User's List last update date
-                pollsList.postValue(polls);
-                pollsListLoadingState.postValue(PollsListLoadingState.loaded);
-            });
+            }
+            pollsList.postValue(polls);
+            pollsListLoadingState.postValue(PollsListLoadingState.loaded);
         });
     }
 
-    private void getPollQuestionsById(String pollId, GetPollQuestionsListener listener) {
-        modelFirebaseDb.getPollQuestionsById(pollId,listener);
+    private void getPollQuestionsByPollId(String pollId, GetPollQuestionsListener listener) {
+        modelNode.getPollQuestionsByPollId(pollId,listener);
     }
 
     public void getPollQuestionsFromLocalDb(String pollId,GetPollQuestionsListener listener){
@@ -293,25 +290,25 @@ public class Model {
         });
     }
 
-    public void savePollAnswersOnDb(String userId,String pollId, VoidListener listener) {
-        Map<String,Answer> pollMap = new HashMap<>();
-        executor.execute(()->{
-            List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
-            List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
-            for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
-                if(pqwa.answer.getUserId().equals(userId)){
-                    pollMap.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
-                }
-            }
-            modelFirebaseDb.savePollAnswersOnDb(pollMap, ()->{
-                executor.execute(()->{
-                    UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
-                    AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
-                    listener.onComplete();
-                });
-            });
-        });
-    }
+//    public void savePollAnswersOnDb(String userId,String pollId, VoidListener listener) {
+//        Map<String,Answer> pollMap = new HashMap<>();
+//        executor.execute(()->{
+//            List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
+//            List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
+//            for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
+//                if(pqwa.answer.getUserId().equals(userId)){
+//                    pollMap.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
+//                }
+//            }
+//            modelFirebaseDb.savePollAnswersOnDb(pollMap, ()->{
+//                executor.execute(()->{
+//                    UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
+//                    AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
+//                    listener.onComplete();
+//                });
+//            });
+//        });
+//    }
 
     public void savePollAnswersOnLocalDb(Map<String, Answer> pollMap, VoidListener listener){
         executor.execute(()->{
@@ -376,28 +373,28 @@ public class Model {
         });
     }
 
-    public void deletePoll(String userKey, String pollId, VoidListener listener) {
-
-        Model.instance.getAllAnswersByUserAndPollIds(userKey,pollId,answers->{
-            for(Map.Entry<String,Answer> entry : answers.entrySet()){
-                entry.getValue().setDeleted(true);
-            }
-            modelFirebaseDb.savePollAnswersOnDb(answers,()->{
-                executor.execute(()->{
-                    UserPollCrossRef ref = AppLocalDb.db.pollDao().getUserPollRef(pollId,userKey);
-                    executor.execute(()->{
-                        AppLocalDb.db.pollDao().delete(ref);
-                    });
-                });
-                for(Map.Entry<String,Answer> entry : answers.entrySet()){
-                    executor.execute(()->{
-                        AppLocalDb.db.answerDao().delete(entry.getValue());
-                    });
-                }
-                listener.onComplete();
-            });
-        });
-    }
+//    public void deletePoll(String userKey, String pollId, VoidListener listener) {
+//
+//        Model.instance.getAllAnswersByUserAndPollIds(userKey,pollId,answers->{
+//            for(Map.Entry<String,Answer> entry : answers.entrySet()){
+//                entry.getValue().setDeleted(true);
+//            }
+//            modelFirebaseDb.savePollAnswersOnDb(answers,()->{
+//                executor.execute(()->{
+//                    UserPollCrossRef ref = AppLocalDb.db.pollDao().getUserPollRef(pollId,userKey);
+//                    executor.execute(()->{
+//                        AppLocalDb.db.pollDao().delete(ref);
+//                    });
+//                });
+//                for(Map.Entry<String,Answer> entry : answers.entrySet()){
+//                    executor.execute(()->{
+//                        AppLocalDb.db.answerDao().delete(entry.getValue());
+//                    });
+//                }
+//                listener.onComplete();
+//            });
+//        });
+//    }
 
     /**
      * Storage
