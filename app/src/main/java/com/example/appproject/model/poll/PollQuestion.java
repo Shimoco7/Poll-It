@@ -5,21 +5,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.appproject.poll.PollQuestionType;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-enum PollQuestionType{
-    @SerializedName("Multi Choice")
-    Multi_Choice,
-    @SerializedName("Image Answers")
-    Image_Answers,
-    @SerializedName("Image Question")
-    Image_Question
-}
 
 @Entity
 public class PollQuestion {
@@ -37,19 +26,6 @@ public class PollQuestion {
     public Integer questionNumber;
 
     public PollQuestion() { }
-
-    @Ignore
-    public PollQuestion(@NonNull String question,@NonNull String pollId) {
-        this.pollQuestionId = UUID.randomUUID().toString();
-        this.pollId = pollId;
-        this.pollQuestion = question;
-        choices = new ArrayList<>();
-    }
-
-    /**
-     * Factory
-     *
-     */
 
     @NonNull
     public String getPollQuestionId() {

@@ -54,9 +54,9 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentPollQuestion"
-        android:name="com.example.appproject.poll.FragmentPollQuestion"
+        android:name="com.example.appproject.poll.FragmentPollQuestionMultiChoice"
         android:label="Active Poll"
-        tools:layout="@layout/fragment_poll_question" >
+        tools:layout="@layout/fragment_poll_question_multi_choice" >
         <argument
             android:name="poll_id"
             app:argType="string" />

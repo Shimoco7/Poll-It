@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.firebase.firestore.FieldValue;
 
+import org.bson.types.ObjectId;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -23,50 +25,25 @@ public class Answer {
     @NonNull
     public String userId;
     public String answer;
-    public Boolean isDeleted;
 
     public Answer() { }
 
     @Ignore
-    public Answer(@NonNull String answerId,@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer,Boolean isDeleted) {
-        this.answerId = answerId;
+    public Answer(@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer) {
         this.userId = userId;
+        this.answerId = new ObjectId().toString();
         this.pollId = pollId;
         this.pollQuestionId = pollQuestionId;
         this.answer = answer;
-        this.isDeleted = isDeleted;
-    }
-
-    /**
-     * Factory
-     *
-     */
-
-    public static Answer create(Map<String, Object> data) {
-        String answerId = (String)data.get("answer_id");
-        String userId = (String)data.get("user_id");
-        String pollId = (String)data.get("poll_id");
-        String pollQuestionId = (String)data.get("poll_question_id");
-        String answer = (String)data.get("answer");
-        Boolean isDeleted = (Boolean) data.get("is_deleted");
-
-        assert answerId != null;
-        assert userId != null;
-        assert pollId != null;
-        assert answer != null;
-        assert pollQuestionId != null;
-
-        return new Answer(answerId,userId,pollId,pollQuestionId,answer,isDeleted);
     }
 
     public Map<String, Object> toJson() {
         Map<String,Object> json = new HashMap<>();
-        json.put("answer_id",answerId);
-        json.put("user_id",userId);
-        json.put("poll_id",pollId);
-        json.put("poll_question_id",pollQuestionId);
+        json.put("_id",answerId);
+        json.put("accountId",userId);
+        json.put("pollId",pollId);
+        json.put("pollQuestionId",pollQuestionId);
         json.put("answer", answer);
-        json.put("is_deleted", isDeleted);
         return json;
     }
 
@@ -114,11 +91,4 @@ public class Answer {
         this.answer = answer;
     }
 
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }
 }

@@ -29,26 +29,6 @@ public class Question {
 
     public Question() { }
 
-    @Ignore
-    public Question(@NonNull String question) {
-        this.questionId = UUID.randomUUID().toString();
-        this.question = question;
-        multiChoice = new ArrayList<>();
-    }
-
-    @Ignore
-    public Question(@NonNull String questionId, String question, List<String> multiChoice) {
-        this.questionId = questionId;
-        this.question = question;
-        this.multiChoice =multiChoice;
-    }
-
-    /**
-     * Factory
-     *
-     */
-
-
     @NonNull
     public String getQuestionId() {
         return questionId;

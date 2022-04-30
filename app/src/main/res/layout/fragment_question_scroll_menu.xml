@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#F1E7E7"
     android:backgroundTint="#000000"
-    tools:context=".poll.FragmentPollQuestion">
+    tools:context=".poll.FragmentPollQuestionMultiChoice">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

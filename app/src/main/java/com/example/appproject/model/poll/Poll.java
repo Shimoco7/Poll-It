@@ -22,19 +22,6 @@ public class Poll {
 
     public Poll() { }
 
-    @Ignore
-    public Poll(String pollName) {
-        this.pollId = UUID.randomUUID().toString();
-        this.pollName = pollName;
-    }
-
-    @Ignore
-    public Poll(@NonNull String pollId, String pollName) {
-        this.pollId = pollId;
-        this.pollName = pollName;
-    }
-
-
     @NonNull
     public String getPollId() {
         return pollId;

@@ -18,6 +18,9 @@ public interface AnswerDao {
     @Query("SELECT * FROM Answer WHERE userId=:uid AND pollId=:pollId")
     List<Answer> getAllAnswersByUserAndPollIds(String uid,String pollId);
 
+    @Query("UPDATE answer SET answer=:answer WHERE answerId = :answerId")
+    void updateAnswerByAnswerId(String answerId, String answer);
+
     @Delete
     void delete(Answer answer);
 }

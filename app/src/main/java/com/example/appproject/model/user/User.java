@@ -28,15 +28,6 @@ public class User {
 
     public User() { }
 
-    @Ignore
-    public User(@NonNull String uid,@NonNull String email) {
-        this.uid = uid;
-        this.email = email;
-        updatedAt = 0L;
-        createdAt = 0L;
-    }
-
-
     @NonNull
     public String getUid() {
         return uid;

@@ -19,16 +19,17 @@ import com.example.appproject.model.listeners.GetUserListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.listeners.GetDetailsListener;
 import com.example.appproject.model.listeners.GetDetailListener;
+import com.example.appproject.model.listeners.IntegerListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.listeners.GetPollQuestionListener;
 import com.example.appproject.model.listeners.GetPollQuestionsListener;
-import com.example.appproject.model.listeners.GetPollQuestionsWithAnswersListener;
+import com.example.appproject.model.listeners.GetPollQuestionWithAnswerListener;
 import com.example.appproject.model.listeners.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
+import com.example.appproject.model.poll.PollQuestionWithAnswer;
 import com.example.appproject.model.poll.PollsListLoadingState;
-import com.example.appproject.model.listeners.GetPollListener;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.listeners.SaveImageListener;
@@ -48,7 +49,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Model {
@@ -151,7 +151,7 @@ public class Model {
     public void getUserById(String userId, GetUserListener listener) {
         executor.execute(()->{
             User user = AppLocalDb.db.userDao().loadUserById(userId);
-            listener.onComplete(user);
+            mainThread.post(()->listener.onComplete(user));
         });
     }
 
@@ -160,9 +160,7 @@ public class Model {
         Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getLong(
                 MyApplication.getContext().getString(R.string.users_list_last_update_date),0);
         //Show current cache users
-        executor.execute(()->{
-            usersList.postValue(AppLocalDb.db.userDao().getAll());
-        });
+        executor.execute(()-> usersList.postValue(AppLocalDb.db.userDao().getAll()));
     }
 
     public MutableLiveData<UsersListLoadingState> getUsersListLoadingState() {
@@ -202,21 +200,21 @@ public class Model {
     public void getUserDetailById(String userKey, String question, GetDetailListener listener) {
         executor.execute(()->{
             Detail detail = AppLocalDb.db.detailDao().loadDetailByUserId(userKey,question);
-            listener.onComplete(detail);
+            mainThread.post(()->listener.onComplete(detail));
         });
     }
 
     public void updateAnswerByDetailId(String detailId, String answer, VoidListener listener) {
         executor.execute(()->{
             AppLocalDb.db.detailDao().updateAnswerByDetailId(detailId,answer);
-            listener.onComplete();
+            mainThread.post(listener::onComplete);
         });
     }
 
     public void getAllDetails(String userKey, GetDetailsListener getAllDetailsListener) {
         executor.execute(()->{
             List<Detail> list = AppLocalDb.db.detailDao().getAllDetails(userKey);
-            getAllDetailsListener.onComplete(list);
+            mainThread.post(()->getAllDetailsListener.onComplete(list));
         });
     }
 
@@ -287,9 +285,42 @@ public class Model {
     }
 
     public void getPollQuestionsFromLocalDb(String pollId,GetPollQuestionsListener listener){
-        executor.execute(()->{
-            listener.onComplete(AppLocalDb.db.pollDao().getPollWithQuestions(pollId).get(0).pollQuestions);
+        executor.execute(()-> {
+            List<PollQuestion> pollQuestions = AppLocalDb.db.pollDao().getPollWithQuestions(pollId).get(0).pollQuestions;
+            mainThread.post(()->listener.onComplete(pollQuestions));
         });
+    }
+
+    public void getPollQuestionByNumber(String pollId,Integer number, GetPollQuestionListener listener){
+        getPollQuestionsFromLocalDb(pollId,pollQuestions->{
+            for(PollQuestion p : pollQuestions){
+                if(p.getQuestionNumber().equals(number)){
+                    listener.onComplete(p);
+                }
+            }
+        });
+    }
+
+    public void getPollQuestionWithAnswer(String pollQuestionId, GetPollQuestionWithAnswerListener listener){
+        executor.execute(()->{
+            PollQuestionWithAnswer pollQuestionWithAnswer = AppLocalDb.db.pollDao().getPollQuestionWithAnswer(pollQuestionId);
+            mainThread.post(()->listener.onComplete(pollQuestionWithAnswer));
+        });
+    }
+
+    public void getPollNumberOfQuestions(String pollId, IntegerListener listener){
+        executor.execute(()->{
+            Integer numOfQuestions = AppLocalDb.db.pollDao().getPollByPollId(pollId).getTotalNumberOfQuestions();
+            mainThread.post(()->listener.onComplete(numOfQuestions));
+        });
+    }
+
+    public void saveAnswerOnLocalDb(Answer answer){
+        executor.execute(()->AppLocalDb.db.answerDao().insertAll(answer));
+    }
+
+    public void updateAnswerOnLocalDb(String answerId, String chosenAnswer) {
+        executor.execute(()->AppLocalDb.db.answerDao().updateAnswerByAnswerId(answerId,chosenAnswer));
     }
 
 //    public void savePollAnswersOnDb(String userId,String pollId, VoidListener listener) {
@@ -317,7 +348,7 @@ public class Model {
             for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
                 AppLocalDb.db.answerDao().insertAll(entry.getValue());
             }
-            listener.onComplete();
+            mainThread.post(()->listener.onComplete());
         });
     }
 
@@ -325,40 +356,20 @@ public class Model {
         executor.execute(()->{
             List<UserWithPolls> polls = AppLocalDb.db.pollDao().getUserWithPolls(userKey);
             if(!polls.get(0).polls.isEmpty()){
-                listener.onComplete(polls.get(0).polls);
+                mainThread.post(()->listener.onComplete(polls.get(0).polls));
             }
             else{
-                listener.onComplete(null);
+                mainThread.post(()->listener.onComplete(null));
             }
-        });
-    }
-
-    public void getAllAnswersByUserAndPollIds(String userId, String pollId, GetPollQuestionsWithAnswersListener listener){
-        executor.execute(()->{
-            HashMap<String,Answer> map = new HashMap<>();
-            List<Answer> answers = AppLocalDb.db.answerDao().getAllAnswersByUserAndPollIds(userId,pollId);
-            for(Answer a : answers){
-                map.put(a.getPollQuestionId(),a);
-            }
-            listener.onComplete(map);
         });
     }
 
     public void getPollQuestion(String pollQuestionId, GetPollQuestionListener listener) {
         executor.execute(()->{
            PollQuestion pollQuestion = AppLocalDb.db.pollQuestionDao().getPollQuestionById(pollQuestionId);
-           listener.onComplete(pollQuestion);
+            mainThread.post(()->listener.onComplete(pollQuestion));
         });
     }
-
-
-    public void getPollByPollId(String pollId, GetPollListener listener) {
-        executor.execute(()->{
-            Poll poll = AppLocalDb.db.pollDao().getPollByPollId(pollId);
-            listener.onComplete(poll);
-        });
-    }
-
 
     public void isPollFilled(String userId,String pollId, BooleanListener listener){
         executor.execute(()->{
@@ -366,12 +377,12 @@ public class Model {
             if (!userWithPolls.isEmpty()) {
                 for (Poll poll : userWithPolls.get(0).polls) {
                     if (poll.getPollId().equals(pollId)) {
-                        listener.onComplete(true);
+                        mainThread.post(()->listener.onComplete(true));
                         return;
                     }
                 }
             }
-            listener.onComplete(false);
+            mainThread.post(()->listener.onComplete(false));
         });
     }
 
@@ -455,4 +466,5 @@ public class Model {
             }
         }
     }
+
 }

@@ -13,9 +13,12 @@ import android.widget.Button;
 
 import com.example.appproject.R;
 import com.example.appproject.feed.FragmentUserDisplayDetailsArgs;
+import com.example.appproject.model.Model;
+import com.example.appproject.model.poll.PollQuestion;
 
 public class FragmentActivePoll extends Fragment {
 
+    Button startBtn;
     public FragmentActivePoll() {
     }
     @Override
@@ -32,10 +35,30 @@ public class FragmentActivePoll extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_active_poll,container,false);
+        startBtn=view.findViewById(R.id.activePoll_start_btn);
         String pollId = FragmentActivePollArgs.fromBundle(getArguments()).getPollId();
-        Button startBtn=view.findViewById(R.id.activePoll_start_btn);
-
-//        startBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentActivePollDirections.actionFragmentActivePollToFragmentPollQuestion(pollId)));
+        Model.instance.getPollQuestionByNumber(pollId,1, pollQuestion->
+                setStartBtnListenerByPollQuestionType(pollId,pollQuestion));
         return view;
+    }
+
+    private void setStartBtnListenerByPollQuestionType(String pollId, PollQuestion pollQuestion) {
+        switch (pollQuestion.getPollQuestionType()){
+            case Multi_Choice:{
+                startBtn.setOnClickListener
+                        (Navigation.createNavigateOnClickListener
+                                (FragmentActivePollDirections.actionFragmentActivePollToFragmentPollQuestion
+                                        (pollId,pollQuestion.getPollQuestionId())));
+                break;  
+            }
+            case Image_Question:{
+                break;
+            }
+            case Image_Answers:{
+                break;
+            }
+            default:
+                throw new IllegalStateException("Unexpected value: " + pollQuestion.getPollQuestionType());
+        }
     }
 }

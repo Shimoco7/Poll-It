@@ -40,11 +40,6 @@ public class Detail {
         this.answer = answer;
     }
 
-    /**
-     * Factory
-     *
-     */
-
     public Map<String,String> toJson(){
         Map<String,String> json = new HashMap<>();
         json.put("_id", detailId);
