@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.Answer;
 import com.google.android.material.button.MaterialButton;
@@ -62,7 +64,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         questionTitle = view.findViewById(R.id.poll_question_title);
         page= view.findViewById(R.id.poll_txt_qnumber);
         options = view.findViewById(R.id.poll_question_multi_choice_rv);
-        progressBar.setVisibility(View.VISIBLE);
+        General.progressBarOn(getActivity(),container,progressBar,false);
 
         viewModel = new ViewModelProvider(this).get(PollQuestionMultiChoiceViewModel.class);
         pollId = FragmentPollQuestionMultiChoiceArgs.fromBundle(getArguments()).getPollId();
@@ -77,9 +79,21 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 questionTitle.setText(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestion());
                 String pageFormat = viewModel.getPollQuestionWithAnswer().getValue().pollQuestion.getQuestionNumber()+"/"+ viewModel.getTotalPollNumberOfQuestions();
                 page.setText(pageFormat);
+
+                if(!numOfQuestions.equals(viewModel.getPollQuestionWithAnswer().getValue().pollQuestion.questionNumber)){
+                    Model.instance.getPollQuestionByNumber(pollId,viewModel.getPollQuestionWithAnswer().getValue().pollQuestion.questionNumber+1,pollQuestion -> {
+                        viewModel.setNextPollQuestion(pollQuestion);
+                        General.progressBarOff(getActivity(),container,progressBar,true);
+                    });
+                }
+                else{
+                    nextBtn.setVisibility(View.GONE);
+                    General.progressBarOff(getActivity(),container,progressBar,true);
+                }
             });
         });
         setRvAndAdapter();
+        setListeners();
         viewModel.getPollQuestionWithAnswer().observe(getViewLifecycleOwner(),questionWithAnswer -> refresh());
         return view;
     }
@@ -115,7 +129,6 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                         && viewModel.getPollQuestionWithAnswer().getValue().answer != null){
                     setAnswer(viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswer());
                 }
-                progressBar.setVisibility(View.GONE);
             }
         });
         options.setHasFixedSize(true);
@@ -144,10 +157,22 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
 
     private void setListeners(){
         nextBtn.setOnClickListener(v -> {
+            switch (viewModel.getNextPollQuestion().getPollQuestionType()){
+                case Multi_Choice:{
+                    Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
+                                    .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
+                    break;
+                }
+                case Image_Question:{
 
+                }
+                case Image_Answers:{
+
+                }
+            }
         });
         prevBtn.setOnClickListener(v -> {
-
+            Navigation.findNavController(v).navigateUp();
         });
     }
 

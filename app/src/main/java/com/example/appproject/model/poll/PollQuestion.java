@@ -2,10 +2,8 @@ package com.example.appproject.model.poll;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.example.appproject.poll.PollQuestionType;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

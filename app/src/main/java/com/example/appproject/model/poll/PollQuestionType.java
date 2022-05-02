@@ -1,4 +1,4 @@
-package com.example.appproject.poll;
+package com.example.appproject.model.poll;
 
 import com.google.gson.annotations.SerializedName;
 

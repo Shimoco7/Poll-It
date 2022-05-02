@@ -14,6 +14,7 @@ public class PollQuestionMultiChoiceViewModel extends ViewModel {
 
     MutableLiveData<PollQuestionWithAnswer> pollQuestionWithAnswer;
     Integer totalPollNumberOfQuestions;
+    PollQuestion nextPollQuestion;
 
     public PollQuestionMultiChoiceViewModel() {
         pollQuestionWithAnswer = new MutableLiveData<>();
@@ -33,5 +34,13 @@ public class PollQuestionMultiChoiceViewModel extends ViewModel {
 
     public void setPollQuestionWithAnswer(PollQuestionWithAnswer pollQuestionWithAnswer) {
         this.pollQuestionWithAnswer.postValue(pollQuestionWithAnswer);
+    }
+
+    public PollQuestion getNextPollQuestion() {
+        return nextPollQuestion;
+    }
+
+    public void setNextPollQuestion(PollQuestion nextPollQuestion) {
+        this.nextPollQuestion = nextPollQuestion;
     }
 }
