@@ -82,4 +82,7 @@ public interface ModelMethodsInterface {
 
     @GET("/poll_question/getPollQuestionsByPollId/{pollId}")
     Call<List<PollQuestion>> getPollQuestionsByPollId(@Header("Authorization") String accessToken, @Path("pollId") String pollId);
+
+    @POST("/answer/create")
+    Call<Void> saveAnswer(@Header("Authorization") String accessToken,@Body Map<String,String> map);
 }

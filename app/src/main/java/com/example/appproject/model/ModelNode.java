@@ -12,6 +12,7 @@ import com.example.appproject.model.listeners.GetPollsListener;
 import com.example.appproject.model.listeners.SaveImageListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.listeners.GetQuestionsListener;
+import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.question.Question;
@@ -322,6 +323,12 @@ public class ModelNode {
         });
     }
 
+    /**
+     *
+     *  Polls
+     *
+     */
+
     public void getPolls(GetPollsListener listener) {
         Call<List<Poll>> call = methodsInterface.getPolls("Bearer "+ MyApplication.getAccessToken());
         call.enqueue(new Callback<List<Poll>>() {
@@ -365,6 +372,30 @@ public class ModelNode {
             public void onFailure(Call<List<PollQuestion>> call, Throwable t) {
                 Log.e("TAG" , "get PollQuestions By PollId FAILED: " + t.getMessage());
                 listener.onComplete(null);
+            }
+        });
+    }
+
+
+    public void saveAnswerToDb(Answer answer, VoidListener listener) {
+        Map<String,String> map = answer.toJson();
+        Call<Void> call = methodsInterface.saveAnswer("Bearer "+ MyApplication.getAccessToken(),map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete();
+                }
+                else{
+                    listener.onComplete();
+                    Log.e("TAG" , "Save Answer FAILURE: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("TAG" , "Save Answer FAILURE: " + t.getMessage());
+                listener.onComplete();
             }
         });
     }

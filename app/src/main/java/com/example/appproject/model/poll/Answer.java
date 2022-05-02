@@ -37,8 +37,8 @@ public class Answer {
         this.answer = answer;
     }
 
-    public Map<String, Object> toJson() {
-        Map<String,Object> json = new HashMap<>();
+    public Map<String, String> toJson() {
+        Map<String,String> json = new HashMap<>();
         json.put("_id",answerId);
         json.put("accountId",userId);
         json.put("pollId",pollId);

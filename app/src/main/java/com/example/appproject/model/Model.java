@@ -29,12 +29,14 @@ import com.example.appproject.model.listeners.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.PollQuestionWithAnswer;
+import com.example.appproject.model.poll.PollWithPollQuestionsAndAnswers;
 import com.example.appproject.model.poll.PollsListLoadingState;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.listeners.SaveImageListener;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.listeners.LoginListener;
+import com.example.appproject.model.user.UserPollCrossRef;
 import com.example.appproject.model.user.UserWithPolls;
 import com.example.appproject.model.user.UsersListLoadingState;
 
@@ -323,25 +325,22 @@ public class Model {
         executor.execute(()->AppLocalDb.db.answerDao().updateAnswerByAnswerId(answerId,chosenAnswer));
     }
 
-//    public void savePollAnswersOnDb(String userId,String pollId, VoidListener listener) {
-//        Map<String,Answer> pollMap = new HashMap<>();
-//        executor.execute(()->{
-//            List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
-//            List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
-//            for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
-//                if(pqwa.answer.getUserId().equals(userId)){
-//                    pollMap.put(pqwa.pollQuestion.getPollQuestionId(),pqwa.answer);
-//                }
-//            }
-//            modelFirebaseDb.savePollAnswersOnDb(pollMap, ()->{
-//                executor.execute(()->{
-//                    UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
-//                    AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
-//                    listener.onComplete();
-//                });
-//            });
-//        });
-//    }
+    public void savePollAnswersToRemoteDb(String userId, String pollId, VoidListener listener) {
+        executor.execute(()->{
+            List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
+            List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
+            for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
+                if(pqwa.answer.getUserId().equals(userId)){
+                    modelNode.saveAnswerToDb(pqwa.answer,listener);
+                }
+            }
+            executor.execute(()->{
+                UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
+                AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
+                mainThread.post(listener::onComplete);
+            });
+        });
+    }
 
     public void savePollAnswersOnLocalDb(Map<String, Answer> pollMap, VoidListener listener){
         executor.execute(()->{

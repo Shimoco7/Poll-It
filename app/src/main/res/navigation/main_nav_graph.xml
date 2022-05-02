@@ -47,13 +47,16 @@
         tools:layout="@layout/fragment_active_poll">
         <action
             android:id="@+id/action_fragmentActivePoll_to_fragmentPollQuestion"
-            app:destination="@id/fragmentPollQuestion" />
+            app:destination="@id/fragmentPollQuestionMultiChoice" />
         <argument
             android:name="poll_id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentActivePoll_to_fragmentPollQuestionImageAnswers"
+            app:destination="@id/fragmentPollQuestionImageAnswers" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentPollQuestion"
+        android:id="@+id/fragmentPollQuestionMultiChoice"
         android:name="com.example.appproject.poll.FragmentPollQuestionMultiChoice"
         android:label="Active Poll"
         tools:layout="@layout/fragment_poll_question_multi_choice" >
@@ -65,7 +68,10 @@
             app:argType="string" />
         <action
             android:id="@+id/action_fragmentPollQuestion_self"
-            app:destination="@id/fragmentPollQuestion" />
+            app:destination="@id/fragmentPollQuestionMultiChoice" />
+        <action
+            android:id="@+id/action_fragmentPollQuestionMultiChoice_to_fragmentPollQuestionImageAnswers"
+            app:destination="@id/fragmentPollQuestionImageAnswers" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFeed"
@@ -98,5 +104,24 @@
         android:id="@+id/fragmentPrize"
         android:name="com.example.appproject.home.FragmentPrize"
         android:label="fragment_prize"
-        tools:layout="@layout/fragment_prize" /><action android:id="@+id/action_global_fragmentHomeScreen" app:destination="@id/fragmentHomeScreen"/>
+        tools:layout="@layout/fragment_prize" />
+    <action android:id="@+id/action_global_fragmentHomeScreen" app:destination="@id/fragmentHomeScreen" />
+    <fragment
+        android:id="@+id/fragmentPollQuestionImageAnswers"
+        android:name="com.example.appproject.poll.FragmentPollQuestionImageAnswers"
+        android:label="Active Poll"
+        tools:layout="@layout/fragment_poll_question_image">
+        <argument
+            android:name="pollId"
+            app:argType="string" />
+        <argument
+            android:name="pollQuestionId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentPollQuestionImageAnswers_self"
+            app:destination="@id/fragmentPollQuestionImageAnswers" />
+        <action
+            android:id="@+id/action_fragmentPollQuestionImageAnswers_to_fragmentPollQuestionMultiChoice"
+            app:destination="@id/fragmentPollQuestionMultiChoice" />
+    </fragment>
 </navigation>

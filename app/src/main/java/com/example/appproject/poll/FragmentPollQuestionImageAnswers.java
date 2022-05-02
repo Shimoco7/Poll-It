@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,10 +29,10 @@ import com.google.android.material.button.MaterialButton;
 import java.util.Objects;
 
 
-public class FragmentPollQuestionMultiChoice extends Fragment {
+public class FragmentPollQuestionImageAnswers extends Fragment {
 
-    PollQuestionMultiChoiceViewModel viewModel;
-    PollQuestionMultiChoiceAdapter adapter;
+    PollQuestionImageAnswersViewModel viewModel;
+    PollQuestionImageAnswersAdapter adapter;
     RecyclerView options;
     String pollId,pollQuestionId;
     TextView questionTitle;
@@ -39,6 +41,10 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
     ProgressBar progressBar;
     ViewGroup container;
 
+    public FragmentPollQuestionImageAnswers() {
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,30 +52,27 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
         menu.findItem(R.id.main_menu_settings).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 
-    public FragmentPollQuestionMultiChoice() {
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_poll_question_multi_choice, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_poll_question_image, container, false);
         this.container = container;
-        nextBtn= view.findViewById(R.id.poll_btn_right);
-        prevBtn=view.findViewById(R.id.poll_btn_left);
-        progressBar = view.findViewById(R.id.poll_question_progress_bar);
-        questionTitle = view.findViewById(R.id.poll_question_title);
-        page= view.findViewById(R.id.poll_txt_qnumber);
-        options = view.findViewById(R.id.poll_question_multi_choice_rv);
-        General.progressBarOn(getActivity(),container,progressBar,false);
+        nextBtn = view.findViewById(R.id.pollImage_btn_right);
+        prevBtn = view.findViewById(R.id.pollImage_btn_left);
+        progressBar = view.findViewById(R.id.pollImage_question_progress_bar);
+        questionTitle = view.findViewById(R.id.pollImage_question_title);
+        page = view.findViewById(R.id.pollImage_txt_qnumber);
+        options = view.findViewById(R.id.pollImage_rv);
 
-        viewModel = new ViewModelProvider(this).get(PollQuestionMultiChoiceViewModel.class);
-        pollId = FragmentPollQuestionMultiChoiceArgs.fromBundle(getArguments()).getPollId();
-        pollQuestionId = FragmentPollQuestionMultiChoiceArgs.fromBundle(getArguments()).getPollQuestionId();
-        Model.instance.getPollQuestionWithAnswer(pollQuestionId,pollQuestionWithAnswer ->{
+        viewModel = new ViewModelProvider(this).get(PollQuestionImageAnswersViewModel.class);
+        pollId = FragmentPollQuestionImageAnswersArgs.fromBundle(getArguments()).getPollId();
+        pollQuestionId = FragmentPollQuestionImageAnswersArgs.fromBundle(getArguments()).getPollQuestionId();
+        Model.instance.getPollQuestionWithAnswer(pollQuestionId, pollQuestionWithAnswer ->{
             viewModel.setPollQuestionWithAnswer(pollQuestionWithAnswer);
             if(pollQuestionWithAnswer.pollQuestion.getQuestionNumber().equals(1)){
                 prevBtn.setVisibility(View.GONE);
@@ -92,9 +95,11 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 }
             });
         });
+
         setRvAndAdapter();
         setListeners();
         viewModel.getPollQuestionWithAnswer().observe(getViewLifecycleOwner(),questionWithAnswer -> refresh());
+
         return view;
     }
 
@@ -103,12 +108,11 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-
     private void setAnswer(String answer) {
         for(int i = 0 ; i < adapter.getItemCount() ; i++){
-            PollQuestionMultiChoiceViewHolder holder = (PollQuestionMultiChoiceViewHolder) options.findViewHolderForAdapterPosition(i);
+            PollQuestionImageAnswersViewHolder holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
             assert holder != null;
-            if(holder.option.getText().equals(answer)){
+            if(holder.url.equals(answer)){
                 holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGreen)));
                 holder.option.setAlpha(1);
             }
@@ -119,8 +123,8 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         }
     }
 
-    private void setRvAndAdapter(){
-        options.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
+    private void setRvAndAdapter() {
+        options.setLayoutManager(new GridLayoutManager(getActivity(),2,LinearLayoutManager.VERTICAL,false){
             @Override
             public void onLayoutCompleted(RecyclerView.State state) {
                 super.onLayoutCompleted(state);
@@ -132,13 +136,13 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
             }
         });
         options.setHasFixedSize(true);
-        adapter = new PollQuestionMultiChoiceAdapter(viewModel,getLayoutInflater());
+        adapter = new PollQuestionImageAnswersAdapter(viewModel,getLayoutInflater());
         options.setAdapter(adapter);
         adapter.setOnItemClickListener((v,pos)->{
             String chosenAnswer = Objects.requireNonNull(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getChoices().get(pos));
             for(int i = 0 ; i < adapter.getItemCount() ; i++){
                 if(i!=pos){
-                    PollQuestionMultiChoiceViewHolder holder = (PollQuestionMultiChoiceViewHolder) options.findViewHolderForAdapterPosition(i);
+                    PollQuestionImageAnswersViewHolder holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
                     assert holder != null;
                     holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                     holder.option.setAlpha((float)0.25);
@@ -155,18 +159,18 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         });
     }
 
-    private void setListeners(){
+    private void setListeners() {
         nextBtn.setOnClickListener(v -> {
             if(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber().equals(viewModel.getTotalPollNumberOfQuestions())){
                 Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,()->
-                        Navigation.findNavController(this.container).navigate(FragmentPollQuestionMultiChoiceDirections.actionGlobalFragmentHomeScreen()));
+                        Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen()));
 
             }
             else{
                 switch (viewModel.getNextPollQuestion().getPollQuestionType()){
                     case Multi_Choice:{
-                        Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
-                                .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
+                        Navigation.findNavController(v).navigate((FragmentPollQuestionImageAnswersDirections
+                                .actionFragmentPollQuestionImageAnswersToFragmentPollQuestionMultiChoice(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
                         break;
                     }
                     case Image_Question:{
@@ -174,8 +178,8 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                         break;
                     }
                     case Image_Answers:{
-                        Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
-                                .actionFragmentPollQuestionMultiChoiceToFragmentPollQuestionImageAnswers(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
+                        Navigation.findNavController(v).navigate((FragmentPollQuestionImageAnswersDirections
+                                .actionFragmentPollQuestionImageAnswersSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
                         break;
                     }
                 }
@@ -185,6 +189,4 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
             Navigation.findNavController(v).navigateUp();
         });
     }
-
 }
-
