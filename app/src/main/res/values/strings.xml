@@ -42,12 +42,6 @@
     <string name="missing_name">Name is Required</string>
     <string name="missing_address">Address is Required</string>
 
-    <!--Collection Strings - REMOVE -->
-    <string name="questions_collection">questions</string>
-    <string name="polls_collection">polls</string>
-    <string name="polls_questions_collection">polls_questions</string>
-    <string name="answers_collection">answers</string>
-
     <!--Shared Preferences Strings-->
     <string name="firebasekey">firebasekey</string>
     <string name="users_list_last_update_date">users_list_last_update_date</string>

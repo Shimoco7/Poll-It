@@ -98,5 +98,5 @@
         android:id="@+id/fragmentPrize"
         android:name="com.example.appproject.home.FragmentPrize"
         android:label="fragment_prize"
-        tools:layout="@layout/fragment_prize" />
+        tools:layout="@layout/fragment_prize" /><action android:id="@+id/action_global_fragmentHomeScreen" app:destination="@id/fragmentHomeScreen"/>
 </navigation>

@@ -87,7 +87,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                     });
                 }
                 else{
-                    nextBtn.setVisibility(View.GONE);
+                    nextBtn.setText(getString(R.string.finish)); //TODO - make sure it is visible
                     General.progressBarOff(getActivity(),container,progressBar,true);
                 }
             });
@@ -157,17 +157,22 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
 
     private void setListeners(){
         nextBtn.setOnClickListener(v -> {
-            switch (viewModel.getNextPollQuestion().getPollQuestionType()){
-                case Multi_Choice:{
-                    Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
-                                    .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
-                    break;
-                }
-                case Image_Question:{
+            if(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber().equals(viewModel.getTotalPollNumberOfQuestions())){
+                Navigation.findNavController(v).navigate(FragmentPollQuestionMultiChoiceDirections.actionGlobalFragmentHomeScreen());
+            }
+            else{
+                switch (viewModel.getNextPollQuestion().getPollQuestionType()){
+                    case Multi_Choice:{
+                        Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
+                                .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
+                        break;
+                    }
+                    case Image_Question:{
 
-                }
-                case Image_Answers:{
+                    }
+                    case Image_Answers:{
 
+                    }
                 }
             }
         });
