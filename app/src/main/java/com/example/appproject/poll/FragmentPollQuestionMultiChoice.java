@@ -62,13 +62,16 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         questionTitle = view.findViewById(R.id.poll_question_title);
         page= view.findViewById(R.id.poll_txt_qnumber);
         options = view.findViewById(R.id.poll_question_multi_choice_rv);
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
 
         viewModel = new ViewModelProvider(this).get(PollQuestionMultiChoiceViewModel.class);
         pollId = FragmentPollQuestionMultiChoiceArgs.fromBundle(getArguments()).getPollId();
         pollQuestionId = FragmentPollQuestionMultiChoiceArgs.fromBundle(getArguments()).getPollQuestionId();
         Model.instance.getPollQuestionWithAnswer(pollQuestionId,pollQuestionWithAnswer ->{
             viewModel.setPollQuestionWithAnswer(pollQuestionWithAnswer);
+            if(pollQuestionWithAnswer.pollQuestion.getQuestionNumber().equals(1)){
+                prevBtn.setVisibility(View.GONE);
+            }
             Model.instance.getPollNumberOfQuestions(pollId,numOfQuestions->{
                 viewModel.setTotalPollNumberOfQuestions(numOfQuestions);
                 questionTitle.setText(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestion());
@@ -112,6 +115,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                         && viewModel.getPollQuestionWithAnswer().getValue().answer != null){
                     setAnswer(viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswer());
                 }
+                progressBar.setVisibility(View.GONE);
             }
         });
         options.setHasFixedSize(true);
