@@ -42,13 +42,13 @@
                 android:id="@+id/poll_QuestionImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/textviewbg"
                 android:maxWidth="250dp"
                 android:maxHeight="250dp"
                 android:padding="5dp"
-                android:layout_gravity="center"
-                android:background="@drawable/textviewbg"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
-                app:strokeWidth="2dp"/>
+                app:strokeWidth="2dp" />
 
 
 <!--            app:srcCompat="@drawable/mcdonalds_icon"-->

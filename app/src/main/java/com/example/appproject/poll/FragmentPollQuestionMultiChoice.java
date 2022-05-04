@@ -23,8 +23,14 @@ import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.Answer;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 
 public class FragmentPollQuestionMultiChoice extends Fragment {
@@ -32,7 +38,9 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
     PollQuestionMultiChoiceViewModel viewModel;
     PollQuestionMultiChoiceAdapter adapter;
     RecyclerView options;
+    Boolean isWithImageQuestion;
     String pollId,pollQuestionId;
+    ShapeableImageView questionImage;
     TextView questionTitle;
     TextView page;
     MaterialButton nextBtn, prevBtn;
@@ -63,12 +71,14 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         progressBar = view.findViewById(R.id.poll_question_progress_bar);
         questionTitle = view.findViewById(R.id.poll_question_title);
         page= view.findViewById(R.id.poll_txt_qnumber);
+        questionImage= view.findViewById(R.id.poll_QuestionImage);
         options = view.findViewById(R.id.poll_question_multi_choice_rv);
         General.progressBarOn(getActivity(),container,progressBar,false);
 
         viewModel = new ViewModelProvider(this).get(PollQuestionMultiChoiceViewModel.class);
         pollId = FragmentPollQuestionMultiChoiceArgs.fromBundle(getArguments()).getPollId();
         pollQuestionId = FragmentPollQuestionMultiChoiceArgs.fromBundle(getArguments()).getPollQuestionId();
+        isWithImageQuestion = FragmentPollQuestionMultiChoiceArgs.fromBundle(getArguments()).getIsWithImageQuestion();
         Model.instance.getPollQuestionWithAnswer(pollQuestionId,pollQuestionWithAnswer ->{
             viewModel.setPollQuestionWithAnswer(pollQuestionWithAnswer);
             if(pollQuestionWithAnswer.pollQuestion.getQuestionNumber().equals(1)){
@@ -79,6 +89,10 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 questionTitle.setText(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestion());
                 String pageFormat = viewModel.getPollQuestionWithAnswer().getValue().pollQuestion.getQuestionNumber()+"/"+ viewModel.getTotalPollNumberOfQuestions();
                 page.setText(pageFormat);
+
+                if(isWithImageQuestion){
+                    setImageQuestion();
+                }
 
                 if(!numOfQuestions.equals(viewModel.getPollQuestionWithAnswer().getValue().pollQuestion.questionNumber)){
                     Model.instance.getPollQuestionByNumber(pollId,viewModel.getPollQuestionWithAnswer().getValue().pollQuestion.questionNumber+1,pollQuestion -> {
@@ -97,6 +111,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         viewModel.getPollQuestionWithAnswer().observe(getViewLifecycleOwner(),questionWithAnswer -> refresh());
         return view;
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private void refresh() {
@@ -166,11 +181,12 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 switch (viewModel.getNextPollQuestion().getPollQuestionType()){
                     case Multi_Choice:{
                         Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
-                                .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
+                                .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId(),false)));
                         break;
                     }
                     case Image_Question:{
-
+                        Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
+                                .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId(),true)));
                         break;
                     }
                     case Image_Answers:{
@@ -184,6 +200,20 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         prevBtn.setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();
         });
+    }
+
+    private void setImageQuestion() {
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
+            Request newRequest = chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
+                    .build();
+            return chain.proceed(newRequest);
+        }).build();
+        Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
+        picasso.load(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage())
+                .placeholder(R.drawable.avatar)     //TODO - replace placeholder to something else
+                .into(questionImage);
+
     }
 
 }

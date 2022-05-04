@@ -48,13 +48,21 @@ public class FragmentActivePoll extends Fragment {
                 startBtn.setOnClickListener
                         (Navigation.createNavigateOnClickListener
                                 (FragmentActivePollDirections.actionFragmentActivePollToFragmentPollQuestion
-                                        (pollId,pollQuestion.getPollQuestionId())));
+                                        (pollId,pollQuestion.getPollQuestionId(),false)));
                 break;  
             }
             case Image_Question:{
+                startBtn.setOnClickListener
+                        (Navigation.createNavigateOnClickListener
+                                (FragmentActivePollDirections.actionFragmentActivePollToFragmentPollQuestion
+                                        (pollId,pollQuestion.getPollQuestionId(),true)));
                 break;
             }
             case Image_Answers:{
+                startBtn.setOnClickListener
+                        (Navigation.createNavigateOnClickListener
+                                (FragmentActivePollDirections.actionFragmentActivePollToFragmentPollQuestionImageAnswers
+                                        (pollId,pollQuestion.getPollQuestionId())));
                 break;
             }
             default:

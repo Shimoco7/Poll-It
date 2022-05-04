@@ -167,11 +167,12 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                 switch (viewModel.getNextPollQuestion().getPollQuestionType()){
                     case Multi_Choice:{
                         Navigation.findNavController(v).navigate((FragmentPollQuestionImageAnswersDirections
-                                .actionFragmentPollQuestionImageAnswersToFragmentPollQuestionMultiChoice(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
+                                .actionFragmentPollQuestionImageAnswersToFragmentPollQuestionMultiChoice(pollId,viewModel.getNextPollQuestion().getPollQuestionId(),false)));
                         break;
                     }
                     case Image_Question:{
-
+                        Navigation.findNavController(v).navigate((FragmentPollQuestionImageAnswersDirections
+                                .actionFragmentPollQuestionImageAnswersToFragmentPollQuestionMultiChoice(pollId,viewModel.getNextPollQuestion().getPollQuestionId(),true)));
                         break;
                     }
                     case Image_Answers:{

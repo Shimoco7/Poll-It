@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_fragmentPollQuestionMultiChoice_to_fragmentPollQuestionImageAnswers"
             app:destination="@id/fragmentPollQuestionImageAnswers" />
+        <argument
+            android:name="isWithImageQuestion"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFeed"
