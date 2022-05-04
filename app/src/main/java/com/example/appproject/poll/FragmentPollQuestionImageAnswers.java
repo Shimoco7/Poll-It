@@ -90,6 +90,7 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                     });
                 }
                 else{
+                    nextBtn.setCompoundDrawables(null, null,null,null);
                     nextBtn.setText(getString(R.string.finish)); //TODO - make sure it is visible
                     General.progressBarOff(getActivity(),container,progressBar,true);
                 }

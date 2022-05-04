@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -101,6 +102,8 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                     });
                 }
                 else{
+//                    nextBtn.setCompoundDrawables(null, ResourcesCompat.getDrawable(getResources(),R.drawable.ic_rightarrow, null),null,null);
+                    nextBtn.setCompoundDrawables(null, null,null,null);
                     nextBtn.setText(getString(R.string.finish)); //TODO - make sure it is visible
                     General.progressBarOff(getActivity(),container,progressBar,true);
                 }
