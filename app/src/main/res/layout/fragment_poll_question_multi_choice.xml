@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/homescr_poll_mainImage"
+                android:id="@+id/poll_QuestionImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxWidth="250dp"
