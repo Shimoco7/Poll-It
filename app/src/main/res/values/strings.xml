@@ -72,7 +72,7 @@
     <!--Facebook Strings-->
 
     <string name="facebook_app_id">1422304881523843</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="fb_login_protocol_scheme">fb1422304881523843</string>
     <string name="facebook_client_token">80f646c8177785019d8f35d46eedb702</string>
 
 
