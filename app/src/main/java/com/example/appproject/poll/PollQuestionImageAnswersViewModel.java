@@ -8,12 +8,14 @@ import com.example.appproject.model.poll.PollQuestionWithAnswer;
 
 public class PollQuestionImageAnswersViewModel extends ViewModel {
 
-    MutableLiveData<PollQuestionWithAnswer> pollQuestionWithAnswer;
-    Integer totalPollNumberOfQuestions;
-    PollQuestion nextPollQuestion;
+    private MutableLiveData<PollQuestionWithAnswer> pollQuestionWithAnswer;
+    private Integer totalPollNumberOfQuestions;
+    private PollQuestion nextPollQuestion;
+    private Boolean isAnswered;
 
     public PollQuestionImageAnswersViewModel() {
         pollQuestionWithAnswer = new MutableLiveData<>();
+        isAnswered = false;
     }
 
     public MutableLiveData<PollQuestionWithAnswer> getPollQuestionWithAnswer() {
@@ -38,5 +40,13 @@ public class PollQuestionImageAnswersViewModel extends ViewModel {
 
     public void setNextPollQuestion(PollQuestion nextPollQuestion) {
         this.nextPollQuestion = nextPollQuestion;
+    }
+
+    public Boolean getAnswered() {
+        return isAnswered;
+    }
+
+    public void setAnswered(Boolean answered) {
+        isAnswered = answered;
     }
 }

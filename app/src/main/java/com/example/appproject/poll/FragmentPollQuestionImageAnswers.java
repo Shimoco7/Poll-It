@@ -25,6 +25,7 @@ import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.Answer;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -131,6 +132,10 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                         && viewModel.getPollQuestionWithAnswer().getValue() != null
                         && viewModel.getPollQuestionWithAnswer().getValue().answer != null){
                     setAnswer(viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswer());
+                    viewModel.setAnswered(true);
+                }
+                else{
+                    viewModel.setAnswered(false);
                 }
             }
         });
@@ -138,6 +143,7 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
         adapter = new PollQuestionImageAnswersAdapter(viewModel,getLayoutInflater());
         options.setAdapter(adapter);
         adapter.setOnItemClickListener((v,pos)->{
+            viewModel.setAnswered(true);
             String chosenAnswer = Objects.requireNonNull(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getChoices().get(pos));
             for(int i = 0 ; i < adapter.getItemCount() ; i++){
                 if(i!=pos){
@@ -159,6 +165,11 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
 
     private void setListeners() {
         nextBtn.setOnClickListener(v -> {
+            if(!viewModel.getAnswered()){
+                Snackbar.make(requireView(),getString(R.string.select_an_answer),Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
             if(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber().equals(viewModel.getTotalPollNumberOfQuestions())){
                 Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,()->
                         Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen()));
@@ -184,8 +195,6 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                 }
             }
         });
-        prevBtn.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
-        });
+        prevBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
     }
 }
