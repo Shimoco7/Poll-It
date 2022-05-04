@@ -3,12 +3,19 @@ package com.example.appproject;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.FacebookSdk;
+import com.facebook.LoggingBehavior;
+import com.facebook.appevents.AppEventsLogger;
+
 public class MyApplication extends Application {
     static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+        AppEventsLogger.activateApp(this);
         context = getApplicationContext();
     }
 
