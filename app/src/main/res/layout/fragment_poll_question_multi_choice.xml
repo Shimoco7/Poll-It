@@ -13,24 +13,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/poll_question_title"
-            android:layout_width="358dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="10dp"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:text="@string/what_is_your_answer"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="36sp"
-            android:textStyle="bold"
+
+        <LinearLayout
+            android:id="@+id/poll_TitlelinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/poll_question_title"
+                android:layout_width="358dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:layout_marginTop="50dp"
+                android:fontFamily="sans-serif-black"
+                app:srcCompat="@drawable/mcdonalds_icon"
+                android:text="@string/what_is_your_answer"
+                android:textColor="#FFFFFF"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/homescr_poll_mainImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="250dp"
+                android:maxHeight="250dp"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:background="@drawable/textviewbg"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
+                app:strokeWidth="2dp"/>
+
+
+<!--            app:srcCompat="@drawable/mcdonalds_icon"-->
+
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/poll_ConstraintLayout"
@@ -45,14 +69,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/poll_question_title">
+            app:layout_constraintTop_toBottomOf="@+id/poll_TitlelinearLayout">
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/poll_question_multi_choice_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
