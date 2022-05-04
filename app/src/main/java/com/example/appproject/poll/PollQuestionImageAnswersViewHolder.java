@@ -26,8 +26,7 @@ public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
         option = itemView.findViewById(R.id.image_q_square_image);
         option.setOnClickListener(v->{
-            option.setBackgroundTintList(ColorStateList.valueOf(MyApplication.getContext().getResources().getColor(R.color.primeGreen)));
-            option.setAlpha(1);
+            option.setAlpha((float)1.0);
             int pos = getAdapterPosition();
             listener.onItemClick(v,pos);
         });

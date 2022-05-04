@@ -113,11 +113,9 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
             PollQuestionImageAnswersViewHolder holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
             assert holder != null;
             if(holder.url.equals(answer)){
-                holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGreen)));
-                holder.option.setAlpha(1);
+                holder.option.setAlpha((float)1.0);
             }
             else{
-                holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                 holder.option.setAlpha((float)0.25);
             }
         }
@@ -144,7 +142,6 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                 if(i!=pos){
                     PollQuestionImageAnswersViewHolder holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
                     assert holder != null;
-                    holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
                     holder.option.setAlpha((float)0.25);
                 }
             }

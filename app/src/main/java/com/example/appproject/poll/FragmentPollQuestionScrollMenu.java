@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import com.example.appproject.R;
 
 
-public class FragmentQuestionScrollMenu extends Fragment {
+public class FragmentPollQuestionScrollMenu extends Fragment {
 
-    public FragmentQuestionScrollMenu() {
+    public FragmentPollQuestionScrollMenu() {
     }
 
 
@@ -25,6 +25,6 @@ public class FragmentQuestionScrollMenu extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_question_scroll_menu, container, false);
+        return inflater.inflate(R.layout.fragment_poll_question_scroll_menu, container, false);
     }
 }
