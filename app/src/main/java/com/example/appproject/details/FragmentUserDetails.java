@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.example.appproject.MainActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
@@ -102,7 +103,12 @@ public class FragmentUserDetails extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
         list.setAdapter(detailsAdapter);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        if(!requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+        else{
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         setInputListeners();
         nextBtn.setOnClickListener(v -> {
             if(!allDetailsFilled()){ return; }
@@ -179,7 +185,7 @@ public class FragmentUserDetails extends Fragment {
         addressEt.setVisibility(View.VISIBLE);
         addressTi.setVisibility(View.VISIBLE);
         nextBtn.setVisibility(View.VISIBLE);
-        General.progressBarOff(getActivity(),container,detailsProgressBar,false);
+        General.progressBarOff(getActivity(),container,detailsProgressBar,requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName()));
     }
 
     @SuppressLint("NotifyDataSetChanged")
