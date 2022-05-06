@@ -330,7 +330,7 @@ public class ModelNode {
      */
 
     public void getPolls(GetPollsListener listener) {
-        Call<List<Poll>> call = methodsInterface.getPolls("Bearer "+ MyApplication.getAccessToken());
+        Call<List<Poll>> call = methodsInterface.getPolls("Bearer "+ MyApplication.getAccessToken(),MyApplication.getUserKey());
         call.enqueue(new Callback<List<Poll>>() {
             @Override
             public void onResponse(Call<List<Poll>> call, Response<List<Poll>> response) {

@@ -21,7 +21,11 @@ import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public class FragmentUserDisplayDetails extends Fragment {
 
@@ -65,63 +69,55 @@ public class FragmentUserDisplayDetails extends Fragment {
         gender=view.findViewById(R.id.user_display_details_txt_gender);
         address=view.findViewById(R.id.user_display_details_txt_address);
         progressBar=view.findViewById(R.id.user_display_details_progress_bar);
-        Button backToFeedBtn = view.findViewById(R.id.user_display_details_back_btn);
+        Button backBtn = view.findViewById(R.id.user_display_details_back_btn);
         Button editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
 
 
         adapter = new UserDisplayDetailsAdapter(viewModel,getLayoutInflater());
         General.progressBarOn(getActivity(),container,progressBar,false);
-        Model.instance.getUserWithPolls(userId,userWithPolls->{
-            viewModel.setUserFilledPolls(userWithPolls);
-            Model.instance.getUserById(userId,user->{
-                Model.instance.getMainThread().post(()->{
-                    userName.setText(user.getName());
-                    email.setText(user.getEmail());
-                    address.setText(user.getAddress());
-                });
-
-                Model.instance.getUserDetailById(user.getUid(),"Education Level",edu->{
-                    education.setText(edu.getAnswer());
-                });
-                Model.instance.getMainThread().post(()->{
-                    gender.setText(user.getGender());
-                });
-
-//                if(user.getProfilePicUrl() != null){
-//                    Model.instance.getMainThread().post(()->{
-//                        Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);
-//                    });
-//                }
-//                else{
-                    if(user.getGender()!=null){
-                        if(user.getGender().equals("Female")){
-                            Model.instance.getMainThread().post(()->{
-                                profilePic.setImageResource(R.drawable.female_avatar);
-                            });
-                        }
-                        else{
-                            Model.instance.getMainThread().post(()->{
-                                profilePic.setImageResource(R.drawable.avatar);
-                            });
-                        }
-                    }
-                    else{
-                        Model.instance.getMainThread().post(()->{
-                            profilePic.setImageResource(R.drawable.avatar);
-                        });
-                    }
-//                }
-                General.progressBarOff(getActivity(),container,progressBar,true);
-            });
-
+        userName.setText(MyApplication.getUserName());
+        email.setText(MyApplication.getUserEmail());
+        address.setText(MyApplication.getUserAddress());
+        Model.instance.getUserDetailById(MyApplication.getUserKey(),"Education Level",edu->{
+            education.setText(edu.getAnswer());
+            General.progressBarOff(getActivity(),container,progressBar,true);
         });
 
+        if(MyApplication.getUserProfilePicUrl() != null && MyApplication.getUserProfilePicUrl().length() >0){
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
+                Request newRequest = chain.request().newBuilder()
+                        .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
+                        .build();
+                return chain.proceed(newRequest);
+            }).build();
+            Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
+            picasso.load(MyApplication.getUserProfilePicUrl())
+                    .placeholder(R.drawable.avatar)
+                    .into(profilePic);
+        }
+        else{
+            if(MyApplication.getGender()!=null){
+                if(MyApplication.getGender().equals("Female")){
+                    Model.instance.getMainThread().post(()->{
+                        profilePic.setImageResource(R.drawable.female_avatar);
+                    });
+                }
+                else{
+                    Model.instance.getMainThread().post(()->{
+                        profilePic.setImageResource(R.drawable.avatar);
+                    });
+                }
+            }
+            else{
+                Model.instance.getMainThread().post(()->{
+                    profilePic.setImageResource(R.drawable.avatar);
+                });
+            }
+        }
 
 
-        editBtn.setOnClickListener(v->{
-            Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails());
-        });
-        backToFeedBtn.setOnClickListener(v->{
+        editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails()));
+        backBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();
         });
 

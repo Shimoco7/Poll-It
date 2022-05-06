@@ -77,8 +77,8 @@ public interface ModelMethodsInterface {
      *
      */
 
-    @GET("/poll/getAllPolls")
-    Call<List<Poll>> getPolls(@Header("Authorization") String accessToken);
+    @GET("/poll/getPollsByUserId/{accountId}")
+    Call<List<Poll>> getPolls(@Header("Authorization") String accessToken,@Path("accountId") String accountId);
 
     @GET("/poll_question/getPollQuestionsByPollId/{pollId}")
     Call<List<PollQuestion>> getPollQuestionsByPollId(@Header("Authorization") String accessToken, @Path("pollId") String pollId);
