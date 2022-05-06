@@ -1,15 +1,12 @@
 package com.example.appproject.feed;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,13 +16,12 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
-
-import java.util.Objects;
 
 public class FragmentUserDisplayDetails extends Fragment {
 
@@ -33,8 +29,7 @@ public class FragmentUserDisplayDetails extends Fragment {
     ShapeableImageView profilePic;
     UserDisplayDetailsViewModel viewModel;
     UserDisplayDetailsAdapter adapter;
-    RecyclerView list;
-    ProgressBar progressBar;
+        ProgressBar progressBar;
 
     public FragmentUserDisplayDetails() { }
 
@@ -61,7 +56,7 @@ public class FragmentUserDisplayDetails extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user_display_details, container, false);
-        String userId = FragmentUserDisplayDetailsArgs.fromBundle(getArguments()).getUserUid();
+        String userId = MyApplication.getUserKey();
         viewModel.setUserId(userId);
         profilePic = view.findViewById(R.id.user_display_details_img_main);
         userName = view.findViewById(R.id.user_display_details_txt_username);
@@ -70,21 +65,11 @@ public class FragmentUserDisplayDetails extends Fragment {
         gender=view.findViewById(R.id.user_display_details_txt_gender);
         address=view.findViewById(R.id.user_display_details_txt_address);
         progressBar=view.findViewById(R.id.user_display_details_progress_bar);
-        Button backToFeedBtn = view.findViewById(R.id.feed_back_btn);
+        Button backToFeedBtn = view.findViewById(R.id.user_display_details_back_btn);
+        Button editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
 
-        list = view.findViewById(R.id.user_display_details_rv);
-        list.setHasFixedSize(true);
-        int numOfColumns = 2;
-        list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns,GridLayoutManager.VERTICAL,false));
+
         adapter = new UserDisplayDetailsAdapter(viewModel,getLayoutInflater());
-        list.setAdapter(adapter);
-        list.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                outRect.set(5,20,5,20);
-            }
-        });
-
         General.progressBarOn(getActivity(),container,progressBar,false);
         Model.instance.getUserWithPolls(userId,userWithPolls->{
             viewModel.setUserFilledPolls(userWithPolls);
@@ -102,12 +87,12 @@ public class FragmentUserDisplayDetails extends Fragment {
                     gender.setText(user.getGender());
                 });
 
-                if(user.getProfilePicUrl() != null){
-                    Model.instance.getMainThread().post(()->{
-                        Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);
-                    });
-                }
-                else{
+//                if(user.getProfilePicUrl() != null){
+//                    Model.instance.getMainThread().post(()->{
+//                        Picasso.get().load(user.getProfilePicUrl()).placeholder(R.drawable.avatar).into(profilePic);
+//                    });
+//                }
+//                else{
                     if(user.getGender()!=null){
                         if(user.getGender().equals("Female")){
                             Model.instance.getMainThread().post(()->{
@@ -125,18 +110,20 @@ public class FragmentUserDisplayDetails extends Fragment {
                             profilePic.setImageResource(R.drawable.avatar);
                         });
                     }
-                }
+//                }
                 General.progressBarOff(getActivity(),container,progressBar,true);
             });
 
         });
 
+
+
+        editBtn.setOnClickListener(v->{
+            Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails());
+        });
         backToFeedBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();
         });
-
-        Model.instance.refreshPollsList();
-        Model.instance.refreshList();
 
         return view;
     }

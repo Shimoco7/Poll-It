@@ -7,6 +7,7 @@
     android:background="@color/black"
     android:scrollbars="vertical"
     android:scrollbarSize="3dp"
+    android:fillViewport="true"
     android:scrollbarStyle="insideInset"
     tools:context=".feed.FragmentUserDisplayDetails">
 
@@ -77,13 +78,25 @@
                 android:textSize="28dp"
                 android:textStyle="bold" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/user_display_details_btn_line"
+                android:layout_width="320dp"
+                android:layout_height="3dp"
+                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#978F8F"
+                app:cornerRadius="100px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/user_display_details_txt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:drawableStart="@drawable/ic_white_location"
-
                 android:drawablePadding="10dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="left"
@@ -93,13 +106,23 @@
                 android:textColor="@color/white"
                 android:textSize="28dp"
                 android:textStyle="bold" />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="320dp"
+                android:layout_height="3dp"
+                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#978F8F"
+                app:cornerRadius="100px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/user_display_details_txt_education"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-
                 android:drawableStart="@drawable/ic_education"
                 android:drawablePadding="10dp"
                 android:fontFamily="sans-serif-light"
@@ -109,14 +132,23 @@
                 android:textColor="@color/white"
                 android:textSize="28dp"
                 android:textStyle="bold" />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="320dp"
+                android:layout_height="3dp"
+                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#978F8F"
+                app:cornerRadius="100px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/user_display_details_txt_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-
-
                 android:drawableStart="@drawable/sex_icon"
                 android:drawablePadding="10dp"
                 android:fontFamily="sans-serif-light"
@@ -127,46 +159,70 @@
                 android:textSize="28dp"
                 android:textStyle="bold" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/user_display_details_poll_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/textviewbg">
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="320dp"
+                android:layout_height="3dp"
+                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#978F8F"
+                app:cornerRadius="100px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/user_display_details_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/feed_back_btn"
+            android:id="@+id/user_display_details_back_btn"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:backgroundTint="@color/black"
             android:fontFamily="sans-serif"
-            android:text="BACK "
+            android:text="@string/back"
             android:textSize="20sp"
             app:cornerRadius="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_dusplay_details_layout"
             app:strokeColor="@color/primeOrng"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/user_display_details_editDetails_btn"
+            android:layout_width="210dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="sans-serif"
+            android:text="Edit Details"
+            android:textSize="16sp"
+            app:cornerRadius="35dp"
+            app:icon="@drawable/ic_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_dusplay_details_layout"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/user_display_details_editPassword_btn"
+            android:layout_width="210dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="sans-serif"
+            android:text="Edit Password"
+            android:textSize="16sp"
+            app:cornerRadius="35dp"
+            app:icon="@drawable/ic_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_display_details_editDetails_btn"
+            app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
 
         <ProgressBar

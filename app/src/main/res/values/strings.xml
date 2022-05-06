@@ -64,6 +64,8 @@
     <string name="storage_issue">Oops… We ran into an issue - Try Again Later</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back">BACK</string>
+    <string name="edit">EDIT</string>
 
     <!--Poll Strings-->
     <string name="select_an_answer">Please Select An Answer</string>
