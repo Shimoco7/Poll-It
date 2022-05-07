@@ -168,6 +168,7 @@ public class FragmentChangePassword extends Fragment {
                 if (newPassText.getText().toString().trim().equals(confirmPassText.getText().toString().trim())) {
                     if(newPassText.getText().toString().trim().equals(oldPassText.getText().toString().trim())){
                         Snackbar.make(requireView(),"You Have Entered Same Passwords",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                            oldPassText.setText("");
                             newPassText.setText("");
                             confirmPassText.setText("");
                         }).show();
