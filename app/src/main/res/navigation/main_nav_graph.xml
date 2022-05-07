@@ -99,6 +99,9 @@
         <action
             android:id="@+id/action_fragmentUserDisplayDetails_to_fragmentUserDetails"
             app:destination="@id/fragmentUserDetails" />
+        <action
+            android:id="@+id/action_fragmentUserDisplayDetails_to_fragmentChangePassword"
+            app:destination="@id/fragmentChangePassword" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRewardCenter"
@@ -133,4 +136,9 @@
             android:id="@+id/action_fragmentPollQuestionImageAnswers_to_fragmentPollQuestionMultiChoice"
             app:destination="@id/fragmentPollQuestionMultiChoice" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentChangePassword"
+        android:name="com.example.appproject.login.FragmentChangePassword"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>

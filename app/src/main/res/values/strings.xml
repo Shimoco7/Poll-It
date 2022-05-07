@@ -22,6 +22,9 @@
     <string name="sign_in">SIGN IN</string>
     <string name="is_signed_in">is_signed_in</string>
     <string name="password">Password</string>
+    <string name="password_rules">*8-20 characters.\n*Must have:Lowercase And uppercase letter.\n*Must have a Digit and a Special character</string>
+    <string name="change_password">Change Password</string>
+    <string name="old_password">Old Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="invalid_password">Invalid Password</string>
@@ -34,6 +37,8 @@
     <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
     <string name="image_upload_failed">Upload failed</string>
     <string name="please_upload_your_image">Please Upload Your Image</string>
+
+
 
     <!--Details Strings-->
     <string name="invalid_address">Invalid Address</string>
@@ -76,6 +81,7 @@
     <string name="facebook_app_id">1422304881523843</string>
     <string name="fb_login_protocol_scheme">fb1422304881523843</string>
     <string name="facebook_client_token">80f646c8177785019d8f35d46eedb702</string>
+
 
 
 </resources>
