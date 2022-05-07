@@ -71,6 +71,7 @@ public class FragmentUserDisplayDetails extends Fragment {
         progressBar=view.findViewById(R.id.user_display_details_progress_bar);
         Button backBtn = view.findViewById(R.id.user_display_details_back_btn);
         Button editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
+        Button editPassBtn=view.findViewById(R.id.user_display_details_editPassword_btn);
 
 
         adapter = new UserDisplayDetailsAdapter(viewModel,getLayoutInflater());
@@ -117,6 +118,7 @@ public class FragmentUserDisplayDetails extends Fragment {
 
 
         editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails()));
+        editPassBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentChangePassword()));
         backBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();
         });
