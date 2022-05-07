@@ -139,6 +139,6 @@
     <fragment
         android:id="@+id/fragmentChangePassword"
         android:name="com.example.appproject.login.FragmentChangePassword"
-        android:label="fragment_change_password"
+        android:label="Change Password"
         tools:layout="@layout/fragment_change_password" />
 </navigation>

@@ -167,6 +167,33 @@ public class ModelNode {
         });
     }
 
+    public void updatePassword(String oldPass,String newPass,BooleanListener listener){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("_id", MyApplication.getUserKey());
+        map.put("oldPassword", oldPass);
+        map.put("newPassword", newPass);
+
+        Call<Void> call = methodsInterface.updatePassword("Bearer "+ MyApplication.getAccessToken(),map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete(true);
+                }
+                else{
+                    Log.e("TAG" , "Update Password Error: " + response.code());
+                    listener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("TAG" , "Update Password FAILURE: " + t.getMessage());
+                listener.onComplete(false);
+            }
+        });
+    }
+
     public void signOut(VoidListener listener){
         HashMap<String, String> map = new HashMap<>();
         map.put("refreshToken", MyApplication.getRefreshToken());
@@ -175,13 +202,10 @@ public class ModelNode {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code() == 200){
-                    listener.onComplete();
+                if (response.code() != 200) {
+                    Log.w("TAG", "Logout Warning: " + response.code());
                 }
-                else{
-                    listener.onComplete();
-                    Log.w("TAG" , "Logout Warning: " + response.code());
-                }
+                listener.onComplete();
             }
 
             @Override
@@ -210,8 +234,8 @@ public class ModelNode {
                     listener.onComplete(user, appContext.getString(R.string.success));
                 }
                 else{
-                    listener.onComplete(null,null);
                     Log.e("TAG" , "Update user FAILURE: " + response.code());
+                    listener.onComplete(null,null);
                 }
             }
 
@@ -253,13 +277,10 @@ public class ModelNode {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code() == 200){
-                    listener.onComplete();
+                if (response.code() != 200) {
+                    Log.e("TAG", "Create detail FAILURE: " + response.code());
                 }
-                else{
-                    listener.onComplete();
-                    Log.e("TAG" , "Create detail FAILURE: " + response.code());
-                }
+                listener.onComplete();
             }
 
             @Override
@@ -383,13 +404,10 @@ public class ModelNode {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code() == 200){
-                    listener.onComplete();
+                if (response.code() != 200) {
+                    Log.e("TAG", "Save Answer FAILURE: " + response.code());
                 }
-                else{
-                    listener.onComplete();
-                    Log.e("TAG" , "Save Answer FAILURE: " + response.code());
-                }
+                listener.onComplete();
             }
 
             @Override

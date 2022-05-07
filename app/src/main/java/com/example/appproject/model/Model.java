@@ -102,6 +102,10 @@ public class Model {
         }));
     }
 
+    public void updatePassword(String oldPass, String newPass,BooleanListener listener){
+        modelNode.updatePassword(oldPass,newPass,listener);
+    }
+
     public void isSignedIn(BooleanListener booleanListener){
          modelNode.isSignedIn(booleanListener);
     }

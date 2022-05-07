@@ -79,6 +79,7 @@ public class FragmentUserDisplayDetails extends Fragment {
         userName.setText(MyApplication.getUserName());
         email.setText(MyApplication.getUserEmail());
         address.setText(MyApplication.getUserAddress());
+        gender.setText(MyApplication.getGender());
         Model.instance.getUserDetailById(MyApplication.getUserKey(),"Education Level",edu->{
             education.setText(edu.getAnswer());
             General.progressBarOff(getActivity(),container,progressBar,true);

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,21 +22,11 @@ import com.example.appproject.model.Model;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentChangePassword#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Objects;
+
+
 public class FragmentChangePassword extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public FragmentChangePassword() {}
     Button btnChangePassword;
@@ -44,26 +35,6 @@ public class FragmentChangePassword extends Fragment {
     Boolean isOldPassEmpty=true,isNewPassEmpty=true,isConfirmPassEmpty=true;
     ProgressBar progressBar;
     Boolean failToCreate=false;
-
-
-    // TODO: Rename and change types and number of parameters
-    public static FragmentChangePassword newInstance(String param1, String param2) {
-        FragmentChangePassword fragment = new FragmentChangePassword();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,13 +48,12 @@ public class FragmentChangePassword extends Fragment {
         newPassLayout=view.findViewById(R.id.changePassword_lout_new_password);
         confirmPassLayout=view.findViewById(R.id.changePassword_lout_new_confirmpass);
         progressBar=view.findViewById(R.id.changePassword_progressbar);
+        progressBar.setVisibility(View.GONE);
         setChangeBtnListener(container);
         setInputListeners();
 
         return view;
     }
-
-
 
     @SuppressLint("RestrictedApi")
     private void setInputListeners() {
@@ -175,7 +145,7 @@ public class FragmentChangePassword extends Fragment {
 
     private void setChangeBtnListener(ViewGroup container) {
         btnChangePassword.setOnClickListener(v -> {
-
+            failToCreate = false;
             if ((isOldPassEmpty)||(isNewPassEmpty)||(isConfirmPassEmpty)){
                 if (isOldPassEmpty){
                     oldPassLayout.setErrorIconDrawable(null);
@@ -196,16 +166,22 @@ public class FragmentChangePassword extends Fragment {
             else{
                 General.progressBarOn(getActivity(),container,progressBar,false);
                 if (newPassText.getText().toString().trim().equals(confirmPassText.getText().toString().trim())) {
-                    if (!Model.instance.validatePassword(newPassText.getText().toString().trim())){
-                        Snackbar.make(getView(),"Invalid Password",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                    if(newPassText.getText().toString().trim().equals(oldPassText.getText().toString().trim())){
+                        Snackbar.make(requireView(),"You Have Entered Same Passwords",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
                             newPassText.setText("");
                             confirmPassText.setText("");
                         }).show();
                         failToCreate=true;
-
+                    }
+                    else if (!Model.instance.validatePassword(newPassText.getText().toString().trim())){
+                        Snackbar.make(requireView(),"Invalid Password",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                            newPassText.setText("");
+                            confirmPassText.setText("");
+                        }).show();
+                        failToCreate=true;
                     }
                 } else {
-                    Snackbar.make(getView(),"Invalid Password",Snackbar.LENGTH_INDEFINITE).setAction("close",view->{
+                    Snackbar.make(requireView(),"Invalid Password",Snackbar.LENGTH_INDEFINITE).setAction("close",view->{
                         newPassText.setText("");
                         confirmPassText.setText("");
                     }).show();
@@ -216,14 +192,18 @@ public class FragmentChangePassword extends Fragment {
                     return;
                 }
 
-                //TODO insert old and new password conformation
-
-
+                Model.instance.updatePassword(oldPassText.getText().toString().trim(),newPassText.getText().toString().trim(),isSuccessful->{
+                    if(isSuccessful){
+                        Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionGlobalFragmentHomeScreen());
+                    }
+                    else{
+                        Snackbar.make(requireView(),"Update Password Failed - You Might Have Entered A Wrong Password",Snackbar.LENGTH_INDEFINITE).setAction("Try again later", view->{
+                            General.progressBarOff(getActivity(),container,progressBar,true);
+                            Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionGlobalFragmentHomeScreen());
+                        }).show();
+                    }
+                });
             }
-
-
-
-
         });
 
     }

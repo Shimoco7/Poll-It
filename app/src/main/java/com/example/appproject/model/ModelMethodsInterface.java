@@ -20,6 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -39,6 +40,9 @@ public interface ModelMethodsInterface {
     @POST("/auth/refreshToken")
     Call<RefreshTokenResult> refreshToken(@Body Map<String,String> map);
 
+    @PUT("/auth/updatePassword")
+    Call<Void> updatePassword(@Header("Authorization") String accessToken, @Body Map<String,String> map);
+
     @POST("/auth/logout")
     Call<Void> logout(@Body Map<String,String> map);
 
@@ -48,7 +52,7 @@ public interface ModelMethodsInterface {
      *
      */
 
-    @POST("/auth/update")
+    @PUT("/auth/update")
     Call<User> updateUser(@Header("Authorization") String accessToken, @Body Map<String,String> map);
 
     @GET("/detail_question/getAllDetailQuestions")
