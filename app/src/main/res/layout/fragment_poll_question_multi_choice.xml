@@ -47,6 +47,7 @@
                 android:background="@drawable/textviewbg"
                 android:maxWidth="250dp"
                 android:maxHeight="250dp"
+
                 android:padding="5dp"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
                 app:strokeWidth="2dp" />

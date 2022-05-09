@@ -2,6 +2,7 @@ package com.example.appproject.poll;
 
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -142,6 +143,13 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
         options.setHasFixedSize(true);
         adapter = new PollQuestionImageAnswersAdapter(viewModel,getLayoutInflater());
         options.setAdapter(adapter);
+        options.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                outRect.set(5,20,5,20);
+            }
+        });
+
         adapter.setOnItemClickListener((v,pos)->{
             viewModel.setAnswered(true);
             String chosenAnswer = Objects.requireNonNull(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getChoices().get(pos));

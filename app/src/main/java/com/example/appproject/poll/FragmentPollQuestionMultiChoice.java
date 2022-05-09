@@ -93,6 +93,8 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 page.setText(pageFormat);
 
                 if(isWithImageQuestion){
+                    questionImage.setMinimumHeight(500);
+                    questionImage.setMinimumWidth(600);
                     setImageQuestion();
                 }
 
@@ -225,7 +227,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         }).build();
         Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
         picasso.load(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage())
-                .placeholder(R.drawable.avatar)     //TODO - replace placeholder to something else
+                .placeholder(R.drawable.loadimagesmall)     //TODO - replace placeholder to something else
                 .into(questionImage);
 
     }

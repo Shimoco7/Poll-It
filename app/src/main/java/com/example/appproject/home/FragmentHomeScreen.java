@@ -56,6 +56,7 @@ public class FragmentHomeScreen extends Fragment {
         list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns,GridLayoutManager.VERTICAL,false));
         homeAdapter = new HomeAdapter(homeViewModel,getLayoutInflater());
         list.setAdapter(homeAdapter);
+
         list.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
