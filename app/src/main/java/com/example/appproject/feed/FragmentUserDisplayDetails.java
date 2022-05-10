@@ -97,7 +97,7 @@ public class FragmentUserDisplayDetails extends Fragment {
             }).build();
             Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
             picasso.load(MyApplication.getUserProfilePicUrl())
-                    .placeholder(R.drawable.avatar)
+                    .placeholder(R.drawable.loadimagesmall)
                     .into(profilePic);
         }
         else{

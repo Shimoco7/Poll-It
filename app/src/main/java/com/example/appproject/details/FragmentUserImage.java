@@ -111,7 +111,7 @@ public class FragmentUserImage extends Fragment {
             }).build();
             Picasso picasso = new Picasso.Builder(requireContext()).downloader(new OkHttp3Downloader(client)).build();
             picasso.load(MyApplication.getUserProfilePicUrl())
-                    .placeholder(R.drawable.avatar)
+                    .placeholder(R.drawable.loadimagebig)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .into(userAvatar, new Callback() {
                 @Override
