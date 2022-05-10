@@ -12,7 +12,6 @@ public class General {
         view.setClickable(enabled);
         if ( view instanceof ViewGroup) {
             ViewGroup group = (ViewGroup)view;
-
             for ( int idx = 0 ; idx < group.getChildCount() ; idx++ ) {
                 enableDisableClickView(group.getChildAt(idx), enabled);
             }
@@ -23,7 +22,9 @@ public class General {
         Model.instance.getMainThread().post(()->{
             progressBar.setVisibility(View.VISIBLE);
             General.enableDisableClickView(container, false);
-            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(showBackButton);
+            if( ((AppCompatActivity) activity).getSupportActionBar() != null){
+                ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(showBackButton);
+            }
         });
     }
 
@@ -31,7 +32,9 @@ public class General {
         Model.instance.getMainThread().post(()->{
             progressBar.setVisibility(View.GONE);
             General.enableDisableClickView(container, true);
-            ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(showBackButton);
+            if(((AppCompatActivity) activity).getSupportActionBar() != null){
+                ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(showBackButton);
+            }
         });
     }
 

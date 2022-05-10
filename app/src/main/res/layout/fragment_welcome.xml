@@ -13,71 +13,71 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/feed_img_logo"
-        android:layout_width="306dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/logo__nobg_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/feed_img_logo"
+            android:layout_width="306dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/logo__nobg_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/splash_txt_title"
-        android:layout_width="155dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/poll_it"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/feed_img_logo" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/splash_txt_title"
+            android:layout_width="155dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="@string/poll_it"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_img_logo" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/splash_txt_lowtitle"
-        android:layout_width="376dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/let_s_earn_together"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/splash_txt_title" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/splash_txt_lowtitle"
+            android:layout_width="376dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="@string/let_s_earn_together"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/splash_txt_title" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/welcome_sign_in_btn"
-        android:layout_width="260dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="80dp"
-        android:backgroundTint="@color/primeOrng"
-        android:text="SIGN IN"
-        app:cornerRadius="37sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/splash_txt_lowtitle" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/welcome_sign_in_btn"
+            android:layout_width="260dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="@color/primeOrng"
+            android:text="SIGN IN"
+            app:cornerRadius="37sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/splash_txt_lowtitle" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/welcome_register_btn"
-        android:layout_width="260dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/primeOrng"
-        android:text="REGISTER"
-        app:cornerRadius="37sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_sign_in_btn" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/welcome_register_btn"
+            android:layout_width="260dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/primeOrng"
+            android:text="REGISTER"
+            app:cornerRadius="37sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcome_sign_in_btn" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
@@ -88,5 +88,16 @@
             app:layout_constraintBottom_toTopOf="@+id/welcome_sign_in_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/welcome_progressbar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -82,6 +82,8 @@
     <string name="fb_login_protocol_scheme">fb1422304881523843</string>
     <string name="facebook_client_token">80f646c8177785019d8f35d46eedb702</string>
 
+    <string name="current_account_facebook_id">facebookId</string>
+
 
 
 </resources>

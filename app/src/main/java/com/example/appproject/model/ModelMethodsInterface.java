@@ -37,6 +37,9 @@ public interface ModelMethodsInterface {
     @POST("/auth/login")
     Call<LoginResult> login(@Body Map<String,String> map);
 
+    @POST("/auth/facebook")
+    Call<LoginResult> facebookLogin(@Body Map<String,String> map);
+
     @POST("/auth/refreshToken")
     Call<RefreshTokenResult> refreshToken(@Body Map<String,String> map);
 

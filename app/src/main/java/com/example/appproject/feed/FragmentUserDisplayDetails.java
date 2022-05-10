@@ -73,6 +73,9 @@ public class FragmentUserDisplayDetails extends Fragment {
         Button editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
         Button editPassBtn=view.findViewById(R.id.user_display_details_editPassword_btn);
 
+        if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0) {
+            editPassBtn.setVisibility(View.GONE);
+        }
 
         adapter = new UserDisplayDetailsAdapter(viewModel,getLayoutInflater());
         General.progressBarOn(getActivity(),container,progressBar,false);

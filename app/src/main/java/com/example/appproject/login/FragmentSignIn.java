@@ -132,7 +132,7 @@ public class FragmentSignIn extends Fragment {
                         if(message.equals(getString(R.string.success))){
                             Intent intent = new Intent(getContext(), MainActivity.class);
                             startActivity(intent);
-                            Objects.requireNonNull(getActivity()).finish();
+                            requireActivity().finish();
                         }
                         else if(message.equals(getString(R.string.registration_details_needed))){
                             Navigation.findNavController(v).navigate(R.id.fragmentUserDetails);

@@ -22,6 +22,7 @@ public class User {
     String address="";
     String gender="";
     String profilePicUrl="";
+    String facebookId;
     Long updatedAt;
     Long createdAt;
 
@@ -92,5 +93,13 @@ public class User {
 
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 }

@@ -113,4 +113,15 @@ public class MyApplication extends Application {
         return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.gender),"");
     }
 
+    public static void setFacebookId(String facebookId) {
+        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                .edit()
+                .putString(context.getString(R.string.current_account_facebook_id),facebookId)
+                .apply();
+    }
+
+    public static String getFacebookId(){
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.current_account_facebook_id),"");
+    }
+
 }

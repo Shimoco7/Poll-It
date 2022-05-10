@@ -39,6 +39,8 @@ import com.example.appproject.model.listeners.LoginListener;
 import com.example.appproject.model.user.UserPollCrossRef;
 import com.example.appproject.model.user.UserWithPolls;
 import com.example.appproject.model.user.UsersListLoadingState;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -102,16 +104,53 @@ public class Model {
         }));
     }
 
+    public void facebookLogin(String emailAddress, String id,String name,String profilePicUrl, LoginListener loginListener) {
+        modelNode.facebookLogin(emailAddress,id,name,profilePicUrl, ((user, message) -> {
+            if(user != null){
+                executor.execute(()-> AppLocalDb.db.userDao().insertAll(user));
+                if(message.equals(MyApplication.getContext().getString(R.string.success))){
+                    modelNode.getDetailsByUserId(MyApplication.getUserKey(),details->{
+                        if(details!=null){
+                            for(Detail d : details){
+                                executor.execute(()->{
+                                    AppLocalDb.db.detailDao().insertAll(d);
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+            loginListener.onComplete(user,message);
+        }));
+    }
+
     public void updatePassword(String oldPass, String newPass,BooleanListener listener){
         modelNode.updatePassword(oldPass,newPass,listener);
     }
 
     public void isSignedIn(BooleanListener booleanListener){
-         modelNode.isSignedIn(booleanListener);
+         modelNode.isSignedIn(isSignedIn->{
+             if(isSignedIn){
+                if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0){
+                    AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                    boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+                    booleanListener.onComplete(isLoggedIn);
+                }
+                else{
+                    booleanListener.onComplete(true);
+                }
+             }
+             else{
+                 booleanListener.onComplete(false);
+             }
+         });
     }
 
     public void signOut(VoidListener listener) {
         modelNode.signOut(()->{
+            if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0){
+                LoginManager.getInstance().logOut();
+            }
             Model.instance.clearCaches();
             listener.onComplete();
         });
@@ -137,6 +176,9 @@ public class Model {
 
     public void clearCaches() {
         executor.execute(()->{
+            if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0){
+                LoginManager.getInstance().logOut();
+            }
             AppLocalDb.db.clearAllTables();
             MyApplication.getContext().getSharedPreferences("Status",Context.MODE_PRIVATE).edit().clear().apply();
         });

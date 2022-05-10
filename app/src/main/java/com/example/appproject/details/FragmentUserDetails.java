@@ -2,6 +2,7 @@ package com.example.appproject.details;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.question.Question;
+import com.facebook.AccessToken;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -103,21 +105,29 @@ public class FragmentUserDetails extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         detailsAdapter = new DetailsAdapter(detailsViewModel, getLayoutInflater());
         list.setAdapter(detailsAdapter);
-        if(!requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        }
-        else{
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName()));
         setInputListeners();
+
+        if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0){
+            nextBtn.setText(getString(R.string.finish));
+        }
+
         nextBtn.setOnClickListener(v -> {
-            if(!allDetailsFilled()){ return; }
-            uploadDetailsToDB();
-            Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
+            if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0){
+                if(!allDetailsFilled()){ return; }
+                General.progressBarOn(requireActivity(),container,detailsProgressBar,false);
+                uploadDetailsToDB();
+                finishUponFacebookUser();
+            }
+            else{
+                if(!allDetailsFilled()){ return; }
+                uploadDetailsToDB();
+                Navigation.findNavController(nextBtn).navigate(R.id.action_fragmentUserDetails_to_userImage);
+            }
         });
 
         detailsViewModel.getQuestions().observe(getViewLifecycleOwner(), questionsList->refresh());
-        General.progressBarOn(getActivity(),container,detailsProgressBar,false);
+        General.progressBarOn(requireActivity(),container,detailsProgressBar,false);
         Model.instance.refreshQuestions();
         return view;
     }
@@ -185,7 +195,7 @@ public class FragmentUserDetails extends Fragment {
         addressEt.setVisibility(View.VISIBLE);
         addressTi.setVisibility(View.VISIBLE);
         nextBtn.setVisibility(View.VISIBLE);
-        General.progressBarOff(getActivity(),container,detailsProgressBar,requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName()));
+        General.progressBarOff(requireActivity(),container,detailsProgressBar,requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName()));
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -230,9 +240,33 @@ public class FragmentUserDetails extends Fragment {
         Map<String,String> map = new HashMap<>();
         map.put("name",nameEt.getText().toString().trim());
         map.put("address",addressEt.getText().toString().trim());
+        if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0) {
+            if(MyApplication.getUserProfilePicUrl() != null && MyApplication.getUserProfilePicUrl().length() > 0){
+                map.put("profilePicUrl",MyApplication.getUserProfilePicUrl());
+            }
+        }
         Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
             MyApplication.setUserName(nameEt.getText().toString().trim());
             MyApplication.setUserAddress(addressEt.getText().toString().trim());
         });
+    }
+
+    private void finishUponFacebookUser() {
+        Model.instance.getAllDetails(MyApplication.getUserKey(), list -> {
+            for (Detail d : list) {
+                if (d.getQuestion().equals("Gender")) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("gender", d.getAnswer());
+                    Model.instance.updateUser(MyApplication.getUserKey(), map, (user, message) -> {
+                        MyApplication.setGender(d.getAnswer());
+                    });
+                }
+                Model.instance.saveDetailToRemoteDb(d, () -> {
+                });
+            }
+        });
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

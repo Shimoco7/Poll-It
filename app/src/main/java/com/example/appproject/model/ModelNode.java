@@ -92,7 +92,6 @@ public class ModelNode {
     }
 
 
-
     public void login(String emailAddress, String password, LoginListener loginListener){
         HashMap<String, String> map = new HashMap<>();
         map.put("email", emailAddress);
@@ -138,6 +137,59 @@ public class ModelNode {
             }
         });
     }
+
+
+    public void facebookLogin(String emailAddress, String id,String name,String profilePicUrl, LoginListener loginListener){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("email", emailAddress);
+        map.put("facebookId", id);
+        map.put("name", name);
+
+        Call<LoginResult> call = methodsInterface.facebookLogin(map);
+        call.enqueue(new Callback<LoginResult>() {
+            @Override
+            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+                if(response.code() == 200){
+                    LoginResult loginResult = response.body();
+                    assert loginResult != null;
+                    User u = loginResult.getAccount();
+                    MyApplication.setUserKey(u.getUid());
+                    MyApplication.setUserEmail(u.getEmail());
+                    MyApplication.setUserName(u.getName());
+                    MyApplication.setFacebookId(u.getFacebookId());
+                    MyApplication.setAccessToken(loginResult.getAccessToken());
+                    MyApplication.setRefreshToken(loginResult.getRefreshToken());
+                    if(profilePicUrl != null){
+                        MyApplication.setUserProfilePicUrl(profilePicUrl);
+                    }
+                    if(loginResult.getDetailsFilled()){
+                        MyApplication.setGender(u.getGender());
+                        MyApplication.setUserAddress(u.getAddress());
+                        Model.instance.getMainThread().post(()-> loginListener.onComplete(u, appContext.getString(R.string.success)));
+                    }
+                    else{
+                        Model.instance.getMainThread().post(()-> loginListener.onComplete(u, appContext.getString(R.string.registration_details_needed)));
+                    }
+                }
+                else{
+                    Log.e("TAG", "facebook sign in via server ERROR: " + response.code());
+                    Model.instance.getMainThread().post(()->{
+                        loginListener.onComplete(null, "Response code from server: " + response.code());
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResult> call, Throwable t) {
+                Log.e("TAG", "facebook sign in via server FAILED:", t.getCause());
+                Model.instance.getMainThread().post(()->{
+                    loginListener.onComplete(null, null);
+                });
+            }
+        });
+    }
+
+
 
     public void isSignedIn(BooleanListener booleanListener){
         HashMap<String, String> map = new HashMap<>();
