@@ -67,10 +67,10 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
                 }
             });
 
-
         });
 
         if(detailsViewModel.getAnswersMap().get(question.getQuestion()).equals("Empty")){
+            multiChoiceAc.getText().clear();
             questionTv.setError(question.getQuestion() +" is Required");
         }
     }

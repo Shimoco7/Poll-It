@@ -431,28 +431,6 @@ public class Model {
         });
     }
 
-//    public void deletePoll(String userKey, String pollId, VoidListener listener) {
-//
-//        Model.instance.getAllAnswersByUserAndPollIds(userKey,pollId,answers->{
-//            for(Map.Entry<String,Answer> entry : answers.entrySet()){
-//                entry.getValue().setDeleted(true);
-//            }
-//            modelFirebaseDb.savePollAnswersOnDb(answers,()->{
-//                executor.execute(()->{
-//                    UserPollCrossRef ref = AppLocalDb.db.pollDao().getUserPollRef(pollId,userKey);
-//                    executor.execute(()->{
-//                        AppLocalDb.db.pollDao().delete(ref);
-//                    });
-//                });
-//                for(Map.Entry<String,Answer> entry : answers.entrySet()){
-//                    executor.execute(()->{
-//                        AppLocalDb.db.answerDao().delete(entry.getValue());
-//                    });
-//                }
-//                listener.onComplete();
-//            });
-//        });
-//    }
 
     /**
      * Storage
