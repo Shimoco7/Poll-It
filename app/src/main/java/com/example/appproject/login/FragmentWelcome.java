@@ -24,6 +24,7 @@ import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphRequestAsyncTask;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -98,7 +99,9 @@ public class FragmentWelcome extends Fragment {
                     });
 
                     } catch (JSONException e) {
-                        //TODO - handle error on getting details
+                        Snackbar.make(requireView(),"Facebook Login Error",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                            Model.instance.signOut(()->{});
+                        }).show();
                     }
                 });
                 Bundle parameters = new Bundle();
@@ -109,12 +112,16 @@ public class FragmentWelcome extends Fragment {
 
             @Override
             public void onCancel() {
-                //TODO - handle on cancel to Login via Facebook
+                Snackbar.make(requireView(),"Facebook Login Canceled",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                    Model.instance.signOut(()->{});
+                }).show();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                //TODO - handle on Error to Login via Facebook
+                Snackbar.make(requireView(),"Facebook Login Error",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
+                    Model.instance.signOut(()->{});
+                }).show();
             }
         });
         Button signInBtn = view.findViewById(R.id.welcome_sign_in_btn);

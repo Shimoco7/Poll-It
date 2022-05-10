@@ -67,8 +67,6 @@
     <string name="sd_card_download_path">/sdcard/Download/</string>
     <string name="authorities">com.example.appproject.fileprovider</string>
     <string name="storage_issue">Oops… We ran into an issue - Try Again Later</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back">BACK</string>
     <string name="edit">EDIT</string>
 

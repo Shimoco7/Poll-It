@@ -107,7 +107,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 else{
 //                    nextBtn.setCompoundDrawables(null, ResourcesCompat.getDrawable(getResources(),R.drawable.ic_rightarrow, null),null,null);
                     nextBtn.setCompoundDrawables(null, null,null,null);
-                    nextBtn.setText(getString(R.string.finish)); //TODO - make sure it is visible
+                    nextBtn.setText(getString(R.string.finish));
                     General.progressBarOff(getActivity(),container,progressBar,true);
                 }
             });
@@ -227,7 +227,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         }).build();
         Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
         picasso.load(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage())
-                .placeholder(R.drawable.loadimagesmall)     //TODO - replace placeholder to something else
+                .placeholder(R.drawable.loadimagesmall)
                 .into(questionImage);
 
     }
