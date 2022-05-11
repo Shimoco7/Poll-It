@@ -144,6 +144,9 @@ public class ModelNode {
         map.put("email", emailAddress);
         map.put("facebookId", id);
         map.put("name", name);
+        if(profilePicUrl != null && profilePicUrl.length() > 0){
+            map.put("profilePicUrl", profilePicUrl);
+        }
 
         Call<LoginResult> call = methodsInterface.facebookLogin(map);
         call.enqueue(new Callback<LoginResult>() {
@@ -157,11 +160,9 @@ public class ModelNode {
                     MyApplication.setUserEmail(u.getEmail());
                     MyApplication.setUserName(u.getName());
                     MyApplication.setFacebookId(u.getFacebookId());
+                    MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
                     MyApplication.setAccessToken(loginResult.getAccessToken());
                     MyApplication.setRefreshToken(loginResult.getRefreshToken());
-                    if(profilePicUrl != null){
-                        MyApplication.setUserProfilePicUrl(profilePicUrl);
-                    }
                     if(loginResult.getDetailsFilled()){
                         MyApplication.setGender(u.getGender());
                         MyApplication.setUserAddress(u.getAddress());
