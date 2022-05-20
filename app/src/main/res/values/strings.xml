@@ -81,7 +81,7 @@
     <string name="facebook_client_token">80f646c8177785019d8f35d46eedb702</string>
 
     <string name="current_account_facebook_id">facebookId</string>
-
+    <string name="hello">Hello, </string>
 
 
 </resources>

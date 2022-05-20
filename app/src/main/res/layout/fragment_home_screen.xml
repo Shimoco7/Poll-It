@@ -26,7 +26,7 @@
         android:layout_marginStart="50dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:text="Hello, "
+        android:text="@string/hello"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -40,8 +40,8 @@
         android:layout_marginEnd="80dp"
         android:fontFamily="sans-serif-black"
         android:gravity="start"
-        android:text="Shimon Cohen"
         android:maxLines="1"
+        android:text="Shimon Cohen"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -49,6 +49,39 @@
         app:layout_constraintStart_toEndOf="@+id/homeScr_text_title"
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_name">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/homeScr_text_coinsNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:text="100"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/homeScr_img_coinIcon"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/coin_icon"
+            app:strokeWidth="0dp" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home_layout_const"
         android:layout_width="350dp"
@@ -57,7 +90,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:foregroundGravity="center_horizontal"
-
         android:paddingLeft="10dp"
         app:layout_constraintBottom_toTopOf="@+id/homescr_btn_line"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,9 +110,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scrollbarSize="3dp"
+                android:scrollbarFadeDuration="0"
+                android:fadeScrollbars="false"
                 android:scrollbarThumbVertical="@color/white"
-
-
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
 
@@ -105,11 +137,13 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/homescr_btn_rewardCenter"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/black"
-        android:drawableTop="@drawable/ic_feed"
+        android:drawableLeft="@drawable/rewardsmallgif"
         android:fontFamily="sans-serif-medium"
         android:text="Reward Center"
         android:textColor="@color/primeOrng"
@@ -120,7 +154,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line"
-        app:strokeColor="@color/black"
+        app:strokeColor="@color/primeOrng"
         app:strokeWidth="2dp" />
 
 
