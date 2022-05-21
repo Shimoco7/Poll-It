@@ -42,7 +42,7 @@ public class ModelNode {
     private final ModelMethodsInterface methodsInterface;
     private final Context appContext = MyApplication.getContext();
     private final String BASE_URL_EMULATOR_LOCAL = "http://10.0.2.2:3000";
-    private final String BASE_URL_SERVER = "https://10.10.248.124:8000";
+    private final String BASE_URL_SERVER = "http://10.10.248.124:8000";
 
     public ModelNode() {
         retrofit = new Retrofit.Builder()

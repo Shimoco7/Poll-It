@@ -13,8 +13,8 @@
         android:label="POLL IT"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.AppProject">
+    <!--android:networkSecurityConfig="@xml/network_security_config"-->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="@string/authorities"

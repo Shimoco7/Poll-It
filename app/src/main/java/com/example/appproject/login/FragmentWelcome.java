@@ -62,6 +62,7 @@ public class FragmentWelcome extends Fragment {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                General.progressBarOn(getActivity(),container,progressBar,false);
                 Log.d("TAG", loginResult.getAccessToken().getToken());
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), (jsonObject, graphResponse) -> {
                     try {
@@ -90,18 +91,18 @@ public class FragmentWelcome extends Fragment {
                             }
                         }
                         else {
-                            General.progressBarOff(getActivity(), container, progressBar,true);
                             if(message == null){
-                                Snackbar.make(requireView(),getString(R.string.server_is_off),Snackbar.LENGTH_INDEFINITE).setAction("Close", view->{
-                                }).show();
+                                General.progressBarOff(getActivity(),container,progressBar,false);
+                                LoginManager.getInstance().logOut();
+                                Snackbar.make(requireView(),getString(R.string.server_is_off),Snackbar.LENGTH_INDEFINITE).setAction("Close", view->{ }).show();
                             }
                         }
                     });
 
                     } catch (JSONException e) {
-                        Snackbar.make(requireView(),"Facebook Login Error",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
-                            Model.instance.signOut(()->{});
-                        }).show();
+                        General.progressBarOff(getActivity(),container,progressBar,false);
+                        LoginManager.getInstance().logOut();
+                        Snackbar.make(requireView(),"Facebook Login Error",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
                     }
                 });
                 Bundle parameters = new Bundle();
@@ -112,16 +113,12 @@ public class FragmentWelcome extends Fragment {
 
             @Override
             public void onCancel() {
-                Snackbar.make(requireView(),"Facebook Login Canceled",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
-                    Model.instance.signOut(()->{});
-                }).show();
+                Snackbar.make(requireView(),"Facebook Login Canceled",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Snackbar.make(requireView(),"Facebook Login Error",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
-                    Model.instance.signOut(()->{});
-                }).show();
+                Snackbar.make(requireView(),"Facebook Login Error",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
             }
         });
         Button signInBtn = view.findViewById(R.id.welcome_sign_in_btn);
