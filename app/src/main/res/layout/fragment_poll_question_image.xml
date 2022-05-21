@@ -5,6 +5,7 @@
     android:id="@+id/pollImage_ImageframeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="#F1E7E7"
     android:backgroundTint="#000000"
     tools:context=".poll.FragmentPollQuestionImageAnswers">
