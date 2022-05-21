@@ -23,6 +23,7 @@ public class User {
     String gender="";
     String profilePicUrl="";
     String facebookId;
+    Integer coins;
     Long updatedAt;
     Long createdAt;
 
@@ -101,5 +102,13 @@ public class User {
 
     public void setFacebookId(String facebookId) {
         this.facebookId = facebookId;
+    }
+
+    public Integer getCoins() {
+        return coins;
+    }
+
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 }

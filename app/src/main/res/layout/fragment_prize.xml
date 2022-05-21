@@ -122,7 +122,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/prize_txt_second"
+                android:id="@+id/prize_txt_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -145,7 +145,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/prize_txt_second"
+                app:layout_constraintStart_toEndOf="@+id/prize_txt_price"
                 app:srcCompat="@drawable/coin_icon"
                 app:strokeWidth="0dp" />
 
@@ -214,23 +214,6 @@
 
 
         </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/prize_btn_back"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="@color/black"
-            android:fontFamily="sans-serif"
-            android:text="BACK"
-            android:textSize="20sp"
-            app:cornerRadius="35dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prize_layout"
-            app:strokeColor="@color/primeOrng"
-            app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prize_btn_collect"

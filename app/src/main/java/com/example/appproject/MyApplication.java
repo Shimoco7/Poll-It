@@ -124,4 +124,15 @@ public class MyApplication extends Application {
         return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.current_account_facebook_id),"");
     }
 
+    public static void setUserCoins(String userCoins) {
+        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                .edit()
+                .putString(context.getString(R.string.user_coins),userCoins)
+                .apply();
+    }
+
+    public static String getUserCoins(){
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.user_coins),"");
+    }
+
 }

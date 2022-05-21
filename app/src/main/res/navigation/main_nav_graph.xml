@@ -106,8 +106,8 @@
     <fragment
         android:id="@+id/fragmentRewardCenter"
         android:name="com.example.appproject.home.FragmentRewardCenter"
-        android:label="fragment_reward_center"
-        tools:layout="@layout/fragment_reward_center" >
+        android:label="Reward Center"
+        tools:layout="@layout/fragment_reward_center">
         <action
             android:id="@+id/action_fragmentRewardCenter_to_fragmentPrize"
             app:destination="@id/fragmentPrize" />
@@ -115,8 +115,12 @@
     <fragment
         android:id="@+id/fragmentPrize"
         android:name="com.example.appproject.home.FragmentPrize"
-        android:label="fragment_prize"
-        tools:layout="@layout/fragment_prize" />
+        android:label="Choose Prize"
+        tools:layout="@layout/fragment_prize" >
+        <argument
+            android:name="rewardId"
+            app:argType="string" />
+    </fragment>
     <action android:id="@+id/action_global_fragmentHomeScreen" app:destination="@id/fragmentHomeScreen" />
     <fragment
         android:id="@+id/fragmentPollQuestionImageAnswers"

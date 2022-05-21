@@ -15,6 +15,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.listeners.FileListener;
+import com.example.appproject.model.listeners.GetRewardListener;
 import com.example.appproject.model.listeners.GetUserListener;
 import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.listeners.GetDetailsListener;
@@ -34,6 +35,7 @@ import com.example.appproject.model.poll.PollsListLoadingState;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.listeners.SaveImageListener;
+import com.example.appproject.model.reward.Reward;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.listeners.LoginListener;
 import com.example.appproject.model.user.UserPollCrossRef;
@@ -234,8 +236,6 @@ public class Model {
      *
      */
 
-    MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
-
     public void saveDetailOnLocalDb(Detail detail) {
         executor.execute(()-> AppLocalDb.db.detailDao().insertAll(detail));
     }
@@ -269,6 +269,8 @@ public class Model {
     /**
      * Data - Questions
      */
+
+    MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
     public MutableLiveData<List<Question>> getQuestions() {
         if (questionList == null) {
@@ -433,6 +435,36 @@ public class Model {
 
 
     /**
+     * Rewards
+     *
+     */
+
+    MutableLiveData<List<Reward>> rewardsList = new MutableLiveData<>();
+
+    public LiveData<List<Reward>> getRewards() {
+        return rewardsList;
+    }
+
+    public void refreshRewards() {
+        modelNode.getRewards(rewards->{
+            executor.execute(()->{
+                for(Reward reward : rewards){
+                    AppLocalDb.db.rewardDao().insertAll(reward);
+                }
+                rewardsList.postValue(rewards);
+            });
+        });
+    }
+
+    public void getRewardFromLocalDb(String rewardId, GetRewardListener listener) {
+        executor.execute(()->{
+            Reward reward = AppLocalDb.db.rewardDao().getRewardById(rewardId);
+            mainThread.post(()->listener.onComplete(reward));
+        });
+    }
+
+
+    /**
      * Storage
      *
      */
@@ -452,6 +484,7 @@ public class Model {
             listener.onComplete(url);
         });
     }
+
 
     public void convertBitmapToFile(Bitmap bitmap, FileListener listener) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

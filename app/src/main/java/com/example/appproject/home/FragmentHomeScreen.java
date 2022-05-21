@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -46,6 +45,7 @@ public class FragmentHomeScreen extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
         swipeRefresh = view.findViewById(R.id.home_layout_poll_refresh);
         list = view.findViewById(R.id.home_poll_rv);
+        Button btnToRewardCenter = view.findViewById(R.id.homescr_btn_rewardCenter);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
@@ -70,7 +70,7 @@ public class FragmentHomeScreen extends Fragment {
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
             Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
         });
-
+        btnToRewardCenter.setOnClickListener(v->Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentRewardCenter()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshPollsList);
         observePollsLoadingState();
         return view;
@@ -93,10 +93,5 @@ public class FragmentHomeScreen extends Fragment {
             }
         });
     }
-
-
-
-
-
 
 }

@@ -9,6 +9,7 @@ import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.listeners.GetDetailsListener;
 import com.example.appproject.model.listeners.GetPollQuestionsListener;
 import com.example.appproject.model.listeners.GetPollsListener;
+import com.example.appproject.model.listeners.GetRewardsListener;
 import com.example.appproject.model.listeners.SaveImageListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.listeners.GetQuestionsListener;
@@ -17,6 +18,7 @@ import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
+import com.example.appproject.model.reward.Reward;
 import com.example.appproject.model.user.LoginResult;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.listeners.LoginListener;
@@ -114,6 +116,7 @@ public class ModelNode {
                         MyApplication.setGender(u.getGender());
                         MyApplication.setUserAddress(u.getAddress());
                         MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
+                        MyApplication.setUserCoins(String.valueOf(u.getCoins()));
                         Model.instance.getMainThread().post(()-> loginListener.onComplete(u, appContext.getString(R.string.success)));
                     }
                     else{
@@ -161,6 +164,7 @@ public class ModelNode {
                     MyApplication.setUserName(u.getName());
                     MyApplication.setFacebookId(u.getFacebookId());
                     MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
+                    MyApplication.setUserCoins(String.valueOf(u.getCoins()));
                     MyApplication.setAccessToken(loginResult.getAccessToken());
                     MyApplication.setRefreshToken(loginResult.getRefreshToken());
                     if(loginResult.getDetailsFilled()){
@@ -469,6 +473,31 @@ public class ModelNode {
                 listener.onComplete();
             }
         });
+    }
+
+    public void getRewards(GetRewardsListener listener){
+        Call<List<Reward>> call = methodsInterface.getAllRewards("Bearer "+ MyApplication.getAccessToken());
+        call.enqueue(new Callback<List<Reward>>() {
+            @Override
+            public void onResponse(Call<List<Reward>> call, Response<List<Reward>> response) {
+                if(response.code() == 200){
+                    List<Reward> rewards = response.body();
+                    assert rewards != null;
+                    listener.onComplete(rewards);
+                }
+                else{
+                    Log.d("TAG", "getAllRewards FAILURE: " + response.code());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Reward>> call, Throwable t) {
+                Log.d("TAG" , "getAllRewards FAILURE: " + t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+
     }
 }
 

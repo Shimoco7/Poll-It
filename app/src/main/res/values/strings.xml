@@ -57,6 +57,7 @@
     <string name="profile_pic_url">profile_pic_url</string>
     <string name="access_token">access_token</string>
     <string name="refresh_token">refresh_token</string>
+    <string name="user_coins">user_coins</string>
 
     <!--Reward-Center Strings-->
     <string name="you_ve_already_collected">You\'ve Already Collected</string>

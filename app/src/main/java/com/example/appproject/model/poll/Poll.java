@@ -19,6 +19,7 @@ public class Poll {
     public String pollId;
     public String pollName;
     public Integer totalNumberOfQuestions;
+    public Integer coins;
 
     public Poll() { }
 
@@ -45,6 +46,14 @@ public class Poll {
 
     public void setTotalNumberOfQuestions(Integer totalNumberOfQuestions) {
         this.totalNumberOfQuestions = totalNumberOfQuestions;
+    }
+
+    public Integer getCoins() {
+        return coins;
+    }
+
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 }
 

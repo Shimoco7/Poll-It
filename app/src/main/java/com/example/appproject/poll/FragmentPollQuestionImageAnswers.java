@@ -70,6 +70,7 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
         questionTitle = view.findViewById(R.id.pollImage_question_title);
         page = view.findViewById(R.id.pollImage_txt_qnumber);
         options = view.findViewById(R.id.pollImage_rv);
+        General.progressBarOn(getActivity(),container,progressBar,false);
 
         viewModel = new ViewModelProvider(this).get(PollQuestionImageAnswersViewModel.class);
         pollId = FragmentPollQuestionImageAnswersArgs.fromBundle(getArguments()).getPollId();

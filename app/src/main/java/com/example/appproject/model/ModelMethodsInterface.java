@@ -4,6 +4,7 @@ import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.question.Question;
+import com.example.appproject.model.reward.Reward;
 import com.example.appproject.model.user.LoginResult;
 import com.example.appproject.model.user.User;
 
@@ -92,4 +93,13 @@ public interface ModelMethodsInterface {
 
     @POST("/answer/create")
     Call<Void> saveAnswer(@Header("Authorization") String accessToken,@Body Map<String,String> map);
+
+    /**
+     *
+     *  Rewards
+     *
+     */
+
+    @GET("/reward/getAllRewards")
+    Call<List<Reward>> getAllRewards(@Header("Authorization") String accessToken);
 }
