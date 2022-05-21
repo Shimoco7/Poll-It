@@ -3,6 +3,7 @@ package com.example.appproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
@@ -16,7 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.appproject.login.LoginActivity;
+import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
+import com.example.appproject.poll.FragmentPollQuestionImageAnswers;
+import com.example.appproject.poll.FragmentPollQuestionMultiChoice;
 
 public class MainActivity extends AppCompatActivity {
     NavController navController;
@@ -44,7 +48,22 @@ public class MainActivity extends AppCompatActivity {
         if (!super.onOptionsItemSelected(item)) {
             switch (item.getItemId()) {
                 case android.R.id.home:
-                    navController.navigateUp();
+                    Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.main_navhost);
+                    Fragment f;
+                    if(navHostFragment != null){
+                        f = navHostFragment.getChildFragmentManager().getFragments().get(0);
+                        if(f instanceof FragmentPollQuestionImageAnswers
+                                || f instanceof FragmentPollQuestionMultiChoice){
+                            navController.navigate(R.id.action_global_fragmentHomeScreen);
+                        }
+                        else{
+                            navController.navigateUp();
+                        }
+                        return true;
+                    }
+                    else{
+                        navController.navigateUp();
+                    }
                     return true;
                 case R.id.main_menu_logout:
                     showPopup();
