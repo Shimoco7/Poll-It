@@ -231,6 +231,13 @@ public class Model {
         });
     }
 
+    public void updateUserCoins(String userId, Integer coins, VoidListener listener){
+        executor.execute(()->{
+            AppLocalDb.db.userDao().updateUserCoinsById(userId,coins);
+            mainThread.post(listener::onComplete);
+        });
+    }
+
     /**
      * Data - User Details
      *
@@ -397,50 +404,6 @@ public class Model {
         });
     }
 
-    public void savePollAnswersOnLocalDb(Map<String, Answer> pollMap, VoidListener listener){
-        executor.execute(()->{
-            for(Map.Entry<String,Answer> entry : pollMap.entrySet()){
-                AppLocalDb.db.answerDao().insertAll(entry.getValue());
-            }
-            mainThread.post(()->listener.onComplete());
-        });
-    }
-
-    public void getUserWithPolls(String userKey, GetPollsListener listener) {
-        executor.execute(()->{
-            List<UserWithPolls> polls = AppLocalDb.db.pollDao().getUserWithPolls(userKey);
-            if(!polls.get(0).polls.isEmpty()){
-                mainThread.post(()->listener.onComplete(polls.get(0).polls));
-            }
-            else{
-                mainThread.post(()->listener.onComplete(null));
-            }
-        });
-    }
-
-    public void getPollQuestion(String pollQuestionId, GetPollQuestionListener listener) {
-        executor.execute(()->{
-           PollQuestion pollQuestion = AppLocalDb.db.pollQuestionDao().getPollQuestionById(pollQuestionId);
-            mainThread.post(()->listener.onComplete(pollQuestion));
-        });
-    }
-
-    public void isPollFilled(String userId,String pollId, BooleanListener listener){
-        executor.execute(()->{
-            List<UserWithPolls> userWithPolls = AppLocalDb.db.pollDao().getUserWithPolls(userId);
-            if (!userWithPolls.isEmpty()) {
-                for (Poll poll : userWithPolls.get(0).polls) {
-                    if (poll.getPollId().equals(pollId)) {
-                        mainThread.post(()->listener.onComplete(true));
-                        return;
-                    }
-                }
-            }
-            mainThread.post(()->listener.onComplete(false));
-        });
-    }
-
-
     /**
      * Rewards
      *
@@ -475,6 +438,10 @@ public class Model {
             Reward reward = AppLocalDb.db.rewardDao().getRewardById(rewardId);
             mainThread.post(()->listener.onComplete(reward));
         });
+    }
+
+    public void redeemReward(String rewardId,BooleanListener listener){
+        modelNode.redeemReward(rewardId,listener);
     }
 
 

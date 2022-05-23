@@ -209,7 +209,6 @@ public class ModelNode {
                     assert tokenResult != null;
                     MyApplication.setAccessToken(tokenResult.getAccessToken());
                     MyApplication.setRefreshToken(tokenResult.getRefreshToken());
-                    Log.d("TAG","refresh token: " + tokenResult.getRefreshToken());
                     booleanListener.onComplete(true);
                 }
                 else{
@@ -315,14 +314,14 @@ public class ModelNode {
                     listener.onComplete(questions);
                 }
                 else{
-                    Log.d("TAG", "getAllQuestions FAILURE: " + response.code());
+                    Log.e("TAG", "getAllQuestions FAILURE: " + response.code());
                     listener.onComplete(null);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Question>> call, Throwable t) {
-                Log.d("TAG" , "getAllQuestions FAILURE: " + t.getMessage());
+                Log.e("TAG" , "getAllQuestions FAILURE: " + t.getMessage());
                 listener.onComplete(null);
             }
         });
@@ -418,14 +417,14 @@ public class ModelNode {
                     listener.onComplete(polls);
                 }
                 else{
-                    Log.d("TAG", "getPolls FAILURE: " + response.code());
+                    Log.e("TAG", "getPolls FAILURE: " + response.code());
                     listener.onComplete(null);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Poll>> call, Throwable t) {
-                Log.d("TAG" , "getPolls FAILURE: " + t.getMessage());
+                Log.e("TAG" , "getPolls FAILURE: " + t.getMessage());
                 listener.onComplete(null);
             }
         });
@@ -475,6 +474,12 @@ public class ModelNode {
         });
     }
 
+    /**
+     *
+     *  Rewards
+     *
+     */
+
     public void getRewards(GetRewardsListener listener){
         Call<List<Reward>> call = methodsInterface.getAllRewards("Bearer "+ MyApplication.getAccessToken());
         call.enqueue(new Callback<List<Reward>>() {
@@ -486,19 +491,44 @@ public class ModelNode {
                     listener.onComplete(rewards);
                 }
                 else{
-                    Log.d("TAG", "getAllRewards FAILURE: " + response.code());
+                    Log.e("TAG", "getAllRewards FAILURE: " + response.code());
                     listener.onComplete(null);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Reward>> call, Throwable t) {
-                Log.d("TAG" , "getAllRewards FAILURE: " + t.getMessage());
+                Log.e("TAG" , "getAllRewards FAILURE: " + t.getMessage());
                 listener.onComplete(null);
             }
         });
-
     }
+
+    public void redeemReward(String rewardId,BooleanListener listener){
+        Map<String,String> map = new HashMap<>();
+        map.put("accountId",MyApplication.getUserKey());
+        map.put("rewardId",rewardId);
+        Call<Void> call = methodsInterface.redeemReward("Bearer "+ MyApplication.getAccessToken(),map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete(true);
+                }
+                else{
+                    Log.e("TAG", "Redeem Reward FAILURE: " + response.code());
+                    listener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("TAG", "Redeem Reward FAILURE: " + t.getMessage());
+                listener.onComplete(false);
+            }
+        });
+    }
+
 }
 
 

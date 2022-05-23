@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,12 @@ import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,6 +31,7 @@ import okhttp3.Request;
 public class FragmentPrize extends Fragment {
 
     String rewardId;
+    Integer cost;
     MaterialTextView totalCoins;
     MaterialTextView description;
     MaterialTextView rewardName;
@@ -57,7 +62,8 @@ public class FragmentPrize extends Fragment {
             totalCoins.setText(MyApplication.getUserCoins());
             description.setText(reward.getDescription());
             rewardName.setText(reward.getTitle());
-            price.setText(String.valueOf(reward.getPrice()));
+            cost = reward.getPrice();
+            price.setText(String.valueOf(cost));
             if(reward.getImage() != null){
                 OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
                     Request newRequest = chain.request().newBuilder()
@@ -76,16 +82,29 @@ public class FragmentPrize extends Fragment {
             General.progressBarOff(getActivity(),container,progressBar,true);
         });
         collectBtn.setOnClickListener((v -> {
-            popup();
+            popup(container);
         }));
         return view;
     }
 
-    private void popup(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+    private void popup(ViewGroup container){
+        AlertDialog.Builder alert = new AlertDialog.Builder(requireContext());
         alert.setMessage("Are You Sure?")
                 .setPositiveButton("BUY", (dialog, which) -> {
-                    //Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
+                    General.progressBarOn(requireActivity(),container,progressBar,false);
+                    Model.instance.redeemReward(rewardId, status->{
+                        if(status){
+                            Integer updateCoins = Integer.parseInt(MyApplication.getUserCoins())-cost;
+                            Model.instance.updateUserCoins(MyApplication.getUserKey(),updateCoins,()->{
+                                MyApplication.setUserCoins(String.valueOf(updateCoins));
+                                Navigation.findNavController(price).navigate(FragmentPrizeDirections.actionGlobalFragmentHomeScreen());
+                            });
+                        }
+                        else{
+                            General.progressBarOff(requireActivity(),container,progressBar,true);
+                            Snackbar.make(requireView(),getString(R.string.server_is_off),Snackbar.LENGTH_INDEFINITE).setAction("Redeem Failed... Try again later", view->{ }).show();
+                        }
+                    });
                 })
                 .setNeutralButton("Cancel", null);
         AlertDialog alert1 = alert.create();

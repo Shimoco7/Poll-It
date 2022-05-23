@@ -102,4 +102,7 @@ public interface ModelMethodsInterface {
 
     @GET("/reward/getAllRewards")
     Call<List<Reward>> getAllRewards(@Header("Authorization") String accessToken);
+
+    @POST("/reward/redeemReward")
+    Call<Void> redeemReward(@Header("Authorization") String accessToken,@Body Map<String,String> map);
 }
