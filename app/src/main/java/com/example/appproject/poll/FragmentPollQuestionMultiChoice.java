@@ -233,17 +233,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
     }
 
     private void setImageQuestion() {
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
-            Request newRequest = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
-                    .build();
-            return chain.proceed(newRequest);
-        }).build();
-        Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
-        picasso.load(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage())
-                .placeholder(R.drawable.loadimagesmall)
-                .into(questionImage);
-
+        General.loadImage(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage(),questionImage,R.drawable.loadimagebig);
     }
 
 }

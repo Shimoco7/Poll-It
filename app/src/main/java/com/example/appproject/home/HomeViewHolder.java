@@ -1,5 +1,6 @@
 package com.example.appproject.home;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -7,11 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.listeners.OnItemClickListener;
 import com.example.appproject.model.poll.Poll;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public class HomeViewHolder extends RecyclerView.ViewHolder{
 
@@ -32,10 +39,12 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public void bind(Poll poll) {
         pollsName.setText(poll.getPollName());
         pollMainImage.setAlpha((float)1);
         pollsName.setAlpha((float)1);
         pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_feed_arrow));
+        General.loadImage(poll.getImage(),pollMainImage,R.drawable.loadimagebig);
     }
 }

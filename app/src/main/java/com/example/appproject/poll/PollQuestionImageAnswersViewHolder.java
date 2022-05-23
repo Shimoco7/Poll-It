@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.listeners.OnItemClickListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Callback;
@@ -34,15 +35,6 @@ public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
 
     public void bind(String url) {
         this.url = url;
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
-            Request newRequest = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
-                    .build();
-            return chain.proceed(newRequest);
-        }).build();
-        Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
-        picasso.load(url)
-                .placeholder(R.drawable.loadimagebig)
-                .into(option);
+        General.loadImage(url,option,R.drawable.loadimagebig);
     }
 }

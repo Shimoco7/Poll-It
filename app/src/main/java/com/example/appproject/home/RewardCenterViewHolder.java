@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.General;
 import com.example.appproject.model.listeners.OnItemClickListener;
 import com.example.appproject.model.reward.Reward;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -40,16 +41,7 @@ public class RewardCenterViewHolder extends RecyclerView.ViewHolder {
         price.setText(String.valueOf(reward.getPrice()));
         prizeName.setText(reward.getTitle());
         if(reward.getImage() != null){
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
-                Request newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
-                        .build();
-                return chain.proceed(newRequest);
-            }).build();
-            Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
-            picasso.load(reward.getImage())
-                    .placeholder(R.drawable.loadimagebig)
-                    .into(prizeImage);
+            General.loadImage(reward.getImage(),prizeImage,R.drawable.loadimagebig);
         }
     }
 }

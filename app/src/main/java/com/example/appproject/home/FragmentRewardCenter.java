@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
@@ -46,6 +47,7 @@ public class FragmentRewardCenter extends Fragment {
         totalCoins = view.findViewById(R.id.rewardCenter_text_coinsNumber);
         swipeRefresh = view.findViewById(R.id.rewardCenter_layout_refresh);
         list = view.findViewById(R.id.rewardCenter_rv);
+        Button homeBtn = view.findViewById(R.id.rewardCenter_home_btn);
 
         totalCoins.setText(MyApplication.getUserCoins());
         list.setHasFixedSize(true);
@@ -59,6 +61,7 @@ public class FragmentRewardCenter extends Fragment {
             String rewardId = Objects.requireNonNull(viewModel.getRewards().getValue()).get(pos).getId();
             Navigation.findNavController(v).navigate(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentPrize(rewardId));
         });
+        homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionGlobalFragmentHomeScreen()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshRewards);
         observeRewardsLoadingState();
         return view;

@@ -19,13 +19,6 @@ import com.example.appproject.model.Model;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
-import com.squareup.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
-
-import java.util.Objects;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 
 public class FragmentPrize extends Fragment {
@@ -36,7 +29,7 @@ public class FragmentPrize extends Fragment {
     MaterialTextView description;
     MaterialTextView rewardName;
     MaterialTextView price;
-    ShapeableImageView prizeImg;
+    ShapeableImageView supplierImage;
     ProgressBar progressBar;
 
     public FragmentPrize() {
@@ -48,7 +41,7 @@ public class FragmentPrize extends Fragment {
         View view = inflater.inflate(R.layout.fragment_prize, container, false);
         progressBar = view.findViewById(R.id.prize_progress_bar);
         totalCoins = view.findViewById(R.id.rewardCenter_text_coinsNumber);
-        prizeImg = view.findViewById(R.id.prize_img_thePrize);
+        supplierImage = view.findViewById(R.id.prize_img_thePrize);
         description = view.findViewById(R.id.prize_txt_details);
         rewardName = view.findViewById(R.id.prize_txt_prizename);
         price = view.findViewById(R.id.prize_txt_price);
@@ -64,20 +57,11 @@ public class FragmentPrize extends Fragment {
             rewardName.setText(reward.getTitle());
             cost = reward.getPrice();
             price.setText(String.valueOf(cost));
-            if(reward.getImage() != null){
-                OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
-                    Request newRequest = chain.request().newBuilder()
-                            .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
-                            .build();
-                    return chain.proceed(newRequest);
-                }).build();
-                Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
-                picasso.load(reward.getImage())
-                        .placeholder(R.drawable.loadimagebig)
-                        .into(prizeImg);
+            if(reward.getSupplierImage() != null){
+                General.loadImage(reward.getSupplierImage(), supplierImage,R.drawable.loadimagebig);
             }
             else{
-                prizeImg.setImageResource(R.drawable.giftbox);
+                supplierImage.setImageResource(R.drawable.giftbox);
             }
             General.progressBarOff(getActivity(),container,progressBar,true);
         });

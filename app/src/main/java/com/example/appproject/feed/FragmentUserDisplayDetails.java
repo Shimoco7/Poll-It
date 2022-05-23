@@ -89,16 +89,7 @@ public class FragmentUserDisplayDetails extends Fragment {
         });
 
         if(MyApplication.getUserProfilePicUrl() != null && MyApplication.getUserProfilePicUrl().length() >0){
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
-                Request newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
-                        .build();
-                return chain.proceed(newRequest);
-            }).build();
-            Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
-            picasso.load(MyApplication.getUserProfilePicUrl())
-                    .placeholder(R.drawable.loadimagesmall)
-                    .into(profilePic);
+            General.loadImage(MyApplication.getUserProfilePicUrl(),profilePic,R.drawable.loadimagebig);
         }
         else{
             if(MyApplication.getGender()!=null){
