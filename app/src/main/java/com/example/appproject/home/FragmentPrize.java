@@ -77,9 +77,7 @@ public class FragmentPrize extends Fragment {
                         .into(prizeImg);
             }
             else{
-                //TODO- handle default prize image
                 prizeImg.setImageResource(R.drawable.giftbox);
-
             }
             General.progressBarOff(getActivity(),container,progressBar,true);
         });
