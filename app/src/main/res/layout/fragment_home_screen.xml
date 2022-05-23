@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-
     app:cardElevation="0dp"
     app:strokeColor="@color/stroke_color">
     tools:context=".FragmentHomeScreen">
@@ -28,7 +27,7 @@
         android:gravity="center"
         android:text="@string/hello"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />
@@ -43,13 +42,14 @@
         android:maxLines="1"
         android:text="Shimon Cohen"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/homeScr_text_title"
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -69,7 +69,7 @@
             android:text="100"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@color/white"
-            android:textSize="18dp"
+            android:textSize="24dp"
             android:textStyle="bold" />
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -82,19 +82,33 @@
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/homescr_btn_top_line"
+        android:layout_width="350dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#978F8F"
+        app:cornerRadius="100px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat3" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home_layout_const"
         android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         android:foregroundGravity="center_horizontal"
         android:paddingLeft="10dp"
         app:layout_constraintBottom_toTopOf="@+id/homescr_btn_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeScr_text_name">
+        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_top_line">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/home_layout_poll_refresh"
@@ -109,9 +123,9 @@
                 android:id="@+id/home_poll_rv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:scrollbarSize="3dp"
-                android:scrollbarFadeDuration="0"
                 android:fadeScrollbars="false"
+                android:scrollbarFadeDuration="0"
+                android:scrollbarSize="3dp"
                 android:scrollbarThumbVertical="@color/white"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -128,7 +142,7 @@
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -137,23 +151,25 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/homescr_btn_rewardCenter"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/black"
-        android:drawableLeft="@drawable/rewardsmallgif"
         android:fontFamily="sans-serif-medium"
+        android:gravity="center"
         android:text="Reward Center"
         android:textColor="@color/primeOrng"
-        android:textSize="14dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="2dp" />
 

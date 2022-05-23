@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pollImage_ImageframeLayout"
@@ -39,21 +39,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/pollImage_btn_line2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pollImage_question_title">
+            app:layout_constraintTop_toBottomOf="@+id/pollImage_btn_line1">
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pollImage_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:scrollbarFadeDuration="0"
                 android:scrollbarSize="3dp"
                 android:scrollbarThumbVertical="@color/white"
                 android:scrollbars="vertical"
@@ -64,8 +66,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/pollImage_btn_line2"
@@ -73,20 +74,21 @@
             android:layout_height="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="#978F8F"
             app:cornerRadius="100px"
             app:layout_constraintBottom_toTopOf="@+id/pollImage_materialCardView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
 
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/pollImage_materialCardView2"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -115,14 +117,12 @@
             android:id="@+id/pollImage_btn_left"
             android:layout_width="70dp"
             android:layout_height="50dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="25dp"
             android:drawableTop="@drawable/ic_leftarrow"
             app:cornerRadius="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pollImage_btn_line2"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
 
@@ -130,16 +130,14 @@
             android:id="@+id/pollImage_btn_right"
             android:layout_width="70dp"
             android:layout_height="50dp"
-            android:layout_marginTop="33dp"
             android:layout_marginEnd="28dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:drawableTop="@drawable/ic_rightarrow"
             android:fontFamily="sans-serif-black"
             android:textSize="10dp"
             app:cornerRadius="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pollImage_btn_line2"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
 
@@ -154,5 +152,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pollImage_btn_line1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#978F8F"
+            app:cornerRadius="100px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pollImage_question_title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,81 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/homescr_btn_poll"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_gravity="center"
-        app:cardBackgroundColor="@color/primeOrng"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeWidth="2dp"
-        android:theme="@style/Theme.MaterialComponents.Light">
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/homescr_btn_poll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_weight="1"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_width="160dp"
+    android:layout_height="110dp"
+    android:layout_gravity="center"
+    app:cardBackgroundColor="@color/secOrng"
+    app:cardCornerRadius="20dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:strokeWidth="3dp"
+    app:strokeColor="@color/white"
+    android:theme="@style/Theme.MaterialComponents.Light">
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="5dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="5dp">
 
-            <LinearLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:orientation="horizontal">
+                android:layout_height="55dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/homescr_poll_mainImage"
-                    android:layout_width="60dp"
-                    android:layout_height="40dp"
-                    android:scaleType="fitStart"
-                    app:strokeWidth="0dp"
-                    app:srcCompat="@drawable/ic_poll" />
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:maxWidth="60dp"
+                    android:maxHeight="50dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/homescr_poll_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
+                    app:srcCompat="@drawable/ic_poll"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="0dp" />
 
-                <Space
-                    android:id="@+id/homescr_poll_space"
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/homescr_poll_icon"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="end"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_feed_arrow"
                     app:strokeWidth="0dp" />
 
-            </LinearLayout>
-            <LinearLayout
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                   <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/homescr_poll_pollName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:orientation="horizontal"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingStart="15dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/poll_name"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:maxLines="2"
+                android:textStyle="bold" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/homescr_poll_pollName"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/poll_name"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
 
-            </LinearLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/homescr_poll_doneImage"
