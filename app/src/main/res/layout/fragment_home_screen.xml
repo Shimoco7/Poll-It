@@ -88,7 +88,7 @@
         android:id="@+id/homescr_btn_top_line"
         android:layout_width="350dp"
         android:layout_height="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
         app:layout_constraintEnd_toEndOf="parent"
