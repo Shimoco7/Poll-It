@@ -29,6 +29,9 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(User... users);
 
+    @Query("UPDATE user SET coins=:coins WHERE uid=:userId")
+    void updateUserCoinsById(String userId, Integer coins);
+
     @Delete
     void delete(User user);
 }

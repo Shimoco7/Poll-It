@@ -237,7 +237,7 @@ public class FragmentUserDetails extends Fragment {
     }
 
     public void uploadDetailsToDB(){
-        Map<String,String> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>();
         map.put("name",nameEt.getText().toString().trim());
         map.put("address",addressEt.getText().toString().trim());
         if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0) {
@@ -255,7 +255,7 @@ public class FragmentUserDetails extends Fragment {
         Model.instance.getAllDetails(MyApplication.getUserKey(), list -> {
             for (Detail d : list) {
                 if (d.getQuestion().equals("Gender")) {
-                    Map<String, String> map = new HashMap<>();
+                    Map<String, Object> map = new HashMap<>();
                     map.put("gender", d.getAnswer());
                     Model.instance.updateUser(MyApplication.getUserKey(), map, (user, message) -> {
                         MyApplication.setGender(d.getAnswer());

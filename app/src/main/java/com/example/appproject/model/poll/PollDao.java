@@ -22,7 +22,6 @@ public interface PollDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Poll... polls);
 
-
     @Query("SELECT * FROM Poll WHERE pollId=:pollId")
     Poll getPollByPollId(String pollId);
 

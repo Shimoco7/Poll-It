@@ -28,6 +28,8 @@ import com.example.appproject.model.poll.Answer;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -180,8 +182,20 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
             }
 
             if(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber().equals(viewModel.getTotalPollNumberOfQuestions())){
-                Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,()->
-                        Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen()));
+                Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,()-> Model.instance.getPollByPollId(pollId, poll->{
+                    Map<String,Object> map = new HashMap<>();
+                    Integer updatedCoins = Integer.parseInt(MyApplication.getUserCoins())+poll.getCoins();
+                    map.put("coins",updatedCoins);
+                    Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
+                        if(user != null && message.equals(getString(R.string.success))){
+                            MyApplication.setUserCoins(String.valueOf(updatedCoins));
+                            Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen());
+                        }
+                        else{
+                            Snackbar.make(requireView(),"An error has occurred... Please try again",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
+                        }
+                    });
+                }));
 
             }
             else{

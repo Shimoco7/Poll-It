@@ -188,7 +188,7 @@ public class FragmentUserImage extends Fragment {
         Model.instance.getAllDetails(MyApplication.getUserKey(), list -> {
             for (Detail d : list) {
                 if(d.getQuestion().equals("Gender")){
-                    Map<String,String> map = new HashMap<>();
+                    Map<String,Object> map = new HashMap<>();
                     map.put("gender",d.getAnswer());
                     Model.instance.updateUser(MyApplication.getUserKey(), map, (user,message)->{
                         MyApplication.setGender(d.getAnswer());

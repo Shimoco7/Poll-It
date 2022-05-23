@@ -15,6 +15,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.listeners.FileListener;
+import com.example.appproject.model.listeners.GetPollListener;
 import com.example.appproject.model.listeners.GetRewardListener;
 import com.example.appproject.model.listeners.GetUserListener;
 import com.example.appproject.model.detail.Detail;
@@ -218,7 +219,7 @@ public class Model {
     }
 
 
-    public void updateUser(String userId, Map<String,String> map, LoginListener listener) {
+    public void updateUser(String userId, Map<String,Object> map, LoginListener listener) {
         modelNode.updateUser(userId,map,(user,message)->{
             if(user != null && message.equals(MyApplication.getContext().getString(R.string.success))){
                 executor.execute(()-> AppLocalDb.db.userDao().insertAll(user));
@@ -229,7 +230,6 @@ public class Model {
             }
         });
     }
-
 
     /**
      * Data - User Details
@@ -334,6 +334,13 @@ public class Model {
         modelNode.getPollQuestionsByPollId(pollId,listener);
     }
 
+    public void getPollByPollId(String pollId, GetPollListener listener){
+        executor.execute(()->{
+            Poll poll = AppLocalDb.db.pollDao().getPollByPollId(pollId);
+            mainThread.post(()->listener.onComplete(poll));
+        });
+    }
+
     public void getPollQuestionsFromLocalDb(String pollId,GetPollQuestionsListener listener){
         executor.execute(()-> {
             List<PollQuestion> pollQuestions = AppLocalDb.db.pollDao().getPollWithQuestions(pollId).get(0).pollQuestions;
@@ -379,7 +386,7 @@ public class Model {
             List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
             for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
                 if(pqwa.answer.getUserId().equals(userId)){
-                    modelNode.saveAnswerToDb(pqwa.answer,listener);
+                    modelNode.saveAnswerToDb(pqwa.answer,()->{});
                 }
             }
             executor.execute(()->{
@@ -480,7 +487,7 @@ public class Model {
         modelNode.saveImage(file,url -> {
             if (url != null) {
                 MyApplication.setUserProfilePicUrl(url);
-                HashMap<String,String> map = new HashMap<>();
+                HashMap<String,Object> map = new HashMap<>();
                 map.put("profilePicUrl",url);
                 Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
                     if(user == null){

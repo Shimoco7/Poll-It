@@ -280,7 +280,7 @@ public class ModelNode {
      *
      */
 
-    public void updateUser(String userId, Map<String,String> map, LoginListener listener){
+    public void updateUser(String userId, Map<String,Object> map, LoginListener listener){
         map.put("_id",userId);
         Call<User> call = methodsInterface.updateUser("Bearer "+ MyApplication.getAccessToken(),map);
         call.enqueue(new Callback<User>() {

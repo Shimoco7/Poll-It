@@ -57,7 +57,7 @@ public interface ModelMethodsInterface {
      */
 
     @PUT("/auth/update")
-    Call<User> updateUser(@Header("Authorization") String accessToken, @Body Map<String,String> map);
+    Call<User> updateUser(@Header("Authorization") String accessToken, @Body Map<String,Object> map);
 
     @GET("/detail_question/getAllDetailQuestions")
     Call<List<Question>> getAllQuestions(@Header("Authorization") String accessToken);
