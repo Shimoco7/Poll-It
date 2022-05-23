@@ -25,7 +25,7 @@
         android:gravity="center"
         android:text="Welcome To Reward Center"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,7 +36,7 @@
         android:id="@+id/rewardCenter_text_sectitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="Choose Your Prize"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_text_headtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_txt_coins" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rewardCenter_txt_coins"
@@ -54,7 +54,7 @@
         android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="40dp"
         android:clickable="true"
         android:focusable="true"
@@ -63,7 +63,7 @@
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_text_sectitle"
+        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_text_headtitle"
         app:strokeWidth="2dp">
 
 
@@ -93,7 +93,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:text="100"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"
@@ -119,12 +119,12 @@
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_txt_coins">
+        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_text_sectitle">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/rewardCenter_layout_refresh"
@@ -139,6 +139,8 @@
                 android:id="@+id/rewardCenter_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:scrollbarFadeDuration="0"
                 android:scrollbarSize="3dp"
                 android:scrollbarThumbVertical="@color/white"
                 android:scrollbars="vertical"
@@ -153,14 +155,14 @@
         android:layout_width="100dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@color/black"
         android:fontFamily="sans-serif"
         android:text="@string/home"
         android:textSize="20sp"
         app:cornerRadius="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rewardCenter_layout_const"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="1dp" />
 
