@@ -60,11 +60,25 @@ public class FragmentRewardCenter extends Fragment {
             Navigation.findNavController(v).navigate(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentPrize(rewardId));
         });
         swipeRefresh.setOnRefreshListener(Model.instance::refreshRewards);
+        observeRewardsLoadingState();
         return view;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void refresh() {
         adapter.notifyDataSetChanged();
+    }
+
+    private void observeRewardsLoadingState() {
+        Model.instance.getRewardsListLoadingState().observe(getViewLifecycleOwner(),usersListLoadingState ->{
+            switch (usersListLoadingState){
+                case loading:
+                    swipeRefresh.setRefreshing(true);
+                    break;
+                case loaded:
+                    swipeRefresh.setRefreshing(false);
+                    break;
+            }
+        });
     }
 }

@@ -30,6 +30,7 @@ public class FragmentHomeScreen extends Fragment {
     HomeAdapter homeAdapter;
     RecyclerView list;
     SwipeRefreshLayout swipeRefresh;
+    MaterialTextView coinBalance;
 
     public FragmentHomeScreen() { }
 
@@ -45,11 +46,13 @@ public class FragmentHomeScreen extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
         swipeRefresh = view.findViewById(R.id.home_layout_poll_refresh);
         list = view.findViewById(R.id.home_poll_rv);
+        coinBalance = view.findViewById(R.id.homeScr_text_coinsNumber);
         Button btnToRewardCenter = view.findViewById(R.id.homescr_btn_rewardCenter);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
         userName.setText(MyApplication.getUserName());
+        coinBalance.setText(MyApplication.getUserCoins());
 
         list.setHasFixedSize(true);
         int numOfColumns = 2;

@@ -1,6 +1,6 @@
 package com.example.appproject.model.poll;
 
-public enum PollsListLoadingState {
+public enum LoadingState {
     loading,
     loaded,
     error

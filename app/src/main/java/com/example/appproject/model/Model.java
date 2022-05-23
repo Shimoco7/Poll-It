@@ -31,7 +31,7 @@ import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.PollQuestionWithAnswer;
 import com.example.appproject.model.poll.PollWithPollQuestionsAndAnswers;
-import com.example.appproject.model.poll.PollsListLoadingState;
+import com.example.appproject.model.poll.LoadingState;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.listeners.SaveImageListener;
@@ -66,7 +66,7 @@ public class Model {
 
     private Model(){
         usersListLoadingState.setValue(UsersListLoadingState.loaded);
-        pollsListLoadingState.setValue(PollsListLoadingState.loaded);
+        pollsListLoadingState.setValue(LoadingState.loaded);
     }
 
     public Executor getExecutor() {
@@ -296,18 +296,18 @@ public class Model {
      */
 
     MutableLiveData<List<Poll>> pollsList = new MutableLiveData<>();
-    MutableLiveData<PollsListLoadingState> pollsListLoadingState = new MutableLiveData<>();
+    MutableLiveData<LoadingState> pollsListLoadingState = new MutableLiveData<>();
 
     public LiveData<List<Poll>> getPolls() {
         return pollsList;
     }
 
-    public MutableLiveData<PollsListLoadingState> getPollsListLoadingState() {
+    public MutableLiveData<LoadingState> getPollsListLoadingState() {
         return pollsListLoadingState;
     }
 
     public void refreshPollsList() {
-        pollsListLoadingState.setValue(PollsListLoadingState.loading);
+        pollsListLoadingState.setValue(LoadingState.loading);
         modelNode.getPolls(polls->{
             if(polls != null){
                 for(Poll poll : polls){
@@ -326,7 +326,7 @@ public class Model {
                 }
             }
             pollsList.postValue(polls);
-            pollsListLoadingState.postValue(PollsListLoadingState.loaded);
+            pollsListLoadingState.postValue(LoadingState.loaded);
         });
     }
 
@@ -440,18 +440,25 @@ public class Model {
      */
 
     MutableLiveData<List<Reward>> rewardsList = new MutableLiveData<>();
+    MutableLiveData<LoadingState> rewardsListLoadingState = new MutableLiveData<>();
 
     public LiveData<List<Reward>> getRewards() {
         return rewardsList;
     }
 
+    public MutableLiveData<LoadingState> getRewardsListLoadingState() {
+        return rewardsListLoadingState;
+    }
+
     public void refreshRewards() {
+        rewardsListLoadingState.setValue(LoadingState.loading);
         modelNode.getRewards(rewards->{
             executor.execute(()->{
                 for(Reward reward : rewards){
                     AppLocalDb.db.rewardDao().insertAll(reward);
                 }
                 rewardsList.postValue(rewards);
+                rewardsListLoadingState.postValue(LoadingState.loaded);
             });
         });
     }
