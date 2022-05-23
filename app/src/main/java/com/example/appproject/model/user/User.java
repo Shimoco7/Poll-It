@@ -24,6 +24,7 @@ public class User {
     String profilePicUrl="";
     String facebookId;
     Integer coins;
+    Double rank;
     Long updatedAt;
     Long createdAt;
 
@@ -110,5 +111,13 @@ public class User {
 
     public void setCoins(Integer coins) {
         this.coins = coins;
+    }
+
+    public Double getRank() {
+        return rank;
+    }
+
+    public void setRank(Double rank) {
+        this.rank = rank;
     }
 }

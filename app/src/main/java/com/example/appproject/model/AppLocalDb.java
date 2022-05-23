@@ -24,7 +24,7 @@ import com.example.appproject.model.user.UserPollCrossRef;
 
 
 @Database(entities ={User.class, Detail.class, Question.class, PollQuestion.class, Poll.class, Answer.class, UserPollCrossRef.class, Reward.class},
-        version = 37 ,exportSchema = false)
+        version = 38 ,exportSchema = false)
 @TypeConverters({Converters.class})
 abstract class AppLocalDbRepository extends RoomDatabase{
     public abstract UserDao userDao();

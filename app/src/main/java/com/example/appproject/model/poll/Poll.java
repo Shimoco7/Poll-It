@@ -18,6 +18,7 @@ public class Poll {
     @SerializedName("_id")
     public String pollId;
     public String pollName;
+    public String image;
     public Integer totalNumberOfQuestions;
     public Integer coins;
 
@@ -54,6 +55,14 @@ public class Poll {
 
     public void setCoins(Integer coins) {
         this.coins = coins;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
 

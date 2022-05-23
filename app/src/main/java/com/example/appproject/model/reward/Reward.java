@@ -17,6 +17,8 @@ public class Reward {
     String title;
     String description;
     String image;
+    String supplier;
+    String supplierImage;
     Integer price;
     Long updatedAt;
     Long createdAt;
@@ -76,5 +78,21 @@ public class Reward {
 
     public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public String getSupplierImage() {
+        return supplierImage;
+    }
+
+    public void setSupplierImage(String supplierImage) {
+        this.supplierImage = supplierImage;
     }
 }
