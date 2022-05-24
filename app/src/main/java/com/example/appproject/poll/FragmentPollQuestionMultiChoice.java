@@ -233,7 +233,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
     }
 
     private void setImageQuestion() {
-        General.loadImage(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage(),questionImage,R.drawable.loadimagebig);
+        General.loadImage(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage(),questionImage,R.drawable.loadimagesmall);
     }
 
 }
