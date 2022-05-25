@@ -107,7 +107,6 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                     });
                 }
                 else{
-//                    nextBtn.setCompoundDrawables(null, ResourcesCompat.getDrawable(getResources(),R.drawable.ic_rightarrow, null),null,null);
                     nextBtn.setCompoundDrawables(null, null,null,null);
                     nextBtn.setText(getString(R.string.finish));
                     General.progressBarOff(getActivity(),container,progressBar,true);
@@ -128,17 +127,20 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
 
 
     private void setAnswer(String answer) {
+        PollQuestionMultiChoiceViewHolder holder;
         for(int i = 0 ; i < adapter.getItemCount() ; i++){
-            PollQuestionMultiChoiceViewHolder holder = (PollQuestionMultiChoiceViewHolder) options.findViewHolderForAdapterPosition(i);
-            assert holder != null;
-            if(holder.option.getText().equals(answer)){
-                holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGreen)));
-                holder.option.setAlpha(1);
+            holder = (PollQuestionMultiChoiceViewHolder) options.findViewHolderForAdapterPosition(i);
+            if(holder != null){
+                if(holder.option.getText().equals(answer)){
+                    holder.option.setBackgroundTintList(ColorStateList.valueOf(requireContext().getColor(R.color.primeGreen)));
+                    holder.option.setAlpha(1);
+                }
+                else{
+                    holder.option.setBackgroundTintList(ColorStateList.valueOf(requireContext().getColor(R.color.primeGray)));
+                    holder.option.setAlpha((float)0.25);
+                }
             }
-            else{
-                holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                holder.option.setAlpha((float)0.25);
-            }
+
         }
     }
 
@@ -167,9 +169,10 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
             for(int i = 0 ; i < adapter.getItemCount() ; i++){
                 if(i!=pos){
                     PollQuestionMultiChoiceViewHolder holder = (PollQuestionMultiChoiceViewHolder) options.findViewHolderForAdapterPosition(i);
-                    assert holder != null;
-                    holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
-                    holder.option.setAlpha((float)0.25);
+                    if(holder != null){
+                        holder.option.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primeGray)));
+                        holder.option.setAlpha((float)0.25);
+                    }
                 }
             }
             if(viewModel.getPollQuestionWithAnswer().getValue().answer == null){
@@ -178,6 +181,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 Model.instance.saveAnswerOnLocalDb(answer);
             }
             else{
+                viewModel.getPollQuestionWithAnswer().getValue().answer.setAnswer(chosenAnswer);
                 Model.instance.updateAnswerOnLocalDb(viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswerId(),chosenAnswer);
             }
         });

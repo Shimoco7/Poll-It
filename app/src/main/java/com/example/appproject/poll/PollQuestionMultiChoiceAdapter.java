@@ -1,6 +1,7 @@
 package com.example.appproject.poll;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,31 @@ public class PollQuestionMultiChoiceAdapter extends RecyclerView.Adapter<PollQue
     @Override
     public void onBindViewHolder(@NonNull PollQuestionMultiChoiceViewHolder holder, int position) {
         String option = Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getChoices().get(position);
-        holder.bind(option);
+        if(viewModel.getAnswered()){
+            String chosenAnswer = viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswer();
+            holder.bind(option, option.equals(chosenAnswer));
+        }
+        else{
+            holder.bind(option);
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull PollQuestionMultiChoiceViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if(viewModel.getAnswered()){
+            if(viewModel.getPollQuestionWithAnswer().getValue() != null){
+                String chosenAnswer = viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswer();
+                if(holder.option.getText().equals(chosenAnswer)){
+                    holder.option.setBackgroundTintList(ColorStateList.valueOf(MyApplication.getContext().getColor(R.color.primeGreen)));
+                    holder.option.setAlpha(1);
+                }
+                else{
+                    holder.option.setBackgroundTintList(ColorStateList.valueOf(MyApplication.getContext().getColor(R.color.primeGray)));
+                    holder.option.setAlpha((float)0.25);
+                }
+            }
+        }
     }
 
     @Override

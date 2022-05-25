@@ -37,4 +37,15 @@ public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
         this.url = url;
         General.loadImage(url,option,R.drawable.loadimagebig);
     }
+
+    public void bind(String url, boolean isTheAnswer) {
+        this.url = url;
+        General.loadImage(url,option,R.drawable.loadimagebig);
+        if(isTheAnswer){
+            option.setAlpha((float)1.0);
+        }
+        else{
+            this.option.setAlpha((float)0.25);
+        }
+    }
 }

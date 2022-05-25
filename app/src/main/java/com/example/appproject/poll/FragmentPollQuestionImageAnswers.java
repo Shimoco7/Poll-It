@@ -115,14 +115,16 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
     }
 
     private void setAnswer(String answer) {
+        PollQuestionImageAnswersViewHolder holder;
         for(int i = 0 ; i < adapter.getItemCount() ; i++){
-            PollQuestionImageAnswersViewHolder holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
-            assert holder != null;
-            if(holder.url.equals(answer)){
-                holder.option.setAlpha((float)1.0);
-            }
-            else{
-                holder.option.setAlpha((float)0.25);
+            holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
+            if(holder != null){
+                if(holder.url.equals(answer)){
+                    holder.option.setAlpha((float)1.0);
+                }
+                else{
+                    holder.option.setAlpha((float)0.25);
+                }
             }
         }
     }
@@ -159,8 +161,9 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
             for(int i = 0 ; i < adapter.getItemCount() ; i++){
                 if(i!=pos){
                     PollQuestionImageAnswersViewHolder holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
-                    assert holder != null;
-                    holder.option.setAlpha((float)0.25);
+                    if(holder != null){
+                        holder.option.setAlpha((float)0.25);
+                    }
                 }
             }
             if(viewModel.getPollQuestionWithAnswer().getValue().answer == null){
@@ -169,6 +172,7 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                 Model.instance.saveAnswerOnLocalDb(answer);
             }
             else{
+                viewModel.getPollQuestionWithAnswer().getValue().answer.setAnswer(chosenAnswer);
                 Model.instance.updateAnswerOnLocalDb(viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswerId(),chosenAnswer);
             }
         });

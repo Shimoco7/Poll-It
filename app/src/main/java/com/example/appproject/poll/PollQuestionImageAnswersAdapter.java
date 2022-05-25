@@ -1,6 +1,7 @@
 package com.example.appproject.poll;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,29 @@ public class PollQuestionImageAnswersAdapter extends RecyclerView.Adapter<PollQu
     @Override
     public void onBindViewHolder(@NonNull PollQuestionImageAnswersViewHolder holder, int position) {
         String option = Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getChoices().get(position);
-        holder.bind(option);
+        if(viewModel.getAnswered()){
+            String chosenAnswer = viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswer();
+            holder.bind(option, option.equals(chosenAnswer));
+        }
+        else{
+            holder.bind(option);
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull PollQuestionImageAnswersViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if(viewModel.getAnswered()){
+            if(viewModel.getPollQuestionWithAnswer().getValue() != null){
+                String chosenAnswer = viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswer();
+                if(holder.url.equals(chosenAnswer)){
+                    holder.option.setAlpha((float)1.0);
+                }
+                else{
+                    holder.option.setAlpha((float)0.25);
+                }
+            }
+        }
     }
 
     @Override

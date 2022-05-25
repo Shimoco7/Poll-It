@@ -29,4 +29,16 @@ public class PollQuestionMultiChoiceViewHolder extends RecyclerView.ViewHolder {
     public void bind(String option) {
         this.option.setText(option);
     }
+
+    public void bind(String option, boolean isTheAnswer) {
+        this.option.setText(option);
+        if(isTheAnswer){
+            this.option.setBackgroundTintList(ColorStateList.valueOf(MyApplication.getContext().getColor(R.color.primeGreen)));
+            this.option.setAlpha(1);
+        }
+        else{
+            this.option.setBackgroundTintList(ColorStateList.valueOf(MyApplication.getContext().getColor(R.color.primeGray)));
+            this.option.setAlpha((float)0.25);
+        }
+    }
 }
