@@ -29,7 +29,7 @@ public class FragmentPrize extends Fragment {
     MaterialTextView description;
     MaterialTextView rewardName;
     MaterialTextView price;
-    ShapeableImageView supplierImage;
+    ShapeableImageView prizeImage, supplierImage;
     ProgressBar progressBar;
 
     public FragmentPrize() {
@@ -41,12 +41,12 @@ public class FragmentPrize extends Fragment {
         View view = inflater.inflate(R.layout.fragment_prize, container, false);
         progressBar = view.findViewById(R.id.prize_progress_bar);
         totalCoins = view.findViewById(R.id.rewardCenter_text_coinsNumber);
-        supplierImage = view.findViewById(R.id.prize_img_thePrize);
+        prizeImage = view.findViewById(R.id.prize_img_thePrize);
+        supplierImage = view.findViewById(R.id.prize_img_company);
         description = view.findViewById(R.id.prize_txt_details);
         rewardName = view.findViewById(R.id.prize_txt_prizename);
         price = view.findViewById(R.id.prize_txt_price);
         Button collectBtn=view.findViewById(R.id.prize_btn_collect);
-
 
         rewardId = FragmentPrizeArgs.fromBundle(getArguments()).getRewardId();
         General.progressBarOn(getActivity(),container,progressBar,false);
@@ -57,6 +57,12 @@ public class FragmentPrize extends Fragment {
             rewardName.setText(reward.getTitle());
             cost = reward.getPrice();
             price.setText(String.valueOf(cost));
+            if(reward.getImage() != null){
+                General.loadImage(reward.getImage(), prizeImage,R.drawable.loadimagebig);
+            }
+            else{
+                prizeImage.setImageResource(R.drawable.giftbox);
+            }
             if(reward.getSupplierImage() != null){
                 General.loadImage(reward.getSupplierImage(), supplierImage,R.drawable.loadimagebig);
             }
