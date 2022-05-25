@@ -67,7 +67,7 @@ public class FragmentPrize extends Fragment {
                 General.loadImage(reward.getSupplierImage(), supplierImage,R.drawable.loadimagebig);
             }
             else{
-                supplierImage.setImageResource(R.drawable.giftbox);
+                supplierImage.setImageResource(R.drawable.default_poll_image);
             }
             General.progressBarOff(getActivity(),container,progressBar,true);
         });

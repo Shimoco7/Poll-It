@@ -6,23 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     app:cardElevation="0dp"
-    app:strokeColor="@color/stroke_color">
+    app:strokeColor="@color/stroke_color"><![CDATA[
     tools:context=".FragmentHomeScreen">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/homeScreen_logo"
-        android:layout_width="306dp"
-        android:layout_height="160dp"
-        android:src="@drawable/logo__nobg_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    ]]>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/homeScr_text_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="-10dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="@string/hello"
@@ -37,6 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="-10dp"
         android:layout_marginEnd="80dp"
         android:fontFamily="sans-serif-black"
         android:gravity="start"
@@ -48,6 +43,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/homeScr_text_title"
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/homeScreen_logo"
+        android:layout_width="306dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="-20dp"
+        android:src="@drawable/logo__nobg_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat3"
@@ -143,10 +148,10 @@
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#978F8F"
         app:cornerRadius="100px"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/homescr_btn_rewardCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -157,7 +162,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="25dp"
         android:backgroundTint="@color/black"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
@@ -169,7 +174,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_line"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="2dp" />
