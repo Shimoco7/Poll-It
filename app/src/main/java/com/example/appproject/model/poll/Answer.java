@@ -25,16 +25,18 @@ public class Answer {
     @NonNull
     public String userId;
     public String answer;
+    public Integer position;
 
     public Answer() { }
 
     @Ignore
-    public Answer(@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer) {
+    public Answer(@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer, Integer position) {
         this.userId = userId;
         this.answerId = new ObjectId().toString();
         this.pollId = pollId;
         this.pollQuestionId = pollQuestionId;
         this.answer = answer;
+        this.position = position;
     }
 
     public Map<String, String> toJson() {
@@ -91,4 +93,11 @@ public class Answer {
         this.answer = answer;
     }
 
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
 }

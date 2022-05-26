@@ -27,6 +27,7 @@ public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
         option = itemView.findViewById(R.id.image_q_square_image);
         option.setOnClickListener(v->{
+            //TODO - emil - chosen image answer
             option.setAlpha((float)1.0);
             int pos = getAdapterPosition();
             listener.onItemClick(v,pos);
@@ -42,6 +43,7 @@ public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
         this.url = url;
         General.loadImage(url,option,R.drawable.loadimagebig);
         if(isTheAnswer){
+            //TODO - emil - chosen image answer
             option.setAlpha((float)1.0);
         }
         else{

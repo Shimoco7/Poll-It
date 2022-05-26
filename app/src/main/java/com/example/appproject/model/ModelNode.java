@@ -25,12 +25,22 @@ import com.example.appproject.model.listeners.LoginListener;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,12 +54,13 @@ public class ModelNode {
     private final ModelMethodsInterface methodsInterface;
     private final Context appContext = MyApplication.getContext();
     private final String BASE_URL_EMULATOR_LOCAL = "http://10.0.2.2:3000";
-    private final String BASE_URL_SERVER = "http://10.10.248.124:8000";
+    private final String BASE_URL_SERVER = "https://poll-it.cs.colman.ac.il";
 
     public ModelNode() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(General.getUnsafeOkHttpClient())
                 .build();
         methodsInterface = retrofit.create(ModelMethodsInterface.class);
     }
@@ -528,6 +539,7 @@ public class ModelNode {
             }
         });
     }
+
 
 }
 

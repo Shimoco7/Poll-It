@@ -120,12 +120,16 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
             holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
             if(holder != null){
                 if(holder.url.equals(answer)){
+                    //TODO - emil - chosen image answer
                     holder.option.setAlpha((float)1.0);
                 }
                 else{
                     holder.option.setAlpha((float)0.25);
                 }
             }
+        }
+        if(viewModel.getPollQuestionWithAnswer().getValue() != null){
+            options.smoothScrollToPosition(viewModel.getPollQuestionWithAnswer().getValue().answer.getPosition());
         }
     }
 
@@ -167,13 +171,14 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                 }
             }
             if(viewModel.getPollQuestionWithAnswer().getValue().answer == null){
-                Answer answer = new Answer(MyApplication.getUserKey(),pollId,pollQuestionId,chosenAnswer);
+                Answer answer = new Answer(MyApplication.getUserKey(),pollId,pollQuestionId,chosenAnswer,pos);
                 viewModel.getPollQuestionWithAnswer().getValue().answer = answer;
                 Model.instance.saveAnswerOnLocalDb(answer);
             }
             else{
                 viewModel.getPollQuestionWithAnswer().getValue().answer.setAnswer(chosenAnswer);
-                Model.instance.updateAnswerOnLocalDb(viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswerId(),chosenAnswer);
+                viewModel.getPollQuestionWithAnswer().getValue().answer.setPosition(pos);
+                Model.instance.saveAnswerOnLocalDb(viewModel.getPollQuestionWithAnswer().getValue().answer);
             }
         });
     }

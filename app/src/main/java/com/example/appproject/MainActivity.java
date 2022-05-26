@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     showPopup();
                     return true;
                 case R.id.main_menu_settings:
-                    navController.navigate(R.id.action_fragmentHomeScreen_to_fragmentUserDisplayDetails);
+                    navController.navigate(R.id.action_global_fragmentUserDisplayDetails);
                 default:
                     NavigationUI.onNavDestinationSelected(item, navController);
             }

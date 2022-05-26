@@ -383,10 +383,6 @@ public class Model {
         executor.execute(()->AppLocalDb.db.answerDao().insertAll(answer));
     }
 
-    public void updateAnswerOnLocalDb(String answerId, String chosenAnswer) {
-        executor.execute(()->AppLocalDb.db.answerDao().updateAnswerByAnswerId(answerId,chosenAnswer));
-    }
-
     public void savePollAnswersToRemoteDb(String userId, String pollId, VoidListener listener) {
         executor.execute(()->{
             List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);

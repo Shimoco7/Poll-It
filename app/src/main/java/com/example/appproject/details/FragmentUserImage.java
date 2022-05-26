@@ -146,7 +146,6 @@ public class FragmentUserImage extends Fragment {
                     }
                     else{
                         setUserAvatar();
-                        Snackbar.make(getView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -161,7 +160,6 @@ public class FragmentUserImage extends Fragment {
                         }
                         else{
                             setUserAvatar();
-                            Snackbar.make(getView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
                         setUserAvatar();
