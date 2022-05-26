@@ -39,7 +39,6 @@
     <string name="please_upload_your_image">Please Upload Your Image</string>
 
 
-
     <!--Details Strings-->
     <string name="invalid_address">Invalid Address</string>
     <string name="invalid_name">Invalid Name</string>
@@ -83,6 +82,8 @@
 
     <string name="current_account_facebook_id">facebookId</string>
     <string name="hello">Hello, </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

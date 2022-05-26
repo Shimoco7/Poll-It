@@ -27,7 +27,6 @@ public class FragmentPrize extends Fragment {
     Integer cost;
     MaterialTextView totalCoins;
     MaterialTextView description;
-    MaterialTextView rewardName;
     MaterialTextView price;
     ShapeableImageView prizeImage, supplierImage;
     ProgressBar progressBar;
@@ -44,7 +43,6 @@ public class FragmentPrize extends Fragment {
         prizeImage = view.findViewById(R.id.prize_img_thePrize);
         supplierImage = view.findViewById(R.id.prize_img_company);
         description = view.findViewById(R.id.prize_txt_details);
-        rewardName = view.findViewById(R.id.prize_txt_prizename);
         price = view.findViewById(R.id.prize_txt_price);
         Button collectBtn=view.findViewById(R.id.prize_btn_collect);
 
@@ -54,7 +52,6 @@ public class FragmentPrize extends Fragment {
         Model.instance.getRewardFromLocalDb(rewardId,reward->{
             totalCoins.setText(MyApplication.getUserCoins());
             description.setText(reward.getDescription());
-            rewardName.setText(reward.getTitle());
             cost = reward.getPrice();
             price.setText(String.valueOf(cost));
             if(reward.getImage() != null){
