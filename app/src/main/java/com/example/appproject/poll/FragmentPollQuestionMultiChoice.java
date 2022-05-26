@@ -140,7 +140,9 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                     holder.option.setAlpha((float)0.25);
                 }
             }
-
+        }
+        if(viewModel.getPollQuestionWithAnswer().getValue() != null){
+            options.smoothScrollToPosition(viewModel.getPollQuestionWithAnswer().getValue().answer.getPosition());
         }
     }
 
@@ -176,13 +178,14 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 }
             }
             if(viewModel.getPollQuestionWithAnswer().getValue().answer == null){
-                Answer answer = new Answer(MyApplication.getUserKey(),pollId,pollQuestionId,chosenAnswer);
+                Answer answer = new Answer(MyApplication.getUserKey(),pollId,pollQuestionId,chosenAnswer,pos);
                 viewModel.getPollQuestionWithAnswer().getValue().answer = answer;
                 Model.instance.saveAnswerOnLocalDb(answer);
             }
             else{
                 viewModel.getPollQuestionWithAnswer().getValue().answer.setAnswer(chosenAnswer);
-                Model.instance.updateAnswerOnLocalDb(viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswerId(),chosenAnswer);
+                viewModel.getPollQuestionWithAnswer().getValue().answer.setPosition(pos);
+                Model.instance.saveAnswerOnLocalDb(viewModel.getPollQuestionWithAnswer().getValue().answer);
             }
         });
     }

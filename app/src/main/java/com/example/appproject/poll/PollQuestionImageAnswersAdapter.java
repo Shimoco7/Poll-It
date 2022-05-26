@@ -54,6 +54,7 @@ public class PollQuestionImageAnswersAdapter extends RecyclerView.Adapter<PollQu
             if(viewModel.getPollQuestionWithAnswer().getValue() != null){
                 String chosenAnswer = viewModel.getPollQuestionWithAnswer().getValue().answer.getAnswer();
                 if(holder.url.equals(chosenAnswer)){
+                    //TODO - emil - chosen image answer
                     holder.option.setAlpha((float)1.0);
                 }
                 else{
