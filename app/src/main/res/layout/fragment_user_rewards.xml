@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".FragmentUserRewards">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/userReward_btn_line"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="#978F8F"
+        app:cornerRadius="100px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userReward_text_sectitle"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/userReward_img_logo"
+        android:layout_width="306dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo__nobg_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userReward_text_headtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Welcome To Reward Center"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userReward_img_logo" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userReward_text_sectitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Choose Your Prize"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userReward_txt_coins" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/userReward_txt_coins"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userReward_text_headtitle"
+        app:strokeWidth="2dp">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/userReward_text_collectText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="@string/you_ve_already_collected"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/userReward_text_coinsNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="100"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/white"
+                android:textSize="26dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/userReward_img_coinIcon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/coin_icon"
+                app:strokeWidth="0dp" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/userReward_layout_const"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/userReward_home_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userReward_btn_line">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/userReward_layout_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/userReward_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:scrollbarFadeDuration="0"
+                android:scrollbarSize="3dp"
+                android:scrollbarThumbVertical="@color/white"
+                android:scrollbars="vertical"
+
+                />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/userReward_home_btn"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="sans-serif"
+        android:text="@string/home"
+        android:textSize="20sp"
+        app:cornerRadius="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/primeOrng"
+        app:strokeWidth="1dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
