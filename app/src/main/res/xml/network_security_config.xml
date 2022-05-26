@@ -2,8 +2,8 @@
 <network-security-config>
     <base-config>
         <trust-anchors>
-            <certificates src="@raw/pollitcer" />
             <certificates src="system" />
+            <certificates src="@raw/pollitcer" />
         </trust-anchors>
     </base-config>
 </network-security-config>

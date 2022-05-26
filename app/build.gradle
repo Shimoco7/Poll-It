@@ -14,8 +14,6 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-//        buildConfigField "String", "MAPS_API_KEY", localProperties['MAPS_API_KEY']
-
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -68,5 +66,8 @@ dependencies {
     implementation group: 'org.mongodb', name: 'bson', version: '2.5.1'
 
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation "com.google.android.gms:play-services-auth:16.0.1"
+    implementation "com.squareup.okhttp3:okhttp:4.9.3"
+
 
 }
