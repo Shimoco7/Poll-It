@@ -10,7 +10,9 @@
     android:layout_width="160dp"
     android:layout_height="110dp"
     android:layout_gravity="center"
-    app:cardBackgroundColor="@color/secOrng"
+
+    android:elevation="2dp"
+    app:cardBackgroundColor="@color/primeOrng"
     app:cardCornerRadius="20dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +33,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="60dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/homescr_poll_mainImage"
@@ -49,8 +51,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/homescr_poll_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
-                    app:srcCompat="@drawable/mcdonalds_icon"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                    app:srcCompat="@drawable/default_poll_image"
                     app:strokeColor="@color/white"
                     app:strokeWidth="3dp" />
 
@@ -74,7 +76,7 @@
                 android:layout_height="match_parent"
                 android:paddingStart="15dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="@string/poll_name"
+                android:text=""
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"
                 android:textSize="16dp"
