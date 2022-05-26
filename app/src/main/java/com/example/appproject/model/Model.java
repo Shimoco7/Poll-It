@@ -365,6 +365,19 @@ public class Model {
         });
     }
 
+    public void getLastUnansweredPollQuestion(String pollId, GetPollQuestionListener listener){
+        executor.execute(()->{
+            List<PollQuestionWithAnswer> pollQuestionWithAnswers = AppLocalDb.db.pollQuestionDao().getPollQuestionsByPollId(pollId);
+            for(int i=0;i<pollQuestionWithAnswers.size();i++){
+                if(pollQuestionWithAnswers.get(i).answer == null){
+                    listener.onComplete(pollQuestionWithAnswers.get(i).pollQuestion);
+                    return;
+                }
+            }
+            listener.onComplete(pollQuestionWithAnswers.get(pollQuestionWithAnswers.size()-1).pollQuestion);
+        });
+    }
+
     public void getPollQuestionWithAnswer(String pollQuestionId, GetPollQuestionWithAnswerListener listener){
         executor.execute(()->{
             PollQuestionWithAnswer pollQuestionWithAnswer = AppLocalDb.db.pollDao().getPollQuestionWithAnswer(pollQuestionId);

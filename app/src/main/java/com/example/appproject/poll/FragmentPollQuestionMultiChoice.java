@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -23,18 +22,14 @@ import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.Answer;
+import com.example.appproject.model.poll.PollQuestion;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
-import com.squareup.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 
 public class FragmentPollQuestionMultiChoice extends Fragment {
@@ -215,27 +210,13 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
 
             }
             else{
-                switch (viewModel.getNextPollQuestion().getPollQuestionType()){
-                    case Multi_Choice:{
-                        Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
-                                .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId(),false)));
-                        break;
-                    }
-                    case Image_Question:{
-                        Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
-                                .actionFragmentPollQuestionSelf(pollId,viewModel.getNextPollQuestion().getPollQuestionId(),true)));
-                        break;
-                    }
-                    case Image_Answers:{
-                        Navigation.findNavController(v).navigate((FragmentPollQuestionMultiChoiceDirections
-                                .actionFragmentPollQuestionMultiChoiceToFragmentPollQuestionImageAnswers(pollId,viewModel.getNextPollQuestion().getPollQuestionId())));
-                        break;
-                    }
-                }
+                navigateToPollQuestion(viewModel.getNextPollQuestion());
             }
         });
         prevBtn.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
+            Model.instance.getPollQuestionByNumber(pollId, Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber()-1,pollQuestion -> {
+                Model.instance.getMainThread().post(()->navigateToPollQuestion(pollQuestion));
+            });
         });
     }
 
@@ -243,5 +224,24 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         General.loadImage(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage(),questionImage,R.drawable.loadimagesmall);
     }
 
+    private void navigateToPollQuestion(PollQuestion pollQuestion){
+        switch (pollQuestion.getPollQuestionType()){
+            case Multi_Choice:{
+                Navigation.findNavController(nextBtn).navigate((FragmentPollQuestionMultiChoiceDirections
+                        .actionFragmentPollQuestionSelf(pollId,pollQuestion.getPollQuestionId(),false)));
+                break;
+            }
+            case Image_Question:{
+                Navigation.findNavController(nextBtn).navigate((FragmentPollQuestionMultiChoiceDirections
+                        .actionFragmentPollQuestionSelf(pollId,pollQuestion.getPollQuestionId(),true)));
+                break;
+            }
+            case Image_Answers:{
+                Navigation.findNavController(nextBtn).navigate((FragmentPollQuestionMultiChoiceDirections
+                        .actionFragmentPollQuestionMultiChoiceToFragmentPollQuestionImageAnswers(pollId,pollQuestion.getPollQuestionId())));
+                break;
+            }
+        }
+    }
 }
 

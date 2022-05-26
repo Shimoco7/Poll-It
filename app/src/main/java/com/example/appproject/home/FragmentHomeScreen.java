@@ -19,6 +19,8 @@ import android.widget.Button;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
+import com.example.appproject.model.poll.PollQuestion;
+import com.example.appproject.poll.FragmentActivePollDirections;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Objects;
@@ -71,7 +73,14 @@ public class FragmentHomeScreen extends Fragment {
         Model.instance.refreshPollsList();
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
-            Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId));
+            Model.instance.getLastUnansweredPollQuestion(pollId,pollQuestion -> {
+                if(!pollQuestion.getQuestionNumber().equals(1)){
+                    Model.instance.getMainThread().post(()->navigateToPollQuestion(pollId,pollQuestion));
+                }
+                else{
+                    Model.instance.getMainThread().post(()->Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentActivePoll(pollId)));
+                }
+            });
         });
         btnToRewardCenter.setOnClickListener(v->Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentRewardCenter()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshPollsList);
@@ -95,6 +104,31 @@ public class FragmentHomeScreen extends Fragment {
                     break;
             }
         });
+    }
+
+    private void navigateToPollQuestion(String pollId, PollQuestion pollQuestion) {
+        switch (pollQuestion.getPollQuestionType()){
+            case Multi_Choice:{
+                Navigation.findNavController(list)
+                        .navigate(FragmentHomeScreenDirections
+                                .actionFragmentHomeScreenToFragmentPollQuestionMultiChoice(pollId,pollQuestion.getPollQuestionId(),false));
+                break;
+            }
+            case Image_Question:{
+                Navigation.findNavController(list)
+                        .navigate(FragmentHomeScreenDirections
+                                .actionFragmentHomeScreenToFragmentPollQuestionMultiChoice(pollId,pollQuestion.getPollQuestionId(),true));
+                break;
+            }
+            case Image_Answers:{
+                Navigation.findNavController(list)
+                        .navigate(FragmentHomeScreenDirections
+                                .actionFragmentHomeScreenToFragmentPollQuestionImageAnswers(pollId,pollQuestion.getPollQuestionId()));
+                break;
+            }
+            default:
+                throw new IllegalStateException("Unexpected value: " + pollQuestion.getPollQuestionType());
+        }
     }
 
 }
