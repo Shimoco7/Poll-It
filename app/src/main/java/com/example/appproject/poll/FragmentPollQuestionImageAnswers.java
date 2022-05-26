@@ -120,7 +120,6 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
             holder = (PollQuestionImageAnswersViewHolder) options.findViewHolderForAdapterPosition(i);
             if(holder != null){
                 if(holder.url.equals(answer)){
-                    //TODO - emil - chosen image answer
                     holder.option.setAlpha((float)1.0);
                 }
                 else{

@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:text="Welcome To Reward Center"
+        android:text="@string/your_products"
         android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold"
