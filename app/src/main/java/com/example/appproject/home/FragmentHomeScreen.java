@@ -73,8 +73,8 @@ public class FragmentHomeScreen extends Fragment {
         Model.instance.refreshPollsList();
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
-            Model.instance.getLastUnansweredPollQuestion(pollId,pollQuestion -> {
-                if(!pollQuestion.getQuestionNumber().equals(1)){
+            Model.instance.getLastUnansweredPollQuestion(pollId,(pollQuestion,isSingleQuestionAndAnswered) -> {
+                if(isSingleQuestionAndAnswered || (pollQuestion != null && !pollQuestion.getQuestionNumber().equals(1))){
                     Model.instance.getMainThread().post(()->navigateToPollQuestion(pollId,pollQuestion));
                 }
                 else{

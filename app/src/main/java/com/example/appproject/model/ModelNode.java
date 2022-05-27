@@ -10,6 +10,7 @@ import com.example.appproject.model.listeners.GetDetailsListener;
 import com.example.appproject.model.listeners.GetPollQuestionsListener;
 import com.example.appproject.model.listeners.GetPollsListener;
 import com.example.appproject.model.listeners.GetRewardsListener;
+import com.example.appproject.model.listeners.GetUserListener;
 import com.example.appproject.model.listeners.SaveImageListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.listeners.GetQuestionsListener;
@@ -515,27 +516,27 @@ public class ModelNode {
         });
     }
 
-    public void redeemReward(String rewardId,BooleanListener listener){
+    public void redeemReward(String rewardId, GetUserListener listener){
         Map<String,String> map = new HashMap<>();
         map.put("accountId",MyApplication.getUserKey());
         map.put("rewardId",rewardId);
-        Call<Void> call = methodsInterface.redeemReward("Bearer "+ MyApplication.getAccessToken(),map);
-        call.enqueue(new Callback<Void>() {
+        Call<User> call = methodsInterface.redeemReward("Bearer "+ MyApplication.getAccessToken(),map);
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if(response.code() == 200){
-                    listener.onComplete(true);
+                    listener.onComplete(response.body());
                 }
                 else{
                     Log.e("TAG", "Redeem Reward FAILURE: " + response.code());
-                    listener.onComplete(false);
+                    listener.onComplete(null);
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Log.e("TAG", "Redeem Reward FAILURE: " + t.getMessage());
-                listener.onComplete(false);
+                listener.onComplete(null);
             }
         });
     }

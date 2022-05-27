@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".FragmentUserRewards">
+    tools:context=".poll.FragmentUserRewards">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/userReward_btn_line"

@@ -16,6 +16,7 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.listeners.FileListener;
 import com.example.appproject.model.listeners.GetPollListener;
+import com.example.appproject.model.listeners.GetPollQuestionWithBooleanListener;
 import com.example.appproject.model.listeners.GetRewardListener;
 import com.example.appproject.model.listeners.GetUserListener;
 import com.example.appproject.model.detail.Detail;
@@ -365,16 +366,21 @@ public class Model {
         });
     }
 
-    public void getLastUnansweredPollQuestion(String pollId, GetPollQuestionListener listener){
+    public void getLastUnansweredPollQuestion(String pollId, GetPollQuestionWithBooleanListener listener){
         executor.execute(()->{
             List<PollQuestionWithAnswer> pollQuestionWithAnswers = AppLocalDb.db.pollQuestionDao().getPollQuestionsByPollId(pollId);
             for(int i=0;i<pollQuestionWithAnswers.size();i++){
                 if(pollQuestionWithAnswers.get(i).answer == null){
-                    listener.onComplete(pollQuestionWithAnswers.get(i).pollQuestion);
+                    listener.onComplete(pollQuestionWithAnswers.get(i).pollQuestion, false);
                     return;
                 }
             }
-            listener.onComplete(pollQuestionWithAnswers.get(pollQuestionWithAnswers.size()-1).pollQuestion);
+            if(pollQuestionWithAnswers.size() == 0){
+                listener.onComplete(null,false);
+            }
+            else{
+                listener.onComplete(pollQuestionWithAnswers.get(pollQuestionWithAnswers.size()-1).pollQuestion, pollQuestionWithAnswers.size() == 1);
+            }
         });
     }
 
@@ -449,8 +455,17 @@ public class Model {
         });
     }
 
-    public void redeemReward(String rewardId,BooleanListener listener){
-        modelNode.redeemReward(rewardId,listener);
+    public void redeemReward(String rewardId,GetUserListener listener){
+        modelNode.redeemReward(rewardId,user->{
+            if(user != null){
+                executor.execute(()-> {
+                    AppLocalDb.db.userDao().insertAll(user);
+                    MyApplication.setUserCoins(String.valueOf(user.getCoins()));
+                    mainThread.post(()->listener.onComplete(user));
+                });
+            }
+
+        });
     }
 
 

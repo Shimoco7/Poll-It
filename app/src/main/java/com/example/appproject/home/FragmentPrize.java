@@ -79,13 +79,9 @@ public class FragmentPrize extends Fragment {
         alert.setMessage("Are You Sure?")
                 .setPositiveButton("BUY", (dialog, which) -> {
                     General.progressBarOn(requireActivity(),container,progressBar,false);
-                    Model.instance.redeemReward(rewardId, status->{
-                        if(status){
-                            Integer updateCoins = Integer.parseInt(MyApplication.getUserCoins())-cost;
-                            Model.instance.updateUserCoins(MyApplication.getUserKey(),updateCoins,()->{
-                                MyApplication.setUserCoins(String.valueOf(updateCoins));
-                                Navigation.findNavController(price).navigate(FragmentPrizeDirections.actionGlobalFragmentHomeScreen());
-                            });
+                    Model.instance.redeemReward(rewardId, user->{
+                        if(user != null){
+                            Navigation.findNavController(price).navigate(FragmentPrizeDirections.actionGlobalFragmentHomeScreen());
                         }
                         else{
                             General.progressBarOff(requireActivity(),container,progressBar,true);

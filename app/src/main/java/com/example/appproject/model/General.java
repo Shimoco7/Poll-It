@@ -60,6 +60,9 @@ public class General {
     }
 
     public static void loadImage(String url, ImageView imageView, int placeholder){
+        if(url == null)
+            return;
+
         OkHttpClient client;
         if(url.contains("poll-it.cs.colman.ac.il") || url.contains("10.10.248.124")){
             client = General.getOkClientWithAuth();
