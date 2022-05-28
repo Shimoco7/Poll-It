@@ -15,6 +15,7 @@ public class Order {
 
     String rewardId;
     String supplierImage;
+    String title;
     Long purchaseDate;
     Long expirationDate;
 
@@ -57,5 +58,13 @@ public class Order {
 
     public void setSupplierImage(String supplierImage) {
         this.supplierImage = supplierImage;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

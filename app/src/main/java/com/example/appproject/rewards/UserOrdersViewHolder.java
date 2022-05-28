@@ -33,7 +33,7 @@ public class UserOrdersViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Order order) {
-//        orderName.setText(order.get);
+        orderName.setText(order.getTitle());
 
         //10-digits code
         orderCode.setText(order.getId().substring(14));
