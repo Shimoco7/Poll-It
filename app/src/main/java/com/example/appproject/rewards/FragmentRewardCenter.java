@@ -61,6 +61,7 @@ public class FragmentRewardCenter extends Fragment {
         adapter.setOnItemClickListener((v,pos)->{
             String rewardId = Objects.requireNonNull(viewModel.getRewards().getValue()).get(pos).getId();
             Navigation.findNavController(v).navigate(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentPrize(rewardId));
+
         });
         homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionGlobalFragmentHomeScreen()));
         toMyOrdersBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentUserRewards()));

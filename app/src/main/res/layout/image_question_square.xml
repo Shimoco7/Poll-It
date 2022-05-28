@@ -6,8 +6,8 @@
     android:layout_weight="1"
     android:clickable="true"
     android:focusable="true"
-    android:layout_width="160dp"
-    android:layout_height="130dp"
+    android:layout_width="140dp"
+    android:layout_height="125dp"
     android:layout_gravity="center"
     android:background="@color/black"
     app:cardCornerRadius="20dp"
@@ -22,6 +22,7 @@
         android:id="@+id/image_q_square_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="fitXY"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
         android:src="@drawable/logo__nobg_2"/>
 
