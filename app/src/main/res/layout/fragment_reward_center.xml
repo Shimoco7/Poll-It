@@ -195,7 +195,7 @@
         app:cornerRadius="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:strokeColor="@color/primeOrng"
+        app:strokeColor="@color/white"
         app:strokeWidth="1dp" />
 
 
