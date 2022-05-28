@@ -17,6 +17,7 @@
     app:cardPreventCornerOverlap="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/userPrizeRow_const_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/userfeedstroke">
@@ -37,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userPrizeRow_image" />
 
-         <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/userPrizeRow_txt_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
