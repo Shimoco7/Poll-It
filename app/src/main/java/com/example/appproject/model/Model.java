@@ -37,6 +37,7 @@ import com.example.appproject.model.poll.LoadingState;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.listeners.BooleanListener;
 import com.example.appproject.model.listeners.SaveImageListener;
+import com.example.appproject.model.reward.Order;
 import com.example.appproject.model.reward.Reward;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.listeners.LoginListener;
@@ -427,12 +428,23 @@ public class Model {
     MutableLiveData<List<Reward>> rewardsList = new MutableLiveData<>();
     MutableLiveData<LoadingState> rewardsListLoadingState = new MutableLiveData<>();
 
+    MutableLiveData<List<Order>> ordersList = new MutableLiveData<>();
+    MutableLiveData<LoadingState> ordersListLoadingState = new MutableLiveData<>();
+
     public LiveData<List<Reward>> getRewards() {
         return rewardsList;
     }
 
     public MutableLiveData<LoadingState> getRewardsListLoadingState() {
         return rewardsListLoadingState;
+    }
+
+    public LiveData<List<Order>> getOrders() {
+        return ordersList;
+    }
+
+    public MutableLiveData<LoadingState> getOrdersListLoadingState() {
+        return ordersListLoadingState;
     }
 
     public void refreshRewards() {
@@ -446,6 +458,11 @@ public class Model {
                 rewardsListLoadingState.postValue(LoadingState.loaded);
             });
         });
+    }
+
+    public void refreshOrders() {
+        ordersListLoadingState.setValue(LoadingState.loading);
+        //TODO - implement refreshOrders via Room
     }
 
     public void getRewardFromLocalDb(String rewardId, GetRewardListener listener) {

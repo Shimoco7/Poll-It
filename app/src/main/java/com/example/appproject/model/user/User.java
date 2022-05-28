@@ -5,8 +5,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.appproject.model.reward.Order;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -25,6 +27,7 @@ public class User {
     String facebookId;
     Integer coins;
     Double rank;
+    List<Order> rewards;
     Long updatedAt;
     Long createdAt;
 
@@ -119,5 +122,13 @@ public class User {
 
     public void setRank(Double rank) {
         this.rank = rank;
+    }
+
+    public List<Order> getRewards() {
+        return rewards;
+    }
+
+    public void setRewards(List<Order> rewards) {
+        this.rewards = rewards;
     }
 }

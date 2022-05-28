@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.appproject.R;
+import com.example.appproject.model.Model;
 
 
 public class FragmentUserOrders extends Fragment {
@@ -49,14 +50,31 @@ public class FragmentUserOrders extends Fragment {
         adapter = new UserOrdersAdapter(viewModel,getLayoutInflater());
         list.setAdapter(adapter);
 
+        viewModel.getOrders().observe(getViewLifecycleOwner(),orders -> refresh());
+        Model.instance.refreshOrders();
 
         homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserOrdersDirections.actionGlobalFragmentHomeScreen()));
+        swipeRefresh.setOnRefreshListener(Model.instance::refreshOrders);
+        observeOrdersLoadingState();
         return view;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void refresh() {
         adapter.notifyDataSetChanged();
+    }
+
+    private void observeOrdersLoadingState() {
+        Model.instance.getOrdersListLoadingState().observe(getViewLifecycleOwner(),ordersListLoadingState ->{
+            switch (ordersListLoadingState){
+                case loading:
+                    swipeRefresh.setRefreshing(true);
+                    break;
+                case loaded:
+                    swipeRefresh.setRefreshing(false);
+                    break;
+            }
+        });
     }
 
 

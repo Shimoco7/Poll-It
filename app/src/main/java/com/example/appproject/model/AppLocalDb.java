@@ -16,6 +16,7 @@ import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.PollQuestionDao;
 import com.example.appproject.model.question.Question;
 import com.example.appproject.model.question.QuestionDao;
+import com.example.appproject.model.reward.Order;
 import com.example.appproject.model.reward.Reward;
 import com.example.appproject.model.reward.RewardDao;
 import com.example.appproject.model.user.User;
@@ -23,8 +24,8 @@ import com.example.appproject.model.user.UserDao;
 import com.example.appproject.model.user.UserPollCrossRef;
 
 
-@Database(entities ={User.class, Detail.class, Question.class, PollQuestion.class, Poll.class, Answer.class, UserPollCrossRef.class, Reward.class},
-        version = 39 ,exportSchema = false)
+@Database(entities ={User.class, Detail.class, Question.class, PollQuestion.class, Poll.class, Answer.class, UserPollCrossRef.class, Reward.class, Order.class},
+        version = 40 ,exportSchema = false)
 @TypeConverters({Converters.class})
 abstract class AppLocalDbRepository extends RoomDatabase{
     public abstract UserDao userDao();
