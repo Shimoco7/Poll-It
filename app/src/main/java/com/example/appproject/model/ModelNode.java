@@ -123,12 +123,12 @@ public class ModelNode {
                     MyApplication.setUserEmail(u.getEmail());
                     MyApplication.setAccessToken(loginResult.getAccessToken());
                     MyApplication.setRefreshToken(loginResult.getRefreshToken());
+                    MyApplication.setUserCoins(String.valueOf(u.getCoins()));
                     if(loginResult.getDetailsFilled()){
                         MyApplication.setUserName(u.getName());
                         MyApplication.setGender(u.getGender());
                         MyApplication.setUserAddress(u.getAddress());
                         MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
-                        MyApplication.setUserCoins(String.valueOf(u.getCoins()));
                         Model.instance.getMainThread().post(()-> loginListener.onComplete(u, appContext.getString(R.string.success)));
                     }
                     else{

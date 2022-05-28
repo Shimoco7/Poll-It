@@ -132,7 +132,7 @@ public class MyApplication extends Application {
     }
 
     public static String getUserCoins(){
-        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.user_coins),"");
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.user_coins),"0");
     }
 
 }
