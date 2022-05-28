@@ -11,7 +11,7 @@ import java.util.List;
 public class FeedViewModel extends ViewModel {
     LiveData<List<User>> users;
     public FeedViewModel() {
-        users = Model.instance.getUsers();
+//        users = Model.instance.getUsers();
     }
     public LiveData<List<User>> getUsers() {
         return users;

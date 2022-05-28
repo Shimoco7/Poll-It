@@ -68,7 +68,6 @@ public class Model {
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
     private Model(){
-        usersListLoadingState.setValue(UsersListLoadingState.loaded);
         pollsListLoadingState.setValue(LoadingState.loaded);
     }
 
@@ -193,33 +192,10 @@ public class Model {
      * Data - User
      *
      */
-    
-    MutableLiveData<List<User>> usersList = new MutableLiveData<>();
-    MutableLiveData<UsersListLoadingState> usersListLoadingState = new MutableLiveData<>();
 
-    public LiveData<List<User>> getUsers() {
-        return usersList;
+    public void getUsersFromLocalDb(BooleanListener listener){
+        executor.execute(()-> listener.onComplete(AppLocalDb.db.userDao().getAll().isEmpty()));
     }
-
-    public void getUserById(String userId, GetUserListener listener) {
-        executor.execute(()->{
-            User user = AppLocalDb.db.userDao().loadUserById(userId);
-            mainThread.post(()->listener.onComplete(user));
-        });
-    }
-
-    public void refreshList() {
-        usersListLoadingState.setValue(UsersListLoadingState.loading);
-        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("Status", Context.MODE_PRIVATE).getLong(
-                MyApplication.getContext().getString(R.string.users_list_last_update_date),0);
-        //Show current cache users
-        executor.execute(()-> usersList.postValue(AppLocalDb.db.userDao().getAll()));
-    }
-
-    public MutableLiveData<UsersListLoadingState> getUsersListLoadingState() {
-        return usersListLoadingState;
-    }
-
 
     public void updateUser(String userId, Map<String,Object> map, LoginListener listener) {
         modelNode.updateUser(userId,map,(user,message)->{
