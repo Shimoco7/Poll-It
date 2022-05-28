@@ -48,6 +48,7 @@ public class FragmentRewardCenter extends Fragment {
         swipeRefresh = view.findViewById(R.id.rewardCenter_layout_refresh);
         list = view.findViewById(R.id.rewardCenter_rv);
         Button homeBtn = view.findViewById(R.id.rewardCenter_home_btn);
+        Button toMyOrdersBtn = view.findViewById(R.id.rewardCenter_products_btn);
 
         totalCoins.setText(MyApplication.getUserCoins());
         list.setHasFixedSize(true);
@@ -62,6 +63,7 @@ public class FragmentRewardCenter extends Fragment {
             Navigation.findNavController(v).navigate(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentPrize(rewardId));
         });
         homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionGlobalFragmentHomeScreen()));
+        toMyOrdersBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentUserRewards()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshRewards);
         observeRewardsLoadingState();
         return view;

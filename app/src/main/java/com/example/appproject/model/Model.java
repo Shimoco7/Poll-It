@@ -462,7 +462,11 @@ public class Model {
 
     public void refreshOrders() {
         ordersListLoadingState.setValue(LoadingState.loading);
-        //TODO - implement refreshOrders via Room
+        executor.execute(()->{
+            List<Order> orders = AppLocalDb.db.userDao().loadUserById(MyApplication.getUserKey()).getRewards();
+            ordersList.postValue(orders);
+            ordersListLoadingState.postValue(LoadingState.loaded);
+        });
     }
 
     public void getRewardFromLocalDb(String rewardId, GetRewardListener listener) {

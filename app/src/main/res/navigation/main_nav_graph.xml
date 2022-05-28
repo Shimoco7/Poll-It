@@ -117,6 +117,9 @@
         <action
             android:id="@+id/action_fragmentRewardCenter_to_fragmentPrize"
             app:destination="@id/fragmentPrize" />
+        <action
+            android:id="@+id/action_fragmentRewardCenter_to_fragmentUserRewards"
+            app:destination="@id/fragmentUserRewards" />
     </fragment>
     <fragment
         android:id="@+id/fragmentPrize"

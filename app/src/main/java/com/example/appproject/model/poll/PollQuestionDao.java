@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public interface PollQuestionDao {
     @Query("SELECT * FROM PollQuestion WHERE pollQuestionId = :pollQuestionId")
     PollQuestion getPollQuestionById(String pollQuestionId);
 
+    @Transaction
     @Query("SELECT * FROM PollQuestion WHERE pollid = :pollId ORDER BY questionNumber")
     List<PollQuestionWithAnswer> getPollQuestionsByPollId(String pollId);
 

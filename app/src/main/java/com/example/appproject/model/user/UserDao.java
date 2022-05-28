@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.example.appproject.model.reward.Order;
+
 import java.util.List;
 
 @Dao
