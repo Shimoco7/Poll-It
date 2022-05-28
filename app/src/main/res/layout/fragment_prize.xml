@@ -35,9 +35,8 @@
             android:id="@+id/prize_constraintLayout_prizename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/prize_layout">
 
@@ -61,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:text="@string/by"
                 android:textColor="@color/white"
@@ -94,7 +93,7 @@
                 android:drawablePadding="10dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="left"
-                android:maxLines="5"
+                android:maxLines="3"
                 android:paddingLeft="20dp"
                 android:text="prize details \n bla \n bla \n bla \n bla"
                 android:textColor="@color/white"
@@ -110,8 +109,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="sans-serif-black"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="sans-serif"
                 android:text="250"
 
 
@@ -127,7 +126,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/prize_txt_price"
                 app:layout_constraintTop_toBottomOf="@+id/prize_txt_details"
@@ -200,11 +199,116 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="5dp"
+            app:cardPreventCornerOverlap="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prize_layout"
+            app:strokeColor="@color/black">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/rewardCenter_list_tv"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:padding="8dp"
+                app:boxBackgroundColor="@color/black"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="@color/primeOrng"
+                app:boxStrokeErrorColor="@color/primeRed"
+                app:boxStrokeWidth="0dp"
+                app:endIconMode="dropdown_menu"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/primeRed"
+                app:helperText="Choose amount      "
+                app:helperTextTextColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconTint="@color/white">
+
+                <AutoCompleteTextView
+                    android:id="@+id/rewardCenter_list_ac"
+                    style="style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:cursorVisible="true"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:fontFamily="sans-serif-black"
+                    android:inputType="none|textNoSuggestions"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/prize_txt_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="115dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="@string/total"
+            android:textColor="@color/white"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/prize_txt_total_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+
+
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif"
+            android:text="250"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/prize_txt_total"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/prize_img_coinIcon2"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toEndOf="@+id/prize_txt_total_coins"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+            app:srcCompat="@drawable/coin_icon"
+            app:strokeWidth="0dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prize_btn_collect"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/collect_prize"
             android:textSize="20sp"
@@ -212,7 +316,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prize_constraintLayout_prizename"
+            app:layout_constraintTop_toBottomOf="@+id/prize_txt_total"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
 
