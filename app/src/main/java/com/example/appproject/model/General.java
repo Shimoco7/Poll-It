@@ -76,7 +76,7 @@ public class General {
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
-                        Log.d("TAG", "success");
+                        Log.d("TAG", "success loading image");
                     }
 
                     @Override
@@ -165,5 +165,6 @@ public class General {
             throw new RuntimeException(e);
         }
     }
+
 
 }

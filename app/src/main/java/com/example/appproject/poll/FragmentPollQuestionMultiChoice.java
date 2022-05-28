@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -26,10 +27,12 @@ import com.example.appproject.model.poll.PollQuestion;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.base.Stopwatch;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 
 public class FragmentPollQuestionMultiChoice extends Fragment {
@@ -45,6 +48,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
     MaterialButton nextBtn, prevBtn;
     ProgressBar progressBar;
     ViewGroup container;
+    Stopwatch stopwatch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,6 +115,8 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
         setRvAndAdapter();
         setListeners();
         viewModel.getPollQuestionWithAnswer().observe(getViewLifecycleOwner(),questionWithAnswer -> refresh());
+
+        stopwatch = Stopwatch.createStarted();
         return view;
     }
 
@@ -191,6 +197,12 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 Snackbar.make(requireView(),getString(R.string.select_an_answer),Snackbar.LENGTH_SHORT).show();
                 return;
             }
+            stopwatch.stop();
+            if(viewModel.getPollQuestionWithAnswer().getValue() != null){
+                Double currentTime = viewModel.getPollQuestionWithAnswer().getValue().answer.getTimeInSeconds();
+                viewModel.getPollQuestionWithAnswer().getValue().answer.setTimeInSeconds(stopwatch.elapsed(TimeUnit.MILLISECONDS)/1000.0 + currentTime);
+                Model.instance.saveAnswerOnLocalDb(viewModel.getPollQuestionWithAnswer().getValue().answer);
+            }
 
             if(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber().equals(viewModel.getTotalPollNumberOfQuestions())){
                 Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,()-> Model.instance.getPollByPollId(pollId, poll->{
@@ -214,6 +226,8 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
             }
         });
         prevBtn.setOnClickListener(v -> {
+            stopwatch.stop();
+            Log.d("TAG","Time elapsed: " + stopwatch.elapsed(TimeUnit.MILLISECONDS)/1000.0);
             Model.instance.getPollQuestionByNumber(pollId, Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber()-1,pollQuestion -> {
                 Model.instance.getMainThread().post(()->navigateToPollQuestion(pollQuestion));
             });

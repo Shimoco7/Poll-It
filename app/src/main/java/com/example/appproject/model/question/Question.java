@@ -2,17 +2,13 @@ package com.example.appproject.model.question;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-import com.google.common.base.Stopwatch;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Entity
 public class Question {
@@ -25,7 +21,6 @@ public class Question {
     public String question;
     @SerializedName("choices")
     public List<String> multiChoice;
-//    Stopwatch stopwatch;
 
     public Question() { }
 
@@ -50,19 +45,5 @@ public class Question {
     public void setMultiChoice(ArrayList<String> multiChoice) {
         this.multiChoice = multiChoice;
     }
-
-//    public Stopwatch getStopwatch() {
-//        return stopwatch;
-//
-//    }
-//
-//    public void startWatch() {
-//
-//        this.stopwatch.start();
-//    }
-//    public void Stopwatch() {
-//        this.stopwatch.stop();
-//    }
-
 
 }

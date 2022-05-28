@@ -1,6 +1,5 @@
 package com.example.appproject.rewards;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -35,6 +34,8 @@ public class UserOrdersViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Order order) {
 //        orderName.setText(order.get);
+
+        //10-digits code
         orderCode.setText(order.getId().substring(14));
 
         //Date handler

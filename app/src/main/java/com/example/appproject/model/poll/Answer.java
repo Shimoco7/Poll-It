@@ -5,13 +5,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.google.firebase.firestore.FieldValue;
-
 import org.bson.types.ObjectId;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Entity
 public class Answer {
@@ -26,6 +23,7 @@ public class Answer {
     public String userId;
     public String answer;
     public Integer position;
+    public Double timeInSeconds = 0.0;
 
     public Answer() { }
 
@@ -99,5 +97,13 @@ public class Answer {
 
     public void setPosition(Integer position) {
         this.position = position;
+    }
+
+    public Double getTimeInSeconds() {
+        return timeInSeconds;
+    }
+
+    public void setTimeInSeconds(Double timeInSeconds) {
+        this.timeInSeconds = timeInSeconds;
     }
 }
