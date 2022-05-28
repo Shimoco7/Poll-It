@@ -5,6 +5,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.listeners.OnItemClickListener;
