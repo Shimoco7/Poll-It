@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/black"
-    tools:context=".home.FragmentPrize">
+    tools:context=".rewards.FragmentPrize">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

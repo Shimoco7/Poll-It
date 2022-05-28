@@ -1,4 +1,4 @@
-package com.example.appproject.home;
+package com.example.appproject.rewards;
 
 import android.os.Bundle;
 

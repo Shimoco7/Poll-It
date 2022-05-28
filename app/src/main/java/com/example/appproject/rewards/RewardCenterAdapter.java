@@ -1,4 +1,4 @@
-package com.example.appproject.home;
+package com.example.appproject.rewards;
 
 import android.content.Context;
 import android.view.LayoutInflater;

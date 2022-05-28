@@ -1,4 +1,4 @@
-package com.example.appproject.home;
+package com.example.appproject.rewards;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

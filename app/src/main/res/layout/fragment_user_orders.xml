@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".poll.FragmentUserRewards">
+    tools:context=".rewards.FragmentUserOrders">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/userReward_btn_line"
+        android:id="@+id/userOrders_btn_line"
         android:layout_width="0dp"
         android:layout_height="10dp"
         android:layout_marginStart="50dp"
@@ -18,11 +18,11 @@
         app:cornerRadius="100px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userReward_text_sectitle"
+        app:layout_constraintTop_toBottomOf="@+id/userOrders_text_sectitle"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/userReward_img_logo"
+        android:id="@+id/userOrders_img_logo"
         android:layout_width="306dp"
         android:layout_height="120dp"
         android:layout_marginTop="25dp"
@@ -33,37 +33,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/userReward_text_sectitle"
+        android:id="@+id/userOrders_text_sectitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:text="Your Rewards"
+        android:text="Your Orders"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userReward_img_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/userOrders_img_logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/userReward_layout_const"
+        android:id="@+id/userOrders_layout_const"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/userReward_home_btn"
+        app:layout_constraintBottom_toTopOf="@+id/userOrders_home_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userReward_btn_line">
+        app:layout_constraintTop_toBottomOf="@+id/userOrders_btn_line">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/userReward_layout_refresh"
+            android:id="@+id/userOrders_layout_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +72,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/userReward_rv"
+                android:id="@+id/userOrders_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fadeScrollbars="false"
@@ -86,7 +86,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/userReward_home_btn"
+        android:id="@+id/userOrders_home_btn"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="100dp"
         android:layout_height="0dp"

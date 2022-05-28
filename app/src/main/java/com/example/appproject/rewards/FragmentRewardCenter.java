@@ -1,4 +1,4 @@
-package com.example.appproject.home;
+package com.example.appproject.rewards;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -73,8 +73,8 @@ public class FragmentRewardCenter extends Fragment {
     }
 
     private void observeRewardsLoadingState() {
-        Model.instance.getRewardsListLoadingState().observe(getViewLifecycleOwner(),usersListLoadingState ->{
-            switch (usersListLoadingState){
+        Model.instance.getRewardsListLoadingState().observe(getViewLifecycleOwner(),rewardsListLoadingState ->{
+            switch (rewardsListLoadingState){
                 case loading:
                     swipeRefresh.setRefreshing(true);
                     break;
