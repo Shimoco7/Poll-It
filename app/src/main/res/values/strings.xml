@@ -86,6 +86,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="products">Your Rewards</string>
     <string name="expiry">Expiry:</string>
+    <string name="total">Total:</string>
 
 
 </resources>
