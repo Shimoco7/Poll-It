@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.listeners.DoubleListener;
 import com.example.appproject.model.listeners.FileListener;
 import com.example.appproject.model.listeners.GetPollListener;
 import com.example.appproject.model.listeners.GetPollQuestionWithBooleanListener;
@@ -23,6 +24,7 @@ import com.example.appproject.model.detail.Detail;
 import com.example.appproject.model.listeners.GetDetailsListener;
 import com.example.appproject.model.listeners.GetDetailListener;
 import com.example.appproject.model.listeners.IntegerListener;
+import com.example.appproject.model.listeners.MapStringToObjListener;
 import com.example.appproject.model.listeners.VoidListener;
 import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.listeners.GetPollQuestionListener;
@@ -209,10 +211,13 @@ public class Model {
         });
     }
 
-    public void updateUserCoins(String userId, Integer coins, VoidListener listener){
+    public void getUserRankAndCoins(String userId, MapStringToObjListener listener){
         executor.execute(()->{
-            AppLocalDb.db.userDao().updateUserCoinsById(userId,coins);
-            mainThread.post(listener::onComplete);
+            User u = AppLocalDb.db.userDao().loadUserById(userId);
+            Map<String,Object> map = new HashMap<>();
+            map.put(MyApplication.getContext().getString(R.string.user_coins),u.getCoins());
+            map.put(MyApplication.getContext().getString(R.string.user_rank),u.getRank());
+            mainThread.post(()->listener.onComplete(map));
         });
     }
 
@@ -379,20 +384,19 @@ public class Model {
         executor.execute(()->AppLocalDb.db.answerDao().insertAll(answer));
     }
 
-    public void savePollAnswersToRemoteDb(String userId, String pollId, VoidListener listener) {
+    public void savePollAnswersToRemoteDb(String userId, String pollId, DoubleListener listener) {
         executor.execute(()->{
             List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
             List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
+            Double timeForAllAnswers = 0.0;
             for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
                 if(pqwa.answer.getUserId().equals(userId)){
+                    timeForAllAnswers += pqwa.answer.getTimeInSeconds();
                     modelNode.saveAnswerToDb(pqwa.answer,()->{});
                 }
             }
-            executor.execute(()->{
-                UserPollCrossRef userPollCrossRef = new UserPollCrossRef(MyApplication.getUserKey(),pollId);
-                AppLocalDb.db.pollDao().insertAll(userPollCrossRef);
-                mainThread.post(listener::onComplete);
-            });
+            Double finalTimeForAllAnswers = timeForAllAnswers;
+            mainThread.post(()->listener.onComplete(finalTimeForAllAnswers));
         });
     }
 
@@ -457,11 +461,9 @@ public class Model {
             if(user != null){
                 executor.execute(()-> {
                     AppLocalDb.db.userDao().insertAll(user);
-                    MyApplication.setUserCoins(String.valueOf(user.getCoins()));
                     mainThread.post(()->listener.onComplete(user));
                 });
             }
-
         });
     }
 
@@ -527,4 +529,23 @@ public class Model {
         }
     }
 
+    public Double checkReliability(Integer totalNumberOfQuestions, Double timeForAllAnswers) {
+        double avg = Double.MAX_VALUE;
+        double score = 0;
+        if(totalNumberOfQuestions != null && totalNumberOfQuestions !=0){
+            avg = timeForAllAnswers/totalNumberOfQuestions;
+        }
+        if(avg <= 1.0){
+            score += 0.5;
+        }
+        else if(avg<= 2.0){
+            //TODO - handle answers positions similarity
+        }
+
+        if(score == 0){
+            score = -0.25;
+        }
+
+        return score;
+    }
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
+import com.example.appproject.model.Model;
 import com.example.appproject.model.listeners.OnItemClickListener;
 import com.example.appproject.model.reward.Reward;
 import com.google.android.material.card.MaterialCardView;
@@ -37,16 +38,18 @@ public class RewardCenterViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Reward reward) {
-        coins = Integer.parseInt(MyApplication.getUserCoins());
-        price.setText(String.valueOf(reward.getPrice()));
-        prizeName.setText(reward.getTitle());
-        if (coins<reward.getPrice()){
-            card.setAlpha((float)0.25);
-            card.setClickable(false);
-            clickImage.setClickable(false);
-        }
-        if(reward.getSupplierImage() != null){
-            General.loadImage(reward.getSupplierImage(), supplierImage,R.drawable.loadimagesmall);
-        }
+        Model.instance.getUserRankAndCoins(MyApplication.getUserKey(), map->{
+            coins = (Integer) map.get(MyApplication.getContext().getString(R.string.user_coins));
+            price.setText(String.valueOf(reward.getPrice()));
+            prizeName.setText(reward.getTitle());
+            if (coins<reward.getPrice()){
+                card.setAlpha((float)0.25);
+                card.setClickable(false);
+                clickImage.setClickable(false);
+            }
+            if(reward.getSupplierImage() != null){
+                General.loadImage(reward.getSupplierImage(), supplierImage,R.drawable.loadimagesmall);
+            }
+        });
     }
 }

@@ -54,7 +54,10 @@ public class FragmentHomeScreen extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
         userName.setText(MyApplication.getUserName());
-        coinBalance.setText(MyApplication.getUserCoins());
+        Model.instance.getUserRankAndCoins(MyApplication.getUserKey(),map->{
+            Integer coins = (Integer) map.get(getString(R.string.user_coins));
+            coinBalance.setText(String.valueOf(coins));
+        });
 
         list.setHasFixedSize(true);
         int numOfColumns = 2;

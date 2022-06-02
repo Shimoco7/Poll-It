@@ -26,22 +26,12 @@ import com.example.appproject.model.listeners.LoginListener;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +51,7 @@ public class ModelNode {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(General.getUnsafeOkHttpClient())
+                .client(General.getOkHttpClient())
                 .build();
         methodsInterface = retrofit.create(ModelMethodsInterface.class);
     }
@@ -123,7 +113,6 @@ public class ModelNode {
                     MyApplication.setUserEmail(u.getEmail());
                     MyApplication.setAccessToken(loginResult.getAccessToken());
                     MyApplication.setRefreshToken(loginResult.getRefreshToken());
-                    MyApplication.setUserCoins(String.valueOf(u.getCoins()));
                     if(loginResult.getDetailsFilled()){
                         MyApplication.setUserName(u.getName());
                         MyApplication.setGender(u.getGender());
@@ -176,7 +165,6 @@ public class ModelNode {
                     MyApplication.setUserName(u.getName());
                     MyApplication.setFacebookId(u.getFacebookId());
                     MyApplication.setUserProfilePicUrl(u.getProfilePicUrl());
-                    MyApplication.setUserCoins(String.valueOf(u.getCoins()));
                     MyApplication.setAccessToken(loginResult.getAccessToken());
                     MyApplication.setRefreshToken(loginResult.getRefreshToken());
                     if(loginResult.getDetailsFilled()){

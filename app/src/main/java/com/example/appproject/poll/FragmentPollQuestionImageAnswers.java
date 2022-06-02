@@ -1,7 +1,6 @@
 package com.example.appproject.poll;
 
 import android.annotation.SuppressLint;
-import android.content.res.ColorStateList;
 import android.graphics.Rect;
 import android.os.Bundle;
 
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -204,19 +204,27 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
             }
 
             if(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber().equals(viewModel.getTotalPollNumberOfQuestions())){
-                Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,()-> Model.instance.getPollByPollId(pollId, poll->{
-                    Map<String,Object> map = new HashMap<>();
-                    Integer updatedCoins = Integer.parseInt(MyApplication.getUserCoins())+poll.getCoins();
-                    map.put("coins",updatedCoins);
-                    Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
-                        if(user != null && message.equals(getString(R.string.success))){
-                            MyApplication.setUserCoins(String.valueOf(updatedCoins));
-                            Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen());
-                        }
-                        else{
-                            General.progressBarOff(getActivity(),container,progressBar,true);
-                            Snackbar.make(requireView(),"An error has occurred... Please try again",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
-                        }
+                Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,(timeForAllAnswers)-> Model.instance.getPollByPollId(pollId, poll->{
+                    Double score = Model.instance.checkReliability(poll.totalNumberOfQuestions,timeForAllAnswers);
+                    Log.d("TAG", "time average for all answers: " + timeForAllAnswers/poll.getTotalNumberOfQuestions());
+
+                    Model.instance.getUserRankAndCoins(MyApplication.getUserKey(),coinsAndRank->{
+                        Map<String,Object> map = new HashMap<>();
+                        Integer coins = (Integer) coinsAndRank.get(getString(R.string.user_coins));
+                        Double rank = (Double) coinsAndRank.get(getString(R.string.user_rank));
+                        Integer updatedCoins = coins + poll.getCoins();
+                        Double updateRank = rank + score;
+                        map.put("coins",updatedCoins);
+                        map.put("rank",updateRank);
+                        Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
+                            if(user != null && message.equals(getString(R.string.success))){
+                                Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen());
+                            }
+                            else{
+                                General.progressBarOff(getActivity(),container,progressBar,true);
+                                Snackbar.make(requireView(),"An error has occurred... Please try again",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
+                            }
+                        });
                     });
                 }));
 

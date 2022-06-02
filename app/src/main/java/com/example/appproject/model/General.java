@@ -7,17 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.appproject.MyApplication;
-import com.example.appproject.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.security.cert.CertificateException;
-import java.util.List;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -68,7 +64,7 @@ public class General {
             client = General.getOkClientWithAuth();
         }
         else{
-            client = General.getUnsafeOkHttpClient();
+            client = General.getOkHttpClient();
         }
         Picasso picasso = new Picasso.Builder(MyApplication.getContext()).downloader(new OkHttp3Downloader(client)).build();
         picasso.load(url)
@@ -86,7 +82,7 @@ public class General {
                 });
     }
 
-    public static OkHttpClient getUnsafeOkHttpClient() {
+    public static OkHttpClient getOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
             final TrustManager[] trustAllCerts = new TrustManager[] {

@@ -50,7 +50,10 @@ public class FragmentPrize extends Fragment {
         General.progressBarOn(getActivity(),container,progressBar,false);
 
         Model.instance.getRewardFromLocalDb(rewardId,reward->{
-            totalCoins.setText(MyApplication.getUserCoins());
+            Model.instance.getUserRankAndCoins(MyApplication.getUserKey(),map->{
+                Integer coins = (Integer) map.get(getString(R.string.user_coins));
+                totalCoins.setText(String.valueOf(coins));
+            });
             description.setText(reward.getDescription());
             cost = reward.getPrice();
             price.setText(String.valueOf(cost));

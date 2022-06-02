@@ -26,12 +26,12 @@ public class MyApplication extends Application {
     public static void setUserKey(String uid){
         context.getSharedPreferences("Status",Context.MODE_PRIVATE)
                 .edit()
-                .putString(context.getString(R.string.firebasekey),uid)
+                .putString(context.getString(R.string.user_key),uid)
                 .apply();
     }
 
     public static String getUserKey(){
-        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.firebasekey),"");
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.user_key),"");
     }
 
     public static void setUserEmail(String email){
@@ -124,15 +124,5 @@ public class MyApplication extends Application {
         return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.current_account_facebook_id),"");
     }
 
-    public static void setUserCoins(String userCoins) {
-        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
-                .edit()
-                .putString(context.getString(R.string.user_coins),userCoins)
-                .apply();
-    }
-
-    public static String getUserCoins(){
-        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.user_coins),"0");
-    }
 
 }

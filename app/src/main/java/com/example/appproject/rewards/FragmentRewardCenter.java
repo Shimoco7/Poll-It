@@ -50,7 +50,10 @@ public class FragmentRewardCenter extends Fragment {
         Button homeBtn = view.findViewById(R.id.rewardCenter_home_btn);
         Button toMyOrdersBtn = view.findViewById(R.id.rewardCenter_products_btn);
 
-        totalCoins.setText(MyApplication.getUserCoins());
+        Model.instance.getUserRankAndCoins(MyApplication.getUserKey(),map->{
+            Integer coins = (Integer) map.get(getString(R.string.user_coins));
+            totalCoins.setText(String.valueOf(coins));
+        });
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RewardCenterAdapter(viewModel,getLayoutInflater());

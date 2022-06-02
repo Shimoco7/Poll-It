@@ -47,7 +47,7 @@
     <string name="missing_address">Address is Required</string>
 
     <!--Shared Preferences Strings-->
-    <string name="firebasekey">firebasekey</string>
+    <string name="user_key">user_key</string>
     <string name="users_list_last_update_date">users_list_last_update_date</string>
     <string name="user_email">user_email</string>
     <string name="user_name">user_name</string>
@@ -56,7 +56,9 @@
     <string name="profile_pic_url">profile_pic_url</string>
     <string name="access_token">access_token</string>
     <string name="refresh_token">refresh_token</string>
-    <string name="user_coins">user_coins</string>
+
+    <string name="user_coins">coins</string>
+    <string name="user_rank">rank</string>
 
     <!--Reward-Center Strings-->
     <string name="you_ve_already_collected">You\'ve Already Collected</string>
