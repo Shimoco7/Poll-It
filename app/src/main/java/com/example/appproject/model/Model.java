@@ -30,7 +30,6 @@ import com.example.appproject.model.poll.Answer;
 import com.example.appproject.model.listeners.GetPollQuestionListener;
 import com.example.appproject.model.listeners.GetPollQuestionsListener;
 import com.example.appproject.model.listeners.GetPollQuestionWithAnswerListener;
-import com.example.appproject.model.listeners.GetPollsListener;
 import com.example.appproject.model.poll.Poll;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.model.poll.PollQuestionWithAnswer;
@@ -43,9 +42,6 @@ import com.example.appproject.model.reward.Order;
 import com.example.appproject.model.reward.Reward;
 import com.example.appproject.model.user.User;
 import com.example.appproject.model.listeners.LoginListener;
-import com.example.appproject.model.user.UserPollCrossRef;
-import com.example.appproject.model.user.UserWithPolls;
-import com.example.appproject.model.user.UsersListLoadingState;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
@@ -443,7 +439,7 @@ public class Model {
     public void refreshOrders() {
         ordersListLoadingState.setValue(LoadingState.loading);
         executor.execute(()->{
-            List<Order> orders = AppLocalDb.db.userDao().loadUserById(MyApplication.getUserKey()).getRewards();
+            List<Order> orders = AppLocalDb.db.userDao().loadUserById(MyApplication.getUserKey()).getOrders();
             ordersList.postValue(orders);
             ordersListLoadingState.postValue(LoadingState.loaded);
         });

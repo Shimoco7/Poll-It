@@ -2,14 +2,12 @@ package com.example.appproject.model.user;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.appproject.model.reward.Order;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class User {
@@ -27,7 +25,7 @@ public class User {
     String facebookId;
     Integer coins;
     Double rank;
-    List<Order> rewards;
+    List<Order> orders;
     Long updatedAt;
     Long createdAt;
 
@@ -124,11 +122,11 @@ public class User {
         this.rank = rank;
     }
 
-    public List<Order> getRewards() {
-        return rewards;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setRewards(List<Order> rewards) {
-        this.rewards = rewards;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
