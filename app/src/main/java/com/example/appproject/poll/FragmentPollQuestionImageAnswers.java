@@ -195,6 +195,7 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                 return;
             }
 
+            General.progressBarOn(getActivity(),container,progressBar,false);
             stopwatch.stop();
             if(viewModel.getPollQuestionWithAnswer().getValue() != null){
                 Double currentTime = viewModel.getPollQuestionWithAnswer().getValue().answer.getTimeInSeconds();
@@ -213,6 +214,7 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                             Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen());
                         }
                         else{
+                            General.progressBarOff(getActivity(),container,progressBar,true);
                             Snackbar.make(requireView(),"An error has occurred... Please try again",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
                         }
                     });

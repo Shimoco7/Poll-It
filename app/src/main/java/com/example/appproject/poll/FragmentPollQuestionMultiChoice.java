@@ -197,6 +197,8 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 Snackbar.make(requireView(),getString(R.string.select_an_answer),Snackbar.LENGTH_SHORT).show();
                 return;
             }
+
+            General.progressBarOn(getActivity(),container,progressBar,false);
             stopwatch.stop();
             if(viewModel.getPollQuestionWithAnswer().getValue() != null){
                 Double currentTime = viewModel.getPollQuestionWithAnswer().getValue().answer.getTimeInSeconds();
@@ -215,6 +217,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                             Navigation.findNavController(this.container).navigate(FragmentPollQuestionMultiChoiceDirections.actionGlobalFragmentHomeScreen());
                         }
                         else{
+                            General.progressBarOff(getActivity(),container,progressBar,true);
                             Snackbar.make(requireView(),"An error has occurred... Please try again",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
                         }
                     });
@@ -226,8 +229,6 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
             }
         });
         prevBtn.setOnClickListener(v -> {
-            stopwatch.stop();
-            Log.d("TAG","Time elapsed: " + stopwatch.elapsed(TimeUnit.MILLISECONDS)/1000.0);
             Model.instance.getPollQuestionByNumber(pollId, Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber()-1,pollQuestion -> {
                 Model.instance.getMainThread().post(()->navigateToPollQuestion(pollQuestion));
             });
