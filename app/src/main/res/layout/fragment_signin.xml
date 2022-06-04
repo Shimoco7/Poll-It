@@ -121,7 +121,7 @@
             android:layout_width="260dp"
             android:layout_height="57dp"
             android:layout_marginTop="50dp"
-            android:backgroundTint="@color/primeRed"
+            android:backgroundTint="@color/primeOrng"
             android:text="@string/sign_in"
             app:cornerRadius="37sp"
             app:layout_constraintEnd_toEndOf="parent"
