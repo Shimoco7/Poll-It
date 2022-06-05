@@ -56,20 +56,20 @@ public class FragmentUserOrders extends Fragment {
         //TODO emil
         //delete
 
-        Button tryBtn = view.findViewById(R.id.prize_btn_try);
+//        Button tryBtn = view.findViewById(R.id.prize_btn_try);
         KonfettiView konfetti = view.findViewById(R.id.prize_konfetti);
 
-        tryBtn.setOnClickListener(v -> {
-            Snackbar.make(requireView(),"Congratulations, You purchased the prize", Snackbar.LENGTH_LONG)
-                    .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
-                    .setTextColor(requireContext().getColor(R.color.white))
-                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+//        tryBtn.setOnClickListener(v -> {
+//            Snackbar.make(requireView(),"Congratulations, You purchased the prize", Snackbar.LENGTH_LONG)
+//                    .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
+//                    .setTextColor(requireContext().getColor(R.color.white))
+//                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
 //                    .setAnchorView(supplierImage)
-                    .show();
-
-
-            konfettiBuild(konfetti);
-        });
+//                    .show();
+//
+//
+//            konfettiBuild(konfetti);
+//        });
 
 
 

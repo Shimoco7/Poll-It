@@ -32,7 +32,7 @@
     <string name="registration_failed">Registration Failed</string>
     <string name="registration_details_needed">Registration Details are needed</string>
     <string name="user_already_exists">User is already exists</string>
-    <string name="server_is_off">Oops… Server is down - Try Again Later</string>
+    <string name="server_is_off">Oops… Server is having issues - Try Again Later</string>
     <string name="success">Success</string>
     <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
     <string name="image_upload_failed">Upload failed</string>

@@ -30,10 +30,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
-import nl.dionsegijn.konfetti.KonfettiView;
-import nl.dionsegijn.konfetti.models.Shape;
-import nl.dionsegijn.konfetti.models.Size;
-
 
 public class FragmentPrize extends Fragment {
 
@@ -130,16 +126,20 @@ public class FragmentPrize extends Fragment {
         alert.setMessage("Are You Sure?")
                 .setPositiveButton("BUY", (dialog, which) -> {
                     General.progressBarOn(requireActivity(), container, progressBar, false);
-                    Model.instance.redeemReward(rewardId, user -> {
-                        if (user != null) {
-
-                            Navigation.findNavController(price).navigate(FragmentPrizeDirections.actionGlobalFragmentHomeScreen());
-                        } else {
-                            General.progressBarOff(requireActivity(), container, progressBar, true);
-                            Snackbar.make(requireView(), getString(R.string.server_is_off), Snackbar.LENGTH_INDEFINITE).setAction("Redeem Failed... Try again later", view -> {
-                            }).show();
-                        }
-                    });
+                    for(int i=0 ; i<qnt; i++){
+                        int finalI = i;
+                        Model.instance.redeemReward(rewardId, user -> {
+                            if (user != null) {
+                                if(finalI+1==qnt){
+                                    Navigation.findNavController(price).navigate(FragmentPrizeDirections.actionGlobalFragmentHomeScreen());
+                                }
+                            } else {
+                                General.progressBarOff(requireActivity(), container, progressBar, true);
+                                Snackbar.make(requireView(), getString(R.string.server_is_off), Snackbar.LENGTH_INDEFINITE).setAction("Redeem Failed... Try again later", view -> {
+                                }).show();
+                            }
+                        });
+                    }
                 })
                 .setNeutralButton("Cancel", null);
         AlertDialog alert1 = alert.create();
