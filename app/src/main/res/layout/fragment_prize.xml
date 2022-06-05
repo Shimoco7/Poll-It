@@ -48,7 +48,6 @@
                 android:layout_marginTop="5dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toEndOf="@+id/prize_txt_by"
-
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
                 app:srcCompat="@drawable/mcdonalds_icon"
@@ -205,12 +204,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="120dp"
-            android:fontFamily="sans-serif-black"
+            android:layout_marginTop="130dp"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="@string/total"
             android:textColor="@color/white"
-            android:textSize="32dp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/prize_text_input"
             app:layout_constraintTop_toBottomOf="@+id/prize_layout" />
@@ -226,7 +225,7 @@
             android:fontFamily="sans-serif"
             android:text="250"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="22sp"
             app:layout_constraintStart_toEndOf="@+id/prize_txt_total"
             app:layout_constraintTop_toBottomOf="@+id/prize_layout" />
 
@@ -253,6 +252,32 @@
             app:cornerRadius="35dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
+        <nl.dionsegijn.konfetti.KonfettiView
+            android:id="@+id/prize_konfetti"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/prize_btn_collect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </nl.dionsegijn.konfetti.KonfettiView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/prize_btn_try"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-black"
+            android:text="TRY"
+            android:textSize="20sp"
+            app:cornerRadius="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
@@ -315,6 +340,8 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,6 +69,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-auth:16.0.1"
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
 
+    implementation 'nl.dionsegijn:konfetti:1.2.2'
 
 
 }
