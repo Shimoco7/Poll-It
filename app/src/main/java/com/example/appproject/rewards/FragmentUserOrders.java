@@ -51,7 +51,7 @@ public class FragmentUserOrders extends Fragment {
         swipeRefresh = view.findViewById(R.id.userOrders_layout_refresh);
         list = view.findViewById(R.id.userOrders_rv);
         Button homeBtn = view.findViewById(R.id.userOrders_home_btn);
-
+        boolean afterPurchase = FragmentUserOrdersArgs.fromBundle(getArguments()).getPurchased();
         //DELETE//
         //TODO emil
         //delete
@@ -71,8 +71,6 @@ public class FragmentUserOrders extends Fragment {
 //            konfettiBuild(konfetti);
 //        });
 
-
-
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new UserOrdersAdapter(viewModel,getLayoutInflater());
@@ -84,6 +82,9 @@ public class FragmentUserOrders extends Fragment {
         homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserOrdersDirections.actionGlobalFragmentHomeScreen()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshOrders);
         observeOrdersLoadingState();
+        if(afterPurchase){
+            konfettiBuild(konfetti);
+        }
         return view;
     }
 

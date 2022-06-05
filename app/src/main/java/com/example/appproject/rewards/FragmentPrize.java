@@ -131,7 +131,7 @@ public class FragmentPrize extends Fragment {
                         Model.instance.redeemReward(rewardId, user -> {
                             if (user != null) {
                                 if(finalI+1==qnt){
-                                    Navigation.findNavController(price).navigate(FragmentPrizeDirections.actionGlobalFragmentHomeScreen());
+                                    Navigation.findNavController(price).navigate(FragmentPrizeDirections.actionFragmentPrizeToFragmentUserRewards(true));
                                 }
                             } else {
                                 General.progressBarOff(requireActivity(), container, progressBar, true);

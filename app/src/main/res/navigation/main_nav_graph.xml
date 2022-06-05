@@ -162,5 +162,9 @@
         android:id="@+id/fragmentUserRewards"
         android:name="com.example.appproject.rewards.FragmentUserOrders"
         android:label="Order History"
-        tools:layout="@layout/fragment_user_orders" />
+        tools:layout="@layout/fragment_user_orders" >
+        <argument
+            android:name="purchased"
+            app:argType="boolean" />
+    </fragment>
 </navigation>

@@ -67,7 +67,7 @@ public class FragmentRewardCenter extends Fragment {
 
         });
         homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionGlobalFragmentHomeScreen()));
-        toMyOrdersBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentUserRewards()));
+        toMyOrdersBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentUserRewards(false)));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshRewards);
         observeRewardsLoadingState();
         return view;
