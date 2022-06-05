@@ -34,6 +34,8 @@ public class FragmentUserOrders extends Fragment {
     UserOrdersAdapter adapter;
     UserOrdersViewModel viewModel;
     SwipeRefreshLayout swipeRefresh;
+    KonfettiView konfetti;
+    private Model instance;
 
     public FragmentUserOrders() {
     }
@@ -51,25 +53,13 @@ public class FragmentUserOrders extends Fragment {
         swipeRefresh = view.findViewById(R.id.userOrders_layout_refresh);
         list = view.findViewById(R.id.userOrders_rv);
         Button homeBtn = view.findViewById(R.id.userOrders_home_btn);
+        konfetti = view.findViewById(R.id.userOrders_konfetti);
         boolean afterPurchase = FragmentUserOrdersArgs.fromBundle(getArguments()).getPurchased();
-        //DELETE//
-        //TODO emil
-        //delete
 
-//        Button tryBtn = view.findViewById(R.id.prize_btn_try);
-        KonfettiView konfetti = view.findViewById(R.id.prize_konfetti);
+        if (afterPurchase) konfettiBuild(konfetti);
 
-//        tryBtn.setOnClickListener(v -> {
-//            Snackbar.make(requireView(),"Congratulations, You purchased the prize", Snackbar.LENGTH_LONG)
-//                    .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
-//                    .setTextColor(requireContext().getColor(R.color.white))
-//                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-//                    .setAnchorView(supplierImage)
-//                    .show();
-//
-//
-//            konfettiBuild(konfetti);
-//        });
+
+
 
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -115,8 +105,19 @@ public class FragmentUserOrders extends Fragment {
                 .setTimeToLive(1000L)
                 .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
                 .addSizes(new Size(8, 4f))
-                .setPosition(-50f, konfetti.getWidth() + 50f, -50f, -50f)
+                .setPosition(-50f, 800f, -50f, -50f)
                 .streamFor(300, 5000L);
+
+        Model.instance.getMainThread().post(() ->
+        {
+            Snackbar.make(requireView(),"Congratulations !, The purchase was successful", 5000)
+                    .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
+                    .setTextColor(requireContext().getColor(R.color.white))
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+                    .setAnchorView(list)
+                    .show();
+
+        });
     }
 
 

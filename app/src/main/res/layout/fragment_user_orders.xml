@@ -48,6 +48,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userOrders_img_logo" />
 
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/userOrders_konfetti"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/userOrders_home_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </nl.dionsegijn.konfetti.KonfettiView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/userOrders_layout_const"
         android:layout_width="0dp"
