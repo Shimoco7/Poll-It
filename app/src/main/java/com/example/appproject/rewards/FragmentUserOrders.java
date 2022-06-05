@@ -2,6 +2,7 @@ package com.example.appproject.rewards;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,12 @@ import android.widget.Button;
 
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 
 public class FragmentUserOrders extends Fragment {
@@ -44,6 +51,27 @@ public class FragmentUserOrders extends Fragment {
         swipeRefresh = view.findViewById(R.id.userOrders_layout_refresh);
         list = view.findViewById(R.id.userOrders_rv);
         Button homeBtn = view.findViewById(R.id.userOrders_home_btn);
+
+        //DELETE//
+        //TODO emil
+        //delete
+
+        Button tryBtn = view.findViewById(R.id.prize_btn_try);
+        KonfettiView konfetti = view.findViewById(R.id.prize_konfetti);
+
+        tryBtn.setOnClickListener(v -> {
+            Snackbar.make(requireView(),"Congratulations, You purchased the prize", Snackbar.LENGTH_LONG)
+                    .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
+                    .setTextColor(requireContext().getColor(R.color.white))
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+//                    .setAnchorView(supplierImage)
+                    .show();
+
+
+            konfettiBuild(konfetti);
+        });
+
+
 
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -75,6 +103,19 @@ public class FragmentUserOrders extends Fragment {
                     break;
             }
         });
+    }
+
+    private void konfettiBuild(KonfettiView konfetti) {
+        konfetti.build()
+                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                .setDirection(0.0, 359.0)
+                .setSpeed(1f, 5f)
+                .setFadeOutEnabled(true)
+                .setTimeToLive(1000L)
+                .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
+                .addSizes(new Size(8, 4f))
+                .setPosition(-50f, konfetti.getWidth() + 50f, -50f, -50f)
+                .streamFor(300, 5000L);
     }
 
 
