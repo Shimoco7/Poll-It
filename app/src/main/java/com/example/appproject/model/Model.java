@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.model.listeners.AnswersListener;
 import com.example.appproject.model.listeners.DoubleListener;
 import com.example.appproject.model.listeners.FileListener;
 import com.example.appproject.model.listeners.GetPollListener;
@@ -51,6 +52,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -380,19 +382,21 @@ public class Model {
         executor.execute(()->AppLocalDb.db.answerDao().insertAll(answer));
     }
 
-    public void savePollAnswersToRemoteDb(String userId, String pollId, DoubleListener listener) {
+    public void savePollAnswersToRemoteDb(String userId, String pollId, AnswersListener listener) {
         executor.execute(()->{
             List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
             List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
             Double timeForAllAnswers = 0.0;
+            List<Integer> answersIndices = new ArrayList<>();
             for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
                 if(pqwa.answer.getUserId().equals(userId)){
                     timeForAllAnswers += pqwa.answer.getTimeInSeconds();
+                    answersIndices.add(pqwa.answer.getPosition());
                     modelNode.saveAnswerToDb(pqwa.answer,()->{});
                 }
             }
             Double finalTimeForAllAnswers = timeForAllAnswers;
-            mainThread.post(()->listener.onComplete(finalTimeForAllAnswers));
+            mainThread.post(()->listener.onComplete(finalTimeForAllAnswers,answersIndices));
         });
     }
 
@@ -525,23 +529,36 @@ public class Model {
         }
     }
 
-    public Double checkReliability(Integer totalNumberOfQuestions, Double timeForAllAnswers) {
-        double avg = Double.MAX_VALUE;
+    public Double checkReliability(Double timeForAllAnswers, List<Integer> answersIndicesArray) {
+        double avg;
         double score = 0;
-        if(totalNumberOfQuestions != null && totalNumberOfQuestions !=0){
-            avg = timeForAllAnswers/totalNumberOfQuestions;
+
+        if(answersIndicesArray != null && answersIndicesArray.size() !=0){
+            avg = timeForAllAnswers/answersIndicesArray.size();
         }
+        else{
+            return null;
+        }
+
         if(avg <= 1.0){
             score += 0.5;
         }
         else if(avg<= 2.0){
-            //TODO - handle answers positions similarity
+            double eucScore = checkEucDist(answersIndicesArray);
         }
 
         if(score == 0){
             score = -0.25;
         }
 
+        return score;
+    }
+
+    private double checkEucDist(List<Integer> answersIndicesArray) {
+        double score = 0;
+        for(int i=0 ; i < answersIndicesArray.size() - 1 ; i++){
+            score += Math.pow(answersIndicesArray.get(i) - answersIndicesArray.get(i+1),2);
+        }
         return score;
     }
 }

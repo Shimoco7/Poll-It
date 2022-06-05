@@ -204,8 +204,8 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
             }
 
             if(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber().equals(viewModel.getTotalPollNumberOfQuestions())){
-                Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,(timeForAllAnswers)-> Model.instance.getPollByPollId(pollId, poll->{
-                    Double score = Model.instance.checkReliability(poll.totalNumberOfQuestions,timeForAllAnswers);
+                Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,(timeForAllAnswers,ansIndicesArray)-> Model.instance.getPollByPollId(pollId, poll->{
+                    Double score = Model.instance.checkReliability(timeForAllAnswers,ansIndicesArray);
                     Log.d("TAG", "time average for all answers: " + timeForAllAnswers/poll.getTotalNumberOfQuestions());
 
                     Model.instance.getUserRankAndCoins(MyApplication.getUserKey(),coinsAndRank->{

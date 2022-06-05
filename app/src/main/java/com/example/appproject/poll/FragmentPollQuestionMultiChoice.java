@@ -207,9 +207,9 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
             }
 
             if(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getQuestionNumber().equals(viewModel.getTotalPollNumberOfQuestions())){
-                Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,(timeForAllAnswers)-> Model.instance.getPollByPollId(pollId, poll->{
+                Model.instance.savePollAnswersToRemoteDb(MyApplication.getUserKey(),pollId,(timeForAllAnswers,ansIndicesArray)-> Model.instance.getPollByPollId(pollId, poll->{
                     Log.d("TAG", "time average for all answers: " + timeForAllAnswers/poll.getTotalNumberOfQuestions());
-                    Double score = Model.instance.checkReliability(poll.totalNumberOfQuestions,timeForAllAnswers);
+                    Double score = Model.instance.checkReliability(timeForAllAnswers, ansIndicesArray);
 
                     Model.instance.getUserRankAndCoins(MyApplication.getUserKey(),coinsAndRank-> {
                         Map<String, Object> map = new HashMap<>();
