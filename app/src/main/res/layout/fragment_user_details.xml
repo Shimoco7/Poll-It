@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="#070707"
     android:visibility="visible">
 
@@ -28,11 +29,13 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/userDetails_next_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/homeScr_text_title">
@@ -45,9 +48,6 @@
 
                 android:fontFamily="sans-serif-black"
                 android:hint="@string/name"
-                app:helperTextEnabled="true"
-                app:helperText="*Full Name (3-15 Characters)"
-                app:helperTextTextColor="@color/white"
                 android:textColorHint="@color/white"
                 app:boxStrokeColor="@color/primeOrng"
                 app:boxStrokeErrorColor="@color/primeRed"
@@ -56,6 +56,9 @@
                 app:endIconTint="@color/white"
                 app:errorEnabled="true"
                 app:errorTextColor="@color/primeRed"
+                app:helperText="*Full Name (3-15 Characters)"
+                app:helperTextEnabled="true"
+                app:helperTextTextColor="@color/white"
                 app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -74,9 +77,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:paddingTop="10dp"
-
                 android:hint="@string/address"
+
+                android:paddingTop="10dp"
                 android:textColorHint="@color/white"
                 app:boxStrokeColor="@color/primeOrng"
                 app:boxStrokeErrorColor="@color/primeRed"
@@ -101,7 +104,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/details_list_rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:scrollbarFadeDuration="0"
+                android:scrollbarSize="3dp"
+                android:scrollbarThumbVertical="@color/white"
+                android:scrollbars="vertical">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -131,7 +139,6 @@
             android:id="@+id/userDetails_next_btn"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="sans-serif-black"
@@ -140,7 +147,6 @@
             app:cornerRadius="35dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
 
