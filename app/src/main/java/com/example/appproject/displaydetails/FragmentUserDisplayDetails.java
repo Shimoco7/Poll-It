@@ -140,6 +140,7 @@ public class FragmentUserDisplayDetails extends Fragment {
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
                     .setAnchorView(address)
                     .show();
+
         });
     }
 }
