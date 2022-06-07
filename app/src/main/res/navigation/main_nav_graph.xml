@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentFeed"
-        android:name="com.example.appproject.feed.FragmentFeed"
+        android:name="com.example.appproject.displaydetails.FragmentFeed"
         android:label="Home Feed"
         tools:layout="@layout/fragment_feed" >
         <action
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentUserDisplayDetails"
-        android:name="com.example.appproject.feed.FragmentUserDisplayDetails"
+        android:name="com.example.appproject.displaydetails.FragmentUserDisplayDetails"
         android:label="Poll-It"
         tools:layout="@layout/fragment_user_display_details">
         <action
@@ -105,9 +105,6 @@
         <action
             android:id="@+id/action_fragmentUserDisplayDetails_to_fragmentChangePassword"
             app:destination="@id/fragmentChangePassword" />
-        <argument
-            android:name="isPassChanged"
-            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRewardCenter"

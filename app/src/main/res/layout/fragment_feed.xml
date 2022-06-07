@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".feed.FragmentFeed">
+    tools:context=".displaydetails.FragmentFeed">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/feed_img_logo"

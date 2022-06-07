@@ -9,7 +9,7 @@
     android:scrollbarSize="3dp"
     android:fillViewport="true"
     android:scrollbarStyle="insideInset"
-    tools:context=".feed.FragmentUserDisplayDetails">
+    tools:context=".displaydetails.FragmentUserDisplayDetails">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

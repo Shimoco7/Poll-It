@@ -52,7 +52,7 @@ public class FragmentChangePassword extends Fragment {
         progressBar.setVisibility(View.GONE);
         setChangeBtnListener(container);
         setInputListeners();
-        
+
 
 
         return view;
@@ -176,7 +176,6 @@ public class FragmentChangePassword extends Fragment {
                         newPassText.setText("");
                         confirmPassText.setText("");
                         failToCreate=true;
-
                     }
                     else if (!Model.instance.validatePassword(newPassText.getText().toString().trim())){
                         Snackbar.make(requireView(),"Invalid Password",5000)
@@ -199,7 +198,8 @@ public class FragmentChangePassword extends Fragment {
 
                 Model.instance.updatePassword(oldPassText.getText().toString().trim(),newPassText.getText().toString().trim(),isSuccessful->{
                     if(isSuccessful){
-                        Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionFragmentChangePasswordToFragmentUserDisplayDetails(true));
+                        Model.instance.setIsPassChanged(true);
+                        Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionFragmentChangePasswordToFragmentUserDisplayDetails());
                     }
                     else{
                         Snackbar.make(requireView(),"Update Password Failed - You Might Have Entered A Wrong Password, Please try again",5000)
