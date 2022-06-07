@@ -562,7 +562,7 @@ public class Model {
             if(maxPossibleScore >= MINIMUM_MAX_SCORE){
                 double normalizedScore = normalizeScore(minPossibleScore,maxPossibleScore,eucScore);
                 Log.d("TAG", "Normalized Score: " + normalizedScore);
-                if(normalizedScore <= 2.5){
+                if(normalizedScore*10 <= 2.5){
                     score += 0.5;
                 }
             }
@@ -579,7 +579,8 @@ public class Model {
         double score = 0;
         for(int i=0 ; i < answersIndicesArray.size() - 1 ; i++){
             double dist;
-            dist =  Math.pow((answersIndicesArray.get(i).first - answersIndicesArray.get(i+1).first)+1,2);
+            double realDist = Math.abs(answersIndicesArray.get(i).first - answersIndicesArray.get(i+1).first);
+            dist =  Math.pow(realDist+1,2);
             dist *= ((double) (answersIndicesArray.get(i).second + answersIndicesArray.get(i + 1).second)/2);
             score += dist;
         }
