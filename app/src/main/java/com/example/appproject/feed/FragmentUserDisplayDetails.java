@@ -13,14 +13,19 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.login.FragmentChangePassword;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
+import com.example.appproject.rewards.FragmentUserOrdersArgs;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -73,6 +78,7 @@ public class FragmentUserDisplayDetails extends Fragment {
         Button editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
         Button editPassBtn=view.findViewById(R.id.user_display_details_editPassword_btn);
 
+
         if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0) {
             editPassBtn.setVisibility(View.GONE);
         }
@@ -117,6 +123,22 @@ public class FragmentUserDisplayDetails extends Fragment {
         backBtn.setOnClickListener(v->{
             Navigation.findNavController(v).navigateUp();
         });
+
+        //Check if passWord changed//
+
+        boolean isPassChanged = FragmentUserDisplayDetailsArgs.fromBundle(getArguments()).getIsPassChanged();
+        if (isPassChanged)
+            Model.instance.getMainThread().post(() ->
+            {
+                Snackbar.make(requireView(), "Password changed", 2000)
+                        .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
+                        .setTextColor(requireContext().getColor(R.color.white))
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+                        .setAnchorView(userName)
+                        .show();
+
+            });
+
 
         return view;
     }

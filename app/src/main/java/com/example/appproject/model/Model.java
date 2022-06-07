@@ -220,7 +220,10 @@ public class Model {
     }
 
     public void getUserById(String userId, GetUserListener userListener){
-        executor.execute(()-> mainThread.post(()->userListener.onComplete(AppLocalDb.db.userDao().loadUserById(userId))));
+        executor.execute(()->{
+            User u = AppLocalDb.db.userDao().loadUserById(userId);
+            mainThread.post(()->userListener.onComplete(u));
+        });
     }
 
     /**

@@ -99,15 +99,16 @@
         android:name="com.example.appproject.feed.FragmentUserDisplayDetails"
         android:label="Poll-It"
         tools:layout="@layout/fragment_user_display_details">
-        <argument
-            android:name="userUid"
-            app:argType="string" />
         <action
             android:id="@+id/action_fragmentUserDisplayDetails_to_fragmentUserDetails"
             app:destination="@id/fragmentUserDetails" />
         <action
             android:id="@+id/action_fragmentUserDisplayDetails_to_fragmentChangePassword"
             app:destination="@id/fragmentChangePassword" />
+        <argument
+            android:name="isPassChanged"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRewardCenter"
@@ -156,7 +157,11 @@
         android:id="@+id/fragmentChangePassword"
         android:name="com.example.appproject.login.FragmentChangePassword"
         android:label="Change Password"
-        tools:layout="@layout/fragment_change_password" />
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_fragmentChangePassword_to_fragmentUserDisplayDetails"
+            app:destination="@id/fragmentUserDisplayDetails" />
+    </fragment>
     <action android:id="@+id/action_global_fragmentUserDisplayDetails" app:destination="@id/fragmentUserDisplayDetails" />
     <fragment
         android:id="@+id/fragmentUserRewards"

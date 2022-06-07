@@ -17,8 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -37,6 +39,7 @@ public class FragmentUserOrders extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     KonfettiView konfetti;
     TextView noOrder;
+    ImageView logo;
     private Model instance;
 
     public FragmentUserOrders() {
@@ -57,7 +60,11 @@ public class FragmentUserOrders extends Fragment {
         Button homeBtn = view.findViewById(R.id.userOrders_home_btn);
         konfetti = view.findViewById(R.id.userOrders_konfetti);
         noOrder = view.findViewById(R.id.userOrders_txt_noOrder);
+        logo = view.findViewById(R.id.userOrders_img_logo);
         boolean afterPurchase = FragmentUserOrdersArgs.fromBundle(getArguments()).getPurchased();
+        /**
+        Check if order has been made
+         */
         if (afterPurchase) konfettiBuild(konfetti);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -68,9 +75,14 @@ public class FragmentUserOrders extends Fragment {
         homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserOrdersDirections.actionGlobalFragmentHomeScreen()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshOrders);
         observeOrdersLoadingState();
-        if (afterPurchase) {
-            konfettiBuild(konfetti);
-        }
+        /**
+        Check if there is no orders
+        */
+        Model.instance.getUserById(MyApplication.getUserKey(),user -> {
+            if (user.getOrders().size()==0)
+                noOrder.setVisibility(View.VISIBLE);
+
+        });
 
         return view;
     }
@@ -111,7 +123,7 @@ public class FragmentUserOrders extends Fragment {
                     .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                    .setAnchorView(list)
+                    .setAnchorView(logo)
                     .show();
 
         });
