@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.appproject.feed.FragmentUserDisplayDetails;
 import com.example.appproject.login.LoginActivity;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
                     if(navHostFragment != null){
                         f = navHostFragment.getChildFragmentManager().getFragments().get(0);
                         if(f instanceof FragmentPollQuestionImageAnswers
-                                || f instanceof FragmentPollQuestionMultiChoice){
+                                || f instanceof FragmentPollQuestionMultiChoice
+                                    || f instanceof FragmentUserDisplayDetails){
                             navController.navigate(R.id.action_global_fragmentHomeScreen);
                         }
                         else{
