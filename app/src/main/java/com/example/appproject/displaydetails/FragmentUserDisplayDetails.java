@@ -30,7 +30,7 @@ public class FragmentUserDisplayDetails extends Fragment {
     ShapeableImageView profilePic;
     UserDisplayDetailsViewModel viewModel;
     UserDisplayDetailsAdapter adapter;
-        ProgressBar progressBar;
+    ProgressBar progressBar;
     Button editBtn;
 
     public FragmentUserDisplayDetails() { }
@@ -69,6 +69,8 @@ public class FragmentUserDisplayDetails extends Fragment {
         progressBar=view.findViewById(R.id.user_display_details_progress_bar);
         editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
         Button editPassBtn=view.findViewById(R.id.user_display_details_editPassword_btn);
+
+
 
 
         if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0) {
@@ -112,9 +114,7 @@ public class FragmentUserDisplayDetails extends Fragment {
 
         editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails()));
         editPassBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentChangePassword()));
-        backBtn.setOnClickListener(v->{
-            Navigation.findNavController(v).navigateUp();
-        });
+
 
         viewModel.isPassChanged.observe(getViewLifecycleOwner(),isPassChanged->{
             if(isPassChanged){
@@ -135,10 +135,10 @@ public class FragmentUserDisplayDetails extends Fragment {
     private void passwordChangedSnackBar(){
         Model.instance.getMainThread().post(()->{
             Snackbar.make(requireView(), "Password changed", 2000)
-                    .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
+                    .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                    .setAnchorView(userName)
+                    .setAnchorView(address)
                     .show();
         });
     }
