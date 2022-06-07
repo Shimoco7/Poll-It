@@ -179,7 +179,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                 }
             }
             if(viewModel.getPollQuestionWithAnswer().getValue().answer == null){
-                Answer answer = new Answer(MyApplication.getUserKey(),pollId,pollQuestionId,chosenAnswer,pos);
+                Answer answer = new Answer(MyApplication.getUserKey(),pollId,pollQuestionId,chosenAnswer,pos,viewModel.getPollQuestionWithAnswer().getValue().pollQuestion.getChoices().size());
                 viewModel.getPollQuestionWithAnswer().getValue().answer = answer;
                 Model.instance.saveAnswerOnLocalDb(answer);
             }

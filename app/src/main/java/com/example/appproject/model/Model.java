@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -15,7 +16,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.listeners.AnswersListener;
-import com.example.appproject.model.listeners.DoubleListener;
 import com.example.appproject.model.listeners.FileListener;
 import com.example.appproject.model.listeners.GetPollListener;
 import com.example.appproject.model.listeners.GetPollQuestionWithBooleanListener;
@@ -219,6 +219,10 @@ public class Model {
         });
     }
 
+    public void getUserById(String userId, GetUserListener userListener){
+        executor.execute(()-> mainThread.post(()->userListener.onComplete(AppLocalDb.db.userDao().loadUserById(userId))));
+    }
+
     /**
      * Data - User Details
      *
@@ -387,11 +391,11 @@ public class Model {
             List<PollWithPollQuestionsAndAnswers> pollWithPollQuestionsAndAnswers = AppLocalDb.db.pollDao().getPollWithPollQuestionsAndAnswers(pollId);
             List<PollQuestionWithAnswer> pollQuestionWithAnswer = pollWithPollQuestionsAndAnswers.get(0).pollQuestionWithAnswers;
             Double timeForAllAnswers = 0.0;
-            List<Integer> answersIndices = new ArrayList<>();
+            List<Pair<Integer,Integer>> answersIndices = new ArrayList<>();
             for(PollQuestionWithAnswer pqwa : pollQuestionWithAnswer){
                 if(pqwa.answer.getUserId().equals(userId)){
                     timeForAllAnswers += pqwa.answer.getTimeInSeconds();
-                    answersIndices.add(pqwa.answer.getPosition());
+                    answersIndices.add(new Pair<>(pqwa.answer.getPosition(), pqwa.pollQuestion.getChoices().size()));
                     modelNode.saveAnswerToDb(pqwa.answer,()->{});
                 }
             }
@@ -529,7 +533,7 @@ public class Model {
         }
     }
 
-    public Double checkReliability(Double timeForAllAnswers, List<Integer> answersIndicesArray) {
+    public Double checkReliability(Double timeForAllAnswers, List<Pair<Integer, Integer>> answersIndicesArray) {
         double avg;
         double score = 0;
 
@@ -540,10 +544,10 @@ public class Model {
             return null;
         }
 
-        if(avg <= 1.0){
+        if(avg <= 1.5){
             score += 0.5;
         }
-        else if(avg<= 2.0){
+        else if(avg <= 2.5 && answersIndicesArray.size() > 1){
             double eucScore = checkEucDist(answersIndicesArray);
         }
 
@@ -554,10 +558,13 @@ public class Model {
         return score;
     }
 
-    private double checkEucDist(List<Integer> answersIndicesArray) {
+    private double checkEucDist(List<Pair<Integer, Integer>> answersIndicesArray) {
         double score = 0;
         for(int i=0 ; i < answersIndicesArray.size() - 1 ; i++){
-            score += Math.pow(answersIndicesArray.get(i) - answersIndicesArray.get(i+1),2);
+            double dist = 0;
+            dist =  Math.pow((answersIndicesArray.get(i).first - answersIndicesArray.get(i+1).first)+1,2);
+            dist *= ((double) (answersIndicesArray.get(i).second + answersIndicesArray.get(i + 1).second)/2);
+            score += dist;
         }
         return score;
     }
