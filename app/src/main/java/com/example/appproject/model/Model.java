@@ -533,6 +533,11 @@ public class Model {
         }
     }
 
+    /**
+     * Honesty Algorithm
+     *
+     */
+
     public Double checkReliability(Double timeForAllAnswers, List<Pair<Integer, Integer>> answersIndicesArray) {
         double avg;
         double score = 0;
@@ -549,6 +554,18 @@ public class Model {
         }
         else if(avg <= 2.5 && answersIndicesArray.size() > 1){
             double eucScore = checkEucDist(answersIndicesArray);
+            double minPossibleScore = checkForMinEucDist(answersIndicesArray);
+            double maxPossibleScore = checkForMaxEucDist(answersIndicesArray);
+            Log.d("TAG","SCORE: " + eucScore + "    MIN: " + minPossibleScore + "   MAX: " + maxPossibleScore);
+
+            int MINIMUM_MAX_SCORE = 100;
+            if(maxPossibleScore >= MINIMUM_MAX_SCORE){
+                double normalizedScore = normalizeScore(minPossibleScore,maxPossibleScore,eucScore);
+                Log.d("TAG", "Normalized Score: " + normalizedScore);
+                if(normalizedScore <= 2.5){
+                    score += 0.5;
+                }
+            }
         }
 
         if(score == 0){
@@ -561,11 +578,38 @@ public class Model {
     private double checkEucDist(List<Pair<Integer, Integer>> answersIndicesArray) {
         double score = 0;
         for(int i=0 ; i < answersIndicesArray.size() - 1 ; i++){
-            double dist = 0;
+            double dist;
             dist =  Math.pow((answersIndicesArray.get(i).first - answersIndicesArray.get(i+1).first)+1,2);
             dist *= ((double) (answersIndicesArray.get(i).second + answersIndicesArray.get(i + 1).second)/2);
             score += dist;
         }
         return score;
     }
+
+    private double checkForMinEucDist(List<Pair<Integer, Integer>> answersIndicesArray) {
+        double score = 0;
+        for(int i=0 ; i < answersIndicesArray.size() - 1 ; i++){
+            double dist = 1;
+            dist *= ((double) (answersIndicesArray.get(i).second + answersIndicesArray.get(i + 1).second)/2);
+            score += dist;
+        }
+        return score;
+    }
+
+    private double checkForMaxEucDist(List<Pair<Integer, Integer>> answersIndicesArray) {
+        double score = 0;
+        for(int i=0 ; i < answersIndicesArray.size() - 1 ; i++){
+            double dist;
+            int max = Math.max(answersIndicesArray.get(i).second,answersIndicesArray.get(i+1).second);
+            dist =  Math.pow((max),2);
+            dist *= ((double) (answersIndicesArray.get(i).second + answersIndicesArray.get(i + 1).second)/2);
+            score += dist;
+        }
+        return score;
+    }
+
+    private double normalizeScore(double min,double max, double score){
+        return (score-min)/(max-min);
+    }
+
 }
