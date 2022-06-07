@@ -52,6 +52,8 @@ public class FragmentChangePassword extends Fragment {
         progressBar.setVisibility(View.GONE);
         setChangeBtnListener(container);
         setInputListeners();
+        
+
 
         return view;
     }
@@ -168,25 +170,26 @@ public class FragmentChangePassword extends Fragment {
                 General.progressBarOn(getActivity(),container,progressBar,false);
                 if (newPassText.getText().toString().trim().equals(confirmPassText.getText().toString().trim())) {
                     if(newPassText.getText().toString().trim().equals(oldPassText.getText().toString().trim())){
-                        Snackbar.make(requireView(),"You Have Entered Same Passwords",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
-                            oldPassText.setText("");
-                            newPassText.setText("");
-                            confirmPassText.setText("");
-                        }).show();
-                        failToCreate=true;
-                    }
-                    else if (!Model.instance.validatePassword(newPassText.getText().toString().trim())){
-                        Snackbar.make(requireView(),"Invalid Password",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
-                            newPassText.setText("");
-                            confirmPassText.setText("");
-                        }).show();
-                        failToCreate=true;
-                    }
-                } else {
-                    Snackbar.make(requireView(),"Invalid Password",Snackbar.LENGTH_INDEFINITE).setAction("close",view->{
+                        Snackbar.make(requireView(),"You Have Entered Same Passwords",5000)
+                        .show();
+                        oldPassText.setText("");
                         newPassText.setText("");
                         confirmPassText.setText("");
-                    }).show();
+                        failToCreate=true;
+
+                    }
+                    else if (!Model.instance.validatePassword(newPassText.getText().toString().trim())){
+                        Snackbar.make(requireView(),"Invalid Password",5000)
+                                .show();
+                        failToCreate=true;
+                        newPassText.setText("");
+                        confirmPassText.setText("");
+                    }
+                } else {
+                    Snackbar.make(requireView(),"Invalid Password",5000)
+                    .show();
+                    newPassText.setText("");
+                    confirmPassText.setText("");
                     failToCreate=true;
                 }
                 if(failToCreate){
@@ -196,13 +199,15 @@ public class FragmentChangePassword extends Fragment {
 
                 Model.instance.updatePassword(oldPassText.getText().toString().trim(),newPassText.getText().toString().trim(),isSuccessful->{
                     if(isSuccessful){
-                        Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionFragmentChangePasswordToFragmentUserDisplayDetails().setIsPassChanged(true));
+                        Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionFragmentChangePasswordToFragmentUserDisplayDetails(true));
                     }
                     else{
-                        Snackbar.make(requireView(),"Update Password Failed - You Might Have Entered A Wrong Password",Snackbar.LENGTH_INDEFINITE).setAction("Try again later", view->{
-                            General.progressBarOff(getActivity(),container,progressBar,true);
-                            Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionGlobalFragmentHomeScreen());
-                        }).show();
+                        Snackbar.make(requireView(),"Update Password Failed - You Might Have Entered A Wrong Password, Please try again",5000)
+                        .show();
+                        General.progressBarOff(getActivity(),container,progressBar,true);
+                        newPassText.setText("");
+                        confirmPassText.setText("");
+                        oldPassText.setText("");
                     }
                 });
             }

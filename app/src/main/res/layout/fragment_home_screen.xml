@@ -163,7 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@color/black"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
@@ -178,6 +178,29 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="2dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/homescr_txt_noOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/textviewbg"
+        android:backgroundTint="@color/primeGray"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="20dp"
+        android:paddingEnd="30dp"
+        android:text="@string/there_are_no_active_polls"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homescr_btn_top_line" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

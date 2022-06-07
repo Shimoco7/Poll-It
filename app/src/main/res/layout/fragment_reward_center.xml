@@ -116,8 +116,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/rewardCenter_img_coinIcon"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/coin_icon"
                 app:strokeWidth="0dp" />
@@ -171,7 +171,7 @@
         android:layout_width="100dp"
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@color/black"
         android:fontFamily="sans-serif"
         android:text="@string/home"
@@ -186,8 +186,8 @@
         android:id="@+id/rewardCenter_products_btn"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@color/primeOrng"
         android:fontFamily="sans-serif"
         android:text="@string/products"

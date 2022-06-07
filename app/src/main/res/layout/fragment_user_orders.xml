@@ -126,6 +126,8 @@
         android:maxLines="1"
         android:padding="5dp"
         android:paddingLeft="20dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp"
         android:text="@string/no_purchase_has_been_made_yet"
         android:textColor="@color/white"
         android:textSize="20sp"

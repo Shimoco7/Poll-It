@@ -107,8 +107,7 @@
             app:destination="@id/fragmentChangePassword" />
         <argument
             android:name="isPassChanged"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRewardCenter"

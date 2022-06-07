@@ -40,6 +40,7 @@ public class FragmentUserOrders extends Fragment {
     KonfettiView konfetti;
     TextView noOrder;
     ImageView logo;
+    Button homeBtn;
     private Model instance;
 
     public FragmentUserOrders() {
@@ -57,7 +58,7 @@ public class FragmentUserOrders extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_orders, container, false);
         swipeRefresh = view.findViewById(R.id.userOrders_layout_refresh);
         list = view.findViewById(R.id.userOrders_rv);
-        Button homeBtn = view.findViewById(R.id.userOrders_home_btn);
+        homeBtn = view.findViewById(R.id.userOrders_home_btn);
         konfetti = view.findViewById(R.id.userOrders_konfetti);
         noOrder = view.findViewById(R.id.userOrders_txt_noOrder);
         logo = view.findViewById(R.id.userOrders_img_logo);
@@ -120,10 +121,10 @@ public class FragmentUserOrders extends Fragment {
         Model.instance.getMainThread().post(() ->
         {
             Snackbar.make(requireView(), "Congratulations !, The purchase was successful", 5000)
-                    .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
+                    .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                    .setAnchorView(logo)
+                    .setAnchorView(homeBtn)
                     .show();
 
         });

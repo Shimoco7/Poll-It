@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.login.FragmentChangePassword;
+import com.example.appproject.login.FragmentChangePasswordDirections;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.rewards.FragmentUserOrdersArgs;
@@ -39,6 +40,7 @@ public class FragmentUserDisplayDetails extends Fragment {
     UserDisplayDetailsViewModel viewModel;
     UserDisplayDetailsAdapter adapter;
         ProgressBar progressBar;
+    Button editBtn;
 
     public FragmentUserDisplayDetails() { }
 
@@ -74,9 +76,9 @@ public class FragmentUserDisplayDetails extends Fragment {
         gender=view.findViewById(R.id.user_display_details_txt_gender);
         address=view.findViewById(R.id.user_display_details_txt_address);
         progressBar=view.findViewById(R.id.user_display_details_progress_bar);
-        Button backBtn = view.findViewById(R.id.user_display_details_back_btn);
-        Button editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
+        editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
         Button editPassBtn=view.findViewById(R.id.user_display_details_editPassword_btn);
+
 
 
         if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0) {
@@ -120,24 +122,27 @@ public class FragmentUserDisplayDetails extends Fragment {
 
         editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails()));
         editPassBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentChangePassword()));
-        backBtn.setOnClickListener(v->{
-            Navigation.findNavController(v).navigateUp();
-        });
+
 
         //Check if passWord changed//
 
         boolean isPassChanged = FragmentUserDisplayDetailsArgs.fromBundle(getArguments()).getIsPassChanged();
-        if (isPassChanged)
+
+        if (isPassChanged) {
+
             Model.instance.getMainThread().post(() ->
             {
                 Snackbar.make(requireView(), "Password changed", 2000)
-                        .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
+                        .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                         .setTextColor(requireContext().getColor(R.color.white))
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                        .setAnchorView(userName)
+                        .setAnchorView(address)
                         .show();
 
+
             });
+            isPassChanged = false;
+        }
 
 
         return view;

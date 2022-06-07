@@ -32,7 +32,8 @@ public class FragmentHomeScreen extends Fragment {
     HomeAdapter homeAdapter;
     RecyclerView list;
     SwipeRefreshLayout swipeRefresh;
-    MaterialTextView coinBalance;
+    MaterialTextView coinBalance,isActivePolls;
+
 
     public FragmentHomeScreen() { }
 
@@ -50,6 +51,7 @@ public class FragmentHomeScreen extends Fragment {
         list = view.findViewById(R.id.home_poll_rv);
         coinBalance = view.findViewById(R.id.homeScr_text_coinsNumber);
         Button btnToRewardCenter = view.findViewById(R.id.homescr_btn_rewardCenter);
+        isActivePolls=view.findViewById(R.id.homescr_txt_noOrder);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
@@ -72,7 +74,15 @@ public class FragmentHomeScreen extends Fragment {
             }
         });
 
-        homeViewModel.getPolls().observe(getViewLifecycleOwner(),usersList->refresh());
+        //Check if there is active polls
+
+
+        homeViewModel.getPolls().observe(getViewLifecycleOwner(),pollsList->{
+            if (pollsList.size()==0) isActivePolls.setVisibility(View.VISIBLE);
+            else isActivePolls.setVisibility(View.GONE);
+            refresh();
+
+        });
         Model.instance.refreshPollsList();
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
@@ -85,6 +95,8 @@ public class FragmentHomeScreen extends Fragment {
                 }
             });
         });
+
+
         btnToRewardCenter.setOnClickListener(v->Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentRewardCenter()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshPollsList);
         observePollsLoadingState();

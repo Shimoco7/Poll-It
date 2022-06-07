@@ -90,6 +90,7 @@
     <string name="expiry">Expiry:</string>
     <string name="total">Total:</string>
     <string name="no_purchase_has_been_made_yet">No purchase has been made yet</string>
+    <string name="there_are_no_active_polls">There are No Active Polls</string>
 
 
 </resources>

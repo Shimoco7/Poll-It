@@ -21,7 +21,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,6 +106,7 @@
                 android:textColor="@color/white"
                 android:textSize="24dp"
                 android:textStyle="bold" />
+
             <com.google.android.material.button.MaterialButton
                 android:layout_width="320dp"
                 android:layout_height="3dp"
@@ -132,6 +133,7 @@
                 android:textColor="@color/white"
                 android:textSize="24dp"
                 android:textStyle="bold" />
+
             <com.google.android.material.button.MaterialButton
                 android:layout_width="320dp"
                 android:layout_height="3dp"
@@ -172,39 +174,20 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
 
-
-
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/user_display_details_back_btn"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/black"
-            android:fontFamily="sans-serif"
-            android:text="@string/back"
-            android:textSize="20sp"
-            app:cornerRadius="35dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:strokeColor="@color/primeOrng"
-            app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/user_display_details_editDetails_btn"
             android:layout_width="230dp"
             android:layout_height="45dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="sans-serif"
             android:text="Edit Details"
             android:textSize="18sp"
             app:cornerRadius="35dp"
             app:icon="@drawable/ic_edit"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_dusplay_details_layout"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
@@ -214,13 +197,13 @@
             android:layout_width="230dp"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
             android:fontFamily="sans-serif"
             android:text="Edit Password"
             android:textSize="18sp"
             app:cornerRadius="35dp"
             app:icon="@drawable/ic_password"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_display_details_editDetails_btn"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp" />
