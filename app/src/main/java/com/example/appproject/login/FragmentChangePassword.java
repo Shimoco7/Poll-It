@@ -196,7 +196,8 @@ public class FragmentChangePassword extends Fragment {
 
                 Model.instance.updatePassword(oldPassText.getText().toString().trim(),newPassText.getText().toString().trim(),isSuccessful->{
                     if(isSuccessful){
-                        Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionFragmentChangePasswordToFragmentUserDisplayDetails().setIsPassChanged(true));
+                        Model.instance.setIsPassChanged(true);
+                        Navigation.findNavController(v).navigate(FragmentChangePasswordDirections.actionFragmentChangePasswordToFragmentUserDisplayDetails());
                     }
                     else{
                         Snackbar.make(requireView(),"Update Password Failed - You Might Have Entered A Wrong Password",Snackbar.LENGTH_INDEFINITE).setAction("Try again later", view->{

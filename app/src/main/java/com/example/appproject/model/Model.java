@@ -231,6 +231,9 @@ public class Model {
      *
      */
 
+    MutableLiveData<Boolean> isPassChanged = new MutableLiveData<>();
+
+
     public void saveDetailOnLocalDb(Detail detail) {
         executor.execute(()-> AppLocalDb.db.detailDao().insertAll(detail));
     }
@@ -261,6 +264,14 @@ public class Model {
         });
     }
 
+    public LiveData<Boolean> getIsPassChanged() {
+        return isPassChanged;
+    }
+
+    public void setIsPassChanged(Boolean isPassChanged){
+        this.isPassChanged.postValue(isPassChanged);
+    }
+
     /**
      * Data - Questions
      */
@@ -268,7 +279,7 @@ public class Model {
     MutableLiveData<List<Question>> questionList = new MutableLiveData<>();
 
     public MutableLiveData<List<Question>> getQuestions() {
-        if (questionList == null) {
+        if (questionList.getValue() == null) {
             refreshQuestions();
         }
         return questionList;

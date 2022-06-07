@@ -1,9 +1,8 @@
-package com.example.appproject.feed;
+package com.example.appproject.displaydetails;
 
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;

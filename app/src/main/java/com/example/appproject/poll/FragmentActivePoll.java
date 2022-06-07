@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.appproject.R;
-import com.example.appproject.feed.FragmentUserDisplayDetailsArgs;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.PollQuestion;
 
