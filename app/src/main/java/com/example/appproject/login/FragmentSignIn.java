@@ -18,6 +18,7 @@ import com.example.appproject.MainActivity;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
@@ -150,6 +151,14 @@ public class FragmentSignIn extends Fragment {
                                 password.setText("");
                             }).show();
                         }
+
+//                        //User Blocked//
+//                        Snackbar.make(requireView(), "The user has been blocked", 10000)
+//                                .setBackgroundTint(requireContext().getColor(R.color.primeRed))
+//                                .setTextColor(requireContext().getColor(R.color.white))
+//                                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+//                                .setAnchorView(signInBtn)
+//                                .show();
                     }
                 });
             }

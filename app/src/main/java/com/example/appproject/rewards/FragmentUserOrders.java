@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.appproject.R;
 import com.example.appproject.model.Model;
@@ -35,6 +36,7 @@ public class FragmentUserOrders extends Fragment {
     UserOrdersViewModel viewModel;
     SwipeRefreshLayout swipeRefresh;
     KonfettiView konfetti;
+    TextView noOrder;
     private Model instance;
 
     public FragmentUserOrders() {
@@ -49,32 +51,27 @@ public class FragmentUserOrders extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_user_orders, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_orders, container, false);
         swipeRefresh = view.findViewById(R.id.userOrders_layout_refresh);
         list = view.findViewById(R.id.userOrders_rv);
         Button homeBtn = view.findViewById(R.id.userOrders_home_btn);
         konfetti = view.findViewById(R.id.userOrders_konfetti);
+        noOrder = view.findViewById(R.id.userOrders_txt_noOrder);
         boolean afterPurchase = FragmentUserOrdersArgs.fromBundle(getArguments()).getPurchased();
-
         if (afterPurchase) konfettiBuild(konfetti);
-
-
-
-
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new UserOrdersAdapter(viewModel,getLayoutInflater());
+        adapter = new UserOrdersAdapter(viewModel, getLayoutInflater());
         list.setAdapter(adapter);
-
-        viewModel.getOrders().observe(getViewLifecycleOwner(),orders -> refresh());
+        viewModel.getOrders().observe(getViewLifecycleOwner(), orders -> refresh());
         Model.instance.refreshOrders();
-
         homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserOrdersDirections.actionGlobalFragmentHomeScreen()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshOrders);
         observeOrdersLoadingState();
-        if(afterPurchase){
+        if (afterPurchase) {
             konfettiBuild(konfetti);
         }
+
         return view;
     }
 
@@ -84,8 +81,8 @@ public class FragmentUserOrders extends Fragment {
     }
 
     private void observeOrdersLoadingState() {
-        Model.instance.getOrdersListLoadingState().observe(getViewLifecycleOwner(),ordersListLoadingState ->{
-            switch (ordersListLoadingState){
+        Model.instance.getOrdersListLoadingState().observe(getViewLifecycleOwner(), ordersListLoadingState -> {
+            switch (ordersListLoadingState) {
                 case loading:
                     swipeRefresh.setRefreshing(true);
                     break;
@@ -110,7 +107,7 @@ public class FragmentUserOrders extends Fragment {
 
         Model.instance.getMainThread().post(() ->
         {
-            Snackbar.make(requireView(),"Congratulations !, The purchase was successful", 5000)
+            Snackbar.make(requireView(), "Congratulations !, The purchase was successful", 5000)
                     .setBackgroundTint(requireContext().getColor(R.color.primeOrng))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)

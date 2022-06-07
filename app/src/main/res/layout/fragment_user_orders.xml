@@ -114,5 +114,27 @@
         app:strokeColor="@color/primeOrng"
         app:strokeWidth="1dp" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userOrders_txt_noOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:padding="5dp"
+        android:text="@string/no_purchase_has_been_made_yet"
+        android:textColor="@color/white"
+        android:background="@drawable/textviewbg"
+        android:backgroundTint="@color/primeGray"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/userOrders_layout_const"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userOrders_btn_line" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
