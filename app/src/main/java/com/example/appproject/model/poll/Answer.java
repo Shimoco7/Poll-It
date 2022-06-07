@@ -23,18 +23,20 @@ public class Answer {
     public String userId;
     public String answer;
     public Integer position;
+    public Integer numOfPossibleOptions;
     public Double timeInSeconds = 0.0;
 
     public Answer() { }
 
     @Ignore
-    public Answer(@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer, Integer position) {
+    public Answer(@NonNull String userId,@NonNull String pollId, @NonNull String pollQuestionId, String answer, Integer position, Integer numOfPossibleOptions) {
         this.userId = userId;
         this.answerId = new ObjectId().toString();
         this.pollId = pollId;
         this.pollQuestionId = pollQuestionId;
         this.answer = answer;
         this.position = position;
+        this.numOfPossibleOptions = numOfPossibleOptions;
     }
 
     public Map<String, String> toJson() {
@@ -105,5 +107,13 @@ public class Answer {
 
     public void setTimeInSeconds(Double timeInSeconds) {
         this.timeInSeconds = timeInSeconds;
+    }
+
+    public Integer getNumOfPossibleOptions() {
+        return numOfPossibleOptions;
+    }
+
+    public void setNumOfPossibleOptions(Integer numOfPossibleOptions) {
+        this.numOfPossibleOptions = numOfPossibleOptions;
     }
 }
