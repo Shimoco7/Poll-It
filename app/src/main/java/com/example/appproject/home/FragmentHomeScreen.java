@@ -36,6 +36,7 @@ public class FragmentHomeScreen extends Fragment {
     RecyclerView list;
     SwipeRefreshLayout swipeRefresh;
     MaterialTextView coinBalance,isActivePolls;
+    Button line;
 
 
     public FragmentHomeScreen() { }
@@ -55,6 +56,7 @@ public class FragmentHomeScreen extends Fragment {
         coinBalance = view.findViewById(R.id.homeScr_text_coinsNumber);
         Button btnToRewardCenter = view.findViewById(R.id.homescr_btn_rewardCenter);
         isActivePolls=view.findViewById(R.id.homescr_txt_noOrder);
+        line = view.findViewById(R.id.homescr_btn_line2);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MaterialTextView userName = view.findViewById(R.id.homeScr_text_name);
@@ -101,11 +103,11 @@ public class FragmentHomeScreen extends Fragment {
         if (isPollFilled) {
             Model.instance.getMainThread().post(() ->
             {
-                Snackbar.make(requireView(), "Congratulations ! The survey has been filled", 5000)
+                Snackbar.make(requireView(), "Congratulations ! The survey has been filled", 2000)
                         .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                         .setTextColor(requireContext().getColor(R.color.white))
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-//                    .setAnchorView(homeBtn)
+                        .setAnchorView(line)
                         .show();
 
             });
