@@ -1,6 +1,7 @@
 package com.example.appproject.poll;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
+import com.example.appproject.login.LoginActivity;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.Answer;
@@ -225,8 +227,13 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                                 Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen().setIsPollFilled(true));
                             }
                             else{
-                                General.progressBarOff(getActivity(),container,progressBar,true);
-                                Snackbar.make(requireView(),"An error has occurred... Please try again",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
+                                if(user == null && message.equals(getString(R.string.account_unreliability_rank_too_high))){
+                                    Model.instance.signOut(()->toLoginActivity(false));
+                                }
+                                else{
+                                    General.progressBarOff(getActivity(),container,progressBar,true);
+                                    Snackbar.make(requireView(),"An error has occurred... Please try again",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
+                                }
                             }
                         });
                     });
@@ -262,5 +269,12 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                 break;
             }
         }
+    }
+
+    private void toLoginActivity(Boolean isSignedIn) {
+        Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
+        intent.putExtra(getString(R.string.is_signed_in),isSignedIn);
+        startActivity(intent);
+        requireActivity().finish();
     }
 }

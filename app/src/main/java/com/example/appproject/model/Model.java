@@ -203,9 +203,7 @@ public class Model {
                 executor.execute(()-> AppLocalDb.db.userDao().insertAll(user));
                 listener.onComplete(user,message);
             }
-            else{
-                listener.onComplete(null,null);
-            }
+            listener.onComplete(user,message);
         });
     }
 
