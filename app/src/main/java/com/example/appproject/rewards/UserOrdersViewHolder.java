@@ -33,6 +33,7 @@ public class UserOrdersViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Order order) {
+        supplierImage.setImageResource(R.drawable.default_poll_image);
         orderName.setText(order.getTitle());
 
         //10-digits code
@@ -47,7 +48,11 @@ public class UserOrdersViewHolder extends RecyclerView.ViewHolder {
         }
 
         if(order.getSupplierImage() != null){
-            General.loadImage(order.getSupplierImage(),supplierImage,R.drawable.loadimagesmall);
+            General.loadImage(order.getSupplierImage(),supplierImage,R.drawable.loadimagesmall,isSuccessful->{
+                if(!isSuccessful){
+                    supplierImage.setImageResource(R.drawable.default_poll_image);
+                }
+            });
         }
     }
 }

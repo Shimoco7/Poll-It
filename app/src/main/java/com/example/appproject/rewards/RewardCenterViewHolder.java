@@ -38,6 +38,7 @@ public class RewardCenterViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Reward reward) {
+        supplierImage.setImageResource(R.drawable.default_poll_image);
         Model.instance.getUserRankAndCoins(MyApplication.getUserKey(), map->{
             coins = (Integer) map.get(MyApplication.getContext().getString(R.string.user_coins));
             price.setText(String.valueOf(reward.getPrice()));
@@ -48,7 +49,11 @@ public class RewardCenterViewHolder extends RecyclerView.ViewHolder {
                 clickImage.setClickable(false);
             }
             if(reward.getSupplierImage() != null){
-                General.loadImage(reward.getSupplierImage(), supplierImage,R.drawable.loadimagesmall);
+                General.loadImage(reward.getSupplierImage(), supplierImage,R.drawable.loadimagesmall,isSuccessful->{
+                    if(!isSuccessful){
+                        supplierImage.setImageResource(R.drawable.default_poll_image);
+                    }
+                });
             }
         });
     }

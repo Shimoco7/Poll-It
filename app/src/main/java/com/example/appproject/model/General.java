@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.login.LoginActivity;
+import com.example.appproject.model.listeners.BooleanListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
@@ -58,7 +59,7 @@ public class General {
         });
     }
 
-    public static void loadImage(String url, ImageView imageView, int placeholder){
+    public static void loadImage(String url, ImageView imageView, int placeholder, BooleanListener listener){
         if(url == null)
             return;
 
@@ -76,11 +77,13 @@ public class General {
                     @Override
                     public void onSuccess() {
                         Log.d("TAG", "success loading image");
+                        listener.onComplete(true);
                     }
 
                     @Override
                     public void onError(Exception e) {
                         Log.e("TAG", "error loading image: " + e.getMessage());
+                        listener.onComplete(false);
                     }
                 });
     }

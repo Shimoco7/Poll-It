@@ -256,7 +256,7 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
     }
 
     private void setImageQuestion() {
-        General.loadImage(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage(),questionImage,R.drawable.loadimage100x100);
+        General.loadImage(Objects.requireNonNull(viewModel.getPollQuestionWithAnswer().getValue()).pollQuestion.getPollQuestionImage(),questionImage,R.drawable.loadimage100x100,bool -> {});
     }
 
     private void navigateToPollQuestion(PollQuestion pollQuestion){

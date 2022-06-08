@@ -41,12 +41,17 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
 
     @SuppressLint("UseCompatLoadingForDrawables")
     public void bind(Poll poll) {
+        pollMainImage.setImageResource(R.drawable.default_poll_image);
         pollsName.setText(poll.getPollName());
         pollMainImage.setAlpha((float)1);
         pollsName.setAlpha((float)1);
         pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_feed_arrow));
         if(poll.getImage() != null){
-            General.loadImage(poll.getImage(),pollMainImage,R.drawable.loadimagebig);
+            General.loadImage(poll.getImage(),pollMainImage,R.drawable.loadimagebig,isSuccessful->{
+                if(!isSuccessful){
+                    pollMainImage.setImageResource(R.drawable.default_poll_image);
+                }
+            });
         }
     }
 }

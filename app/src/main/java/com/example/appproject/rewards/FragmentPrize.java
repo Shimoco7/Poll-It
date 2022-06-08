@@ -102,12 +102,20 @@ public class FragmentPrize extends Fragment {
             cost = reward.getPrice();
             totalPriceTxt.setText(String.valueOf(cost));
             if (reward.getImage() != null) {
-                General.loadImage(reward.getImage(), prizeImage, R.drawable.loadimagebig);
+                General.loadImage(reward.getImage(), prizeImage, R.drawable.loadimagebig,isSuccessful->{
+                    if(!isSuccessful){
+                        prizeImage.setImageResource(R.drawable.giftbox);
+                    }
+                });
             } else {
                 prizeImage.setImageResource(R.drawable.giftbox);
             }
             if (reward.getSupplierImage() != null) {
-                General.loadImage(reward.getSupplierImage(), supplierImage, R.drawable.loadimagebig);
+                General.loadImage(reward.getSupplierImage(), supplierImage, R.drawable.loadimagebig,isSuccessful->{
+                    if(!isSuccessful){
+                        supplierImage.setImageResource(R.drawable.default_poll_image);
+                    }
+                });
             } else {
                 supplierImage.setImageResource(R.drawable.default_poll_image);
             }

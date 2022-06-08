@@ -89,7 +89,7 @@ public class FragmentUserDisplayDetails extends Fragment {
         });
 
         if(MyApplication.getUserProfilePicUrl() != null && MyApplication.getUserProfilePicUrl().length() >0){
-            General.loadImage(MyApplication.getUserProfilePicUrl(),profilePic,R.drawable.loadimagebig);
+            General.loadImage(MyApplication.getUserProfilePicUrl(),profilePic,R.drawable.loadimagebig,bool -> {});
         }
         else{
             if(MyApplication.getGender()!=null){
