@@ -124,5 +124,16 @@ public class MyApplication extends Application {
         return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getString(context.getString(R.string.current_account_facebook_id),"");
     }
 
+    public static void setIsAlerted(Boolean isAlerted) {
+        context.getSharedPreferences("Status",Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(context.getString(R.string.is_alerted),isAlerted)
+                .apply();
+    }
+
+    public static Boolean getIsAlerted(){
+        return context.getSharedPreferences("Status", Context.MODE_PRIVATE).getBoolean(context.getString(R.string.is_alerted),false);
+    }
+
 
 }

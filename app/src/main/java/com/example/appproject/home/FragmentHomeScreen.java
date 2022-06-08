@@ -113,8 +113,9 @@ public class FragmentHomeScreen extends Fragment {
         }
 
         Model.instance.getUserById(MyApplication.getUserKey(),user->{
-            if(user.getRank()>=6){
+            if(user.getRank()>=6 && !MyApplication.getIsAlerted()){
                 badRank();
+                MyApplication.setIsAlerted(true);
             }
         });
 
