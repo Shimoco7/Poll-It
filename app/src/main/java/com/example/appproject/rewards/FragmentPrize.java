@@ -72,6 +72,7 @@ public class FragmentPrize extends Fragment {
 
         String[] menuItems = {"1", "2", "3", "4"};
         ArrayAdapter adapter = new ArrayAdapter<>(requireContext(), R.layout.prize_menu_item, menuItems);
+        dropMenuTextInputLayout.setHintTextAppearance(R.style.PrizeDropDownMenu);
         autoCompleteTextView.post(() -> autoCompleteTextView.setAdapter(adapter));
         autoCompleteTextView.setOnItemClickListener((adapterView, viewb, i, l) -> {
             qnt = Integer.parseInt(adapterView.getItemAtPosition(i).toString());

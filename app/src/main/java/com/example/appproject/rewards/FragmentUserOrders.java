@@ -124,7 +124,7 @@ public class FragmentUserOrders extends Fragment {
                     .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                    .setAnchorView(homeBtn)
+//                    .setAnchorView(homeBtn)
                     .show();
 
         });

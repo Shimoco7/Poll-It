@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     app:cardElevation="0dp"
-    app:strokeColor="@color/stroke_color">
-    tools:context=".FragmentHomeScreen">
+    app:strokeColor="@color/stroke_color"
+    tools:context=".home.FragmentHomeScreen">
 
 
 

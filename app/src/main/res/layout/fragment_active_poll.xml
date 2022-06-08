@@ -27,7 +27,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="Remember, an unhonest answers may cause rejction"
+        android:text="@string/remember_an_unhonest_answers_may_cause_rejction"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"

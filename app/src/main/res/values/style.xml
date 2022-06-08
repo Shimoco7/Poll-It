@@ -21,4 +21,12 @@
         <item name="boxStrokeWidth">1dp</item>
     </style>
 
+    <style name="PrizeDropDownMenu" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">sans-serif-black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
 </resources>

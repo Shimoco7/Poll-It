@@ -19,7 +19,7 @@
             android:layout_width="180dp"
             android:layout_height="150dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -35,10 +35,10 @@
             android:id="@+id/prize_constraintLayout_prizename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prize_layout">
+            app:layout_constraintTop_toBottomOf="@+id/prize_img_thePrize">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/prize_img_company"
@@ -74,14 +74,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/textviewbg"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prize_img_thePrize">
+            app:layout_constraintTop_toBottomOf="@+id/prize_constraintLayout_prizename">
 
 
             <com.google.android.material.textview.MaterialTextView
@@ -111,8 +111,7 @@
                 android:layout_marginBottom="5dp"
                 android:fontFamily="sans-serif"
                 android:text="250"
-
-
+                android:visibility=""
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -165,7 +164,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
                     android:paddingLeft="5dp"
-                    android:text="Your Balance: "
+                    android:text="@string/your_balance"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textColor="@color/white"
                     android:textSize="16dp"
@@ -204,7 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="80dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="@string/total"
@@ -221,7 +220,7 @@
             android:layout_marginStart="7dp"
 
 
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="80dp"
             android:fontFamily="sans-serif"
             android:text="250"
             android:textColor="@color/white"
@@ -235,7 +234,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="80dp"
             app:layout_constraintStart_toEndOf="@+id/prize_txt_total_coins"
             app:layout_constraintTop_toBottomOf="@+id/prize_layout"
             app:srcCompat="@drawable/coin_icon"
@@ -273,7 +272,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="sans-serif-light"
             android:textColorHint="@color/white"
             app:boxBackgroundColor="@color/black"
@@ -302,13 +301,14 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:fontFamily="sans-serif-light"
-                android:gravity="left"
-                android:hint="Quantity:"
+                android:gravity="center"
+                android:hint="@string/quantity"
                 android:inputType="none|textNoSuggestions"
+                android:paddingTop="20dp"
                 android:text="1"
                 android:textColor="@color/white"
                 android:textCursorDrawable="@null"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
 
                 />

@@ -138,7 +138,7 @@ public class FragmentUserDisplayDetails extends Fragment {
                     .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                    .setAnchorView(address)
+//                    .setAnchorView(address)
                     .show();
 
         });

@@ -21,6 +21,8 @@ import com.example.appproject.R;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.poll.FragmentActivePollDirections;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Objects;
@@ -144,6 +146,19 @@ public class FragmentHomeScreen extends Fragment {
             default:
                 throw new IllegalStateException("Unexpected value: " + pollQuestion.getPollQuestionType());
         }
+    }
+
+    private void badRank(){
+        Model.instance.getMainThread().post(() ->
+        {
+            Snackbar.make(getView(),getString(R.string.rank_is_over_six),Snackbar.LENGTH_INDEFINITE).setAction(" I Understand",view->{
+            })
+                    .setBackgroundTint(requireContext().getColor(R.color.primeRed))
+                    .setTextColor(requireContext().getColor(R.color.white))
+                    .show();
+
+        });
+
     }
 
 }
