@@ -136,7 +136,7 @@ public class FragmentRegister extends Fragment {
 
     private void setRegisterBtnListener(ViewGroup container) {
         registerBtn.setOnClickListener(v->{
-
+            failToCreate=false;
             if ((isPassEmpty)||(isEmailEmpty)||(isConfirmEmpty)) {
                 if (isEmailEmpty) {
                 emailLayout.setErrorIconDrawable(null);
@@ -161,17 +161,17 @@ public class FragmentRegister extends Fragment {
                 }
                 if (password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())) {
                     if (!Model.instance.validatePassword(password.getText().toString().trim())) {
-                        Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
-                            password.setText("");
-                            confirmPassword.setText("");
-                        }).show();
+                        Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_LONG)
+                            .show();
+                        password.setText("");
+                        confirmPassword.setText("");
                         failToCreate=true;
                     }
                 } else {
-                    Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{
-                        password.setText("");
-                        confirmPassword.setText("");
-                    }).show();
+                    Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_LONG)
+                            .show();
+                    password.setText("");
+                    confirmPassword.setText("");
                     failToCreate=true;
                 }
                 if (failToCreate) {
