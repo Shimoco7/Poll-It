@@ -21,6 +21,7 @@ import com.example.appproject.R;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.poll.PollQuestion;
 import com.example.appproject.poll.FragmentActivePollDirections;
+import com.example.appproject.rewards.FragmentUserOrdersArgs;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
@@ -95,6 +96,20 @@ public class FragmentHomeScreen extends Fragment {
                 }
             });
         });
+
+        boolean isPollFilled = FragmentHomeScreenArgs.fromBundle(getArguments()).getIsPollFilled();
+        if (isPollFilled) {
+            Model.instance.getMainThread().post(() ->
+            {
+                Snackbar.make(requireView(), "Congratulations ! The survey has been filled", 5000)
+                        .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
+                        .setTextColor(requireContext().getColor(R.color.white))
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+//                    .setAnchorView(homeBtn)
+                        .show();
+
+            });
+        }
 
 
         btnToRewardCenter.setOnClickListener(v->Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentRewardCenter()));

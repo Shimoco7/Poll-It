@@ -222,7 +222,7 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                         map.put("rank",updateRank);
                         Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
                             if(user != null && message.equals(getString(R.string.success))){
-                                Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen());
+                                Navigation.findNavController(this.container).navigate(FragmentPollQuestionImageAnswersDirections.actionGlobalFragmentHomeScreen().setIsPollFilled(true));
                             }
                             else{
                                 General.progressBarOff(getActivity(),container,progressBar,true);

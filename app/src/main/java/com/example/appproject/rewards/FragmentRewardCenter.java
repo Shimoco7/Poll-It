@@ -66,7 +66,7 @@ public class FragmentRewardCenter extends Fragment {
             Navigation.findNavController(v).navigate(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentPrize(rewardId));
 
         });
-        homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionGlobalFragmentHomeScreen()));
+        homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionGlobalFragmentHomeScreen().setIsPollFilled(false)));
         toMyOrdersBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentUserRewards(false)));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshRewards);
         observeRewardsLoadingState();

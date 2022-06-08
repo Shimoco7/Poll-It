@@ -73,7 +73,7 @@ public class FragmentUserOrders extends Fragment {
         list.setAdapter(adapter);
         viewModel.getOrders().observe(getViewLifecycleOwner(), orders -> refresh());
         Model.instance.refreshOrders();
-        homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserOrdersDirections.actionGlobalFragmentHomeScreen()));
+        homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserOrdersDirections.actionGlobalFragmentHomeScreen().setIsPollFilled(false)));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshOrders);
         observeOrdersLoadingState();
         /**

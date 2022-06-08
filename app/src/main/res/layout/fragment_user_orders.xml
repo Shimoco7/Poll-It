@@ -21,6 +21,20 @@
         app:layout_constraintTop_toBottomOf="@+id/userOrders_text_sectitle"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/userOrders_btn_line2"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#978F8F"
+        app:cornerRadius="100px"
+        app:layout_constraintBottom_toTopOf="@+id/userOrders_home_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/userOrders_img_logo"
         android:layout_width="306dp"
@@ -56,6 +70,7 @@
         app:layout_constraintBottom_toTopOf="@+id/userOrders_home_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent">
 
     </nl.dionsegijn.konfetti.KonfettiView>
@@ -68,7 +83,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/userOrders_home_btn"
+        app:layout_constraintBottom_toTopOf="@+id/userOrders_btn_line2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
