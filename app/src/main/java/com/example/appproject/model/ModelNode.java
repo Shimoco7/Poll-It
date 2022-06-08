@@ -127,7 +127,16 @@ public class ModelNode {
                 else{
                     Log.e("TAG", "signInWithEmail:failure - " + response.code());
                     Model.instance.getMainThread().post(()->{
-                        loginListener.onComplete(null, "Response code from server: " + response.code());
+                        try {
+                            if(response.errorBody().string().contains(appContext.getString(R.string.account_unreliability_rank_too_high))){
+                                loginListener.onComplete(null,appContext.getString(R.string.account_unreliability_rank_too_high));
+                            }
+                            else{
+                                loginListener.onComplete(null, "Response code from server: " + response.code());
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                 }
             }
@@ -179,7 +188,16 @@ public class ModelNode {
                 else{
                     Log.e("TAG", "facebook sign in via server ERROR: " + response.code());
                     Model.instance.getMainThread().post(()->{
-                        loginListener.onComplete(null, "Response code from server: " + response.code());
+                        try {
+                            if(response.errorBody().string().contains(appContext.getString(R.string.account_unreliability_rank_too_high))){
+                                loginListener.onComplete(null,appContext.getString(R.string.account_unreliability_rank_too_high));
+                            }
+                            else{
+                                loginListener.onComplete(null, "Response code from server: " + response.code());
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                 }
             }

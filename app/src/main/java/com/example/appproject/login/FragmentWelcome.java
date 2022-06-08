@@ -27,6 +27,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonElement;
 
@@ -91,18 +92,25 @@ public class FragmentWelcome extends Fragment {
                             }
                         }
                         else {
-                            if(message == null){
-                                General.progressBarOff(getActivity(),container,progressBar,false);
-                                LoginManager.getInstance().logOut();
-                                Snackbar.make(requireView(),getString(R.string.server_is_off),Snackbar.LENGTH_INDEFINITE).setAction("Close", view->{ }).show();
+                            if(message.equals(getString(R.string.account_unreliability_rank_too_high))){
+                                Snackbar.make(requireView(), getString(R.string.user_has_been_blocked), 8000)
+                                        .setBackgroundTint(requireContext().getColor(R.color.primeRed))
+                                        .setTextColor(requireContext().getColor(R.color.white))
+                                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+                                        .show();
                             }
+                            else{
+                                Snackbar.make(requireView(),getString(R.string.server_is_off),5000).setAction("", view->{ }).show();
+                            }
+                            General.progressBarOff(getActivity(),container,progressBar,false);
+                            LoginManager.getInstance().logOut();
                         }
                     });
 
                     } catch (JSONException e) {
                         General.progressBarOff(getActivity(),container,progressBar,false);
                         LoginManager.getInstance().logOut();
-                        Snackbar.make(requireView(),"Facebook Login Error",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
+                        Snackbar.make(requireView(),"Facebook Login Error",5000).setAction("",view->{ }).show();
                     }
                 });
                 Bundle parameters = new Bundle();
@@ -113,12 +121,12 @@ public class FragmentWelcome extends Fragment {
 
             @Override
             public void onCancel() {
-                Snackbar.make(requireView(),"Facebook Login Canceled",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
+                Snackbar.make(requireView(),"Facebook Login Canceled",5000).setAction("",view->{ }).show();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Snackbar.make(requireView(),"Facebook Login Error",Snackbar.LENGTH_INDEFINITE).setAction("Close",view->{ }).show();
+                Snackbar.make(requireView(),"Facebook Login Error",5000).setAction("",view->{ }).show();
             }
         });
         Button signInBtn = view.findViewById(R.id.welcome_sign_in_btn);

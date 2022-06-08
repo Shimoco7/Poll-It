@@ -142,23 +142,23 @@ public class FragmentSignIn extends Fragment {
                     else {
                         General.progressBarOff(getActivity(), container, progressBar,true);
                         if(message == null){
-                            Snackbar.make(getView(),getString(R.string.server_is_off),Snackbar.LENGTH_LONG).setAction("Close",view->{
+                            Snackbar.make(getView(),getString(R.string.server_is_off),5000).setAction("",view->{
                                 password.setText("");
                             }).show();
+                        }
+                        else if(message.equals(getString(R.string.account_unreliability_rank_too_high))){
+                            Snackbar.make(requireView(), getString(R.string.user_has_been_blocked), 8000)
+                                    .setBackgroundTint(requireContext().getColor(R.color.primeRed))
+                                    .setTextColor(requireContext().getColor(R.color.white))
+                                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+                                    .setAction("",view->password.setText(""))
+                                    .show();
                         }
                         else{
-                            Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),Snackbar.LENGTH_LONG).setAction("Close",view->{
+                            Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),5000).setAction("",view->{
                                 password.setText("");
                             }).show();
                         }
-
-//                        //User Blocked//
-//                        Snackbar.make(requireView(), "The user has been blocked", 10000)
-//                                .setBackgroundTint(requireContext().getColor(R.color.primeRed))
-//                                .setTextColor(requireContext().getColor(R.color.white))
-//                                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-//                                .setAnchorView(signInBtn)
-//                                .show();
                     }
                 });
             }
