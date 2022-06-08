@@ -219,7 +219,8 @@ public class FragmentPollQuestionImageAnswers extends Fragment {
                         Integer coins = (Integer) coinsAndRank.get(getString(R.string.user_coins));
                         Double rank = (Double) coinsAndRank.get(getString(R.string.user_rank));
                         Integer updatedCoins = coins + poll.getCoins();
-                        Double updateRank = rank + score;
+                        double updateRank = rank + score;
+                        if(updateRank < 0 ) updateRank = 0.0;
                         map.put("coins",updatedCoins);
                         map.put("rank",updateRank);
                         Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
