@@ -1,6 +1,7 @@
 package com.example.appproject.model;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appproject.MyApplication;
+import com.example.appproject.R;
+import com.example.appproject.login.LoginActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
@@ -161,6 +164,5 @@ public class General {
             throw new RuntimeException(e);
         }
     }
-
 
 }

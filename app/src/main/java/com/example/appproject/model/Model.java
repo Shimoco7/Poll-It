@@ -203,9 +203,7 @@ public class Model {
                 executor.execute(()-> AppLocalDb.db.userDao().insertAll(user));
                 listener.onComplete(user,message);
             }
-            else{
-                listener.onComplete(null,null);
-            }
+            listener.onComplete(user,message);
         });
     }
 
@@ -563,10 +561,10 @@ public class Model {
             return null;
         }
 
-        if(avg <= 1.5){
+        if(avg <= 2){
             score += 0.5;
         }
-        else if(avg <= 2.5 && answersIndicesArray.size() > 1){
+        else if(avg <= 3 && answersIndicesArray.size() > 1){
             double eucScore = checkEucDist(answersIndicesArray);
             double minPossibleScore = checkForMinEucDist(answersIndicesArray);
             double maxPossibleScore = checkForMaxEucDist(answersIndicesArray);

@@ -308,8 +308,17 @@ public class ModelNode {
                     listener.onComplete(user, appContext.getString(R.string.success));
                 }
                 else{
+                    try {
+                        if(response.errorBody().string().contains(appContext.getString(R.string.account_unreliability_rank_too_high))){
+                            listener.onComplete(null,appContext.getString(R.string.account_unreliability_rank_too_high));
+                        }
+                        else{
+                            listener.onComplete(null, null);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Log.e("TAG" , "Update user FAILURE: " + response.code());
-                    listener.onComplete(null,null);
                 }
             }
 
