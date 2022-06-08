@@ -564,7 +564,7 @@ public class Model {
         if(avg <= 2){
             score += 0.5;
         }
-        else if(avg <= 3 && answersIndicesArray.size() > 1){
+        if(avg <= 3 && answersIndicesArray.size() > 1){
             double eucScore = checkEucDist(answersIndicesArray);
             double minPossibleScore = checkForMinEucDist(answersIndicesArray);
             double maxPossibleScore = checkForMaxEucDist(answersIndicesArray);
