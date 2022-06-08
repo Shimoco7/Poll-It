@@ -77,8 +77,6 @@ public class FragmentHomeScreen extends Fragment {
         });
 
         //Check if there is active polls
-
-
         homeViewModel.getPolls().observe(getViewLifecycleOwner(),pollsList->{
             if (pollsList.size()==0) isActivePolls.setVisibility(View.VISIBLE);
             else isActivePolls.setVisibility(View.GONE);

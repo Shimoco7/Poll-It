@@ -38,7 +38,6 @@ public class FragmentPrize extends Fragment {
     Integer userCoins;
     MaterialTextView totalCoins;
     MaterialTextView description;
-    MaterialTextView price;
     MaterialTextView totalPriceTxt;
     ShapeableImageView prizeImage, supplierImage;
     ProgressBar progressBar;
@@ -60,7 +59,6 @@ public class FragmentPrize extends Fragment {
         supplierImage = view.findViewById(R.id.prize_img_company);
         description = view.findViewById(R.id.prize_txt_details);
         dropMenuTextInputLayout = view.findViewById(R.id.prize_text_input);
-        price = view.findViewById(R.id.prize_txt_price);
         Button collectBtn = view.findViewById(R.id.prize_btn_collect);
         autoCompleteTextView = view.findViewById(R.id.prize_autoC);
 
@@ -102,7 +100,6 @@ public class FragmentPrize extends Fragment {
             });
             description.setText(reward.getDescription());
             cost = reward.getPrice();
-            price.setText(String.valueOf(cost));
             totalPriceTxt.setText(String.valueOf(cost));
             if (reward.getImage() != null) {
                 General.loadImage(reward.getImage(), prizeImage, R.drawable.loadimagebig);
@@ -132,7 +129,7 @@ public class FragmentPrize extends Fragment {
                         Model.instance.redeemReward(rewardId, user -> {
                             if (user != null) {
                                 if(finalI+1==qnt){
-                                    Navigation.findNavController(price).navigate(FragmentPrizeDirections.actionFragmentPrizeToFragmentUserRewards(true));
+                                    Navigation.findNavController(totalPriceTxt).navigate(FragmentPrizeDirections.actionFragmentPrizeToFragmentUserRewards(true));
                                 }
                             } else {
                                 General.progressBarOff(requireActivity(), container, progressBar, true);
