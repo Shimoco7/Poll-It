@@ -37,6 +37,8 @@
     <string name="email_or_password_is_incorrect">Email or Password is incorrect</string>
     <string name="image_upload_failed">Upload failed</string>
     <string name="please_upload_your_image">Please Upload Your Image</string>
+    <string name="account_unreliability_rank_too_high">Account unreliability rank is too high</string>
+    <string name="user_has_been_blocked">This user has been blocked by our system</string>
 
 
     <!--Details Strings-->
