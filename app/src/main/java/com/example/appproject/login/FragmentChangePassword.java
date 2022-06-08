@@ -178,14 +178,14 @@ public class FragmentChangePassword extends Fragment {
                         failToCreate=true;
                     }
                     else if (!Model.instance.validatePassword(newPassText.getText().toString().trim())){
-                        Snackbar.make(requireView(),"Invalid Password",5000)
+                        Snackbar.make(requireView(),"Invalid Password",3000)
                                 .show();
                         failToCreate=true;
                         newPassText.setText("");
                         confirmPassText.setText("");
                     }
                 } else {
-                    Snackbar.make(requireView(),"Invalid Password",5000)
+                    Snackbar.make(requireView(),"Invalid Password",3000)
                     .show();
                     newPassText.setText("");
                     confirmPassText.setText("");

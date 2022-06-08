@@ -120,7 +120,7 @@ public class FragmentUserOrders extends Fragment {
 
         Model.instance.getMainThread().post(() ->
         {
-            Snackbar.make(requireView(), "Congratulations !, The purchase was successful", 5000)
+            Snackbar.make(requireView(), "Congratulations! The purchase was successful", 4000)
                     .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)

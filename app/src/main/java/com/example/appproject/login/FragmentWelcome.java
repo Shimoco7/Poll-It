@@ -110,7 +110,7 @@ public class FragmentWelcome extends Fragment {
                     } catch (JSONException e) {
                         General.progressBarOff(getActivity(),container,progressBar,false);
                         LoginManager.getInstance().logOut();
-                        Snackbar.make(requireView(),"Facebook Login Error",5000).setAction("",view->{ }).show();
+                        Snackbar.make(requireView(),"Facebook Login Error",3000).setAction("",view->{ }).show();
                     }
                 });
                 Bundle parameters = new Bundle();
@@ -121,12 +121,12 @@ public class FragmentWelcome extends Fragment {
 
             @Override
             public void onCancel() {
-                Snackbar.make(requireView(),"Facebook Login Canceled",5000).setAction("",view->{ }).show();
+                Snackbar.make(requireView(),"Facebook Login Canceled",3000).setAction("",view->{ }).show();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Snackbar.make(requireView(),"Facebook Login Error",5000).setAction("",view->{ }).show();
+                Snackbar.make(requireView(),"Facebook Login Error",3000).setAction("",view->{ }).show();
             }
         });
         Button signInBtn = view.findViewById(R.id.welcome_sign_in_btn);
