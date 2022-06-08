@@ -86,7 +86,6 @@ public class FragmentHomeScreen extends Fragment {
             refresh();
 
         });
-        Model.instance.refreshPollsList();
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
             Model.instance.getLastUnansweredPollQuestion(pollId,(pollQuestion,isSingleQuestionAndAnswered) -> {
@@ -113,10 +112,16 @@ public class FragmentHomeScreen extends Fragment {
             });
         }
 
+        Model.instance.getUserById(MyApplication.getUserKey(),user->{
+            if(user.getRank()>=6){
+                badRank();
+            }
+        });
 
         btnToRewardCenter.setOnClickListener(v->Navigation.findNavController(v).navigate(FragmentHomeScreenDirections.actionFragmentHomeScreenToFragmentRewardCenter()));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshPollsList);
         observePollsLoadingState();
+        Model.instance.getMainThread().post(Model.instance::refreshPollsList);
         return view;
     }
 
@@ -165,14 +170,11 @@ public class FragmentHomeScreen extends Fragment {
 
     private void badRank(){
         Model.instance.getMainThread().post(() ->
-        {
-            Snackbar.make(getView(),getString(R.string.rank_is_over_six),Snackbar.LENGTH_INDEFINITE).setAction(" I Understand",view->{
-            })
-                    .setBackgroundTint(requireContext().getColor(R.color.primeRed))
-                    .setTextColor(requireContext().getColor(R.color.white))
-                    .show();
-
-        });
+                Snackbar.make(getView(),getString(R.string.rank_is_over_six),Snackbar.LENGTH_INDEFINITE).setAction(" I Understand",view->{
+                })
+                        .setBackgroundTint(requireContext().getColor(R.color.primeRed))
+                        .setTextColor(requireContext().getColor(R.color.white))
+                        .show());
 
     }
 
