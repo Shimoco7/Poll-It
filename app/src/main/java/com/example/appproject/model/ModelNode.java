@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.detail.Detail;
+import com.example.appproject.model.listeners.GetDetailListener;
 import com.example.appproject.model.listeners.GetDetailsListener;
 import com.example.appproject.model.listeners.GetPollQuestionsListener;
 import com.example.appproject.model.listeners.GetPollsListener;
@@ -355,22 +356,26 @@ public class ModelNode {
         });
     }
 
-    public void saveDetailToDb(Detail detail, VoidListener listener){
+    public void saveDetailToDb(Detail detail, GetDetailListener listener){
         Map<String,String> map = detail.toJson();
-        Call<Void> call = methodsInterface.createDetail("Bearer "+ MyApplication.getAccessToken(),map);
-        call.enqueue(new Callback<Void>() {
+        Call<Detail> call = methodsInterface.createDetail("Bearer "+ MyApplication.getAccessToken(),map);
+        call.enqueue(new Callback<Detail>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() != 200) {
-                    Log.e("TAG", "Create detail FAILURE: " + response.code());
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                if (response.code() == 200) {
+                    Detail d = response.body();
+                    listener.onComplete(d);
                 }
-                listener.onComplete();
+                else{
+                    Log.e("TAG", "Create detail FAILURE: " + response.code());
+                    listener.onComplete(null);
+                }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Detail> call, Throwable t) {
                 Log.e("TAG" , "Create detail FAILURE: " + t.getMessage());
-                listener.onComplete();
+                listener.onComplete(null);
             }
         });
     }

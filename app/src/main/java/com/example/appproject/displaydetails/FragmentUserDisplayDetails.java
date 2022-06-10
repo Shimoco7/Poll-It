@@ -79,11 +79,11 @@ public class FragmentUserDisplayDetails extends Fragment {
 
         adapter = new UserDisplayDetailsAdapter(viewModel,getLayoutInflater());
         General.progressBarOn(getActivity(),container,progressBar,false);
-        userName.setText(MyApplication.getUserName());
-        email.setText(MyApplication.getUserEmail());
-        address.setText(MyApplication.getUserAddress());
-        gender.setText(MyApplication.getGender());
         Model.instance.getUserDetailById(MyApplication.getUserKey(),"Education Level",edu->{
+            userName.setText(MyApplication.getUserName());
+            email.setText(MyApplication.getUserEmail());
+            address.setText(MyApplication.getUserAddress());
+            gender.setText(MyApplication.getGender());
             education.setText(edu.getAnswer());
             General.progressBarOff(getActivity(),container,progressBar,true);
         });
@@ -122,7 +122,7 @@ public class FragmentUserDisplayDetails extends Fragment {
                             Navigation.findNavController(editBtn).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails());
                         }
                         else{
-                            Snackbar.make(requireView(),getString(R.string.edit_details_policy),Snackbar.LENGTH_INDEFINITE).setAction("Close",v1->{}).show();
+                            Snackbar.make(requireView(),getString(R.string.edit_details_policy),5000).show();
                         }
                     });
                 }
@@ -132,23 +132,38 @@ public class FragmentUserDisplayDetails extends Fragment {
 
         viewModel.isPassChanged.observe(getViewLifecycleOwner(),isPassChanged->{
             if(isPassChanged){
-                passwordChangedSnackBar();
+                changedSnackBar("Password changed successfully");
                 Model.instance.setIsPassChanged(false);
+            }
+        });
+
+        viewModel.isDetailsChanged.observe(getViewLifecycleOwner(),isDetailsChanged->{
+            if(isDetailsChanged){
+                changedSnackBar("Details changed successfully");
+                Model.instance.setIsDetailsChanged(false);
             }
         });
 
         if(viewModel.getIsPassChanged().getValue() != null){
             if(viewModel.getIsPassChanged().getValue()){
-                passwordChangedSnackBar();
+                changedSnackBar("Password changed successfully");
+                Model.instance.setIsPassChanged(false);
+            }
+        }
+
+        if(viewModel.getIsDetailsChanged().getValue() != null){
+            if(viewModel.getIsDetailsChanged().getValue()){
+                changedSnackBar("Password changed successfully");
+                Model.instance.setIsDetailsChanged(false);
             }
         }
 
         return view;
     }
 
-    private void passwordChangedSnackBar(){
+    private void changedSnackBar(String message){
         Model.instance.getMainThread().post(()->{
-            Snackbar.make(requireView(), "Password changed", 2000)
+            Snackbar.make(requireView(), message, 3500)
                     .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)

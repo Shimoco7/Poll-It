@@ -261,12 +261,17 @@ public class FragmentUserDetails extends Fragment {
                         MyApplication.setGender(d.getAnswer());
                     });
                 }
-                Model.instance.saveDetailToRemoteDb(d, () -> {
-                });
+                Model.instance.saveDetailToRemoteDb(d, () -> { });
             }
         });
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        if(requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
+            Model.instance.setIsDetailsChanged(true);
+            Navigation.findNavController(nextBtn).navigate(FragmentUserDetailsDirections.actionGlobalFragmentUserDisplayDetails());
+        }
+        else{
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
     }
 }

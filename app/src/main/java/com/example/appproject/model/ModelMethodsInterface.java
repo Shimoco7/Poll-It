@@ -63,7 +63,7 @@ public interface ModelMethodsInterface {
     Call<List<Question>> getAllQuestions(@Header("Authorization") String accessToken);
 
     @POST("/detail/create")
-    Call<Void> createDetail(@Header("Authorization") String accessToken,@Body Map<String,String> map);
+    Call<Detail> createDetail(@Header("Authorization") String accessToken,@Body Map<String,String> map);
 
     @GET("/detail/getDetailsByAccountId/{accountId}")
     Call<List<Detail>> getDetailsByUserId(@Header("Authorization") String accessToken, @Path("accountId") String accountId);

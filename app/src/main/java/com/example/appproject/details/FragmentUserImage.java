@@ -1,6 +1,5 @@
 package com.example.appproject.details;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -38,15 +36,11 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 public class FragmentUserImage extends Fragment {
 
@@ -195,7 +189,7 @@ public class FragmentUserImage extends Fragment {
                 Model.instance.saveDetailToRemoteDb(d, () -> {});
             }
             if (bitMap == null) {
-                toMainActivity();
+                toNextScreen();
             } else {
                 Model.instance.convertBitmapToFile(bitMap, file->{
                     if (file == null) {
@@ -207,11 +201,11 @@ public class FragmentUserImage extends Fragment {
                             if(url == null){
                                 Snackbar.make(requireView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again Later",v->{
                                     progressBar.setVisibility(View.GONE);
-                                    toMainActivity();
+                                    toNextScreen();
                                 }).show();
                             }
                             else{
-                                toMainActivity();
+                                toNextScreen();
                             }
                         });
                     }
@@ -235,9 +229,15 @@ public class FragmentUserImage extends Fragment {
         galleryActivityResultLauncher.launch("image/*");
     }
 
-    private void toMainActivity() {
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+    private void toNextScreen() {
+        if(requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
+            Model.instance.setIsDetailsChanged(true);
+            Navigation.findNavController(finishBtn).navigate(FragmentUserDetailsDirections.actionGlobalFragmentUserDisplayDetails());
+        }
+        else{
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
     }
 }

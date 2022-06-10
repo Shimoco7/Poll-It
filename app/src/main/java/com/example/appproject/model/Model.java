@@ -230,6 +230,7 @@ public class Model {
      */
 
     MutableLiveData<Boolean> isPassChanged = new MutableLiveData<>();
+    MutableLiveData<Boolean> isDetailsChanged = new MutableLiveData<>();
 
 
     public void saveDetailOnLocalDb(Detail detail) {
@@ -237,7 +238,14 @@ public class Model {
     }
 
     public void saveDetailToRemoteDb(Detail detail, VoidListener listener) {
-        modelNode.saveDetailToDb(detail, listener);
+        modelNode.saveDetailToDb(detail, d->{
+            if(d != null){
+                executor.execute(()->{
+                    AppLocalDb.db.detailDao().insertAll(d);
+                    mainThread.post(listener::onComplete);
+                });
+            }
+        });
     }
 
 
@@ -269,6 +277,16 @@ public class Model {
     public void setIsPassChanged(Boolean isPassChanged){
         this.isPassChanged.postValue(isPassChanged);
     }
+
+    public LiveData<Boolean> getIsDetailsChanged() {
+        return isDetailsChanged;
+    }
+
+    public void setIsDetailsChanged(Boolean isPassChanged){
+        this.isDetailsChanged.postValue(isPassChanged);
+    }
+
+
 
     /**
      * Data - Questions

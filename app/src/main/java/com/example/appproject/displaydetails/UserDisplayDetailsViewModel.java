@@ -11,10 +11,12 @@ import java.util.List;
 public class UserDisplayDetailsViewModel extends ViewModel {
     List<Poll> userFilledPolls;
     LiveData<Boolean> isPassChanged;
+    LiveData<Boolean> isDetailsChanged;
     String userId;
 
     public UserDisplayDetailsViewModel() {
         isPassChanged = Model.instance.getIsPassChanged();
+        isDetailsChanged = Model.instance.getIsDetailsChanged();
     }
 
     public void setUserFilledPolls(List<Poll> userFilledPolls) {
@@ -35,5 +37,9 @@ public class UserDisplayDetailsViewModel extends ViewModel {
 
     public LiveData<Boolean> getIsPassChanged() {
         return isPassChanged;
+    }
+
+    public LiveData<Boolean> getIsDetailsChanged() {
+        return isDetailsChanged;
     }
 }
