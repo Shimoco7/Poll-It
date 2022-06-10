@@ -61,6 +61,7 @@ public class ModelNode {
      *  Authentication
     *
     */
+
     public void register(String emailAddress, String password, LoginListener loginListener) {
         HashMap<String, String> map = new HashMap<>();
         map.put("email", emailAddress);

@@ -142,7 +142,7 @@ public class FragmentSignIn extends Fragment {
                     else {
                         General.progressBarOff(getActivity(), container, progressBar,true);
                         if(message == null){
-                            Snackbar.make(getView(),getString(R.string.server_is_off),5000).setAction("",view->{
+                            Snackbar.make(requireView(),getString(R.string.server_is_off),5000).setAction("",view->{
                                 password.setText("");
                             }).show();
                         }
@@ -155,7 +155,7 @@ public class FragmentSignIn extends Fragment {
                                     .show();
                         }
                         else{
-                            Snackbar.make(getView(),getString(R.string.email_or_password_is_incorrect),5000).setAction("",view->{
+                            Snackbar.make(requireView(),getString(R.string.email_or_password_is_incorrect),5000).setAction("",view->{
                                 password.setText("");
                             }).show();
                         }

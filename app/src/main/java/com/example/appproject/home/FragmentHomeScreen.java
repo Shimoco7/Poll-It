@@ -171,7 +171,7 @@ public class FragmentHomeScreen extends Fragment {
 
     private void badRank(){
         Model.instance.getMainThread().post(() ->
-                Snackbar.make(getView(),getString(R.string.rank_is_over_six),Snackbar.LENGTH_INDEFINITE).setAction(" I Understand",view->{
+                Snackbar.make(requireView(),getString(R.string.rank_is_over_six),Snackbar.LENGTH_INDEFINITE).setAction(" I Understand",view->{
                 })
                         .setBackgroundTint(requireContext().getColor(R.color.primeRed))
                         .setTextColor(requireContext().getColor(R.color.white))

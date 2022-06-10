@@ -29,7 +29,6 @@ public class User {
     Long updatedAt;
     Long createdAt;
 
-
     public User() { }
 
     @NonNull

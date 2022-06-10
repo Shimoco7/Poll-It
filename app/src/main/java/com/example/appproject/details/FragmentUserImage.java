@@ -141,7 +141,7 @@ public class FragmentUserImage extends Fragment {
                             userAvatar.setImageBitmap(bitMap);
                         } catch (IOException e) {
                             setUserAvatar();
-                            Snackbar.make(getView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(requireView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
                         }
                     }
                     else{
@@ -163,7 +163,7 @@ public class FragmentUserImage extends Fragment {
                         }
                     } catch (IOException e) {
                         setUserAvatar();
-                        Snackbar.make(getView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(requireView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -199,13 +199,13 @@ public class FragmentUserImage extends Fragment {
             } else {
                 Model.instance.convertBitmapToFile(bitMap, file->{
                     if (file == null) {
-                        Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(requireView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
                         General.progressBarOff(getActivity(), container, progressBar,true);
                     }
                     else{
                         Model.instance.saveImage(file,url->{
                             if(url == null){
-                                Snackbar.make(getView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again Later",v->{
+                                Snackbar.make(requireView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again Later",v->{
                                     progressBar.setVisibility(View.GONE);
                                     toMainActivity();
                                 }).show();

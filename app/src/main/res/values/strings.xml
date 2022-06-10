@@ -47,6 +47,7 @@
     <string name="missing_answer">Please Choose an Answer</string>
     <string name="missing_name">Name is Required</string>
     <string name="missing_address">Address is Required</string>
+    <string name="edit_details_policy">You can edit your details once a month</string>
 
     <!--Shared Preferences Strings-->
     <string name="user_key">user_key</string>

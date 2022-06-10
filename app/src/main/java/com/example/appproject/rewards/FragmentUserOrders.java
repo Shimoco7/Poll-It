@@ -41,7 +41,6 @@ public class FragmentUserOrders extends Fragment {
     TextView noOrder;
     ImageView logo;
     Button homeBtn;
-    private Model instance;
 
     public FragmentUserOrders() {
     }
@@ -124,7 +123,6 @@ public class FragmentUserOrders extends Fragment {
                     .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-//                    .setAnchorView(homeBtn)
                     .show();
 
         });

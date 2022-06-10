@@ -20,9 +20,12 @@ import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
+import com.example.appproject.model.detail.Detail;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Date;
 
 public class FragmentUserDisplayDetails extends Fragment {
 
@@ -70,9 +73,6 @@ public class FragmentUserDisplayDetails extends Fragment {
         editBtn = view.findViewById(R.id.user_display_details_editDetails_btn);
         Button editPassBtn=view.findViewById(R.id.user_display_details_editPassword_btn);
 
-
-
-
         if(MyApplication.getFacebookId() != null && MyApplication.getFacebookId().length() > 0) {
             editPassBtn.setVisibility(View.GONE);
         }
@@ -112,7 +112,21 @@ public class FragmentUserDisplayDetails extends Fragment {
         }
 
 
-        editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails()));
+        editBtn.setOnClickListener(v ->{
+                    Model.instance.getAllDetails(MyApplication.getUserKey(),details->{
+                        Detail d = details.get(0);
+                        long currentDate = new Date().getTime() / 1000;
+                        long diff = currentDate - d.getUpdatedAt();
+                        //30 days and above
+                        if(diff >= 30 * 86400 ){
+                            Navigation.findNavController(editBtn).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails());
+                        }
+                        else{
+                            Snackbar.make(requireView(),getString(R.string.edit_details_policy),Snackbar.LENGTH_INDEFINITE).setAction("Close",v1->{}).show();
+                        }
+                    });
+                }
+        );
         editPassBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentChangePassword()));
 
 
@@ -138,7 +152,6 @@ public class FragmentUserDisplayDetails extends Fragment {
                     .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
                     .setTextColor(requireContext().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-//                    .setAnchorView(address)
                     .show();
 
         });

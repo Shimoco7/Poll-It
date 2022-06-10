@@ -156,19 +156,19 @@ public class FragmentRegister extends Fragment {
             else {
                 General.progressBarOn(getActivity(), container, progressBar,false);
                 if (!Model.instance.validateEmailAddress(email.getText().toString().trim())) {
-                    Snackbar.make(getView(),getString(R.string.invalid_email_address),Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(requireView(),getString(R.string.invalid_email_address),Snackbar.LENGTH_LONG).show();
                     failToCreate=true;
                 }
                 if (password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())) {
                     if (!Model.instance.validatePassword(password.getText().toString().trim())) {
-                        Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_LONG)
+                        Snackbar.make(requireView(),getString(R.string.invalid_password),Snackbar.LENGTH_LONG)
                             .show();
                         password.setText("");
                         confirmPassword.setText("");
                         failToCreate=true;
                     }
                 } else {
-                    Snackbar.make(getView(),getString(R.string.invalid_password),Snackbar.LENGTH_LONG)
+                    Snackbar.make(requireView(),getString(R.string.invalid_password),Snackbar.LENGTH_LONG)
                             .show();
                     password.setText("");
                     confirmPassword.setText("");
@@ -186,7 +186,7 @@ public class FragmentRegister extends Fragment {
                         }
                         else {
                             General.progressBarOff(getActivity(), container, progressBar,true);
-                            Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(requireView(),message,Snackbar.LENGTH_LONG).show();
                         }
                     }
                 );
