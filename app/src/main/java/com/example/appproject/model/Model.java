@@ -472,8 +472,8 @@ public class Model {
         });
     }
 
-    public void redeemReward(String rewardId,GetUserListener listener){
-        modelNode.redeemReward(rewardId,user->{
+    public void redeemReward(String rewardId,Integer amount,GetUserListener listener){
+        modelNode.redeemReward(rewardId,amount,user->{
             if(user != null){
                 executor.execute(()-> {
                     AppLocalDb.db.userDao().insertAll(user);

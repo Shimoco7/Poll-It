@@ -531,10 +531,11 @@ public class ModelNode {
         });
     }
 
-    public void redeemReward(String rewardId, GetUserListener listener){
-        Map<String,String> map = new HashMap<>();
+    public void redeemReward(String rewardId,Integer amount, GetUserListener listener){
+        Map<String,Object> map = new HashMap<>();
         map.put("accountId",MyApplication.getUserKey());
         map.put("rewardId",rewardId);
+        map.put("amount",amount);
         Call<User> call = methodsInterface.redeemReward("Bearer "+ MyApplication.getAccessToken(),map);
         call.enqueue(new Callback<User>() {
             @Override

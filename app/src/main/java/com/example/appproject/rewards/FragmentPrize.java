@@ -132,20 +132,15 @@ public class FragmentPrize extends Fragment {
         alert.setMessage("Are You Sure?")
                 .setPositiveButton("BUY", (dialog, which) -> {
                     General.progressBarOn(requireActivity(), container, progressBar, false);
-                    for(int i=0 ; i<qnt; i++){
-                        int finalI = i;
-                        Model.instance.redeemReward(rewardId, user -> {
+                        Model.instance.redeemReward(rewardId,qnt, user -> {
                             if (user != null) {
-                                if(finalI+1==qnt){
-                                    Navigation.findNavController(totalPriceTxt).navigate(FragmentPrizeDirections.actionFragmentPrizeToFragmentUserRewards(true));
-                                }
+                                Navigation.findNavController(totalPriceTxt).navigate(FragmentPrizeDirections.actionFragmentPrizeToFragmentUserRewards(true));
                             } else {
                                 General.progressBarOff(requireActivity(), container, progressBar, true);
                                 Snackbar.make(requireView(), getString(R.string.server_is_off), Snackbar.LENGTH_INDEFINITE).setAction("Redeem Failed... Try again later", view -> {
                                 }).show();
                             }
                         });
-                    }
                 })
                 .setNeutralButton("Cancel", null);
         AlertDialog alert1 = alert.create();
