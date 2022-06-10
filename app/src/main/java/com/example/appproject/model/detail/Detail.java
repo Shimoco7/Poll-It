@@ -28,6 +28,8 @@ public class Detail {
     public String questionId;
     public String question;
     public String answer;
+    Long updatedAt;
+    Long createdAt;
 
     public Detail() { }
 
@@ -89,4 +91,19 @@ public class Detail {
         this.question = question;
     }
 
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+    }
 }
