@@ -37,7 +37,10 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -97,12 +100,13 @@ public class FragmentUserImage extends Fragment {
             });
         } else {
             progressBar.setVisibility(View.VISIBLE);
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
-                Request newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer " + MyApplication.getAccessToken())
-                        .build();
-                return chain.proceed(newRequest);
-            }).build();
+            OkHttpClient client;
+            if(MyApplication.getUserProfilePicUrl().contains("poll-it.cs.colman.ac.il") || MyApplication.getUserProfilePicUrl().contains("10.10.248.124")){
+                client = General.getOkClientWithAuth();
+            }
+            else{
+                client = General.getOkHttpClient();
+            }
             Picasso picasso = new Picasso.Builder(requireContext()).downloader(new OkHttp3Downloader(client)).build();
             picasso.load(MyApplication.getUserProfilePicUrl())
                     .placeholder(R.drawable.loadimagebig)
@@ -116,6 +120,13 @@ public class FragmentUserImage extends Fragment {
                 @Override
                 public void onError(Exception e) {
                     progressBar.setVisibility(View.GONE);
+                    Model.instance.getUserDetailById(MyApplication.getUserKey(), "Gender", gender -> {
+                        if (gender.getAnswer().equals("Female")) {
+                            Model.instance.getMainThread().post(()->userAvatar.setImageResource(R.drawable.female_avatar));
+                        } else {
+                            Model.instance.getMainThread().post(()->userAvatar.setImageResource(R.drawable.avatar));
+                        }
+                    });
                 }
             });
         }
@@ -176,41 +187,54 @@ public class FragmentUserImage extends Fragment {
     }
 
     private void finish(ViewGroup container) {
+        AtomicBoolean isChangedDetails = new AtomicBoolean(false);
         General.progressBarOn(getActivity(), container, progressBar,false);
-        Model.instance.getAllDetails(MyApplication.getUserKey(), list -> {
+        Model.instance.getAllDetailsFromLocalDb(MyApplication.getUserKey(), list -> {
+            Set<String> details = new HashSet<>();
             for (Detail d : list) {
-                if(d.getQuestion().equals("Gender")){
-                    Map<String,Object> map = new HashMap<>();
-                    map.put("gender",d.getAnswer());
-                    Model.instance.updateUser(MyApplication.getUserKey(), map, (user,message)->{
-                        MyApplication.setGender(d.getAnswer());
+                details.add(d.getAnswer());
+            }
+            Model.instance.getAllDetailsFromRemoteDb(MyApplication.getUserKey(), remoteDbDetails->{
+                for(Detail det : remoteDbDetails){
+                    details.remove(det.getAnswer());
+                }
+                if(!details.isEmpty()){
+                    isChangedDetails.set(true);
+                    for (Detail d : list){
+                        if(d.getQuestion().equals("Gender")){
+                            Map<String,Object> map = new HashMap<>();
+                            map.put("gender",d.getAnswer());
+                            Model.instance.updateUser(MyApplication.getUserKey(), map, (user,message)->{
+                                MyApplication.setGender(d.getAnswer());
+                            });
+                        }
+                        Model.instance.saveDetailToRemoteDb(d, () -> {});
+                    }
+                }
+                if (bitMap == null) {
+                    toNextScreen(isChangedDetails.get());
+                } else {
+                    Model.instance.convertBitmapToFile(bitMap, file->{
+                        if (file == null) {
+                            Snackbar.make(requireView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
+                            General.progressBarOff(getActivity(), container, progressBar,true);
+                        }
+                        else{
+                            Model.instance.saveImage(file,url->{
+                                if(url == null){
+                                    Snackbar.make(requireView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again Later",v->{
+                                        progressBar.setVisibility(View.GONE);
+                                        toNextScreen(isChangedDetails.get());
+                                    }).show();
+                                }
+                                else{
+                                    toNextScreen(isChangedDetails.get());
+                                }
+                            });
+                        }
                     });
                 }
-                Model.instance.saveDetailToRemoteDb(d, () -> {});
-            }
-            if (bitMap == null) {
-                toNextScreen();
-            } else {
-                Model.instance.convertBitmapToFile(bitMap, file->{
-                    if (file == null) {
-                        Snackbar.make(requireView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_SHORT).show();
-                        General.progressBarOff(getActivity(), container, progressBar,true);
-                    }
-                    else{
-                        Model.instance.saveImage(file,url->{
-                            if(url == null){
-                                Snackbar.make(requireView(),getString(R.string.image_upload_failed),Snackbar.LENGTH_INDEFINITE).setAction("Try Again Later",v->{
-                                    progressBar.setVisibility(View.GONE);
-                                    toNextScreen();
-                                }).show();
-                            }
-                            else{
-                                toNextScreen();
-                            }
-                        });
-                    }
-                });
-            }
+            });
         });
     }
 
@@ -229,9 +253,9 @@ public class FragmentUserImage extends Fragment {
         galleryActivityResultLauncher.launch("image/*");
     }
 
-    private void toNextScreen() {
+    private void toNextScreen(boolean isChangedDetails) {
         if(requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
-            Model.instance.setIsDetailsChanged(true);
+            Model.instance.setIsDetailsChanged(isChangedDetails);
             Navigation.findNavController(finishBtn).navigate(FragmentUserDetailsDirections.actionGlobalFragmentUserDisplayDetails());
         }
         else{

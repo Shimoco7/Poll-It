@@ -85,18 +85,22 @@ public class FragmentUserDisplayDetails extends Fragment {
             address.setText(MyApplication.getUserAddress());
             gender.setText(MyApplication.getGender());
             education.setText(edu.getAnswer());
-            General.progressBarOff(getActivity(),container,progressBar,true);
-        });
 
-        if(MyApplication.getUserProfilePicUrl() != null && MyApplication.getUserProfilePicUrl().length() >0){
-            General.loadImage(MyApplication.getUserProfilePicUrl(),profilePic,R.drawable.loadimagebig,bool -> {});
-        }
-        else{
-            if(MyApplication.getGender()!=null){
-                if(MyApplication.getGender().equals("Female")){
-                    Model.instance.getMainThread().post(()->{
-                        profilePic.setImageResource(R.drawable.female_avatar);
-                    });
+            if(MyApplication.getUserProfilePicUrl() != null && MyApplication.getUserProfilePicUrl().length() >0){
+                General.loadImage(MyApplication.getUserProfilePicUrl(),profilePic,R.drawable.loadimagebig,bool -> {});
+            }
+            else{
+                if(MyApplication.getGender()!=null){
+                    if(MyApplication.getGender().equals("Female")){
+                        Model.instance.getMainThread().post(()->{
+                            profilePic.setImageResource(R.drawable.female_avatar);
+                        });
+                    }
+                    else{
+                        Model.instance.getMainThread().post(()->{
+                            profilePic.setImageResource(R.drawable.avatar);
+                        });
+                    }
                 }
                 else{
                     Model.instance.getMainThread().post(()->{
@@ -104,21 +108,18 @@ public class FragmentUserDisplayDetails extends Fragment {
                     });
                 }
             }
-            else{
-                Model.instance.getMainThread().post(()->{
-                    profilePic.setImageResource(R.drawable.avatar);
-                });
-            }
-        }
+
+            General.progressBarOff(getActivity(),container,progressBar,true);
+        });
 
 
         editBtn.setOnClickListener(v ->{
-                    Model.instance.getAllDetails(MyApplication.getUserKey(),details->{
+                    Model.instance.getAllDetailsFromRemoteDb(MyApplication.getUserKey(), details->{
                         Detail d = details.get(0);
                         long currentDate = new Date().getTime() / 1000;
                         long diff = currentDate - d.getUpdatedAt();
                         //30 days and above
-                        if(diff >= 30 * 86400 ){
+                        if(diff >= 30 * 86400){
                             Navigation.findNavController(editBtn).navigate(FragmentUserDisplayDetailsDirections.actionFragmentUserDisplayDetailsToFragmentUserDetails());
                         }
                         else{

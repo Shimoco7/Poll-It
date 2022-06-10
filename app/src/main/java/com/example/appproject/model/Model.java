@@ -248,7 +248,6 @@ public class Model {
         });
     }
 
-
     public void getUserDetailById(String userKey, String question, GetDetailListener listener) {
         executor.execute(()->{
             Detail detail = AppLocalDb.db.detailDao().loadDetailByUserId(userKey,question);
@@ -263,7 +262,11 @@ public class Model {
         });
     }
 
-    public void getAllDetails(String userKey, GetDetailsListener getAllDetailsListener) {
+    public void getAllDetailsFromRemoteDb(String userKey, GetDetailsListener getAllDetailsListener) {
+        modelNode.getDetailsByUserId(userKey,details-> mainThread.post(()->getAllDetailsListener.onComplete(details)));
+    }
+
+    public void getAllDetailsFromLocalDb(String userKey, GetDetailsListener getAllDetailsListener) {
         executor.execute(()->{
             List<Detail> list = AppLocalDb.db.detailDao().getAllDetails(userKey);
             mainThread.post(()->getAllDetailsListener.onComplete(list));

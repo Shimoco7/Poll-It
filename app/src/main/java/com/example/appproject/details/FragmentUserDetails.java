@@ -15,14 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -33,17 +29,15 @@ import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.Model;
 import com.example.appproject.model.detail.Detail;
-import com.example.appproject.model.question.Question;
-import com.facebook.AccessToken;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FragmentUserDetails extends Fragment {
     Button nextBtn;
@@ -252,26 +246,39 @@ public class FragmentUserDetails extends Fragment {
     }
 
     private void finishUponFacebookUser() {
-        Model.instance.getAllDetails(MyApplication.getUserKey(), list -> {
+        AtomicBoolean isChangedDetails = new AtomicBoolean(false);
+        Model.instance.getAllDetailsFromLocalDb(MyApplication.getUserKey(), list -> {
+            Set<String> details = new HashSet<>();
             for (Detail d : list) {
-                if (d.getQuestion().equals("Gender")) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("gender", d.getAnswer());
-                    Model.instance.updateUser(MyApplication.getUserKey(), map, (user, message) -> {
-                        MyApplication.setGender(d.getAnswer());
-                    });
-                }
-                Model.instance.saveDetailToRemoteDb(d, () -> { });
+                details.add(d.getAnswer());
             }
+            Model.instance.getAllDetailsFromRemoteDb(MyApplication.getUserKey(), remoteDbDetails->{
+               for(Detail det : remoteDbDetails){
+                   details.remove(det.getAnswer());
+               }
+               if(!details.isEmpty()){
+                   isChangedDetails.set(true);
+                   for (Detail d : list){
+                       if (d.getQuestion().equals("Gender")) {
+                           Map<String, Object> map = new HashMap<>();
+                           map.put("gender", d.getAnswer());
+                           Model.instance.updateUser(MyApplication.getUserKey(), map, (user, message) -> {
+                               MyApplication.setGender(d.getAnswer());
+                           });
+                       }
+                       Model.instance.saveDetailToRemoteDb(d, () -> { });
+                   }
+               }
+                if(requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
+                    Model.instance.setIsDetailsChanged(isChangedDetails.get());
+                    Navigation.findNavController(nextBtn).navigate(FragmentUserDetailsDirections.actionGlobalFragmentUserDisplayDetails());
+                }
+                else{
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
         });
-        if(requireActivity().getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
-            Model.instance.setIsDetailsChanged(true);
-            Navigation.findNavController(nextBtn).navigate(FragmentUserDetailsDirections.actionGlobalFragmentUserDisplayDetails());
-        }
-        else{
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-        }
     }
 }
