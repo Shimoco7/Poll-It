@@ -29,6 +29,7 @@ public class DetailsHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Question question) {
+        multiChoiceAc.getText().clear();
         questionTv.setError(null);
         if(!detailsViewModel.getAnswersMap().containsKey(question.getQuestion())){
             detailsViewModel.answersMap.put(question.getQuestion(), "");

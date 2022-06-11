@@ -2,7 +2,6 @@
     <!--General Strings-->
     <string name="poll_it">POLL IT</string>
     <string name="please_enter_username_and_password">Please enter username and password</string>
-    <string name="to_learn_about_our_honstey_policy">To learn about our honstey policy</string>
     <string name="click_here">CLICK HERE</string>
     <string name="poll_name">Poll\'s Name</string>
     <string name="upload">UPLOAD</string>
@@ -17,7 +16,7 @@
     <!--Login/Register Strings-->
     <string name="name">Name</string>
     <string name="email">Email Address</string>
-    <string name="address">Address (Country, City, Street, Number)</string>
+    <string name="address">Address</string>
     <string name="register">Register</string>
     <string name="sign_in">SIGN IN</string>
     <string name="is_signed_in">is_signed_in</string>
