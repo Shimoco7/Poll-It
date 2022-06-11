@@ -168,7 +168,7 @@ public class FragmentRegister extends Fragment {
                         failToCreate=true;
                     }
                 } else {
-                    Snackbar.make(requireView(),getString(R.string.invalid_password),Snackbar.LENGTH_LONG)
+                    Snackbar.make(requireView(),getString(R.string.passwords_do_not_match),Snackbar.LENGTH_LONG)
                             .show();
                     password.setText("");
                     confirmPassword.setText("");

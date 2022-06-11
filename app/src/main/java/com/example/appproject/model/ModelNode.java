@@ -77,7 +77,7 @@ public class ModelNode {
                 }
                 else if(response.code() == 400){
                     try {
-                        if(response.errorBody().string().contains("already registered")){
+                        if(response.errorBody().string().contains("already exist")){
                             Model.instance.getMainThread().post(()-> loginListener.onComplete(null, appContext.getString(R.string.user_already_exists)));
                         }
                         else{
