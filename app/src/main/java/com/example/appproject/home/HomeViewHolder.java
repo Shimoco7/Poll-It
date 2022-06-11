@@ -46,7 +46,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
         pollMainImage.setAlpha((float)1);
         pollsName.setAlpha((float)1);
         pollIcon.setImageDrawable(MyApplication.getContext().getResources().getDrawable(R.drawable.ic_feed_arrow));
-        if(poll.getImage() != null){
+        if(poll.getImage() != null && !poll.getImage().equals("")){
             General.loadImage(poll.getImage(),pollMainImage,R.drawable.loadimagebig,isSuccessful->{
                 if(!isSuccessful){
                     pollMainImage.setImageResource(R.drawable.default_poll_image);

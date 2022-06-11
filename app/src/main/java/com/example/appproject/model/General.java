@@ -60,7 +60,7 @@ public class General {
     }
 
     public static void loadImage(String url, ImageView imageView, int placeholder, BooleanListener listener){
-        if(url == null)
+        if(url == null || url.equals(""))
             return;
 
         OkHttpClient client;
