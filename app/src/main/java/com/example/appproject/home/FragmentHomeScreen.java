@@ -81,10 +81,18 @@ public class FragmentHomeScreen extends Fragment {
 
         //Check if there is active polls
         homeViewModel.getPolls().observe(getViewLifecycleOwner(),pollsList->{
-            if (pollsList.size()==0) isActivePolls.setVisibility(View.VISIBLE);
-            else isActivePolls.setVisibility(View.GONE);
+            if(pollsList != null){
+                if (pollsList.size()==0){
+                    isActivePolls.setVisibility(View.VISIBLE);
+                }
+                else {
+                    isActivePolls.setVisibility(View.GONE);
+                }
+            }
+            else {
+                isActivePolls.setVisibility(View.GONE);
+            }
             refresh();
-
         });
         homeAdapter.setOnItemClickListener((v,pos)->{
             String pollId = Objects.requireNonNull(homeViewModel.getPolls().getValue()).get(pos).getPollId();
