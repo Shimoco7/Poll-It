@@ -26,6 +26,7 @@ public class RewardCenterViewHolder extends RecyclerView.ViewHolder {
 
     public RewardCenterViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
         super(itemView);
+        setIsRecyclable(false);
         supplierImage = itemView.findViewById(R.id.prizerow_image);
         clickImage = itemView.findViewById(R.id.prizerow_click_image);
         prizeName = itemView.findViewById(R.id.prizerow_txt_prizename);

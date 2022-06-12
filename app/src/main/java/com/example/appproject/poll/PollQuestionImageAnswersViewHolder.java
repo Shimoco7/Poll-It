@@ -25,6 +25,7 @@ public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
 
     public PollQuestionImageAnswersViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
+        setIsRecyclable(false);
         option = itemView.findViewById(R.id.image_q_square_image);
         option.setOnClickListener(v->{
             option.setAlpha((float)1.0);
