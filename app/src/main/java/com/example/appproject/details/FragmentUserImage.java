@@ -2,12 +2,14 @@ package com.example.appproject.details;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.FileProvider;
+import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -143,7 +145,16 @@ public class FragmentUserImage extends Fragment {
                     if(result){
                         try {
                             bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imageUri);
-                            userAvatar.setImageBitmap(bitMap);
+                            ExifInterface ei = new ExifInterface(requireContext().getContentResolver().openInputStream(imageUri));
+                            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                                    ExifInterface.ORIENTATION_UNDEFINED);
+                            Bitmap rotatedBitMap = getRotatedBitMap(bitMap,orientation);
+                            if(rotatedBitMap != null){
+                                userAvatar.setImageBitmap(rotatedBitMap);
+                            }
+                            else{
+                                setUserAvatar();
+                            }
                         } catch (IOException e) {
                             setUserAvatar();
                             Snackbar.make(requireView(),getString(R.string.storage_issue),Snackbar.LENGTH_SHORT).show();
@@ -161,7 +172,16 @@ public class FragmentUserImage extends Fragment {
                     try {
                         if(result!=null){
                             bitMap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), result);
-                            userAvatar.setImageBitmap(bitMap);
+                            ExifInterface ei = new ExifInterface(requireContext().getContentResolver().openInputStream(result));
+                            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                                    ExifInterface.ORIENTATION_UNDEFINED);
+                            Bitmap rotatedBitMap = getRotatedBitMap(bitMap,orientation);
+                            if(rotatedBitMap != null){
+                                userAvatar.setImageBitmap(rotatedBitMap);
+                            }
+                            else{
+                                setUserAvatar();
+                            }
                         }
                         else{
                             setUserAvatar();
@@ -263,5 +283,35 @@ public class FragmentUserImage extends Fragment {
             startActivity(intent);
             getActivity().finish();
         }
+    }
+
+    private Bitmap getRotatedBitMap(Bitmap bitmap, int orientation){
+        Bitmap rotatedBitmap = null;
+        switch(orientation) {
+
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                rotatedBitmap = rotateImage(bitmap, 90);
+                break;
+
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                rotatedBitmap = rotateImage(bitmap, 180);
+                break;
+
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                rotatedBitmap = rotateImage(bitmap, 270);
+                break;
+
+            case ExifInterface.ORIENTATION_NORMAL:
+            default:
+                rotatedBitmap = bitmap;
+        }
+        return rotatedBitmap;
+    }
+
+    private Bitmap rotateImage(Bitmap bitmap, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),
+                matrix, true);
     }
 }
