@@ -70,6 +70,7 @@ public class FragmentHomeScreen extends Fragment {
         int numOfColumns = 2;
         list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns,GridLayoutManager.VERTICAL,false));
         homeAdapter = new HomeAdapter(homeViewModel,getLayoutInflater());
+        homeAdapter.setHasStableIds(true);
         list.setAdapter(homeAdapter);
 
         list.addItemDecoration(new RecyclerView.ItemDecoration() {

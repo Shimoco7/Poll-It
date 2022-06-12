@@ -57,6 +57,7 @@ public class FragmentRewardCenter extends Fragment {
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RewardCenterAdapter(viewModel,getLayoutInflater());
+        adapter.setHasStableIds(true);
         list.setAdapter(adapter);
 
         viewModel.getRewards().observe(getViewLifecycleOwner(),rewards -> refresh());

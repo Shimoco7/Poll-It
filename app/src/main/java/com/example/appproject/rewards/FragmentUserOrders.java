@@ -69,6 +69,7 @@ public class FragmentUserOrders extends Fragment {
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new UserOrdersAdapter(viewModel, getLayoutInflater());
+        adapter.setHasStableIds(true);
         list.setAdapter(adapter);
         viewModel.getOrders().observe(getViewLifecycleOwner(), orders -> refresh());
         Model.instance.refreshOrders();

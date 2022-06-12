@@ -25,7 +25,6 @@ public class UserOrdersViewHolder extends RecyclerView.ViewHolder {
 
     public UserOrdersViewHolder(@NonNull View itemView) {
         super(itemView);
-        setIsRecyclable(false);
         supplierImage = itemView.findViewById(R.id.userPrizeRow_image);
         orderExpiryDate = itemView.findViewById(R.id.userPrizeRow_txt_date);
         orderCode = itemView.findViewById(R.id.userPrizeRow_txt_code);

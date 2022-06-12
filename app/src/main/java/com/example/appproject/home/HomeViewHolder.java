@@ -28,7 +28,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
 
     public HomeViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
-        setIsRecyclable(false);
         pollsName = itemView.findViewById(R.id.homescr_poll_pollName);
         pollCard = itemView.findViewById(R.id.homescr_btn_poll);
         pollIcon = itemView.findViewById(R.id.homescr_poll_icon);
