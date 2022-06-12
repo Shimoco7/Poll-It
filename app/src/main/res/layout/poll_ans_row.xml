@@ -19,7 +19,7 @@
         android:maxHeight="100dp"
         android:minHeight="70dp"
         android:text="OPTION 1"
-        android:maxLines="2"
+        android:maxLines="3"
         android:textSize="@dimen/places_autocomplete_progress_size"
         app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
