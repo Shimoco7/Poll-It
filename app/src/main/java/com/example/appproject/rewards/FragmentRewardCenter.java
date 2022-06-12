@@ -57,7 +57,6 @@ public class FragmentRewardCenter extends Fragment {
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RewardCenterAdapter(viewModel,getLayoutInflater());
-        adapter.setHasStableIds(true);
         list.setAdapter(adapter);
 
         viewModel.getRewards().observe(getViewLifecycleOwner(),rewards -> refresh());
@@ -67,7 +66,7 @@ public class FragmentRewardCenter extends Fragment {
             Navigation.findNavController(v).navigate(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentPrize(rewardId));
 
         });
-        homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionGlobalFragmentHomeScreen().setIsPollFilled(false)));
+        homeBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionGlobalFragmentHomeScreen()));
         toMyOrdersBtn.setOnClickListener(Navigation.createNavigateOnClickListener(FragmentRewardCenterDirections.actionFragmentRewardCenterToFragmentUserRewards(false)));
         swipeRefresh.setOnRefreshListener(Model.instance::refreshRewards);
         observeRewardsLoadingState();

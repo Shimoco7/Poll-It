@@ -228,7 +228,8 @@ public class FragmentPollQuestionMultiChoice extends Fragment {
                         map.put("rank",updateRank);
                         Model.instance.updateUser(MyApplication.getUserKey(),map,(user,message)->{
                             if(user != null && message.equals(getString(R.string.success))){
-                                Navigation.findNavController(this.container).navigate(FragmentPollQuestionMultiChoiceDirections.actionGlobalFragmentHomeScreen().setIsPollFilled(true));
+                                Model.instance.setIsPollJustFilled(true);
+                                Navigation.findNavController(this.container).navigate(FragmentPollQuestionMultiChoiceDirections.actionGlobalFragmentHomeScreen());
                             }
                             else{
                                 if(user == null && message.equals(getString(R.string.account_unreliability_rank_too_high))){

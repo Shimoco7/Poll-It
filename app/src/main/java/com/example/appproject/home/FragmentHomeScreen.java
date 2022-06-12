@@ -70,7 +70,6 @@ public class FragmentHomeScreen extends Fragment {
         int numOfColumns = 2;
         list.setLayoutManager(new GridLayoutManager(getContext(), numOfColumns,GridLayoutManager.VERTICAL,false));
         homeAdapter = new HomeAdapter(homeViewModel,getLayoutInflater());
-        homeAdapter.setHasStableIds(true);
         list.setAdapter(homeAdapter);
 
         list.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -107,18 +106,16 @@ public class FragmentHomeScreen extends Fragment {
             });
         });
 
-        boolean isPollFilled = FragmentHomeScreenArgs.fromBundle(getArguments()).getIsPollFilled();
-        if (isPollFilled) {
-            Model.instance.getMainThread().post(() ->
-            {
-                Snackbar.make(requireView(), "Congratulations ! The survey has been filled", 2000)
-                        .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
-                        .setTextColor(requireContext().getColor(R.color.white))
-                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                        .setAnchorView(line)
-                        .show();
+        homeViewModel.isPollJustFilled.observe(getViewLifecycleOwner(),isPollJustFilled->{
+            if(isPollJustFilled){
+                showSuccessfulSnackbar();
+            }
+        });
 
-            });
+        if(homeViewModel.getIsPollJustFilled().getValue() != null){
+            if(homeViewModel.getIsPollJustFilled().getValue()){
+                showSuccessfulSnackbar();
+            }
         }
 
         Model.instance.getUserById(MyApplication.getUserKey(),user->{
@@ -133,6 +130,20 @@ public class FragmentHomeScreen extends Fragment {
         observePollsLoadingState();
         Model.instance.getMainThread().post(Model.instance::refreshPollsList);
         return view;
+    }
+
+    private void showSuccessfulSnackbar() {
+        Model.instance.getMainThread().post(() ->
+        {
+            Snackbar.make(requireView(), "Congratulations! The survey has been filled", 2500)
+                    .setBackgroundTint(requireContext().getColor(R.color.primeGreen))
+                    .setTextColor(requireContext().getColor(R.color.white))
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+                    .setAnchorView(line)
+                    .show();
+
+            Model.instance.setIsPollJustFilled(false);
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")

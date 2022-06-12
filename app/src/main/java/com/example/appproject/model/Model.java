@@ -232,7 +232,6 @@ public class Model {
     MutableLiveData<Boolean> isPassChanged = new MutableLiveData<>();
     MutableLiveData<Boolean> isDetailsChanged = new MutableLiveData<>();
 
-
     public void saveDetailOnLocalDb(Detail detail) {
         executor.execute(()-> AppLocalDb.db.detailDao().insertAll(detail));
     }
@@ -322,6 +321,7 @@ public class Model {
 
     MutableLiveData<List<Poll>> pollsList = new MutableLiveData<>();
     MutableLiveData<LoadingState> pollsListLoadingState = new MutableLiveData<>();
+    MutableLiveData<Boolean> isPollJustFilled = new MutableLiveData<>();
 
     public LiveData<List<Poll>> getPolls() {
         return pollsList;
@@ -329,6 +329,14 @@ public class Model {
 
     public MutableLiveData<LoadingState> getPollsListLoadingState() {
         return pollsListLoadingState;
+    }
+
+    public LiveData<Boolean> getIsPollJustFilled() {
+        return isPollJustFilled;
+    }
+
+    public void setIsPollJustFilled(Boolean isPollJustFilled){
+        this.isPollJustFilled.postValue(isPollJustFilled);
     }
 
     public void refreshPollsList() {

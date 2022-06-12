@@ -30,10 +30,6 @@
         <action
             android:id="@+id/action_fragmentHomeScreen_to_fragmentPollQuestionImageAnswers"
             app:destination="@id/fragmentPollQuestionImageAnswers" />
-        <argument
-            android:name="isPollFilled"
-            app:argType="boolean"
-            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/fragmentUserDetails"
