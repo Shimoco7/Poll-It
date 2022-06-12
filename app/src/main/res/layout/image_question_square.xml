@@ -9,7 +9,8 @@
     android:layout_width="140dp"
     android:layout_height="125dp"
     android:layout_gravity="center"
-    android:background="@color/black"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent"
     app:cardCornerRadius="20dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -18,13 +19,17 @@
     app:layout_constraintTop_toTopOf="parent"
     app:strokeWidth="1dp"
     android:theme="@style/Theme.MaterialComponents.Light">
+
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_q_square_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
-        android:src="@drawable/logo__nobg_2"/>
+        />
 
 
 
