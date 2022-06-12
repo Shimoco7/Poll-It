@@ -21,7 +21,7 @@
         android:gravity="center"
         android:text="@string/hello"
         android:textColor="@color/white"
-        android:textSize="26sp"
+        android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />
@@ -37,7 +37,7 @@
         android:maxLines="2"
         android:text="Michael Chodorkovski"
         android:textColor="@color/white"
-        android:textSize="26sp"
+        android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/homeScr_text_title"
         app:layout_constraintTop_toBottomOf="@+id/homeScreen_logo" />

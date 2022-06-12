@@ -32,7 +32,7 @@
             android:fontFamily="sans-serif"
             android:text="Code:"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="20dp"
             app:layout_constraintStart_toEndOf="@+id/userPrizeRow_image"
             app:layout_constraintTop_toBottomOf="@+id/userPrizeRow_txt_prizename" />
 
@@ -45,7 +45,7 @@
             android:fontFamily="sans-serif-light"
             android:text="123456789"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintStart_toEndOf="@+id/userPrizeRow_txt"
             app:layout_constraintTop_toBottomOf="@+id/userPrizeRow_txt_prizename" />
 
@@ -59,7 +59,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/expiry"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/userPrizeRow_image"
             app:layout_constraintTop_toBottomOf="@+id/userPrizeRow_txt" />
@@ -73,7 +73,7 @@
             android:fontFamily="sans-serif-light"
             android:text="01/05/22"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintStart_toEndOf="@+id/userPrizeRow_txt_date_title"
             app:layout_constraintTop_toBottomOf="@+id/userPrizeRow_txt_code" />
 
