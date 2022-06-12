@@ -6,17 +6,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appproject.MyApplication;
 import com.example.appproject.R;
 import com.example.appproject.model.General;
 import com.example.appproject.model.listeners.OnItemClickListener;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
 
@@ -25,7 +18,6 @@ public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
 
     public PollQuestionImageAnswersViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
-        setIsRecyclable(false);
         option = itemView.findViewById(R.id.image_q_square_image);
         option.setOnClickListener(v->{
             option.setAlpha((float)1.0);

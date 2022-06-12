@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 app:strokeWidth="1dp"
-                app:srcCompat="@drawable/mcdonalds_icon" />
+            />
 
 
 
