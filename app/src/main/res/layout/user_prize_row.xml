@@ -7,13 +7,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
+    android:clickable="false"
+    android:focusable="false"
     android:theme="@style/Theme.MaterialComponents.Light"
     app:barrierMargin="4dp"
     app:cardBackgroundColor="@color/black"
     app:cardCornerRadius="12dp"
     app:cardElevation="8dp"
+
     app:cardPreventCornerOverlap="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,6 +86,8 @@
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:scaleType="centerCrop"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -103,6 +106,8 @@
             android:layout_marginEnd="10dp"
             android:fontFamily="sans-serif-black"
             android:maxLines="2"
+            android:clickable="false"
+            android:focusable="false"
             android:text="BigMac Combo Meal"
             android:textColor="@color/white"
             android:textSize="18dp"

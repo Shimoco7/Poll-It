@@ -90,6 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:clickable="false"
+            android:focusable="false"
             android:padding="5dp">
 
 
@@ -100,6 +102,8 @@
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:paddingLeft="5dp"
+                android:clickable="false"
+                android:focusable="false"
                 android:text="@string/you_ve_already_collected"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"
@@ -114,6 +118,8 @@
                 android:gravity="center"
                 android:paddingLeft="10dp"
                 android:text="100"
+                android:clickable="false"
+                android:focusable="false"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"
                 android:textSize="26dp"
@@ -124,6 +130,8 @@
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
+                android:clickable="false"
+                android:focusable="false"
                 app:srcCompat="@drawable/coin_icon"
                 app:strokeWidth="0dp" />
 
