@@ -67,46 +67,52 @@ public class FragmentWelcome extends Fragment {
                 Log.d("TAG", loginResult.getAccessToken().getToken());
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), (jsonObject, graphResponse) -> {
                     try {
-                        String email = (String) jsonObject.get("email");
-                        String id = (String) jsonObject.get("id");
-                        String name = (String) jsonObject.get("name");
-                        String profilePicUrl = null;
-                        if(!jsonObject.isNull("picture")){
-                            JSONObject picture = (JSONObject) jsonObject.get("picture");
-                            if(!picture.isNull("data")){
-                                JSONObject data = (JSONObject) picture.get("data");
-                                if(!picture.isNull("data")){
-                                    profilePicUrl = (String) data.get("url");
-                                }
-                            }
-                        }
-                    Model.instance.facebookLogin(email,id,name,profilePicUrl,(user,message)->{
-                        if (user != null) {
-                            if(message.equals(getString(R.string.success))){
-                                Intent intent = new Intent(getContext(), MainActivity.class);
-                                startActivity(intent);
-                                requireActivity().finish();
-                            }
-                            else if(message.equals(getString(R.string.registration_details_needed))){
-                                Navigation.findNavController(requireView()).navigate(R.id.fragmentUserDetails);
-                            }
-                        }
-                        else {
-                            if(message.equals(getString(R.string.account_unreliability_rank_too_high))){
-                                Snackbar.make(requireView(), getString(R.string.user_has_been_blocked), 8000)
-                                        .setBackgroundTint(requireContext().getColor(R.color.primeRed))
-                                        .setTextColor(requireContext().getColor(R.color.white))
-                                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                                        .show();
-                            }
-                            else{
-                                Snackbar.make(requireView(),getString(R.string.server_is_off),5000).setAction("", view->{ }).show();
-                            }
+                        if(jsonObject == null){
                             General.progressBarOff(getActivity(),container,progressBar,false);
                             LoginManager.getInstance().logOut();
+                            Snackbar.make(requireView(),"Facebook Login Error",3000).setAction("",view->{ }).show();
                         }
-                    });
-
+                        else{
+                            String email = (String) jsonObject.get("email");
+                            String id = (String) jsonObject.get("id");
+                            String name = (String) jsonObject.get("name");
+                            String profilePicUrl = null;
+                            if(!jsonObject.isNull("picture")){
+                                JSONObject picture = (JSONObject) jsonObject.get("picture");
+                                if(!picture.isNull("data")){
+                                    JSONObject data = (JSONObject) picture.get("data");
+                                    if(!picture.isNull("data")){
+                                        profilePicUrl = (String) data.get("url");
+                                    }
+                                }
+                            }
+                            Model.instance.facebookLogin(email,id,name,profilePicUrl,(user,message)->{
+                                if (user != null) {
+                                    if(message.equals(getString(R.string.success))){
+                                        Intent intent = new Intent(getContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        requireActivity().finish();
+                                    }
+                                    else if(message.equals(getString(R.string.registration_details_needed))){
+                                        Navigation.findNavController(requireView()).navigate(R.id.fragmentUserDetails);
+                                    }
+                                }
+                                else {
+                                    if(message.equals(getString(R.string.account_unreliability_rank_too_high))){
+                                        Snackbar.make(requireView(), getString(R.string.user_has_been_blocked), 8000)
+                                                .setBackgroundTint(requireContext().getColor(R.color.primeRed))
+                                                .setTextColor(requireContext().getColor(R.color.white))
+                                                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+                                                .show();
+                                    }
+                                    else{
+                                        Snackbar.make(requireView(),getString(R.string.server_is_off),5000).setAction("", view->{ }).show();
+                                    }
+                                    General.progressBarOff(getActivity(),container,progressBar,false);
+                                    LoginManager.getInstance().logOut();
+                                }
+                            });
+                        }
                     } catch (JSONException e) {
                         General.progressBarOff(getActivity(),container,progressBar,false);
                         LoginManager.getInstance().logOut();
