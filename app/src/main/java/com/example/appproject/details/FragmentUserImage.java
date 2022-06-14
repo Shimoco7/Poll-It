@@ -150,6 +150,7 @@ public class FragmentUserImage extends Fragment {
                                     ExifInterface.ORIENTATION_UNDEFINED);
                             Bitmap rotatedBitMap = getRotatedBitMap(bitMap,orientation);
                             if(rotatedBitMap != null){
+                                bitMap = rotatedBitMap;
                                 userAvatar.setImageBitmap(rotatedBitMap);
                             }
                             else{
@@ -177,6 +178,7 @@ public class FragmentUserImage extends Fragment {
                                     ExifInterface.ORIENTATION_UNDEFINED);
                             Bitmap rotatedBitMap = getRotatedBitMap(bitMap,orientation);
                             if(rotatedBitMap != null){
+                                bitMap = rotatedBitMap;
                                 userAvatar.setImageBitmap(rotatedBitMap);
                             }
                             else{
@@ -286,7 +288,7 @@ public class FragmentUserImage extends Fragment {
     }
 
     private Bitmap getRotatedBitMap(Bitmap bitmap, int orientation){
-        Bitmap rotatedBitmap = null;
+        Bitmap rotatedBitmap;
         switch(orientation) {
 
             case ExifInterface.ORIENTATION_ROTATE_90:
