@@ -30,6 +30,7 @@
         android:background="@android:color/transparent"
         android:backgroundTint="@android:color/transparent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
+        android:src="@drawable/loadimage100x100"
 
         />
 

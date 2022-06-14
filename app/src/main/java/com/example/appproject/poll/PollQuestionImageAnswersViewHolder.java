@@ -28,12 +28,12 @@ public class PollQuestionImageAnswersViewHolder extends RecyclerView.ViewHolder{
 
     public void bind(String url) {
         this.url = url;
-        General.loadImage(url,option,R.drawable.loadimage100x100,bool -> {});
+        General.loadImage(url,option,R.drawable.loadimage140x125,bool -> {});
     }
 
     public void bind(String url, boolean isTheAnswer) {
         this.url = url;
-        General.loadImage(url,option,R.drawable.loadimage100x100,bool -> {});
+        General.loadImage(url,option,R.drawable.loadimage140x125,bool -> {});
 
         if(isTheAnswer){
             option.setAlpha((float)1.0);
